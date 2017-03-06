@@ -388,7 +388,7 @@ artDialog.fn = artDialog.prototype = {
 	 * 鑷畾涔夋寜閽�
 	 * @example
 		button({
-			name: 'login',
+			name: 'index',
 			callback: function () {},
 			disabled: false,
 			focus: true
