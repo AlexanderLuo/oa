@@ -1,0 +1,97 @@
+.baby_top{
+    width: 100%;
+    height: 88px;
+    background: url("../img/background_top.png") no-repeat;
+    /*background-repeat: no-repeat;*/
+}
+.baby_top_logo{
+    float: left;
+    width: 310px;
+    margin-left: 10px;
+}
+
+.baby_top_logo a{
+    float: left;
+}
+.baby_top_p{
+    margin-top: 25px;
+    font-size: 20px;
+    color: #fff;
+    font-family: 微软雅黑;
+}
+.baby_top_p p{
+    line-height: 30px;
+}
+.baby_top_p_1{
+    padding-left: 140px;
+}
+.baby_top_p_2{
+    padding-left: 120px;
+}
+.baby_top_nav{
+    float: left;
+    width: 50%;
+}
+.baby_top_nav a{
+    display: inline-block;
+    float: left;
+    text-align: center;
+    margin: 0 45px 0 10px;
+    color: #fff;
+    font-size: 14px;
+}
+.baby_top_nav img{
+    width: 45px;
+    height: 45px;
+    margin-top: 6px;
+}
+.baby_top_nav p{
+    line-height: 30px;
+}
+.baby_top_list{
+    width: 92px;
+    height: 88px;
+    background-image: url("../img/click.png");
+}
+.baby_top_rig{
+    float: right;
+    width: 240px;
+    /*margin-top: 25px;*/
+    color: #fff;
+    font-size: 12px;
+}
+.baby_top_rig_a{
+    margin: 10px 0;
+    padding-left: 75px;
+}
+.baby_top_rig_a a{
+    display: inline-block;
+    padding: 0 10px 0 5px;
+    cursor: pointer;
+}
+.baby_a_border{
+    border-right: 1px dashed #664421;
+}
+.baby_a_border img{
+    vertical-align: -3px;
+}
+.baby_top_rig_info{
+    width: 190px;
+    height: 41px;
+    margin-left: 35px;
+    font-size: 14px;
+    background-image: url("../img/info_background.png");
+}
+.baby_top_info_pad{
+    padding: 12px 0 0 100px;
+}
+.baby_info_user{
+    float: left;
+    height: 16px;
+    margin-left: -80px;
+    padding-left: 20px;
+   /*  background: url("../img/check_1.png") no-repeat left center;����ͼƬ�Լ���  �����û�� */
+}
+a.btn-search { color: #555; line-height:28px; background: transparent url(../img/bg_position.png) no-repeat scroll -130px -450px; vertical-align:middle; display: inline-block; width: 28px; height: 28px; cursor: pointer;}
+a.btn-search:hover { background-position: -160px -450px;}
+a.btn-search:active { background-position: -190px -450px;}

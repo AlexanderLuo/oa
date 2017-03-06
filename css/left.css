@@ -1,0 +1,42 @@
+.baby_conter_cd{
+}
+.baby_conter_left{
+	position: absolute;
+	left: 0;
+	top: 88px;
+	bottom:0;
+    width: 200px;
+    background: #fff3e2;
+}
+.baby_conter_school{
+    float: left;
+    width: 189px;
+    height: 42px;
+    line-height: 42px!important;
+    background:#f99331;
+    font-size: 19px!important;
+    color: #fff!important;
+}
+.baby_conter_school img{
+    float: left;
+    vertical-align: middle;
+    margin-left: -51px;
+    margin-top: 10px;
+}
+.Copyright{
+	position: absolute;
+	left: 0px;
+	width: 100%;
+	bottom: 0px;
+    height: 74px;
+    border-top: 1px solid #ec6120;
+    background: #ec6120;
+    z-index: 99;
+    color: #fff;
+}
+.Copyright .p {
+    border-top: 1px solid #ec6120;
+    padding: 16px 10px;
+    line-height: 20px;
+    text-shadow: 1px 2px 5px #ec6120;
+}

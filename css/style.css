@@ -1,0 +1,32 @@
+@charset "utf-8";
+*{
+    margin:0;
+    padding:0;
+}
+a{
+    text-decoration: none;
+}
+
+img {border:0;outline: 0}
+
+li {list-style:none;}
+
+sup {vertical-align:text-top;}
+
+sub {vertical-align:text-bottom;}
+
+input, textarea, select {font-family:inherit;font-size:inherit;font-weight:inherit;}
+
+/*带清除高度的10PX高的空DIV*/
+.blank{clear:both;height:10px;overflow:hidden;font-size:0px;}
+.blank1{clear:both;height:5px;overflow:hidden;font-size:0px;}
+.blank2{clear:both;height:30px;overflow:hidden;font-size:0px;}
+
+/*带清除高度的0PX高的空DIV*/
+.cls{clear:both;height:0px;overflow:hidden;background:#FFF;}
+
+body{
+  	font-family:"微软雅黑";
+    font-size:12px;
+    background:#FFF;
+}
