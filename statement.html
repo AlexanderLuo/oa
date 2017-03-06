@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)http://banxiaobao.com:8015/gbb/admin/teacherList.do -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--<base href="http://banxiaobao.com:8015/gbb/">-->
+    <base href=".">
+    <link rel="Shortcut Icon" href="http://banxiaobao.com:8015/gbb/img/logotitle.png">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/left.css" type="text/css">
+    <link rel="stylesheet" href="css/nav.css" type="text/css">
+    <link rel="stylesheet" href="css/gatawaylist.css" type="text/css">
+    <link type="text/css" rel="stylesheet" href="css/layer.css" id="skinlayercss">
+    <link rel="stylesheet" href="css/dialog.css" type="text/css">
+
+    <!--js区-->
+    <script src="./js/jquery-1.7.1.min.js"></script>
+    <script src="./js/md5.js"></script>
+    <script src="./js/lib/avalon.js"></script>
+    <script>
+        avalon.ready(function(){
+            var vm=avalon.define({
+                $id:"indexVm",
+                test:"tes",
+                user:{},
+                router:function(str){
+                    console.log(str)
+                },
+                init:function(){
+
+                    $.ajax({
+                        url:"http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/userApi/loginBackstage",
+                        data:{
+                            username:"13618605604",
+                            password:hex_md5("123456").toLowerCase()
+                        },
+                        success:function(res){
+                            if(res.code==200){
+                                vm.user=res.result;
+                            }else{
+
+                            }
+                        },
+                        type:"post"
+                    })
+                }
+
+            })
+
+            vm.init();
+            avalon.scan();
+        })
+    </script>
+</head>
+
+
+<body ms-controller="indexVm">
+
+
+<div class="" style="display: none; position: absolute;">
+    <div class="aui_outer">
+        <table class="aui_border">
+            <tbody>
+            <tr>
+                <td class="aui_nw"></td>
+                <td class="aui_n"></td>
+                <td class="aui_ne"></td>
+            </tr>
+            <tr>
+                <td class="aui_w"></td>
+                <td class="aui_c">
+                    <div class="aui_inner">
+                        <table class="aui_dialog">
+                            <tbody>
+                            <tr>
+                                <td colspan="2" class="aui_header">
+                                    <div class="aui_titleBar">
+                                        <div class="aui_title" style="cursor: move;"></div>
+                                        <a class="aui_close" href="javascript:/*artDialog*/;">×</a></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="aui_icon" style="display: none;">
+                                    <div class="aui_iconBg" style="background: none;"></div>
+                                </td>
+                                <td class="aui_main" style="width: auto; height: auto;">
+                                    <div class="aui_content" style="padding: 20px 25px;"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="aui_footer">
+                                    <div class="aui_buttons" style="display: none;"></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+                <td class="aui_e"></td>
+            </tr>
+            <tr>
+                <td class="aui_sw"></td>
+                <td class="aui_s"></td>
+                <td class="aui_se" style="cursor: se-resize;"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<div class="baby_content">
+    <!--logo-->
+    <div class="baby_top">
+        <div class="baby_top_logo">
+            <a href="javascript:location.reload()">
+                <img src="img/logo.png" title="">
+            </a>
+            <div class="baby_top_p">
+                <p class="baby_top_p_1">伴小宝</p>
+                <p class="baby_top_p_2">幼儿安全健康管理</p>
+            </div>
+        </div>
+
+        <!--导航-->
+        <div class="baby_top_nav">
+            <a href="javascript:void(0);"  ms-click="router('deviceId')"  id="deviceId">
+                <img src="img/device.png" title="">
+                <p>设备管理</p>
+            </a>
+
+            <a href="javascript:void(0);"  ms-click="router('teachId')"  id="teachId">
+                <img src="img/num.png" title="">
+                <p>用户管理</p>
+            </a>
+
+            <a href="javascript:void(0);"  ms-click="router('healthId')"  id="healthId">
+                <img src="img/health.png" title="">
+                <p>商城管理</p>
+            </a>
+
+            <a href="javascript:void(0);"  ms-click="router('attenId')"   id="attenId">
+                <img src="img/attentop.png" title="">
+                <p>讲堂管理</p>
+            </a>
+
+            <a href="javascript:void(0);" class="baby_top_list" ms-click="router('reportId')"   id="reportId">
+                <img src="img/attentop.png" title="">
+                <p>报表管理</p>
+            </a>
+        </div>
+
+        <!--右侧附加信息-->
+        <div class="baby_top_rig">
+            <div class="baby_top_rig_a">
+                <a class="baby_a_border">
+                    <img src="img/help.png" title="">
+                    <span>帮助</span>
+                </a>
+                <a class="baby_a_border">关于</a>
+                <a onclick="loginOut();">退出</a>
+            </div>
+
+            <div class="baby_top_rig_info">
+                <div class="baby_top_info_pad">
+                    <p class="baby_info_user">龙园长</p>
+                    |
+                    <strong><a id="example" style="color: #999;cursor:pointer" title="个人设置">个人设置 </a></strong>
+                    <!--<div class="baby_info_num">消息<span class="baby_info_num_bg"></span></div>-->
+                    <!--    <img src="img/select.png" class="baby_info_select"> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 个人设置 -->
+    <div id="LoginBox">
+        <form method="post" action="http://banxiaobao.com:8015/gbb/admin/addAdmin.do" id="fromtId">
+            <input id=" " name="id" type="hidden">
+            <input id="ROLEID" name="roleid" type="hidden">
+            <div class="row1">
+                修改账号基本信息<a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+            </div>
+            <div class="row">
+                &nbsp;幼儿园: <span class="inputBox">
+	               <input type="text" id="schoolname" name="schoolname" disabled="disabled" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+            </div>
+            <div class="row">
+                类&nbsp;&nbsp;型: <span class="inputBox">
+	               <input type="text" id="rolename" name="rolename" disabled="disabled" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+            </div>
+            <div class="row">
+                姓&nbsp;&nbsp;名: <span class="inputBox">
+	               <input type="text" id="name" name="name" disabled="disabled" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+            </div>
+            <div class="row">
+                原始密码: <span class="inputBox">
+	               <input type="password" id="rawpassword" name="rawpassword" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+            </div>
+            <div class="row">
+                密&nbsp;&nbsp;码: <span class="inputBox">
+	               <input type="password" id="password" name="password" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+            </div>
+            <div class="row">
+                确认密码: <span class="inputBox">
+	               <input type="password" id="ispassword" name="ispassword" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+            </div>
+            <div class="row">
+                <a id="loginbtn">确认</a>
+            </div>
+        </form>
+    </div>
+    <div style="display: none">
+        <script src="z_stat.php" language="JavaScript"></script>
+        <script src="core.php" charset="utf-8" type="text/javascript"></script>
+        <a href="http://www.cnzz.com/stat/website.php?web_id=1259867588" target="_blank" title="站长统计">站长统计</a>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.shove-1.0.js"></script>
+    <script type="text/javascript" src="js/layer.min.js"></script>
+    <script type="text/javascript" src="js/msg.js"></script>
+    <script charset="utf-8" src="js/jquery.form.js"></script>
+    <title>幼儿健康管理专家</title>
+
+    <script type="text/javascript">
+
+
+        function loginOut() {//退出
+            if (confirm("确定要退出登录吗？") != "0") {
+                window.location.href = "http://banxiaobao.com:8015/gbb/admin/loginOut.do";
+            }
+        }
+
+        function clickTop(id) {//点击头部菜单
+            var roleId = $("#roleId").val();
+            if (id == "deviceId") {
+                window.location.href = "http://banxiaobao.com:8015/gbb/machine/machineList.do";
+                /* 	$("#deviceLeft_Id").show().siblings("div").hide(); */
+            } else if (id == "teachId") {
+                if (roleId == -1 || roleId == 1 || roleId == 4) {
+                    window.location.href = "http://banxiaobao.com:8015/gbb/school/schoolList.do";
+                } else {
+                    window.location.href = "http://banxiaobao.com:8015/gbb/attendance/attendanceList.do";
+                }
+                /* 	$("#teachLeft_Id").show().siblings("div").hide(); */
+            } else if (id == "adminId") {
+                window.location.href = "http://banxiaobao.com:8015/gbb/admin/adminList.do";
+            } else if (id == "healthId") {
+                window.location.href = "http://banxiaobao.com:8015/gbb/sports/tosportsList.do";
+                /* $("#healthLeft_Id").show().siblings("div").hide(); */
+            } else if (id == "attenId") {
+                window.location.href = "http://banxiaobao.com:8015/gbb/attendance/attendanceTeacherInit.do";
+            }
+        }
+
+        /*个人设置*/
+        $(function ($) {
+            //弹出登录
+            $("#example").hover(function () {
+                $(this).stop().animate({
+                    opacity: '1'
+                }, 600);
+            }, function () {
+                $(this).stop().animate({
+                    opacity: '0.6'
+                }, 1000);
+            }).on('click', function () {
+                $("body").append("<div id='mask'></div>");
+                $("#mask").addClass("mask").fadeIn("slow");
+                $("#LoginBox").fadeIn("slow");
+                $.ajax({
+                    url: "admin/findBySelfAdmin.do",// 跳转到 action
+                    data: {},
+                    type: 'post',
+                    cache: false,
+                    success: function (data) {
+                        if (data == 'loseSession') {
+                            location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
+                            return;
+                        }
+                        var json = eval("(" + data + ")");// 解析json
+                        $("#schoolname").val(json.admin.schoolname);
+                        var isaid = json.admin.isaid;
+                        if (isaid == 1) {
+                            $("#rolename").val("园长助理");
+                        } else {
+                            $("#rolename").val(json.admin.roleName);
+                        }
+                        $("#ROLEID").val(json.admin.roleid);
+                        $("#name").val(json.admin.name);
+                        $("#adminId").val(json.admin.id);
+                    },
+                    error: function () {
+                        alert("系统错误！");
+                    }
+                });
+            });
+            //
+            //按钮的透明度
+            $("#loginbtn").hover(function () {
+                $(this).stop().animate({
+                    opacity: '1'
+                }, 600);
+            }, function () {
+                $(this).stop().animate({
+                    opacity: '0.8'
+                }, 1000);
+            });
+            //文本框不允许为空---按钮触发
+            $("#loginbtn").click(function () {
+                var name = $("#name").val().trim();
+                if (isNull(name)) {
+                    alertMsg("姓名不能为空!", 0);
+                    return;
+                }
+                var rawpassword = $("#rawpassword").val().trim();
+                var password = $("#password").val().trim();
+                var ispassword = $("#ispassword").val().trim();
+                if (!isNull(password) || !isNull(ispassword)) {
+                    if (isNull(rawpassword)) {
+                        alertMsg("原始密码不能为空!", 0);
+                        return;
+                    }
+                    if (password.length < 6 || password.length > 16) {
+                        alertMsg("密码长度错误!", 0);
+                        return;
+                    }
+                }
+                if (!isNull(rawpassword)) {
+                    if (isNull(password) || isNull(ispassword)) {
+                        alertMsg("密码不能为空", 0);
+                        return;
+                    }
+                }
+                if (password != ispassword) {
+                    alertMsg("两次密码输入不一致!", 0);
+                    return;
+                }
+                $("#fromtId").ajaxSubmit({
+                    type: "post",
+                    success: function (data) {
+                        if (data == 'loseSession') {
+                            location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
+                            return;
+                        }
+                        var json = eval("(" + data + ")");// 解析json
+                        var code = json.code;
+                        if (code == 200) {
+                            alertMsg("操作成功", 1);
+                            if (!isNull(password)) {
+                                location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
+                            } else {
+                                $("#LoginBox").fadeOut("fast");
+                                $("#mask").css({display: 'none'});
+                            }
+
+                        } else {
+                            alertMsg("操作失败", 2);
+                        }
+                    }
+                });
+            });
+            //关闭
+            $(".close_btn").hover(function () {
+                $(this).css({color: 'black'})
+            }, function () {
+                $(this).css({color: '#999'})
+            }).on('click', function () {
+                $("#LoginBox").fadeOut("fast");
+                $("#mask").css({display: 'none'});
+            });
+        });
+
+    </script>
+
+
+    <div class="baby_conter_cd">
+
+
+        <div class="baby_conter_left">
+
+
+            <div class="baby_conter_li" id="teachLeft_Id">
+
+                <a href="" id="attendance" class="baby_conter_school"><img src="img/buttom.png">报表管理</a>
+
+            </div>
+
+
+            <div class="Copyright">
+                <div class="p">Powered by glorymi<br>深圳市科格微电子有限公司</div>
+            </div>
+        </div>
+
+
+        <div class="baby_conter_right">
+            <form action="http://banxiaobao.com:8015/gbb/admin/teacherList.do" method="post" id="formId">
+                <input type="hidden" id="adminId" name="adminId">
+                <input value="1" type="hidden" id="pageNum" name="pageNum">
+                <table class="tb-type1 noborder search">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <input placeholder="姓名" name="searchName" id="searchName">
+                        </td>
+                        <td><a href="javascript:;" id="search" class="btn-search " title="查询" onclick="chickSubmit();">
+                            &nbsp;</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="baby_content_tab">
+                    <ul class="baby_content_tab_menu">
+                        <li>选择</li>
+                        <li>姓名</li>
+                        <li>班级</li>
+                        <li>账号</li>
+                        <li>成员类型</li>
+                        <li>上次登录时间</li>
+                        <li>操作</li>
+                    </ul>
+
+
+                    <ul class="baby_content_tab_ul1 ">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
+                                                                value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
+                        <li>zhang</li>
+                        <li></li>
+                        <li>13971227532</li>
+                        <li>
+
+
+                            园长助理
+
+
+                        </li>
+                        <li>2016-09-19 15:19:06</li>
+
+
+                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+
+
+                    </ul>
+
+                    <ul class="baby_content_tab_ul1 baby_content_tab_bg">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_1" name="checkbox"
+                                                                value="193 " onclick="checkBox(&#39;1&#39;,this);"></li>
+                        <li>刘总</li>
+                        <li></li>
+                        <li>13332660866</li>
+                        <li>
+
+
+                            园长助理
+
+
+                        </li>
+                        <li>2016-10-28 14:53:18</li>
+
+
+                        <li><a class="edit" href="javascript: void(0)" eid="193">编辑</a></li>
+
+
+                    </ul>
+
+                    <ul class="baby_content_tab_ul1 ">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
+                                                                value="147 " onclick="checkBox(&#39;2&#39;,this);"></li>
+                        <li>蔡总</li>
+                        <li>内部班</li>
+                        <li>13823727161</li>
+                        <li>
+
+
+                            老师
+
+
+                        </li>
+                        <li>2016-08-30 14:36:04</li>
+
+
+                        <li><a class="edit" href="javascript: void(0)" eid="147">编辑</a></li>
+
+
+                    </ul>
+
+                    <ul class="baby_content_tab_ul1 baby_content_tab_bg">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
+                                                                value="148 " onclick="checkBox(&#39;3&#39;,this);"></li>
+                        <li>聂总</li>
+                        <li>内部班</li>
+                        <li>13798285925</li>
+                        <li>
+
+
+                            老师
+
+
+                        </li>
+                        <li>2016-12-24 10:23:34</li>
+
+
+                        <li><a class="edit" href="javascript: void(0)" eid="148">编辑</a></li>
+
+
+                    </ul>
+
+                    <ul class="baby_content_tab_ul1 ">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_4" name="checkbox"
+                                                                value="149 " onclick="checkBox(&#39;4&#39;,this);"></li>
+                        <li>周晶</li>
+                        <li>内部班</li>
+                        <li>18824397727</li>
+                        <li>
+
+
+                            班主任
+
+
+                        </li>
+                        <li>2017-02-13 10:22:14</li>
+
+
+                        <li><a class="edit" href="javascript: void(0)" eid="149">编辑</a></li>
+
+
+                    </ul>
+
+                    <ul class="baby_content_tab_ul1 baby_content_tab_bg">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_5" name="checkbox"
+                                                                value="178 " onclick="checkBox(&#39;5&#39;,this);"></li>
+                        <li>李恒</li>
+                        <li>中班</li>
+                        <li>18676727061</li>
+                        <li>
+
+
+                            班主任
+
+
+                        </li>
+                        <li>2017-02-14 14:01:23</li>
+
+
+                        <li><a class="edit" href="javascript: void(0)" eid="178">编辑</a></li>
+
+
+                    </ul>
+
+                </div>
+            </form>
+            <div class="baby_content_dt">
+                <div class="baby_content_dt-1">
+                    <input type="checkbox" onclick="checkBoxAll(this);">
+                    <span style="cursor: pointer;">全选</span>
+                    <span class="baby_content_del" onclick="delAdmin();">批量删除</span>
+                    <span class="baby_content_del edit">添加</span>
+                </div>
+
+
+                <!--<base href="http://banxiaobao.com:8015/gbb/">-->
+                <base href=".">
+                <title>网关列表</title>
+                <link rel="stylesheet" href="css/style.css" type="text/css">
+                <link rel="stylesheet" href="css/left.css" type="text/css">
+                <link rel="stylesheet" href="css/gatawaylist.css" type="text/css">
+                <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+                <script type="text/javascript">
+                    function goToPage(pagenum) {
+                        $("#pageNum").val(pagenum);
+                        $("#formId").submit();
+                    }
+
+                </script>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.shove-1.0.js"></script>
+<script type="text/javascript" src="js/layer.min.js"></script>
+<link rel="stylesheet" href="css/twitter.css">
+<script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
+<script type="text/javascript" src="js/iframeTools.js"></script>
+<script type="text/javascript" src="js/msg.js"></script>
+<script type="text/javascript">
+    function checkBoxAll(obj) {
+        $("#adminId").val("");
+        if (obj.checked == true) {
+            $("[name='checkbox']").attr("checked", 'true');//全选
+            var str = "";
+            $("[name='checkbox'][checked]").each(function (i) {
+                if (i == 0) {
+                    str = $(this).val();
+                } else {
+                    str += "," + $(this).val();
+                }
+            });
+            $("#adminId").val(str);
+
+        } else {
+            $("[name='checkbox']").removeAttr("checked");//取消全选
+        }
+    }
+    function checkBox(index, obj) {
+        $("#adminId").val("");
+        if (obj.checked == true) {
+            $("#checkid_" + index).attr("checked", true);
+        } else {
+            $("#checkid_" + index).attr("checked", false);
+        }
+        var str = "";
+        $("[name='checkbox'][checked]").each(function (i) {
+            if (i == 0) {
+                str = $(this).val();
+            } else {
+                str += "," + $(this).val();
+            }
+        });
+        $("#adminId").val(str);
+    }
+
+    function delAdmin() {
+        var adminId = $("#adminId").val().trim();
+        if (isNull(adminId)) {
+            alertMsg("请先选择一条信息", 0);
+            return;
+        }
+        if (confirm("确定要删除该消息吗？") != "0") {
+            $.ajax({
+                url: "admin/delAdmin.do",// 跳转到 action
+                data: {
+                    "ids": adminId
+                },
+                type: 'post',
+                cache: false,
+                success: function (data) {
+                    if (data == 'loseSession') {
+                        location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
+                        return;
+                    }
+                    var json = eval("(" + data + ")");// 解析json
+                    var code = json.code;
+                    if (code == 200) {
+                        alertMsg("操作成功", 1);
+                        window.location.reload();
+                    } else {
+                        alertMsg("操作失败", 2);
+                    }
+                },
+                error: function () {
+                    alertMsg("系统错误！", 2);
+                }
+            });
+        }
+    }
+    function chickSubmit() {
+        $("#formId").submit();
+    }
+
+    (function (config) {
+        config['lock'] = true;
+        config['fixed'] = true;
+        config['opacity'] = .4;
+        config['okVal'] = '确定';
+        config['cancelVal'] = '取消';
+        // [more..]
+    })(art.dialog.defaults);
+
+
+    $(function () {
+        $("#searchName").val("");
+
+        $(".edit").click(function () {
+            var $this = $(this);
+            var eid = $this.attr("eid");
+            var title = '编辑';
+            if (eid == undefined) {
+                eid = "";
+                title = '新增';
+            }
+            art.dialog.open("admin/editTeacher.do?id=" + eid, {
+                width: 600,
+                height: 470,
+                title: title,
+                // 在open()方法中，init会等待iframe加载完毕后执行
+                init: function () {
+                    //var iframe = this.iframe.contentWindow;
+                    //var top = art.dialog.top;// 引用顶层页面window对象
+
+                },
+                ok: function () {
+                    var iframe = this.iframe.contentWindow;
+                    if (!iframe.document.body) {
+                        alert('iframe还没加载完毕呢');
+                        return false;
+                    }
+                    ;
+                    var dialog = this;
+                    iframe.submitAdmin(function (state) {
+                        switch (state) {
+                            case 0: // 成功
+                                dialog.close();
+                                window.location.reload();
+                                break;
+                            case 2: // 未登录
+                                location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                    return false;
+                },
+                cancel: true
+            });
+        });
+    });
+</script>
+
+<div style="display: none; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; cursor: move; opacity: 0; background: rgb(255, 255, 255);"></div>
+</body>
+</html>
