@@ -13,14 +13,19 @@
     <link type="text/css" rel="stylesheet" href="css/layer.css" id="skinlayercss">
     <link rel="stylesheet" href="css/dialog.css" type="text/css">
 
+
+
     <!--js区-->
     <script src="./js/jquery-1.7.1.min.js"></script>
     <script src="./js/md5.js"></script>
     <script src="./js/lib/avalon.js"></script>
+
+
+
     <script>
         avalon.ready(function(){
             var vm=avalon.define({
-                $id:"indexVm",
+                $id:"deviceVm",
                 test:"tes",
                 user:{},
                 router:function(str){
@@ -54,62 +59,63 @@
 </head>
 
 
-<body ms-controller="indexVm">
+<body ms-controller="deviceVm">
 
 
-<div class="" style="display: none; position: absolute;">
-    <div class="aui_outer">
-        <table class="aui_border">
-            <tbody>
-            <tr>
-                <td class="aui_nw"></td>
-                <td class="aui_n"></td>
-                <td class="aui_ne"></td>
-            </tr>
-            <tr>
-                <td class="aui_w"></td>
-                <td class="aui_c">
-                    <div class="aui_inner">
-                        <table class="aui_dialog">
-                            <tbody>
-                            <tr>
-                                <td colspan="2" class="aui_header">
-                                    <div class="aui_titleBar">
-                                        <div class="aui_title" style="cursor: move;"></div>
-                                        <a class="aui_close" href="javascript:/*artDialog*/;">×</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="aui_icon" style="display: none;">
-                                    <div class="aui_iconBg" style="background: none;"></div>
-                                </td>
-                                <td class="aui_main" style="width: auto; height: auto;">
-                                    <div class="aui_content" style="padding: 20px 25px;"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="aui_footer">
-                                    <div class="aui_buttons" style="display: none;"></div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-                <td class="aui_e"></td>
-            </tr>
-            <tr>
-                <td class="aui_sw"></td>
-                <td class="aui_s"></td>
-                <td class="aui_se" style="cursor: se-resize;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<!--<div class="" style="display: none; position: absolute;">-->
+    <!--<div class="aui_outer">-->
+        <!--<table class="aui_border">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td class="aui_nw"></td>-->
+                <!--<td class="aui_n"></td>-->
+                <!--<td class="aui_ne"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td class="aui_w"></td>-->
+                <!--<td class="aui_c">-->
+                    <!--<div class="aui_inner">-->
+                        <!--<table class="aui_dialog">-->
+                            <!--<tbody>-->
+                            <!--<tr>-->
+                                <!--<td colspan="2" class="aui_header">-->
+                                    <!--<div class="aui_titleBar">-->
+                                        <!--<div class="aui_title" style="cursor: move;"></div>-->
+                                        <!--<a class="aui_close" href="javascript:/*artDialog*/;">×</a></div>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td class="aui_icon" style="display: none;">-->
+                                    <!--<div class="aui_iconBg" style="background: none;"></div>-->
+                                <!--</td>-->
+                                <!--<td class="aui_main" style="width: auto; height: auto;">-->
+                                    <!--<div class="aui_content" style="padding: 20px 25px;"></div>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td colspan="2" class="aui_footer">-->
+                                    <!--<div class="aui_buttons" style="display: none;"></div>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</div>-->
+                <!--</td>-->
+                <!--<td class="aui_e"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td class="aui_sw"></td>-->
+                <!--<td class="aui_s"></td>-->
+                <!--<td class="aui_se" style="cursor: se-resize;"></td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+<!--</div>-->
 
 
 
+<<<<<<< HEAD
 <div class="baby_content">
     <!--logo-->
     <div class="baby_top">
@@ -150,30 +156,13 @@
                 <p>报表管理</p>
             </a>
         </div>
+=======
+>>>>>>> 3486751b705a7d912e13b7a7ac6d75c268d7b23d
 
-        <!--右侧附加信息-->
-        <div class="baby_top_rig">
-            <div class="baby_top_rig_a">
-                <a class="baby_a_border">
-                    <img src="img/help.png" title="">
-                    <span>帮助</span>
-                </a>
-                <a class="baby_a_border">关于</a>
-                <a onclick="loginOut();">退出</a>
-            </div>
+<div class="baby_content">
+    <div ms-include-src=" './component/banner.html'" ></div>
 
-            <div class="baby_top_rig_info">
-                <div class="baby_top_info_pad">
-                    <p class="baby_info_user">龙园长</p>
-                    |
-                    <strong><a id="example" style="color: #999;cursor:pointer" title="个人设置">个人设置 </a></strong>
-                    <!--<div class="baby_info_num">消息<span class="baby_info_num_bg"></span></div>-->
-                    <!--    <img src="img/select.png" class="baby_info_select"> -->
-                </div>
-            </div>
 
-        </div>
-    </div>
     <!-- 个人设置 -->
     <div id="LoginBox">
         <form method="post" action="http://banxiaobao.com:8015/gbb/admin/addAdmin.do" id="fromtId">
@@ -217,11 +206,13 @@
             </div>
         </form>
     </div>
+
     <div style="display: none">
         <script src="z_stat.php" language="JavaScript"></script>
         <script src="core.php" charset="utf-8" type="text/javascript"></script>
         <a href="http://www.cnzz.com/stat/website.php?web_id=1259867588" target="_blank" title="站长统计">站长统计</a>
     </div>
+
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.shove-1.0.js"></script>
     <script type="text/javascript" src="js/layer.min.js"></script>
@@ -381,28 +372,19 @@
     </script>
 
 
+
     <div class="baby_conter_cd">
-
-
         <div class="baby_conter_left">
-
-
             <div class="baby_conter_li" id="teachLeft_Id">
-
-
                 <a href="" id="attendance" class="baby_conter_school"><img src="img/buttom.png">设备管理</a>
                 <a href="" id="teacher"><img src="img/buttom.png">手环管理</a>
                 <a href="" id="class"><img src="img/buttom.png">身高尺管理</a>
                 <a href="" id="children"><img src="img/buttom.png">健康秤管理</a>
             </div>
-
-
             <div class="Copyright">
                 <div class="p">Powered by glorymi<br>深圳市科格微电子有限公司</div>
             </div>
         </div>
-
-
         <div class="baby_conter_right">
             <form action="http://banxiaobao.com:8015/gbb/admin/teacherList.do" method="post" id="formId">
                 <input type="hidden" id="adminId" name="adminId">
@@ -428,8 +410,6 @@
                         <li>上次登录时间</li>
                         <li>操作</li>
                     </ul>
-
-
                     <ul class="baby_content_tab_ul1 ">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
                                                                 value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
@@ -437,20 +417,11 @@
                         <li></li>
                         <li>13971227532</li>
                         <li>
-
-
                             园长助理
-
-
                         </li>
                         <li>2016-09-19 15:19:06</li>
-
-
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
-
-
                     </ul>
-
                     <ul class="baby_content_tab_ul1 baby_content_tab_bg">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_1" name="checkbox"
                                                                 value="193 " onclick="checkBox(&#39;1&#39;,this);"></li>
@@ -458,20 +429,11 @@
                         <li></li>
                         <li>13332660866</li>
                         <li>
-
-
                             园长助理
-
-
                         </li>
                         <li>2016-10-28 14:53:18</li>
-
-
                         <li><a class="edit" href="javascript: void(0)" eid="193">编辑</a></li>
-
-
                     </ul>
-
                     <ul class="baby_content_tab_ul1 ">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
                                                                 value="147 " onclick="checkBox(&#39;2&#39;,this);"></li>
@@ -479,20 +441,11 @@
                         <li>内部班</li>
                         <li>13823727161</li>
                         <li>
-
-
                             老师
-
-
                         </li>
                         <li>2016-08-30 14:36:04</li>
-
-
                         <li><a class="edit" href="javascript: void(0)" eid="147">编辑</a></li>
-
-
                     </ul>
-
                     <ul class="baby_content_tab_ul1 baby_content_tab_bg">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
                                                                 value="148 " onclick="checkBox(&#39;3&#39;,this);"></li>
@@ -500,15 +453,9 @@
                         <li>内部班</li>
                         <li>13798285925</li>
                         <li>
-
-
                             老师
-
-
                         </li>
                         <li>2016-12-24 10:23:34</li>
-
-
                         <li><a class="edit" href="javascript: void(0)" eid="148">编辑</a></li>
 
 
