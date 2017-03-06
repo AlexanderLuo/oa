@@ -1,0 +1,120 @@
+<style>
+    .ms-controller, .ms-important, [ms-controller], [ms-important] {
+        visibility: hidden;
+    }
+
+    .user-main {
+        height: 185px;
+        overflow: auto;
+    }
+
+    .user-edit .table_1 {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-bottom: none;
+    }
+
+    .user-edit .plus th {
+        text-align: center;
+    }
+
+    div.form .user-edit span {
+        color: #fff;
+        line-height: 28px;
+        padding-right: 3px;
+    }
+
+    .user-edit input[type="text"] {
+        width: 80%;
+    }
+
+    .user-edit th {
+        text-align: right;
+    }
+
+    .user-edit td {
+        text-align: left;
+    }
+
+    .user-edit td.remark {
+        background: #f2f2f2;
+        height: 28px;
+    }
+
+    .user-edit td p {
+        margin: 0 auto;
+        height: 11px;
+        line-height: 11px;
+    }
+
+    .user-edit .user-btn {
+        background: #f2f2f2;
+        border-top: 1px solid #ddd;
+        padding: 10px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    input.oper {
+        background: #F78B54;
+        height: 28px;
+        padding: 0 20px;
+        margin: 0 10px 0 0;
+        color: #fff;
+        border: none;
+    }
+
+    input.oper:hover {
+        background: #F4A582;
+    }
+
+</style>
+
+<!--编辑用户信息-->
+
+<div>
+    <div class="form">
+        <form id="eidtUserUrlFrom">
+            <div class="user-edit">
+                <div class="user-main">
+                    <table class="table_1" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="40%">用户id：</th>
+                            <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="40%">昵称：</th>
+                            <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="40%">性别：</th>
+                            <td width="60%"><input type="text" name="" ms-duplex-string=""/></td>
+                        </tr>
+                        <tr>
+                            <th width="40%">生日：</th>
+                            <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="40%">头像：</th>
+                            <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="40%">个性签名：</th>
+                            <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="user-btn">
+                    <input type="button" value="保存" class="oper" ms-click="save"/>
+                    <input type="button" value="返回" class="oper" ms-click="back"/>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
