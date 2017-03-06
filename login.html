@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://banxiaobao.com:8015/gbb/admin/loginInit.do -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!--<base href="http://banxiaobao.com:8015/gbb/">--><base href=".">
+	<meta>
+    <title>幼儿安全健康管理</title>
+     <link rel="Shortcut Icon" href="http://banxiaobao.com:8015/gbb/img/logotitle.png">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+<link type="text/css" rel="stylesheet" href="css/layer.css" id="skinlayercss"></head>
+<body>
+     <div class="register">
+       <div class="register-bg">
+     	 <div class="register-nav">
+     	 	 <div class="register-nav-hy">
+     	 	 	 <span>欢迎登陆后台管理界面平台</span>
+     	 	 </div>	
+     	 	 <input value="" id="roleId" type="hidden">
+     	<!--  	 <div class="register-nav-cd">
+	     	 	 <span>回首页</span>
+	     	 	 <span>帮助</span>
+	     	 	 <span>关于</span>
+     	 	 </div> -->
+     	 </div>
+     	 <div class="register-center">
+            <div class="register-logo">
+              <img src="img/logo.png">
+              <span>科格微<br>幼儿安全健康管理</span>
+            </div>
+            <div class="admin">
+                <div class="admin-left"><img src="img/1.png"></div>
+                <div class="admin-right">
+                    <div class="admin-right-1">
+                    	<!-- <form action="admin/login.do" method="post" id="formId"> -->
+	                       <div class="yh-register">用户登录<span>&nbsp;&nbsp;TeacherLogin</span></div>
+	                       <div class="register-input">
+	                           <span><img src="img/user.png"></span>
+	                           <input type="text" id="username" class="input">
+	                       </div>
+	                       <div class="register-input-1">
+	                           <span><img src="img/Locked.png"></span>
+	                           <input type="password" id="password" class="input-1">
+	                       </div>
+	                       <div class="buttom">
+	                            <a href="javascript:loginSubmit();" class="registers">登录</a>
+	                           <!--  <span class="registers-span">
+	                               <input type="checkbox" class="check">&nbsp;记住账号
+	                           </span> -->
+	                           <!--  <a href="" class="password">忘记密码?</a>   -->
+	                       </div>
+                      <!--   </form> -->
+                    </div>    
+                </div>
+            </div>
+         </div>   
+       </div>
+       <div class="footer">
+          <div class="footer-box">
+                版权所有
+          </div>
+      </div>    	 		
+     </div>
+     
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.shove-1.0.js"></script>
+    <script type="text/javascript" src="js/layer.min.js"></script>
+    <script type="text/javascript" src="js/msg.js"></script>
+    <script charset="utf-8" src="js/jquery.form.js"></script>
+    
+    <script type="text/javascript">
+    	function loginSubmit(){
+    		var username=$("#username").val();
+    		var password=$("#password").val();
+    		if(isNull(username)){
+    			alertMsg("请输入用户名", 0);
+    			return;
+    		}
+    		if(isNull(password)){
+    			alertMsg("请输入密码", 0);
+    			return;
+    		}
+    		
+    		$.ajax( { 
+			    url:"admin/login.do",// 跳转到 action     
+			    data:{     
+			             "username" : username ,  
+			             "password" : password  
+			    },     
+			    type:'post',
+			    cache:false,     
+			    success:function(data) {
+			    var json =eval("("+ data +")");// 解析json 
+			    var code=json.code;
+			    if(code==200){
+			    	 var roleId=json.roleId;
+			   		if(roleId==-1 || roleId==1 || roleId==4){
+			   			window.location.href="http://banxiaobao.com:8015/gbb/machine/machineList.do";
+			   		}else if(roleId==2||roleId==3){
+			   			window.location.href="http://banxiaobao.com:8015/gbb/attendance/attendanceList.do";
+			   		}else{
+			   			alertMsg("参数错误", 2);
+			   		}
+			    }else{
+			    	alertMsg("用户名或密码错误", 2);
+			    }
+			     },     
+			     error : function() {     
+			          alertMsg("参数错误", 2);     
+			     }     
+			}); 
+    	}
+    	
+    	$(function() {
+		   	 //键盘按下事件
+			$(document).keydown(function (evt) {
+				var theEvent = window.event || evt;
+		        var code = theEvent.keyCode || theEvent.which;
+				//当键盘按下回车的时候
+				if (code == 13) {				
+					loginSubmit();
+				}
+			});	
+    	});
+    </script>
+
+</body></html>

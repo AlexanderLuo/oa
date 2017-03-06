@@ -1,0 +1,169 @@
+@charset "utf-8";
+body,html{
+	height: 100%;
+}
+.register-bg{
+	float: left;
+	width: 100%;
+	height:880px;
+	/*padding-top: 116px;*/
+	background: url(../img/bg.png) ;
+
+}
+.register-nav{
+	float: left;
+	width:100%;
+	line-height: 50px;
+	background-color:#000;
+	opacity: 0.5;
+	filter:Alpha(opacity=50);
+	color: #fff;
+	font-size:12px;
+	font-family:'微软雅黑';
+
+}
+.register-nav-hy{
+    float: left;
+    margin-left: 20px;
+    text-indent: 35px;
+	background: url(../img/tb.png) no-repeat left center;
+}
+.register-nav-cd{
+	float: right;
+	padding-right:30px;
+}
+.register-nav-cd a{
+	padding: 0 10px;
+	color: #fff
+}
+.register-nav-cd a:hover{
+	color: #e47712
+}
+.register-center{
+	width: 680px;
+	margin: 0 auto;
+	padding-top:10%;
+}
+.register-logo{
+	width: 680px;
+	padding-top: 68px;
+}
+.register-logo img{
+	float: left;
+    /*width: 90px;*/
+    /*height: 90px;*/
+}
+.register-logo span{
+	float: left;
+	color: #fff;
+	padding-left:18px;
+	font-size: 22px;
+	line-height: 32px;
+	padding-top: 10px;
+	font-weight:normal;
+
+}
+.admin{
+	float: left;
+	width: 680px;
+	margin-top: 20px;
+}
+.admin-left{
+	float: left;
+	width: 227px;
+}
+.admin-right{
+	float: left;
+	width: 444px;
+	height: 308px;
+	background: #fff;
+	margin-top:7px;
+}
+.admin-right-1{
+	
+	padding:35px 0 35px 57px;
+}
+.yh-register{
+	font-size: 22px;
+	color:#f47e0d;
+}
+.yh-register span{
+	font-size: 18px;
+	color:#c3c5c6;
+}
+.register-input,.register-input-1{
+	position: relative;
+}
+.register-input span{
+	position: absolute;
+	left: 14px;
+	top:45px;
+}
+.register-input span img{
+	float: left;
+	width: 16px;
+	height: 16px;
+}
+.register-input-1 span{
+	position: absolute;
+	left: 14px;
+	top:120px;
+}
+.input,.input-1{
+	float: left;
+	width: 343px;
+	height:48px;
+	line-height:48px;
+	border: 0;
+	text-indent: 44px;
+	font-size: 14px;
+	color: #000;
+	margin-top: 28px;	
+	background: url(../img/input.png) no-repeat;
+}
+.buttom{
+	float: left;
+	padding-top:25px;
+}
+ .registers{
+	float: left;
+	width: 111px;
+	height: 35px;
+	line-height: 35px;
+	background: #f0580c;
+	border-radius:3px;
+	text-align: center;	
+	color: #fff;
+	font-size:14px;
+}
+.registers-span{
+	line-height:35px;padding-left:20px;color:#4b4343;
+}
+.registers-span input{
+	width: 16px;
+	height: 16px;
+	vertical-align:middle;
+	border:0;
+	outline: none;
+	background-image: url(../img/check.png);
+	background-repeat:  no-repeat;
+}
+.password{
+	color:#4b4343;
+	padding-left:25px;
+}
+.password:hover{
+	color: #ec7817;
+}
+@media \Oscreen\,screen\9{
+	.register-nav{
+		background-color: #000;
+		filter:Alpha(opacity=50);
+		position: static;
+		*zomm:1;
+  }
+  .register-nav div{
+  	position: relative;
+  }
+
+}
