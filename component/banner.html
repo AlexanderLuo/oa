@@ -1,5 +1,5 @@
 <!--logo-->
-<div class="baby_top">
+<div ms-important="bannerVm" class="baby_top">
     <div class="baby_top_logo">
         <a href="javascript:location.reload()">
             <img src="img/logo.png" title="">
@@ -60,3 +60,220 @@
         </div>
     </div>
 </div>
+
+<!-- 个人设置 -->
+<div id="LoginBox">
+    <form method="post" action="http://banxiaobao.com:8015/gbb/admin/addAdmin.do" id="fromtId">
+        <input id=" " name="id" type="hidden">
+        <input id="ROLEID" name="roleid" type="hidden">
+        <div class="row1">
+            修改账号基本信息<a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+        </div>
+        <div class="row">
+            &nbsp;幼儿园: <span class="inputBox">
+	               <input type="text" id="schoolname" name="schoolname" disabled="disabled" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+        </div>
+        <div class="row">
+            类&nbsp;&nbsp;型: <span class="inputBox">
+	               <input type="text" id="rolename" name="rolename" disabled="disabled" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+        </div>
+        <div class="row">
+            姓&nbsp;&nbsp;名: <span class="inputBox">
+	               <input type="text" id="name" name="name" disabled="disabled" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+        </div>
+        <div class="row">
+            原始密码: <span class="inputBox">
+	               <input type="password" id="rawpassword" name="rawpassword" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+        </div>
+        <div class="row">
+            密&nbsp;&nbsp;码: <span class="inputBox">
+	               <input type="password" id="password" name="password" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+        </div>
+        <div class="row">
+            确认密码: <span class="inputBox">
+	               <input type="password" id="ispassword" name="ispassword" style="width: 185px;">
+	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
+        </div>
+        <div class="row">
+            <a id="loginbtn">确认</a>
+        </div>
+    </form>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    function loginOut() {//退出
+        if (confirm("确定要退出登录吗？") != "0") {
+            window.location.href = "http://banxiaobao.com:8015/gbb/admin/loginOut.do";
+        }
+    }
+
+    function clickTop(id) {//点击头部菜单
+        var roleId = $("#roleId").val();
+        if (id == "deviceId") {
+            window.location.href = "http://banxiaobao.com:8015/gbb/machine/machineList.do";
+            /* 	$("#deviceLeft_Id").show().siblings("div").hide(); */
+        } else if (id == "teachId") {
+            if (roleId == -1 || roleId == 1 || roleId == 4) {
+                window.location.href = "http://banxiaobao.com:8015/gbb/school/schoolList.do";
+            } else {
+                window.location.href = "http://banxiaobao.com:8015/gbb/attendance/attendanceList.do";
+            }
+            /* 	$("#teachLeft_Id").show().siblings("div").hide(); */
+        } else if (id == "adminId") {
+            window.location.href = "http://banxiaobao.com:8015/gbb/admin/adminList.do";
+        } else if (id == "healthId") {
+            window.location.href = "http://banxiaobao.com:8015/gbb/sports/tosportsList.do";
+            /* $("#healthLeft_Id").show().siblings("div").hide(); */
+        } else if (id == "attenId") {
+            window.location.href = "http://banxiaobao.com:8015/gbb/attendance/attendanceTeacherInit.do";
+        }
+    }
+
+    /*个人设置*/
+    $(function ($) {
+        //弹出登录
+        $("#example").hover(function () {
+            $(this).stop().animate({
+                opacity: '1'
+            }, 600);
+        }, function () {
+            $(this).stop().animate({
+                opacity: '0.6'
+            }, 1000);
+        }).on('click', function () {
+            $("body").append("<div id='mask'></div>");
+            $("#mask").addClass("mask").fadeIn("slow");
+            $("#LoginBox").fadeIn("slow");
+            $.ajax({
+                url: "admin/findBySelfAdmin.do",// 跳转到 action
+                data: {},
+                type: 'post',
+                cache: false,
+                success: function (data) {
+                    if (data == 'loseSession') {
+                        location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
+                        return;
+                    }
+                    var json = eval("(" + data + ")");// 解析json
+                    $("#schoolname").val(json.admin.schoolname);
+                    var isaid = json.admin.isaid;
+                    if (isaid == 1) {
+                        $("#rolename").val("园长助理");
+                    } else {
+                        $("#rolename").val(json.admin.roleName);
+                    }
+                    $("#ROLEID").val(json.admin.roleid);
+                    $("#name").val(json.admin.name);
+                    $("#adminId").val(json.admin.id);
+                },
+                error: function () {
+                    alert("系统错误！");
+                }
+            });
+        });
+        //
+        //按钮的透明度
+        $("#loginbtn").hover(function () {
+            $(this).stop().animate({
+                opacity: '1'
+            }, 600);
+        }, function () {
+            $(this).stop().animate({
+                opacity: '0.8'
+            }, 1000);
+        });
+        //文本框不允许为空---按钮触发
+        $("#loginbtn").click(function () {
+            var name = $("#name").val().trim();
+            if (isNull(name)) {
+                alertMsg("姓名不能为空!", 0);
+                return;
+            }
+            var rawpassword = $("#rawpassword").val().trim();
+            var password = $("#password").val().trim();
+            var ispassword = $("#ispassword").val().trim();
+            if (!isNull(password) || !isNull(ispassword)) {
+                if (isNull(rawpassword)) {
+                    alertMsg("原始密码不能为空!", 0);
+                    return;
+                }
+                if (password.length < 6 || password.length > 16) {
+                    alertMsg("密码长度错误!", 0);
+                    return;
+                }
+            }
+            if (!isNull(rawpassword)) {
+                if (isNull(password) || isNull(ispassword)) {
+                    alertMsg("密码不能为空", 0);
+                    return;
+                }
+            }
+            if (password != ispassword) {
+                alertMsg("两次密码输入不一致!", 0);
+                return;
+            }
+            $("#fromtId").ajaxSubmit({
+                type: "post",
+                success: function (data) {
+                    if (data == 'loseSession') {
+                        location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
+                        return;
+                    }
+                    var json = eval("(" + data + ")");// 解析json
+                    var code = json.code;
+                    if (code == 200) {
+                        alertMsg("操作成功", 1);
+                        if (!isNull(password)) {
+                            location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
+                        } else {
+                            $("#LoginBox").fadeOut("fast");
+                            $("#mask").css({display: 'none'});
+                        }
+
+                    } else {
+                        alertMsg("操作失败", 2);
+                    }
+                }
+            });
+        });
+        //关闭
+        $(".close_btn").hover(function () {
+            $(this).css({color: 'black'})
+        }, function () {
+            $(this).css({color: '#999'})
+        }).on('click', function () {
+            $("#LoginBox").fadeOut("fast");
+            $("#mask").css({display: 'none'});
+        });
+    });
+
+</script>
+
+
+
+
+<script>
+
+
+    avalon.ready(function(){
+        var vm=avalon.define({
+            $id:'bannerVm',
+            router:function(str){
+                console.log(str)
+            }
+
+
+        })
+    })
+
+
+</script>
