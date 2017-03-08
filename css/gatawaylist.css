@@ -200,6 +200,79 @@
     cursor: pointer;
     margin:0 10px \0;
 }
+
+.shade{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+    display: block;
+}
+
+.user-main {
+    width: 500px;
+    position: fixed;left: 50%; top: 15%;
+    background: white;
+    margin-left: -250px;
+    border: 1px solid #000000;
+}
+
+.user-edit .table_1 {
+    margin-top: 30px;
+    width: 100%;
+    border-bottom: none;
+}
+.user-edit .table_1 tr {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    text-align: center;
+}
+
+
+.user-edit input[type="text"] {
+    height: 100%;
+    width: 80%;
+    border-radius: 4px; ;
+}
+
+.user-edit td {
+    text-align: left;
+}
+
+.user-edit td.remark {
+    background: #f2f2f2;
+    height: 28px;
+}
+
+.user-edit td p {
+    margin: 0 auto;
+    height: 11px;
+    line-height: 11px;
+}
+
+.user-edit .user-btn {
+    background: #f2f2f2;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+input.oper {
+    background: #F78B54;
+    height: 28px;
+    padding: 0 20px;
+    margin: 0 10px 0 0;
+    color: #fff;
+    border: none;
+}
+
+input.oper:hover {
+    background: #F4A582;
+}
 /* @media screen and (min-width: 1366px){
     .baby_conter_right{
         float: left;
