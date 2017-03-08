@@ -20,7 +20,7 @@
     <script>
         avalon.ready(function(){
             var vm=avalon.define({
-                $id:"indexVm",
+                $id:"statementVm",
                 test:"tes",
                 user:{},
                 router:function(str){
@@ -28,21 +28,7 @@
                 },
                 init:function(){
 
-                    $.ajax({
-                        url:"http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/userApi/loginBackstage",
-                        data:{
-                            username:"13618605604",
-                            password:hex_md5("123456").toLowerCase()
-                        },
-                        success:function(res){
-                            if(res.code==200){
-                                vm.user=res.result;
-                            }else{
 
-                            }
-                        },
-                        type:"post"
-                    })
                 }
 
             })
@@ -54,174 +40,12 @@
 </head>
 
 
-<body ms-controller="indexVm">
+<body ms-controller="statementVm">
 
 
-<div class="" style="display: none; position: absolute;">
-    <div class="aui_outer">
-        <table class="aui_border">
-            <tbody>
-            <tr>
-                <td class="aui_nw"></td>
-                <td class="aui_n"></td>
-                <td class="aui_ne"></td>
-            </tr>
-            <tr>
-                <td class="aui_w"></td>
-                <td class="aui_c">
-                    <div class="aui_inner">
-                        <table class="aui_dialog">
-                            <tbody>
-                            <tr>
-                                <td colspan="2" class="aui_header">
-                                    <div class="aui_titleBar">
-                                        <div class="aui_title" style="cursor: move;"></div>
-                                        <a class="aui_close" href="javascript:/*artDialog*/;">×</a></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="aui_icon" style="display: none;">
-                                    <div class="aui_iconBg" style="background: none;"></div>
-                                </td>
-                                <td class="aui_main" style="width: auto; height: auto;">
-                                    <div class="aui_content" style="padding: 20px 25px;"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="aui_footer">
-                                    <div class="aui_buttons" style="display: none;"></div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-                <td class="aui_e"></td>
-            </tr>
-            <tr>
-                <td class="aui_sw"></td>
-                <td class="aui_s"></td>
-                <td class="aui_se" style="cursor: se-resize;"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<!--头部-->
+    <div ms-include-src=" './component/banner.html'"></div>
 
-
-
-<div class="baby_content">
-    <!--logo-->
-    <div class="baby_top">
-        <div class="baby_top_logo">
-            <a href="javascript:location.reload()">
-                <img src="img/logo.png" title="">
-            </a>
-            <div class="baby_top_p">
-                <p class="baby_top_p_1">伴小宝</p>
-                <p class="baby_top_p_2">幼儿安全健康管理</p>
-            </div>
-        </div>
-
-        <!--导航-->
-        <div class="baby_top_nav">
-            <a href="device.html"  ms-click="router('deviceId')"  id="deviceId">
-                <img src="img/device.png" title="">
-                <p>设备管理</p>
-            </a>
-
-            <a href="admin.html"  ms-click="router('teachId')"  id="teachId">
-                <img src="img/num.png" title="">
-                <p>用户管理</p>
-            </a>
-
-            <a href="goods.html"  ms-click="router('healthId')"  id="healthId">
-                <img src="img/health.png" title="">
-                <p>商城管理</p>
-            </a>
-
-            <a href="video.html"  ms-click="router('attenId')"   id="attenId">
-                <img src="img/attentop.png" title="">
-                <p>讲堂管理</p>
-            </a>
-
-            <a href = “javascript:void(0);” class="baby_top_list" ms-click="router('reportId')"   id="reportId">
-                <img src="img/statement.png" title="">
-                <p>报表管理</p>
-            </a>
-        </div>
-
-        <!--右侧附加信息-->
-        <div class="baby_top_rig">
-            <div class="baby_top_rig_a">
-                <a class="baby_a_border">
-                    <img src="img/help.png" title="">
-                    <span>帮助</span>
-                </a>
-                <a class="baby_a_border">关于</a>
-                <a onclick="loginOut();">退出</a>
-            </div>
-
-            <div class="baby_top_rig_info">
-                <div class="baby_top_info_pad">
-                    <p class="baby_info_user">龙园长</p>
-                    |
-                    <strong><a id="example" style="color: #999;cursor:pointer" title="个人设置">个人设置 </a></strong>
-                    <!--<div class="baby_info_num">消息<span class="baby_info_num_bg"></span></div>-->
-                    <!--    <img src="img/select.png" class="baby_info_select"> -->
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!-- 个人设置 -->
-    <div id="LoginBox">
-        <form method="post" action="http://banxiaobao.com:8015/gbb/admin/addAdmin.do" id="fromtId">
-            <input id=" " name="id" type="hidden">
-            <input id="ROLEID" name="roleid" type="hidden">
-            <div class="row1">
-                修改账号基本信息<a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
-            </div>
-            <div class="row">
-                &nbsp;幼儿园: <span class="inputBox">
-	               <input type="text" id="schoolname" name="schoolname" disabled="disabled" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-            </div>
-            <div class="row">
-                类&nbsp;&nbsp;型: <span class="inputBox">
-	               <input type="text" id="rolename" name="rolename" disabled="disabled" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-            </div>
-            <div class="row">
-                姓&nbsp;&nbsp;名: <span class="inputBox">
-	               <input type="text" id="name" name="name" disabled="disabled" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-            </div>
-            <div class="row">
-                原始密码: <span class="inputBox">
-	               <input type="password" id="rawpassword" name="rawpassword" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-            </div>
-            <div class="row">
-                密&nbsp;&nbsp;码: <span class="inputBox">
-	               <input type="password" id="password" name="password" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-            </div>
-            <div class="row">
-                确认密码: <span class="inputBox">
-	               <input type="password" id="ispassword" name="ispassword" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-            </div>
-            <div class="row">
-                <a id="loginbtn">确认</a>
-            </div>
-        </form>
-    </div>
-    <div style="display: none">
-        <script src="z_stat.php" language="JavaScript"></script>
-        <script src="core.php" charset="utf-8" type="text/javascript"></script>
-        <a href="http://www.cnzz.com/stat/website.php?web_id=1259867588" target="_blank" title="站长统计">站长统计</a>
-    </div>
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.shove-1.0.js"></script>
     <script type="text/javascript" src="js/layer.min.js"></script>

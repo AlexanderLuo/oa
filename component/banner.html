@@ -1,4 +1,29 @@
 <!--logo-->
+<script>
+    avalon.ready(function(){
+      var vm= avalon.define({
+          $id:"bannerVm",
+          curPage:"",
+          router:function(){
+
+          },
+          init:function(){
+              var page=window.location.pathname;
+              if(page=='/oa/device.html'){vm.curPage="device"}
+              if(page=='/oa/admin.html'){vm.curPage="admin"}
+              if(page=='/oa/goods.html'){vm.curPage="goods"}
+              if(page=='/oa/video.html'){vm.curPage="video"}
+              if(page=='/oa/statement.html'){vm.curPage="statement"}
+          }
+        })
+        vm.init();
+
+    })
+
+</script>
+
+
+
 <div ms-important="bannerVm" class="baby_top">
     <div class="baby_top_logo">
         <a href="javascript:location.reload()">
@@ -12,27 +37,27 @@
 
     <!--导航-->
     <div class="baby_top_nav">
-        <a href="javascript:void(0);" class="baby_top_list" ms-click="router('deviceId')"  id="deviceId">
+        <a href="/oa/device.html" ms-class="baby_top_list:curPage=='device' "   >
             <img src="img/device.png" title="">
             <p>设备管理</p>
         </a>
 
-        <a href="javascript:void(0);"  ms-click="router('teachId')"  id="teachId">
+        <a href="/oa/admin.html"   ms-class="baby_top_list:curPage=='admin' "   >
             <img src="img/num.png" title="">
             <p>用户管理</p>
         </a>
 
-        <a href="javascript:void(0);"  ms-click="router('healthId')"  id="healthId">
+        <a href="/oa/goods.html"    ms-class="baby_top_list:curPage=='goods' "   >
             <img src="img/health.png" title="">
             <p>商城管理</p>
         </a>
 
-        <a href="javascript:void(0);"  ms-click="router('attenId')"   id="attenId">
+        <a href="/oa/video.html"   ms-class="baby_top_list:curPage=='video' "   >
             <img src="img/attentop.png" title="">
             <p>讲堂管理</p>
         </a>
 
-        <a href="javascript:void(0);"  ms-click="router('reportId')"   id="reportId">
+        <a href="/oa/statement.html"   ms-class="baby_top_list:curPage=='statement' "  >
             <img src="img/statement.png" title="">
             <p>报表管理</p>
         </a>
@@ -260,20 +285,3 @@
 
 
 
-
-<script>
-
-
-    avalon.ready(function(){
-        var vm=avalon.define({
-            $id:'bannerVm',
-            router:function(str){
-                console.log(str)
-            }
-
-
-        })
-    })
-
-
-</script>

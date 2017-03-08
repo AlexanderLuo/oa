@@ -11,6 +11,26 @@ $.ajaxSetup ({
 /*********************************************************************
  *                    全局变量 及方法                                 *
  **********************************************************************/
+
+//获取url地址栏参数
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null)return unescape(r[2]);
+    return null;
+}
+
+
+// 获取cookie
+function getCookie(name) {
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    if (arr = document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
+
 //星期列表
 var timeDay = {
     "0": "星期天",
@@ -21,6 +41,7 @@ var timeDay = {
     "5": "星期五",
     "6": "星期六"
 };
+
 
 
 
