@@ -117,12 +117,12 @@
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
             <div class="baby_conter_li" id="teachLeft_Id">
-                <a ms-class="baby_conter_school:switch = 'device" ms-click="switchData('device')"><img
+                <a ms-class="baby_conter_school:switch == 'device" ms-click="switchData('device')"><img
                         src="img/buttom.png">设备管理</a>
-                <a ms-class="baby_conter_school:switch = 'ring" ms-click="switchData('ring')"><img src="img/buttom.png">手环管理</a>
-                <a ms-class="baby_conter_school:switch = 'ruler" ms-click="switchData('ruler')"><img
+                <a ms-class="baby_conter_school:switch == 'ring" ms-click="switchData('ring')"><img src="img/buttom.png">手环管理</a>
+                <a ms-class="baby_conter_school:switch == 'ruler" ms-click="switchData('ruler')"><img
                         src="img/buttom.png">身高尺管理</a>
-                <a ms-class="baby_conter_school:switch = 'steelyard" ms-click="switchData('steelyard')"><img
+                <a ms-class="baby_conter_school:switch == 'steelyard" ms-click="switchData('steelyard')"><img
                         src="img/buttom.png">健康秤管理</a>
             </div>
             <div class="Copyright">
@@ -147,7 +147,7 @@
                 </table>
 
                 <!--设备组数据-->
-                <div class="baby_content_tab" ms-if="switch = 'device'">
+                <div class="baby_content_tab" ms-if="switch == 'device'">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>设备组名称</li>
@@ -170,7 +170,7 @@
                 </div>
 
                 <!--手环组数据-->
-                <div class="baby_content_tab" ms-if="switch = 'ring'">
+                <div class="baby_content_tab" ms-if="switch == 'ring'">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>手环编号</li>
@@ -192,7 +192,7 @@
                 </div>
 
                 <!--身高尺数据-->
-                <div class="baby_content_tab" ms-if="switch = 'ruler'">
+                <div class="baby_content_tab" ms-if="switch =='ruler'">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>身高尺编号</li>
@@ -202,7 +202,7 @@
                         <li>操作</li>
                     </ul>
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="list">
+                    <ul class="baby_content_tab_ul1 " ms-repeat=="list">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_1" name="checkbox"
                                                                 value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
                         <li></li>
@@ -214,7 +214,7 @@
                 </div>
 
                 <!--健康秤数据-->
-                <div class="baby_content_tab" ms-if="switch = 'steelyard'">
+                <div class="baby_content_tab" ms-if="switch =='steelyard'">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>健康秤编号</li>
