@@ -113,7 +113,7 @@
     <!--头部-->
     <div ms-include-src=" './component/banner.html'"></div>
 
-
+     <!--子导航栏-->
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
             <div class="baby_conter_li" id="teachLeft_Id">
@@ -130,6 +130,7 @@
             </div>
         </div>
 
+        <!--搜索框-->
         <div class="baby_conter_right">
             <form action="http://banxiaobao.com:8015/gbb/admin/teacherList.do" method="post" id="formId">
                 <input type="hidden" id="adminId" name="adminId">
@@ -146,6 +147,8 @@
                     </tbody>
                 </table>
 
+                <!--数据主体-->
+
                 <!--设备组数据-->
                 <div class="baby_content_tab" ms-if="switch == 'device'">
                     <ul class="baby_content_tab_menu">
@@ -160,7 +163,7 @@
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="list">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
-                                                                value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
+                                                                value="190 " onclick="checkBox(0,this);"></li>
                         <li></li>
                         <li></li>
                         <li></li>
@@ -182,7 +185,7 @@
                     <ul class="baby_content_tab_ul1 " ms-repeat="list">
                         <li class="baby_tab_checkbox_li">
                             <input type="checkbox" id="checkid_1" name="checkbox" value="190 "
-                                   onclick="checkBox(&#39;0&#39;,this);">
+                                   onclick="checkBox(1,this);">
                         </li>
                         <li></li>
                         <li></li>
@@ -203,8 +206,8 @@
                     </ul>
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat=="list">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_1" name="checkbox"
-                                                                value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
+                                                                value="190 " onclick="checkBox(2,this);"></li>
                         <li></li>
                         <li></li>
                         <li></li>
@@ -225,8 +228,8 @@
                     </ul>
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="list">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_1" name="checkbox"
-                                                                value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
+                                                                value="190 " onclick="checkBox(3,this);"></li>
                         <li></li>
                         <li></li>
                         <li></li>
@@ -266,6 +269,8 @@
         </div>
     </div>
 </div>
+
+
 <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.shove-1.0.js"></script>
 <script type="text/javascript" src="js/layer.min.js"></script>
@@ -273,6 +278,8 @@
 <script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
 <script type="text/javascript" src="js/iframeTools.js"></script>
 <script type="text/javascript" src="js/msg.js"></script>
+
+<!--query脚本-->
 <script type="text/javascript">
     function checkBoxAll(obj) {
         $("#adminId").val("");
