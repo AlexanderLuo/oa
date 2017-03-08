@@ -58,6 +58,7 @@
                     })
                 },
                 getRing:function(){
+                    vm.list=[];
                     $.ajax({
                         url:"http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceBraceletApi/getDeviceBraceletList",
                         type:'post',
@@ -67,6 +68,13 @@
                             page:1,
                             page_size:10,
                             last_req_time:vm.ringReq
+                        },
+                        success:function(data){
+                            var json = eval("(" + data + ")");// 解析json
+                            if(json.code==200){
+                                vm.lastReq=json.result.last_req_time;
+                                vm.list=json.result.list;
+                            }
                         }
 
                     })
@@ -141,7 +149,8 @@
                         <li>上次登录时间</li>
                         <li>操作</li>
                     </ul>
-                    <ul class="baby_content_tab_ul1 ">
+                    <!--数据-->
+                    <ul class="baby_content_tab_ul1 " ms-repeat="list">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
                                                                 value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
                         <li>zhang</li>
@@ -153,87 +162,6 @@
                         <li>2016-09-19 15:19:06</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
-                    <ul class="baby_content_tab_ul1 baby_content_tab_bg">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_1" name="checkbox"
-                                                                value="193 " onclick="checkBox(&#39;1&#39;,this);"></li>
-                        <li>刘总</li>
-                        <li></li>
-                        <li>13332660866</li>
-                        <li>
-                            园长助理
-                        </li>
-                        <li>2016-10-28 14:53:18</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="193">编辑</a></li>
-                    </ul>
-                    <ul class="baby_content_tab_ul1 ">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
-                                                                value="147 " onclick="checkBox(&#39;2&#39;,this);"></li>
-                        <li>蔡总</li>
-                        <li>内部班</li>
-                        <li>13823727161</li>
-                        <li>
-                            老师
-                        </li>
-                        <li>2016-08-30 14:36:04</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="147">编辑</a></li>
-                    </ul>
-                    <ul class="baby_content_tab_ul1 baby_content_tab_bg">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
-                                                                value="148 " onclick="checkBox(&#39;3&#39;,this);"></li>
-                        <li>聂总</li>
-                        <li>内部班</li>
-                        <li>13798285925</li>
-                        <li>
-                            老师
-                        </li>
-                        <li>2016-12-24 10:23:34</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="148">编辑</a></li>
-
-
-                    </ul>
-
-                    <ul class="baby_content_tab_ul1 ">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_4" name="checkbox"
-                                                                value="149 " onclick="checkBox(&#39;4&#39;,this);"></li>
-                        <li>周晶</li>
-                        <li>内部班</li>
-                        <li>18824397727</li>
-                        <li>
-
-
-                            班主任
-
-
-                        </li>
-                        <li>2017-02-13 10:22:14</li>
-
-
-                        <li><a class="edit" href="javascript: void(0)" eid="149">编辑</a></li>
-
-
-                    </ul>
-
-                    <ul class="baby_content_tab_ul1 baby_content_tab_bg">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_5" name="checkbox"
-                                                                value="178 " onclick="checkBox(&#39;5&#39;,this);"></li>
-                        <li>李恒</li>
-                        <li>中班</li>
-                        <li>18676727061</li>
-                        <li>
-
-
-                            班主任
-
-
-                        </li>
-                        <li>2017-02-14 14:01:23</li>
-
-
-                        <li><a class="edit" href="javascript: void(0)" eid="178">编辑</a></li>
-
-
-                    </ul>
-
                 </div>
             </form>
             <div class="baby_content_dt">
