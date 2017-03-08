@@ -23,78 +23,81 @@
     <script src="./js/lib/common.js"></script>
 
 
-
     <script>
-        avalon.ready(function(){
-            var vm=avalon.define({
-                $id:"deviceVm",
-                user:{},
-                degr_id:"",
-                list:[],
-                lastReq:0,
-                ringReq:0,
-                getDevice:function(){
+        avalon.ready(function () {
+            var vm = avalon.define({
+                $id: "deviceVm",
+                user: {},
+                degr_id: "",
+                list: [],
+                lastReq: 0,
+                ringReq: 0,
+                switch: "device",
+                getDevice: function () {
                     $.ajax({
-                        url:"http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceGroupApi/getDeviceGroupList",
-                        type:"post",
-                        data:{
-                            user_id:vm.user.user_id,
-                            tegr_id:vm.user.tegr_id,
-                            page:1,
-                            page_size:10,
-                            last_req_time:vm.lastReq
+                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceGroupApi/getDeviceGroupList",
+                        type: "post",
+                        data: {
+                            user_id: vm.user.user_id,
+                            tegr_id: vm.user.tegr_id,
+                            page: 1,
+                            page_size: 10,
+                            last_req_time: vm.lastReq
                         },
-                        success:function(data){
+                        success: function (data) {
                             var json = eval("(" + data + ")");// 解析json
-                            if(json.code==200){
-                                var tar=json.result.list.filter(function(el){
-                                    return el.user_id==vm.user.user_id;
+                            if (json.code == 200) {
+                                var tar = json.result.list.filter(function (el) {
+                                    return el.user_id == vm.user.user_id;
                                 })
-                                vm.lastReq=json.result.last_req_time;
-                                vm.degr_id=tar[0].degr_id;
+                                vm.lastReq = json.result.last_req_time;
+                                vm.degr_id = tar[0].degr_id;
                             }
 
                         }
                     })
                 },
-                getRing:function(){
-                    vm.list=[];
+                getRing: function () {
+                    vm.list = [];
                     $.ajax({
-                        url:"http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceBraceletApi/getDeviceBraceletList",
-                        type:'post',
-                        data:{
-                            user_id:vm.user.user_id,
-                            degr_id:vm.degr_id,
-                            page:1,
-                            page_size:10,
-                            last_req_time:vm.ringReq
+                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceBraceletApi/getDeviceBraceletList",
+                        type: 'post',
+                        data: {
+                            user_id: vm.user.user_id,
+                            degr_id: vm.degr_id,
+                            page: 1,
+                            page_size: 10,
+                            last_req_time: vm.ringReq
                         },
-                        success:function(data){
+                        success: function (data) {
                             var json = eval("(" + data + ")");// 解析json
-                            if(json.code==200){
-                                vm.lastReq=json.result.last_req_time;
-                                vm.list=json.result.list;
+                            if (json.code == 200) {
+                                vm.lastReq = json.result.last_req_time;
+                                vm.list = json.result.list;
                             }
                         }
 
                     })
                 },
-                router:function(str){
+                switchData: function (str) {
+                    str && (vm.switch = str);
+                },
+                router: function (str) {
                     console.log(str)
                 },
-                init:function(){
-                    var user=getLocalValue('user');
-                    if(user==null){
-                        console.log("失效")
-                    }
-                    vm.user=user;
-                    vm.getDevice();
+                init: function () {
+//                    var user = getLocalValue('user');
+//                    if (user == null) {
+//                        console.log("失效")
+//                    }
+//                    vm.user = user;
+//                    vm.getDevice();
                 }
             })
 
             vm.init();
             avalon.scan();
-            vm.$watch('degr_id', function(value, oldValue) {
+            vm.$watch('degr_id', function (value, oldValue) {
                 vm.getRing();
             })
 
@@ -108,16 +111,19 @@
 <div class="baby_content">
 
     <!--头部-->
-    <div ms-include-src=" './component/banner.html'" ></div>
+    <div ms-include-src=" './component/banner.html'"></div>
 
 
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
             <div class="baby_conter_li" id="teachLeft_Id">
-                <a href="javascript:void(0)" id="attendance" class="baby_conter_school"><img src="img/buttom.png">设备管理</a>
-                <a href="javascript:void(0)" id="teacher"  ms-click="switchData('ring')"><img src="img/buttom.png">手环管理</a>
-                <a href="javascript:void(0)" id="class"    ms-click="switchData('ruler')"><img src="img/buttom.png">身高尺管理</a>
-                <a href="javascript:void(0)" id="children" ms-click="switchData('steelyard')"><img src="img/buttom.png">健康秤管理</a>
+                <a ms-class="baby_conter_school:switch = 'device" ms-click="switchData('device')"><img
+                        src="img/buttom.png">设备管理</a>
+                <a ms-class="baby_conter_school:switch = 'ring" ms-click="switchData('ring')"><img src="img/buttom.png">手环管理</a>
+                <a ms-class="baby_conter_school:switch = 'ruler" ms-click="switchData('ruler')"><img
+                        src="img/buttom.png">身高尺管理</a>
+                <a ms-class="baby_conter_school:switch = 'steelyard" ms-click="switchData('steelyard')"><img
+                        src="img/buttom.png">健康秤管理</a>
             </div>
             <div class="Copyright">
                 <div class="p">Powered by glorymi<br>深圳市科格微电子有限公司</div>
@@ -139,30 +145,97 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="baby_content_tab">
+
+                <!--设备组数据-->
+                <div class="baby_content_tab" ms-if="switch = 'device'">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
-                        <li>姓名</li>
-                        <li>班级</li>
-                        <li>账号</li>
-                        <li>成员类型</li>
-                        <li>上次登录时间</li>
+                        <li>设备组名称</li>
+                        <li>设备组老师</li>
+                        <li>教师集团</li>
+                        <li>创建时间</li>
                         <li>操作</li>
                     </ul>
+
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="list">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
                                                                 value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
-                        <li>zhang</li>
                         <li></li>
-                        <li>13971227532</li>
-                        <li>
-                            园长助理
-                        </li>
-                        <li>2016-09-19 15:19:06</li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
+
+                <!--手环组数据-->
+                <div class="baby_content_tab" ms-if="switch = 'ring'">
+                    <ul class="baby_content_tab_menu">
+                        <li>选择</li>
+                        <li>手环编号</li>
+                        <li>手环mac地址</li>
+                        <li>设备组名称</li>
+                        <li>操作</li>
+                    </ul>
+                    <!--数据-->
+                    <ul class="baby_content_tab_ul1 " ms-repeat="list">
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox" id="checkid_1" name="checkbox" value="190 "
+                                   onclick="checkBox(&#39;0&#39;,this);">
+                        </li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                    </ul>
+                </div>
+
+                <!--身高尺数据-->
+                <div class="baby_content_tab" ms-if="switch = 'ruler'">
+                    <ul class="baby_content_tab_menu">
+                        <li>选择</li>
+                        <li>身高尺编号</li>
+                        <li>身高尺mac地址</li>
+                        <li>身高尺负责人</li>
+                        <li>负责人集团名称</li>
+                        <li>操作</li>
+                    </ul>
+                    <!--数据-->
+                    <ul class="baby_content_tab_ul1 " ms-repeat="list">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_1" name="checkbox"
+                                                                value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                    </ul>
+                </div>
+
+                <!--健康秤数据-->
+                <div class="baby_content_tab" ms-if="switch = 'steelyard'">
+                    <ul class="baby_content_tab_menu">
+                        <li>选择</li>
+                        <li>健康秤编号</li>
+                        <li>健康秤mac地址</li>
+                        <li>健康秤负责人</li>
+                        <li>负责人集团名称</li>
+                        <li>操作</li>
+                    </ul>
+                    <!--数据-->
+                    <ul class="baby_content_tab_ul1 " ms-repeat="list">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_1" name="checkbox"
+                                                                value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                    </ul>
+                </div>
+
+
             </form>
             <div class="baby_content_dt">
                 <div class="baby_content_dt-1">
