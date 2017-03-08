@@ -29,10 +29,18 @@
                 $id: "deviceVm",
                 user: {},
                 degr_id: "",
-                list: [],
+                list:[],
+                devicelist: [],
+                ringlist: [],
+                rulerlist: [],
+                steelyardlist: [],
                 lastReq: 0,
                 ringReq: 0,
+                rulerReq:0,
+                steelyardReq:0,
+
                 switch: "device",
+
                 getDevice: function () {
                     $.ajax({
                         url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceGroupApi/getDeviceGroupList",
@@ -52,13 +60,15 @@
                                 })
                                 vm.lastReq = json.result.last_req_time;
                                 vm.degr_id = tar[0].degr_id;
+                                vm.devicelist = json.result.list;
                             }
 
                         }
                     })
                 },
+
                 getRing: function () {
-                    vm.list = [];
+                    vm.ringlist = [];
                     $.ajax({
                         url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceBraceletApi/getDeviceBraceletList",
                         type: 'post',
@@ -73,12 +83,61 @@
                             var json = eval("(" + data + ")");// 解析json
                             if (json.code == 200) {
                                 vm.lastReq = json.result.last_req_time;
-                                vm.list = json.result.list;
+                                vm.ringlist = json.result.list;
                             }
                         }
 
                     })
                 },
+
+                getRuler: function () {
+                    vm.rulerlist = [];
+                    $.ajax({
+                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/rulerApi/getRulerList",
+                        type: 'post',
+                        data: {
+                            user_id: vm.user.user_id,
+                            degr_id: vm.degr_id,
+                            page: 1,
+                            page_size: 10,
+                            last_req_time: vm.ringReq
+                        },
+                        success: function (data) {
+                            var json = eval("(" + data + ")");// 解析json
+                            if (json.code == 200) {
+                                vm.lastReq = json.result.last_req_time;
+                                vm.rulerlist = json.result.list;
+                            }
+                        }
+
+                    })
+                },
+
+                getSteelyard: function () {
+                    vm.steelyardlist = [];
+                    $.ajax({
+                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/scalesApi/getScalesList",
+                        type: 'post',
+                        data: {
+                            user_id: vm.user.user_id,
+                            degr_id: vm.degr_id,
+                            page: 1,
+                            page_size: 10,
+                            last_req_time: vm.ringReq
+                        },
+                        success: function (data) {
+                            var json = eval("(" + data + ")");// 解析json
+                            console.log(json);
+                            if (json.code == 200) {
+                                vm.lastReq = json.result.last_req_time;
+                                vm.steelyardlist = json.result.list;
+                            }
+                        }
+
+                    })
+                },
+
+
                 switchData: function (str) {
                     str && (vm.switch = str);
                 },
@@ -86,12 +145,15 @@
                     console.log(str)
                 },
                 init: function () {
-//                    var user = getLocalValue('user');
-//                    if (user == null) {
-//                        console.log("失效")
-//                    }
-//                    vm.user = user;
-//                    vm.getDevice();
+                    var user = getLocalValue('user');
+                    if (user == null) {
+                        console.log("失效")
+                    }
+                    vm.user = user;
+                    vm.getDevice();
+                    vm.getRing();
+                    vm.getRuler();
+                    vm.getSteelyard();
                 }
             })
 
@@ -161,13 +223,13 @@
                     </ul>
 
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="list">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="devicelist">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
                                                                 value="190 " onclick="checkBox(0,this);"></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>{{el.degr_id}}</li>
+                        <li>{{el.degr_name}}</li>
+                        <li>el.tegr_name</li>
+                        <li>el.create_time</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
@@ -182,14 +244,14 @@
                         <li>操作</li>
                     </ul>
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="list">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="ringlist">
                         <li class="baby_tab_checkbox_li">
                             <input type="checkbox" id="checkid_1" name="checkbox" value="190 "
                                    onclick="checkBox(1,this);">
                         </li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>{{el.bracelet_no}}</li>
+                        <li>{{el.bracelet_address}}</li>
+                        <li>{{el.degr_name}}</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
@@ -205,13 +267,13 @@
                         <li>操作</li>
                     </ul>
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat=="list">
+                    <ul class="baby_content_tab_ul1 " ms-repeat=="rulerlist">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
                                                                 value="190 " onclick="checkBox(2,this);"></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>{{el.ruler_no}}</li>
+                        <li>{{el.ruler_addr}}</li>
+                        <li>{{el.name}}</li>
+                        <li>{{el.tegr_name}}</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
@@ -227,13 +289,13 @@
                         <li>操作</li>
                     </ul>
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="list">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="steelyardlist">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
                                                                 value="190 " onclick="checkBox(3,this);"></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>{{el.scales_id}}</li>
+                        <li>{{el.scales_addr}}</li>
+                        <li>{{el.name}}</li>
+                        <li>{{el.tegr_name}}</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
