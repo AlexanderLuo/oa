@@ -28,20 +28,20 @@
             var vm = avalon.define({
                 $id: "deviceVm",
                 user: {},
-                degr_id: "",
+                degr_id: "",   //设备组 id
+                tegr_id: 0,   //集团ID
                 list:[],
-                devicelist: [],
-                ringlist: [],
-                rulerlist: [],
-                steelyardlist: [],
+                deviceList: [],
+                ringList: [],
+                rulerList: [],
+                steelyardList: [],
                 lastReq: 0,
                 ringReq: 0,
+                curPage: "device",
                 rulerReq:0,
                 steelyardReq:0,
-
-                switch: "device",
-
                 getDevice: function () {
+                    vm.deviceList=[]
                     $.ajax({
                         url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceGroupApi/getDeviceGroupList",
                         type: "post",
@@ -60,7 +60,7 @@
                                 })
                                 vm.lastReq = json.result.last_req_time;
                                 vm.degr_id = tar[0].degr_id;
-                                vm.devicelist = json.result.list;
+                                vm.deviceList = json.result.list;
                             }
 
                         }
@@ -68,7 +68,7 @@
                 },
 
                 getRing: function () {
-                    vm.ringlist = [];
+                    vm.ringList = [];
                     $.ajax({
                         url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceBraceletApi/getDeviceBraceletList",
                         type: 'post',
@@ -83,7 +83,7 @@
                             var json = eval("(" + data + ")");// 解析json
                             if (json.code == 200) {
                                 vm.lastReq = json.result.last_req_time;
-                                vm.ringlist = json.result.list;
+                                vm.ringList = json.result.list;
                             }
                         }
 
@@ -91,13 +91,13 @@
                 },
 
                 getRuler: function () {
-                    vm.rulerlist = [];
+                    vm.rulerList = [];
                     $.ajax({
                         url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/rulerApi/getRulerList",
                         type: 'post',
                         data: {
                             user_id: vm.user.user_id,
-                            degr_id: vm.degr_id,
+                            tegr_id: vm.tegr_id,
                             page: 1,
                             page_size: 10,
                             last_req_time: vm.ringReq
@@ -106,7 +106,7 @@
                             var json = eval("(" + data + ")");// 解析json
                             if (json.code == 200) {
                                 vm.lastReq = json.result.last_req_time;
-                                vm.rulerlist = json.result.list;
+                                vm.rulerList = json.result.list;
                             }
                         }
 
@@ -114,13 +114,13 @@
                 },
 
                 getSteelyard: function () {
-                    vm.steelyardlist = [];
+                    vm.steelyardList = [];
                     $.ajax({
                         url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/scalesApi/getScalesList",
                         type: 'post',
                         data: {
                             user_id: vm.user.user_id,
-                            degr_id: vm.degr_id,
+                            tegr_id: vm.tegr_id,
                             page: 1,
                             page_size: 10,
                             last_req_time: vm.ringReq
@@ -130,38 +130,48 @@
                             console.log(json);
                             if (json.code == 200) {
                                 vm.lastReq = json.result.last_req_time;
-                                vm.steelyardlist = json.result.list;
+                                vm.steelyardList = json.result.list;
                             }
                         }
 
                     })
                 },
-
-
-                switchData: function (str) {
-                    str && (vm.switch = str);
-                },
                 router: function (str) {
-                    console.log(str)
+                    vm.curPage=str;
                 },
                 init: function () {
                     var user = getLocalValue('user');
                     if (user == null) {
                         console.log("失效")
+
                     }
                     vm.user = user;
                     vm.getDevice();
-                    vm.getRing();
-                    vm.getRuler();
-                    vm.getSteelyard();
                 }
             })
 
             vm.init();
-            avalon.scan();
+            avalon.scan()
+
             vm.$watch('degr_id', function (value, oldValue) {
                 vm.getRing();
             })
+            vm.$watch('curPage',function(value){
+               if(value=="device"){
+                   vm.getDevice();
+               }
+                if(value=="ring"){
+                    vm.getRing();
+                }
+                if(value=="ruler"){
+                    vm.getRuler();
+                }
+                if(value=='steelyard'){
+                    vm.getSteelyard();
+                }
+
+            })
+
 
         })
     </script>
@@ -179,13 +189,10 @@
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
             <div class="baby_conter_li" id="teachLeft_Id">
-                <a ms-class="baby_conter_school:switch == 'device" ms-click="switchData('device')"><img
-                        src="img/buttom.png">设备管理</a>
-                <a ms-class="baby_conter_school:switch == 'ring" ms-click="switchData('ring')"><img src="img/buttom.png">手环管理</a>
-                <a ms-class="baby_conter_school:switch == 'ruler" ms-click="switchData('ruler')"><img
-                        src="img/buttom.png">身高尺管理</a>
-                <a ms-class="baby_conter_school:switch == 'steelyard" ms-click="switchData('steelyard')"><img
-                        src="img/buttom.png">健康秤管理</a>
+                <a ms-class="baby_conter_school:curPage == 'device' "  ms-click="router('device')"><img src="img/buttom.png">设备管理</a>
+                <a ms-class="baby_conter_school:curPage == 'ring'   "      ms-click="router('ring')"><img src="img/buttom.png">手环管理</a>
+                <a ms-class="baby_conter_school:curPage == 'ruler'  "     ms-click="router('ruler')"><img src="img/buttom.png">身高尺管理</a>
+                <a ms-class="baby_conter_school:curPage == 'steelyard' " ms-click="router('steelyard')"><img src="img/buttom.png">健康秤管理</a>
             </div>
             <div class="Copyright">
                 <div class="p">Powered by glorymi<br>深圳市科格微电子有限公司</div>
@@ -212,7 +219,7 @@
                 <!--数据主体-->
 
                 <!--设备组数据-->
-                <div class="baby_content_tab" ms-if="switch == 'device'">
+                <div class="baby_content_tab" ms-if="curPage == 'device' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>设备组名称</li>
@@ -223,19 +230,18 @@
                     </ul>
 
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="devicelist">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="deviceList">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
                                                                 value="190 " onclick="checkBox(0,this);"></li>
                         <li>{{el.degr_id}}</li>
                         <li>{{el.degr_name}}</li>
-                        <li>el.tegr_name</li>
-                        <li>el.create_time</li>
+                        <li>{{el.tegr_name}}</li>
+                        <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
-
-                <!--手环组数据-->
-                <div class="baby_content_tab" ms-if="switch == 'ring'">
+            <!--    &lt;!&ndash;手环组数据-->
+                <div class="baby_content_tab" ms-if="curPage == 'ring' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>手环编号</li>
@@ -244,7 +250,7 @@
                         <li>操作</li>
                     </ul>
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="ringlist">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="ringList">
                         <li class="baby_tab_checkbox_li">
                             <input type="checkbox" id="checkid_1" name="checkbox" value="190 "
                                    onclick="checkBox(1,this);">
@@ -256,8 +262,10 @@
                     </ul>
                 </div>
 
-                <!--身高尺数据-->
-                <div class="baby_content_tab" ms-if="switch =='ruler'">
+
+
+                <!--&lt;!&ndash;身高尺数据&ndash;&gt;-->
+                <div class="baby_content_tab" ms-if="curPage =='ruler'">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>身高尺编号</li>
@@ -266,8 +274,8 @@
                         <li>负责人集团名称</li>
                         <li>操作</li>
                     </ul>
-                    <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat=="rulerlist">
+                    <!--&lt;!&ndash;数据&ndash;&gt;-->
+                    <ul class="baby_content_tab_ul1 " ms-repeat="rulerList">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
                                                                 value="190 " onclick="checkBox(2,this);"></li>
                         <li>{{el.ruler_no}}</li>
@@ -278,8 +286,10 @@
                     </ul>
                 </div>
 
-                <!--健康秤数据-->
-                <div class="baby_content_tab" ms-if="switch =='steelyard'">
+
+
+                <!--&lt;!&ndash;健康秤数据&ndash;&gt;-->
+                <div class="baby_content_tab" ms-if="curPage =='steelyard'">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>健康秤编号</li>
@@ -288,8 +298,8 @@
                         <li>负责人集团名称</li>
                         <li>操作</li>
                     </ul>
-                    <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="steelyardlist">
+                    <!--&lt;!&ndash;数据&ndash;&gt;-->
+                    <ul class="baby_content_tab_ul1 " ms-repeat="steelyardList">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
                                                                 value="190 " onclick="checkBox(3,this);"></li>
                         <li>{{el.scales_id}}</li>
@@ -298,7 +308,7 @@
                         <li>{{el.tegr_name}}</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
-                </div>
+                </div>-->
 
 
             </form>
@@ -311,7 +321,6 @@
                 </div>
 
 
-                <!--<base href="http://banxiaobao.com:8015/gbb/">-->
                 <base href=".">
                 <title>网关列表</title>
                 <link rel="stylesheet" href="css/style.css" type="text/css">
