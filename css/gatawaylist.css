@@ -123,10 +123,11 @@
 .baby_content_tab_ul1  .baby_tab_checkbox_li{
 	height: 27px;
 	line-height:27px;
+
 }
-/* .baby_tab_bor{
-    border-right: 1px dashed #c8c8c8;
-} */
+/*.baby_tab_bor{*/
+    /*border-right: 1px dashed #c8c8c8;*/
+/*}*/
 .baby_tab_bor_act{
     color: #e27f21;
 }

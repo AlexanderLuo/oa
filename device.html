@@ -195,26 +195,27 @@
                 <a ms-class="baby_conter_school:curPage == 'steelyard' " ms-click="router('steelyard')"><img src="img/buttom.png">健康秤管理</a>
             </div>
             <div class="Copyright">
-                <div class="p">Powered by glorymi<br>深圳市科格微电子有限公司</div>
+                <div class="p">Powered by glorymi<br>深圳市伴小宝科技有限公司</div>
             </div>
         </div>
 
-        <!--搜索框-->
+
         <div class="baby_conter_right">
             <form action="http://banxiaobao.com:8015/gbb/admin/teacherList.do" method="post" id="formId">
                 <input type="hidden" id="adminId" name="adminId">
                 <input value="1" type="hidden" id="pageNum" name="pageNum">
-                <table class="tb-type1 noborder search">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <input placeholder="姓名" name="searchName" id="searchName">
-                        </td>
-                        <td><a href="javascript:;" id="search" class="btn-search " title="查询" onclick="chickSubmit();">
-                            &nbsp;</a></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <!--搜索框-->
+                <!--<table class="tb-type1 noborder search">-->
+                    <!--<tbody>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<input placeholder="姓名" name="searchName" id="searchName">-->
+                        <!--</td>-->
+                        <!--<td><a href="javascript:;" id="search" class="btn-search " title="查询" onclick="chickSubmit();">-->
+                            <!--&nbsp;</a></td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
 
                 <!--数据主体-->
 
@@ -230,7 +231,7 @@
                     </ul>
 
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="deviceList">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="deviceList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
                                                                 value="190 " onclick="checkBox(0,this);"></li>
                         <li>{{el.degr_id}}</li>
@@ -250,7 +251,7 @@
                         <li>操作</li>
                     </ul>
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="ringList">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="ringList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li">
                             <input type="checkbox" id="checkid_1" name="checkbox" value="190 "
                                    onclick="checkBox(1,this);">
@@ -275,7 +276,7 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="rulerList">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="rulerList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
                                                                 value="190 " onclick="checkBox(2,this);"></li>
                         <li>{{el.ruler_no}}</li>
@@ -289,7 +290,7 @@
 
 
                 <!--&lt;!&ndash;健康秤数据&ndash;&gt;-->
-                <div class="baby_content_tab" ms-if="curPage =='steelyard'">
+                <div class="baby_content_tab" ms-if="curPage =='steelyard'" >
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>健康秤编号</li>
@@ -299,16 +300,16 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="steelyardList">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="steelyardList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
                                                                 value="190 " onclick="checkBox(3,this);"></li>
-                        <li>{{el.scales_id}}</li>
+                        <li>{{el.scales_no}}</li>
                         <li>{{el.scales_addr}}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.tegr_name}}</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
-                </div>-->
+                </div>
 
 
             </form>
