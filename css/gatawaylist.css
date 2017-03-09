@@ -216,7 +216,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.2);
-    display: none;
+    display: block;
 }
 
 .user-main {
@@ -224,11 +224,11 @@
     position: fixed;left: 50%; top: 15%;
     background: white;
     margin-left: -250px;
-    border: 1px solid #000000;
+    border: 1px solid #ddd;
 }
 
 .user-edit .table_1 {
-    margin-top: 30px;
+    margin-top: 20px;
     width: 100%;
     border-bottom: none;
 }
@@ -241,9 +241,10 @@
 
 
 .user-edit input[type="text"] {
-    height: 100%;
+    /*height: 100%;*/
+    border: 1px solid #ddd;
+    height: 60%;
     width: 80%;
-    border-radius: 4px; ;
 }
 
 .user-edit td {
@@ -262,15 +263,26 @@
 }
 
 .user-edit .user-btn {
-    background: #f2f2f2;
-    border-top: 1px solid #ddd;
+    /*background: #f2f2f2;*/
+    /*border-top: 1px solid #ddd;*/
     padding: 10px;
     margin-top: 20px;
     text-align: center;
 }
 
+.user-title{
+    background: #d36200;
+    border-top: 1px solid #ddd;
+    height: 40px;
+    text-align: left;
+}
+.user-title h3{
+    padding-left: 10px;
+    line-height: 40px;
+}
+
 input.oper {
-    background: #F78B54;
+    background: #d36200;
     height: 28px;
     padding: 0 20px;
     margin: 0 10px 0 0;
