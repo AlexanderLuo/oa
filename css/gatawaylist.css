@@ -26,7 +26,14 @@
 .baby_info_select{
     margin-left: 60px;
 }
-
+.select{
+    width: 100%;
+    height: 30px;
+}
+.select select{
+    width: 100px;
+    height: 20px;
+}
 
 .baby_conter_li{
  /*    border-right:1px solid #ebb684;  */
@@ -105,6 +112,7 @@
     border-bottom: 1px solid #ebb684;
 }
 .baby_content_tab_menu li{
+    width: 20px;
     font-size: 14px;
     font-weight: bold;
 }

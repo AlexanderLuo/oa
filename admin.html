@@ -227,7 +227,7 @@
             vm.$watch('curPage',function(value){
                 if(value=="admin"){vm.getAdmin();}
                 if(value=="teger"){vm.getTeger();}
-                if(value=="teacher"){vm.getTeacher();}
+                if(value=="teacher"){vm.getTeger();vm.getTeacher();}
                 if(value=="school"){vm.getSchool();}
                 if(value=='class'){vm.getClass();}
                 if(value=='parent'){vm.getParent();}
@@ -251,8 +251,9 @@
     <!--头部-->
     <div ms-include-src=" './component/banner.html'"></div>
 
-    <!--子导航栏-->
+
     <div class="baby_conter_cd">
+        <!--子导航栏-->
         <div class="baby_conter_left">
             <div class="baby_conter_li" id="teachLeft_Id">
                 <a ms-class="baby_conter_school:curPage == 'admin' "    ms-click="router('admin')"  ms-if="weight==3 "><img src="img/buttom.png">管理员管理</a>
@@ -274,11 +275,42 @@
             <form action="http://banxiaobao.com:8015/gbb/admin/teacherList.do" method="post" id="formId">
                 <input type="hidden" id="adminId" name="adminId">
                 <input value="1" type="hidden" id="pageNum" name="pageNum">
+
+                <!--集团选择框-->
+                <div class="select" ms-if="curPage=='teacher'|| curPage =='school'">
+                    <span>集团：&nbsp;</span>
+                    <select name="" id="" ms-duplex="teger_id">
+                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                    </select>
+                </div>
+                <!--选择框-->
+                <div class="select" ms-if="curPage =='class'||curPage=='parent'">
+                    <span>集团：&nbsp;</span>
+                    <select name=""  ms-duplex="teger_id">
+                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                    </select>
+                    <span>学校：&nbsp;</span>
+                    <select name=""  ms-duplex="school_id">
+                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
+                    </select>
+                </div>
+                <!--选择框-->
+                <div class="select" ms-if="curPage=='student'">
+                    <span>学校：&nbsp;</span>
+                    <select name=""  ms-duplex="school_id">
+                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
+                    </select>
+                    <span>班级：&nbsp;</span>
+                    <select name=""  ms-duplex="class_id">
+                        <option ms-attr-value="{{el.class_id}}" ms-repeat="classlList">{{el.class_name}}</option>
+                    </select>
+                </div>
+
                 <!--数据主体-->
 
                 <!--管理员数据-->
                 <div class="baby_content_tab"  ms-if=" curPage == 'admin'   " >
-                    <ul class="baby_content_tab_men u">
+                    <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>姓名</li>
                         <li>角色</li>
@@ -296,7 +328,6 @@
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
-
                 <!--    &lt;!&ndash;集团数据-->
                 <div class="baby_content_tab" ms-if="curPage == 'teger'  && weight==3 ">
                     <ul class="baby_content_tab_menu">
@@ -321,7 +352,6 @@
                     </ul>
                 </div>
 
-
                 <!--&lt;!&ndash;教师管理数据&ndash;&gt;-->
                 <div class="baby_content_tab" ms-if="curPage =='teacher'   && weight>=2 ">
                     <ul class="baby_content_tab_menu">
@@ -335,7 +365,7 @@
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="teacherList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
-                                                                value="190 " onclick="checkBox(2,this);"></li>
+                                                                value="" onclick="checkBox(2,this);"></li>
                         <li>{{el.tegr_id}}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.role_type}}</li>
@@ -356,7 +386,7 @@
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="schoolList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
+                        <li class="baby_tab_checkbox_li"><input type="checkbox"  name="checkbox"
                                                                 value="190 " onclick="checkBox(3,this);"></li>
                         <li>{{el.tegr_name}}</li>
                         <li>{{el.school_name}}</li>
@@ -377,7 +407,7 @@
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="classList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
+                        <li class="baby_tab_checkbox_li"><input type="checkbox"  name="checkbox"
                                                                 value="190 " onclick="checkBox(3,this);"></li>
                         <li>{{el.school_name}}</li>
                         <li>{{el.class_name}}</li>
@@ -400,7 +430,7 @@
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="parentList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
+                        <li class="baby_tab_checkbox_li"><input type="checkbox"  name="checkbox"
                                                                 value="190 " onclick="checkBox(3,this);"></li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.class_name}}</li>
@@ -411,8 +441,9 @@
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
-                <!--&lt;!&ndash;班级管理数据&ndash;&gt;-->
+                <!--&lt;!&ndash;学生管理数据&ndash;&gt;-->
                 <div class="baby_content_tab" ms-if="curPage =='student'" >
+
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>班级</li>
