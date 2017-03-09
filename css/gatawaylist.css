@@ -225,6 +225,7 @@
     background: white;
     margin-left: -250px;
     border: 1px solid #ddd;
+    border-radius: 10px;
 }
 
 .user-edit .table_1 {
@@ -237,6 +238,9 @@
     height: 50px;
     font-size: 16px;
     text-align: center;
+}
+.user-edit .table_1 th {
+    text-align: right;
 }
 
 
@@ -275,6 +279,7 @@
     border-top: 1px solid #ddd;
     height: 40px;
     text-align: left;
+    border-radius: 10px 10px 0 0;
 }
 .user-title h3{
     padding-left: 10px;
@@ -287,7 +292,7 @@ input.oper {
     padding: 0 20px;
     margin: 0 10px 0 0;
     color: #fff;
-    border: none;
+    border-radius: 6px;;
 }
 
 input.oper:hover {
