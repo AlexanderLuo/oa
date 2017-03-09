@@ -40,7 +40,8 @@
                 steelyardList: [],
                 lastReq: 0,
                 ringReq: 0,
-                curPage: "device",
+                weight:1,
+                curPage: "",
                 rulerReq:0,
                 steelyardReq:0,
                 getDevice: function () {
@@ -145,16 +146,22 @@
                 init: function () {
                     var user = getLocalValue('user');
                     if (user == null) {
-                        console.log("失效")
-
+                        location.href="/oa/login.html";
                     }
                     vm.user = user;
-                    vm.getDevice();
+                    var ty=user.role_type;
+                    if(ty=="8"){
+                        vm.weight=2
+                    }
+                    else if(ty=="16" || ty=="32"){
+                        vm.weight=3
+                    }else{
+                        vm.weight=1
+                    }
+                    vm.router("device")
                 }
             })
 
-            vm.init();
-            avalon.scan()
 
             vm.$watch('degr_id', function (value, oldValue) {
                 vm.getRing();
@@ -172,9 +179,11 @@
                 if(value=='steelyard'){
                     vm.getSteelyard();
                 }
-
             })
 
+
+            avalon.scan()
+            vm.init();
 
         })
     </script>
@@ -207,20 +216,7 @@
             <form action="http://banxiaobao.com:8015/gbb/admin/teacherList.do" method="post" id="formId">
                 <input type="hidden" id="adminId" name="adminId">
                 <input value="1" type="hidden" id="pageNum" name="pageNum">
-                <!--搜索框-->
-                <!--<table class="tb-type1 noborder search">-->
-                    <!--<tbody>-->
-                    <!--<tr>-->
-                        <!--<td>-->
-                            <!--<input placeholder="姓名" name="searchName" id="searchName">-->
-                        <!--</td>-->
-                        <!--<td><a href="javascript:;" id="search" class="btn-search " title="查询" onclick="chickSubmit();">-->
-                            <!--&nbsp;</a></td>-->
-                    <!--</tr>-->
-                    <!--</tbody>-->
-                <!--</table>-->
 
-                <!--数据主体-->
 
                 <!--设备组数据-->
                 <div class="baby_content_tab" ms-if="curPage == 'device' ">
@@ -241,9 +237,11 @@
                         <li>{{el.degr_name}}</li>
                         <li>{{el.tegr_name}}</li>
                         <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li ><a class="edit" href="javascript: void(0)" eid="190" ms-if="weight>=2">编辑</a></li>
                     </ul>
                 </div>
+
+
             <!--    &lt;!&ndash;手环组数据-->
                 <div class="baby_content_tab" ms-if="curPage == 'ring' ">
                     <ul class="baby_content_tab_menu">
@@ -262,7 +260,7 @@
                         <li>{{el.bracelet_no}}</li>
                         <li>{{el.bracelet_address}}</li>
                         <li>{{el.degr_name}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li><a class="edit" href="javascript: void(0)" eid="190" >编辑</a></li>
                     </ul>
                 </div>
 
@@ -286,7 +284,7 @@
                         <li>{{el.ruler_addr}}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.tegr_name}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li><a class="edit" href="javascript: void(0)" eid="190" ms-if="weight>=2">编辑</a></li>
                     </ul>
                 </div>
 
@@ -310,7 +308,7 @@
                         <li>{{el.scales_addr}}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.tegr_name}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li><a class="edit" href="javascript: void(0)" eid="190" ms-if="weight>=2">编辑</a></li>
                     </ul>
                 </div>
 

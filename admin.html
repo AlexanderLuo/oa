@@ -34,6 +34,7 @@
                 tegr_id: 0,   //集团ID
                 school_id:0,//学校ID
                 list:[],
+                weight:1,
                 adminList: [],
                 tegerList: [],
                 teacherList: [],
@@ -43,7 +44,7 @@
                 studentList: [],
                 lastReq: 0,
                 tegerReq: 0,
-                curPage: "admin",
+                curPage: " ",
                 teacherReq:0,
                 schoolReq:0,
                 classReq:0,
@@ -56,27 +57,16 @@
                         type: "post",
                         data: {
                             user_id: vm.user.user_id,
-//                            tegr_id: vm.user.tegr_id,
-//                            page: 1,
-//                            page_size: 10,
-//                            last_req_time: vm.lastReq
                         },
                         success: function (data) {
                             var json = eval("(" + data + ")");// 解析json
                             console.log(json);
                             if (json.code == 200) {
-//                                var tar = json.result.list.filter(function (el) {
-//                                    return el.user_id == vm.user.user_id;
-//                                })
-                                vm.lastReq = json.result.last_req_time;
-                                vm.tegr_id = tar[0].tegr_id;
-                                vm.adminList = json.result.list;
+                                vm.adminList = json.returnObject;
                             }
-
                         }
                     })
                 },
-
                 getTeger: function () {
                     vm.tegerList = [];
                     $.ajax({
@@ -88,8 +78,7 @@
                         success: function (data) {
                             var json = eval("(" + data + ")");// 解析json
                             if (json.code == 200) {
-                                vm.lastReq = json.result.last_req_time;
-                                vm.tegerList = json.result.list;
+                                vm.tegerList = json.result;
                             }
                         }
 
@@ -102,7 +91,7 @@
                         type: 'post',
                         data: {
                             user_id: vm.user.user_id,
-                            tegr_id: vm.tegr_id,
+                            tegr_id: vm.user.tegr_id,
                             page: 1,
                             page_size: 10,
                             last_req_time: vm.teacherReq
@@ -139,7 +128,6 @@
 
                     })
                 },
-
                 getClass: function () {
                     vm.classList = [];
                     $.ajax({
@@ -206,7 +194,6 @@
                                 vm.studentList = json.result.list;
                             }
                         }
-
                     })
                 },
                 router: function (str) {
@@ -215,44 +202,41 @@
                 init: function () {
                     var user = getLocalValue('user');
                     if (user == null) {
-                        console.log("失效")
-
+                        location.href="/oa/login.html";
                     }
                     vm.user = user;
-                    vm.getAdmin();
+                    var ty=user.role_type;
+                    if(ty=="8"){
+                        vm.weight=2
+                        vm.router('teacher')
+                    }
+                    else if(ty=="16" || ty=="32"){
+                        vm.weight=3
+                        vm.router('admin')
+                    }else{
+                        vm.weight=1
+                        vm.router('school')
+                    }
                 }
             })
 
-            vm.init();
-            avalon.scan()
 
             vm.$watch('tegr_id', function (value, oldValue) {
                 vm.getTeger();
             })
             vm.$watch('curPage',function(value){
-                if(value=="admin"){
-                    vm.getAdmin();
-                }
-                if(value=="teger"){
-                    vm.getTeger();
-                }
-                if(value=="teacher"){
-                    vm.getTeacher();
-                }
-                if(value=="school"){
-                    vm.getSchool();
-                }
-                if(value=='class'){
-                    vm.getClass();
-                }
-                if(value=='parent'){
-                    vm.getParent();
-                }
-                if(value=='student'){
-                    vm.getStudent();
-                }
-
+                if(value=="admin"){vm.getAdmin();}
+                if(value=="teger"){vm.getTeger();}
+                if(value=="teacher"){vm.getTeacher();}
+                if(value=="school"){vm.getSchool();}
+                if(value=='class'){vm.getClass();}
+                if(value=='parent'){vm.getParent();}
+                if(value=='student'){vm.getStudent();}
             })
+
+            avalon.scan()
+            vm.init();
+
 
 
         })
@@ -271,10 +255,10 @@
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
             <div class="baby_conter_li" id="teachLeft_Id">
-                <a ms-class="baby_conter_school:curPage == 'admin' "    ms-click="router('admin')"><img src="img/buttom.png">管理员管理</a>
-                <a ms-class="baby_conter_school:curPage == 'teger' "    ms-click="router('teger')"><img src="img/buttom.png">集团管理</a>
-                <a ms-class="baby_conter_school:curPage == 'teacher' "  ms-click="router('teacher')"><img src="img/buttom.png">教师管理</a>
-                <a ms-class="baby_conter_school:curPage == 'school' "   ms-click="router('school')"><img src="img/buttom.png">学校管理</a>
+                <a ms-class="baby_conter_school:curPage == 'admin' "    ms-click="router('admin')"  ms-if="weight==3 "><img src="img/buttom.png">管理员管理</a>
+                <a ms-class="baby_conter_school:curPage == 'teger' "    ms-click="router('teger')" ms-if="weight==3 " ><img src="img/buttom.png">集团管理</a>
+                <a ms-class="baby_conter_school:curPage == 'teacher' "  ms-click="router('teacher')" ms-if="weight>=2 "><img src="img/buttom.png">教师管理</a>
+                <a ms-class="baby_conter_school:curPage == 'school' "   ms-click="router('school')" ><img src="img/buttom.png">学校管理</a>
                 <a ms-class="baby_conter_school:curPage == 'class' "    ms-click="router('class')"><img src="img/buttom.png">班级管理</a>
                 <a ms-class="baby_conter_school:curPage == 'parent' "   ms-click="router('parent')"><img src="img/buttom.png">家长管理</a>
                 <a ms-class="baby_conter_school:curPage == 'student' "  ms-click="router('student')"><img src="img/buttom.png">学生管理</a>
@@ -293,8 +277,8 @@
                 <!--数据主体-->
 
                 <!--管理员数据-->
-                <div class="baby_content_tab" ms-if="curPage == 'admin' ">
-                    <ul class="baby_content_tab_menu">
+                <div class="baby_content_tab"  ms-if=" curPage == 'admin'   " >
+                    <ul class="baby_content_tab_men u">
                         <li>选择</li>
                         <li>姓名</li>
                         <li>角色</li>
@@ -312,8 +296,9 @@
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
+
                 <!--    &lt;!&ndash;集团数据-->
-                <div class="baby_content_tab" ms-if="curPage == 'teger' ">
+                <div class="baby_content_tab" ms-if="curPage == 'teger'  && weight==3 ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>集团名称</li>
@@ -335,8 +320,10 @@
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
+
+
                 <!--&lt;!&ndash;教师管理数据&ndash;&gt;-->
-                <div class="baby_content_tab" ms-if="curPage =='teacher'">
+                <div class="baby_content_tab" ms-if="curPage =='teacher'   && weight>=2 ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>集团名称</li>
@@ -356,8 +343,9 @@
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
+
                 <!--&lt;!&ndash;学校管理数据&ndash;&gt;-->
-                <div class="baby_content_tab" ms-if="curPage =='school'" >
+                <div class="baby_content_tab" ms-if="curPage =='school' " >
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>集团名称</li>
@@ -510,10 +498,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 
 </body>
 
