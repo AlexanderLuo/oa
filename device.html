@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <base href=".">
+    <title>幼儿安全健康管理</title>
     <link rel="Shortcut Icon" href="http://banxiaobao.com:8015/gbb/img/logotitle.png">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/left.css" type="text/css">
@@ -242,7 +242,7 @@
                 </div>
 
 
-            <!--    &lt;!&ndash;手环组数据-->
+                <!--手环组数据-->
                 <div class="baby_content_tab" ms-if="curPage == 'ring' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
@@ -266,7 +266,7 @@
 
 
 
-                <!--&lt;!&ndash;身高尺数据&ndash;&gt;-->
+                <!--身高尺数据-->
                 <div class="baby_content_tab" ms-if="curPage =='ruler'">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
@@ -276,7 +276,7 @@
                         <li>负责人集团名称</li>
                         <li>操作</li>
                     </ul>
-                    <!--&lt;!&ndash;数据&ndash;&gt;-->
+                    <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="rulerList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
                                                                 value="190 " onclick="checkBox(2,this);"></li>
@@ -290,7 +290,7 @@
 
 
 
-                <!--&lt;!&ndash;健康秤数据&ndash;&gt;-->
+                <!--健康秤数据-->
                 <div class="baby_content_tab" ms-if="curPage =='steelyard'" >
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
@@ -300,7 +300,7 @@
                         <li>负责人集团名称</li>
                         <li>操作</li>
                     </ul>
-                    <!--&lt;!&ndash;数据&ndash;&gt;-->
+                    <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="steelyardList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
                                                                 value="190 " onclick="checkBox(3,this);"></li>
@@ -358,19 +358,6 @@
 
 
 
-                <base href=".">
-                <title>网关列表</title>
-                <link rel="stylesheet" href="css/style.css" type="text/css">
-                <link rel="stylesheet" href="css/left.css" type="text/css">
-                <link rel="stylesheet" href="css/gatawaylist.css" type="text/css">
-                <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-                <script type="text/javascript">
-                    function goToPage(pagenum) {
-                        $("#pageNum").val(pagenum);
-                        $("#formId").submit();
-                    }
-
-                </script>
 
 
             </div>
