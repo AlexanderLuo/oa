@@ -3,7 +3,7 @@
   "login": "http://uww-dev.thinkjoy.com.cn/v2/oauth/token?client_id=demo&client_secret=demo",
   "baseUrl":"http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/",
 
-  "addDevice":"",
+  "addDevice":"deviceGroupApi/addDeviceGroup",
   "delDevice":"",
   "revDevice":"",
   "queryDevice":"deviceGroupApi/getDeviceGroupList",
@@ -23,3 +23,4 @@
   "revSteelyard":"",
   "querySteelyard":"scalesApi/getScalesList"
 }
+
