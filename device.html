@@ -43,10 +43,6 @@
                 degr_id: "",   //当前用户设备组
                 dataList:[],
                 lastReq: 0,
-                deviceReq:0,
-                ringReq: 0,
-                rulerReq:0,
-                steelyardReq:0,
                 weight:1,  //权限
                 curPage: "",  //当前路由
                 checkAllFlag:false,  //全选标志
@@ -301,6 +297,23 @@
 
         <div class="baby_conter_right">
             <form>
+
+                <!--设备组选择框-->
+                <div class="select" ms-if="curPage=='ring'">
+                    <span>设备组：&nbsp;</span>
+                    <select name=""  ms-duplex="deger_id">
+                        <option ms-attr-value="{{el.deger_id}}" ms-repeat="dataList">{{el.tegr_name}}</option>
+                    </select>
+                </div>
+
+                <!--集团选择框-->
+                <div class="select" ms-if="curPage=='ruler'|| curPage =='steelyard'">
+                    <span>集团：&nbsp;</span>
+                    <select name="" id="" ms-duplex="teger_id">
+                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                    </select>
+                </div>
+
                 <!--设备组数据-->
                 <div class="baby_content_tab"     style="display: none"  ms-class="show:curPage == 'device'"  ms-if="curPage == 'device' ">
                     <ul class="baby_content_tab_menu">
@@ -396,11 +409,6 @@
                     <span class="baby_content_del" ms-click="open('del')">批量删除</span>
                     <span class="baby_content_del edit" ms-click="open('add')">添加</span>
                 </div>
-
-
-
-
-
                 <!--弹窗-->
                     <div class="shade"   ms-class="block:pop">
                             <div class="user-edit">
