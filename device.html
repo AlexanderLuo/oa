@@ -24,10 +24,21 @@
     <script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
     <script type="text/javascript" src="js/iframeTools.js"></script>
 
+
+    <style>
+        .show{
+            display: table!important;
+        }
+        .block{
+            display: block!important;
+        }
+    </style>
     <script>
         avalon.ready(function () {
             var vm = avalon.define({
                 $id: "deviceVm",
+                //公用
+                conf:{},
                 user: {},
                 degr_id: "",   //当前用户设备组
                 dataList:[],
@@ -40,16 +51,50 @@
                 curPage: "",  //当前路由
                 checkAllFlag:false,  //全选标志
                 pop:false,
+                pageNo:1,
+                pageSize:10,
+
+
+                deviceReq:0,
+                ringReq: 0,
+                rulerReq:0,
+                steelyardReq:0,
+
+                query:function(pageNo){
+                    vm.pageNo=pageNo;
+                    if(vm.curPage=="device"){vm.getDevice()}
+                    if(vm.curPage=="ring"){  vm.getRing()}
+                    if(vm.curPage=="ruler"){ vm.getRuler()}
+                    if(vm.curPage=='steelyard'){ vm.getSteelyard()}
+                },
+                del:function(){
+                    if(vm.curPage=="device"){vm.getDevice()}
+                    if(vm.curPage=="ring"){  vm.getRing()}
+                    if(vm.curPage=="ruler"){ vm.getRuler()}
+                    if(vm.curPage=='steelyard'){ vm.getSteelyard()}
+                },
+                add:function(){
+                    if(vm.curPage=="device"){vm.getDevice()}
+                    if(vm.curPage=="ring"){  vm.getRing()}
+                    if(vm.curPage=="ruler"){ vm.getRuler()}
+                    if(vm.curPage=='steelyard'){ vm.getSteelyard()}
+                },
+                rev:function(){
+                    if(vm.curPage=="device"){vm.getDevice()}
+                    if(vm.curPage=="ring"){  vm.getRing()}
+                    if(vm.curPage=="ruler"){ vm.getRuler()}
+                    if(vm.curPage=='steelyard'){ vm.getSteelyard()}
+                },
                 //查询设备
                 getDevice: function () {
                     $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceGroupApi/getDeviceGroupList",
+                        url: vm.conf.baseUrl+vm.conf.queryDevice,
                         type: "post",
                         data: {
                             user_id: vm.user.user_id,
                             tegr_id: vm.user.tegr_id,
-                            page: 1,
-                            page_size: 10,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
                             last_req_time: vm.deviceReq
                         },
                         success: function (data) {
@@ -72,13 +117,13 @@
                 //查询手环
                 getRing: function () {
                     $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/deviceBraceletApi/getDeviceBraceletList",
+                        url: vm.conf.baseUrl+vm.conf.queryRing,
                         type: 'post',
                         data: {
                             user_id: vm.user.user_id,
                             degr_id: vm.degr_id,
-                            page: 1,
-                            page_size: 10,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
                             last_req_time: vm.ringReq
                         },
                         success: function (data) {
@@ -97,13 +142,13 @@
                 //身高尺
                 getRuler: function () {
                     $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/rulerApi/getRulerList",
+                        url: vm.conf.baseUrl+vm.conf.queryRuler,
                         type: 'post',
                         data: {
                             user_id: vm.user.user_id,
                             tegr_id: vm.user.tegr_id,
-                            page: 1,
-                            page_size: 10,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
                             last_req_time: vm.ringReq
                         },
                         success: function (data) {
@@ -122,13 +167,13 @@
 //                健康秤
                 getSteelyard: function () {
                     $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/scalesApi/getScalesList",
+                        url: vm.conf.baseUrl+vm.conf.querySteelyard,
                         type: 'post',
                         data: {
                             user_id: vm.user.user_id,
                             tegr_id: vm.user.tegr_id,
-                            page: 1,
-                            page_size: 10,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
                             last_req_time: vm.ringReq
                         },
                         success: function (data) {
@@ -145,11 +190,37 @@
 
                     })
                 },
+                delDevice:function(){
+                },
+                delRing:function(){
+                },
+                delRuler:function(){
+                },
+                delSteelyard:function(){
+                },
+                addDevice:function(){
+                },
+                addRing:function(){
+                },
+                addRuler:function(){
+                },
+                addSteelyard:function(){
+                },
+                revDevice:function(){
+                },
+                revRing:function(){
+                },
+                revRuler:function(){
+                },
+                revSteelyard:function(){
+                },
+
                 //路由
                 router: function (str) {
                     vm.dataList=[];
                     vm.checkAllFlag=false;
                     vm.curPage=str;
+                    vm.query(1);
                 },
                 //单选
                 checkOne:function(el){
@@ -165,8 +236,10 @@
                     }
 
                 },
-                openAdd:function(){
-                  vm.pop=true;
+                //弹窗
+                open:function(str){
+
+                    vm.pop=true;
                 },
                 //全选
                 checkAll:function(){
@@ -184,18 +257,15 @@
                     if(ty=="8"){vm.weight=2}
                     else if(ty=="16" || ty=="32"){vm.weight=3}
                     else{vm.weight=1}
+                    $.ajax({
+                        url: "/oa/conf/config.json",
+                        async:false,
+                        success: function(res){
+                            vm.conf=res
+                        }
+                    });
                     vm.router("device")
                 }
-            })
-
-            vm.$watch('degr_id', function (value, oldValue) {
-                vm.getRing();
-            })
-            vm.$watch('curPage',function(value){
-               if(value=="device"){vm.getDevice();}
-                if(value=="ring"){vm.getRing();}
-                if(value=="ruler"){vm.getRuler();}
-                if(value=='steelyard'){vm.getSteelyard();}
             })
 
             avalon.scan()
@@ -203,8 +273,6 @@
 
         })
     </script>
-
-
 </head>
 
 
@@ -234,7 +302,7 @@
         <div class="baby_conter_right">
             <form>
                 <!--设备组数据-->
-                <div class="baby_content_tab" ms-if="curPage == 'device' ">
+                <div class="baby_content_tab"     style="display: none"  ms-class="show:curPage == 'device'"  ms-if="curPage == 'device' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>设备组名称</li>
@@ -257,7 +325,7 @@
 
 
             <!--    &lt;!&ndash;手环组数据-->
-                <div class="baby_content_tab" ms-if="curPage == 'ring' ">
+                <div class="baby_content_tab"  style="display: none"  ms-class="show:curPage == 'ring'"  ms-if="curPage == 'ring' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>手环编号</li>
@@ -278,7 +346,7 @@
 
 
                 <!--&lt;!&ndash;身高尺数据&ndash;&gt;-->
-                <div class="baby_content_tab" ms-if="curPage =='ruler'">
+                <div class="baby_content_tab" style="display: none"  ms-class="show:curPage == 'ruler'"   ms-if="curPage =='ruler'">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>身高尺编号</li>
@@ -300,7 +368,7 @@
 
 
                 <!--&lt;!&ndash;健康秤数据&ndash;&gt;-->
-                <div class="baby_content_tab" ms-if="curPage =='steelyard'" >
+                <div class="baby_content_tab" style="display: none"  ms-class="show:curPage == 'steelyard'"  ms-if="curPage =='steelyard'" >
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>健康秤编号</li>
@@ -325,19 +393,18 @@
                 <div class="baby_content_dt-1">
                     <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;" >全选</span>
-                    <span class="baby_content_del" ms-click="openDel">批量删除</span>
-                    <span class="baby_content_del edit" ms-click="openAdd">添加</span>
+                    <span class="baby_content_del" ms-click="open('del')">批量删除</span>
+                    <span class="baby_content_del edit" ms-click="open('add')">添加</span>
                 </div>
 
 
 
+
+
                 <!--弹窗-->
-                    <div class="shade" ms-if="pop" >
+                    <div class="shade"   ms-class="block:pop">
                             <div class="user-edit">
                                 <div class="user-main">
-                                    <div class="user-title">
-                                        <h3>编辑设备组：</h3>
-                                    </div>
                                     <table class="table_1" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <th width="40%">设备组名称：</th>
@@ -371,6 +438,9 @@
     </div>
 </div>
 </body>
+
+
+
 
 
 
