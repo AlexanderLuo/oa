@@ -135,6 +135,30 @@
 
                     })
                 },
+                getRuler: function () {
+                    $.ajax({
+                        url: vm.conf.baseUrl+vm.conf.queryRuler,
+                        type: 'post',
+                        data: {
+                            user_id: vm.user.user_id,
+                            tegr_id: vm.user.tegr_id,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
+                            last_req_time: vm.ringReq
+                        },
+                        success: function (data) {
+                            var json = eval("(" + data + ")");// 解析json
+                            if (json.code == 200) {
+                                vm.rulerReq = json.result.last_req_time;
+                                json.result.list.forEach(function(el){
+                                    el.check=false;
+                                })
+                                vm.dataList = json.result.list;
+                            }
+                        }
+
+                    })
+                },
 //                健康秤
                 getSteelyard: function () {
                     $.ajax({
