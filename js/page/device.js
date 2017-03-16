@@ -1,5 +1,3 @@
-
-
 var conf={}
 var user={}
 function  error(){
