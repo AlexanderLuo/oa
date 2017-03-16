@@ -196,6 +196,181 @@
                                 </div>
                             </div>
                     </div>
+
+                <!--设备组弹窗-->
+                <div class="shade"   ms-class="block:pop">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>手环：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">设备所属集团：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="tegr_id">
+                                        <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                    </select>
+                                    </td>
+                                </tr>
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">设备所属用户：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="tegr_id">
+                                        <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                    </select>
+                                    </td>
+                                </tr>
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">设备组名称：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--手环弹窗-->
+                <div class="shade"   ms-class="block:pop">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>设备组：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">学生：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="tegr_id">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">设备组：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="tegr_id">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">手环编号：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">手环地址：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--身高尺弹窗-->
+                <div class="shade"   ms-class="block:pop">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>身高尺：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">用户：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="tegr_id">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">集团：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="tegr_id">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">身高尺编号：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">身高尺地址：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--健康秤弹窗-->
+                <div class="shade"   ms-class="block:pop">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>健康秤：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">用户：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="tegr_id">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">集团：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="tegr_id">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">健康秤编号：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+
+                                <tr ms-repeat="popData.rows">
+                                    <th width="40%">健康秤地址：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
