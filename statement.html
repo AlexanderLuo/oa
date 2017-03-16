@@ -36,6 +36,8 @@
             display: block!important;
         }
     </style>
+
+
 </head>
 
 
@@ -68,6 +70,7 @@
                         <li>集团名称</li>
                         <li>学校名称</li>
                         <li>班级名称</li>
+
                         <li>操作</li>
                     </ul>
 
@@ -77,8 +80,10 @@
                         <li>{{el.degr_id}}</li>
                         <li>{{el.degr_name}}</li>
                         <li>{{el.tegr_name}}</li>
-                        <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
-                        <li ><a class="edit" href="javascript: void(0)"  ms-if="weight>=2">编辑</a></li>
+                        <li>
+                            <a class="edit" href="javascript: void(0)" >编辑</a>
+                            <a class="edit" ms-click="router('class')" >查看</a>
+                        </li>
                     </ul>
                 </div>
 

@@ -17,7 +17,7 @@ avalon.ready(function () {
         dataList:[],
         lastReq: 0,
         weight:1,  //权限
-        curPage: "",  //当前路由
+        curPage: "statement",  //当前路由
         checkAllFlag:false,  //全选标志
         pop:false,
         pageNo:1,
