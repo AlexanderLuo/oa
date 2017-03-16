@@ -156,42 +156,41 @@
 
 
 
-
             <div class="baby_content_dt">
                 <div class="baby_content_dt-1">
                     <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;" >全选</span>
-                    <span class="baby_content_del" ms-click="open('del')">批量删除</span>
-                    <span class="baby_content_del edit" ms-click="open('add')">添加</span>
+                    <span class="baby_content_del" ms-click="delPop">批量删除</span>
+                    <span class="baby_content_del edit" ms-click="open">添加</span>
                 </div>
 
 
 
-                <!--弹窗-->
-                    <div class="shade"   ms-class="block:pop">
-                            <div class="user-edit">
-                                <div class="user-main">
-                                    <div class="user-title">
-                                        <h3>{{popData.title}}</h3>
-                                    </div>
+                <!--&lt;!&ndash;弹窗&ndash;&gt;-->
+                    <!--<div class="shade"   ms-class="block:pop">-->
+                            <!--<div class="user-edit">-->
+                                <!--<div class="user-main">-->
+                                    <!--<div class="user-title">-->
+                                        <!--<h3>{{popData.title}}</h3>-->
+                                    <!--</div>-->
 
-                                    <table class="table_1" cellpadding="0" cellspacing="0">
-                                        <tr ms-repeat="popData.rows">
-                                            <th width="40%">{{el.name}}：</th>
-                                            <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div class="user-btn">
-                                        <input type="button" value="保存" class="oper" ms-click="add"/>
-                                        <input type="button" value="返回" class="oper" ms-click="close"/>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
+                                    <!--<table class="table_1" cellpadding="0" cellspacing="0">-->
+                                        <!--<tr ms-repeat="popData.rows">-->
+                                            <!--<th width="40%">{{el.name}}：</th>-->
+                                            <!--<td width="60%"><input type="text" name="" ms-duplex="el.value"/>-->
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                    <!--</table>-->
+                                    <!--<div class="user-btn">-->
+                                        <!--<input type="button" value="保存" class="oper" ms-click="add"/>-->
+                                        <!--<input type="button" value="返回" class="oper" ms-click="close"/>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                    <!--</div>-->
 
                 <!--设备组弹窗-->
-                <div class="shade"   ms-class="block:pop">
+                <div class="shade"   ms-class="block:pop=='device' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
@@ -199,7 +198,7 @@
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">设备所属集团：</th>
                                     <td width="60%">
                                         <select  ms-duplex="tegr_id">
@@ -207,7 +206,7 @@
                                     </select>
                                     </td>
                                 </tr>
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">设备所属用户：</th>
                                     <td width="60%">
                                         <select  ms-duplex="tegr_id">
@@ -215,7 +214,7 @@
                                     </select>
                                     </td>
                                 </tr>
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">设备组名称：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
@@ -230,7 +229,7 @@
                 </div>
 
                 <!--手环弹窗-->
-                <div class="shade"   ms-class="block:pop">
+                <div class="shade"   ms-class="block:pop=='ring' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
@@ -238,7 +237,7 @@
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">学生：</th>
                                     <td width="60%">
                                         <select  ms-duplex="tegr_id">
@@ -246,7 +245,7 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">设备组：</th>
                                     <td width="60%">
                                         <select  ms-duplex="tegr_id">
@@ -254,13 +253,13 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">手环编号：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
 
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">手环地址：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
@@ -275,7 +274,7 @@
                 </div>
 
                 <!--身高尺弹窗-->
-                <div class="shade"   ms-class="block:pop">
+                <div class="shade"   ms-class="block:pop=='ruler' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
@@ -283,7 +282,7 @@
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">用户：</th>
                                     <td width="60%">
                                         <select  ms-duplex="tegr_id">
@@ -291,7 +290,7 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">集团：</th>
                                     <td width="60%">
                                         <select  ms-duplex="tegr_id">
@@ -299,13 +298,13 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">身高尺编号：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
 
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">身高尺地址：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
@@ -320,7 +319,7 @@
                 </div>
 
                 <!--健康秤弹窗-->
-                <div class="shade"   ms-class="block:pop">
+                <div class="shade"   ms-class="block:pop=='steelyard' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
@@ -328,7 +327,7 @@
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">用户：</th>
                                     <td width="60%">
                                         <select  ms-duplex="tegr_id">
@@ -336,7 +335,7 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">集团：</th>
                                     <td width="60%">
                                         <select  ms-duplex="tegr_id">
@@ -344,13 +343,13 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">健康秤编号：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
 
-                                <tr ms-repeat="popData.rows">
+                                <tr >
                                     <th width="40%">健康秤地址：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>

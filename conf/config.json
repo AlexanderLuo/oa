@@ -1,37 +1,22 @@
 {
-  "comment": "登录",
-  "login": "http://uww-dev.thinkjoy.com.cn/v2/oauth/token?client_id=demo&client_secret=demo",
   "baseUrl":"http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/",
-
-
   "getTegrList":"tegrApi/getTegrList",
-
-
-
   "getChildStatementList":"childStatementApi/getChildStatementList",
-
-
-
-
-
   "addDevice":"deviceGroupApi/addDeviceGroup",
-  "delDevice":"",
-  "revDevice":"",
+  "delDevice":"deviceGroupApi/deleteDeviceGroup",
+  "revDevice":"deviceGroupApi/editDeviceGroup",
   "queryDevice":"deviceGroupApi/getDeviceGroupList",
-
-  "addRing":"",
-  "delRing":"",
-  "revRing":"",
+  "addRing":"deviceBraceletApi/addDeviceBracelet",
+  "delRing":"deviceBraceletApi	/deleteDeviceBracelet",
+  "revRing":"deviceBraceletApi/editDeviceBracelet",
   "queryRing":"deviceBraceletApi/getDeviceBraceletList",
-
-  "addRuler":"",
-  "delRuler":"",
-  "revRuler":"",
+  "addRuler":"rulerApi/addRuler",
+  "delRuler":"rulerApi/deleteRuler",
+  "revRuler":"rulerApi/editRuler",
   "queryRuler":"rulerApi/getRulerList",
-
-  "addSteelyard":"",
-  "delSteelyard":"",
-  "revSteelyard":"",
+  "addSteelyard":"scalesApi/addScales",
+  "delSteelyard":"scalesApi/deleteScales",
+  "revSteelyard":"scalesApi/editScales",
   "querySteelyard":"scalesApi/getScalesList"
 }
 

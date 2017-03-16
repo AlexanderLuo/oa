@@ -40,6 +40,7 @@ avalon.ready(function () {
                 var json = eval("(" + data + ")");// 解析json
                 if (json.code == 200) {
                     vm.last_req_time=json.result.last_req_time;
+                    json.result.list.forEach(function (p1, p2, p3) { p1.check=false})
                     vm.dataList=json.result.list
                     vm.records=json.result.total_count;
                 }else{
@@ -54,7 +55,6 @@ avalon.ready(function () {
             vm.dataList=[];
             vm.checkAllFlag=false;
             vm.curPage=str;
-
             vm.query(1);
         },
         //单选

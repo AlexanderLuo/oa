@@ -60,9 +60,64 @@ avalon.ready(function () {
         query:function(pageNo){
             vm.pageNo=pageNo;
             var path = vm.upperPage();
-            $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData.$model}).done(function(data){vm.queryHandle(data,vm["get"+path])})
+            $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function(data){vm.queryHandle(data,vm["get"+path])})
         },
         del:function(){
+            switch (vm.curPage){
+                case "device":
+                    vm.queryData= {
+                        user_id: user.user_id,
+                        tegr_id: user.tegr_id,
+                        page: vm.pageNo,
+                        page_size:  vm.pageSize,
+                        last_req_time: vm.deviceReq
+                    }
+                    break;
+                case "ring":
+                    vm.queryData={
+                        user_id: user.user_id,
+                        degr_id: vm.degr_id,
+                        page: vm.pageNo,
+                        page_size:  vm.pageSize,
+                        last_req_time: vm.ringReq
+                    }
+                    break;
+                case "ruler":
+                    var delete_ruler_id=""
+                    for(var a=0;a<vm.dataList.length;a++){
+                        if(vm.dataList[a].check==true){
+                            delete_ruler_id=delete_ruler_id+vm.dataList[a].ruler_id
+                            if(a!=vm.dataList.length-1){
+                                delete_ruler_id=delete_ruler_id+","
+                            }
+                        }
+                    }
+                    vm.queryData={
+                        user_id: user.user_id,
+                        tegr_id: user.tegr_id,
+                        delete_ruler_id: delete_ruler_id
+                    };
+                    break;
+                case "steelyard":
+                    var delete_scales_id="";
+                    for(var a=0;a<vm.dataList.length;a++){
+                        if(vm.dataList[a].check==true){
+                            delete_scales_id=delete_scales_id+vm.dataList[a].scales_id
+                            if(a!=vm.dataList.length-1){
+                                delete_scales_id=delete_scales_id+","
+                            }
+                        }
+                    }
+                    vm.delData={
+                        user_id: user.user_id,
+                        tegr_id: user.tegr_id,
+                        delete_scales_id:delete_scales_id
+                    }
+                    break;
+            }
+            var path = vm.upperPage();
+            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function(data){console.log(111)})
+
         },
         add:function(){
             var path = vm.upperPage();
@@ -227,7 +282,7 @@ avalon.ready(function () {
         },
         //弹窗
         open:function(){
-            vm.pop=true;
+            vm.pop=vm.curPage;
             switch (vm.curPage){
                 case "device":
                     vm.popData={
@@ -270,6 +325,12 @@ avalon.ready(function () {
             }
 
         },
+        delPop:function () {
+          layer.confirm("确定删除吗？",function () {
+                vm.del()
+                layer.closeAll()},layer.closeAll())
+        },
+
 
 
         //关掉
@@ -307,15 +368,14 @@ avalon.ready(function () {
             if(ty=="8"){vm.weight=2}
             else if(ty=="16" || ty=="32"){vm.weight=3}
             else{vm.weight=1}
-            $.ajax({
-                url: "/oa/conf/config.json",
-                async:false,
-                success: function(res){
-                    conf=res
-                }
+            $.get( "/oa/conf/config.json").done(function (data) {
+                        console.log(1111111111)
+                    // conf=data
+                    // vm.querytTeg();
+                    // vm.router("device")
+
             });
-            vm.querytTeg();
-            vm.router("device")
+
         }
     })
 
