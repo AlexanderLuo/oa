@@ -403,6 +403,9 @@
 
                 <!--班级管理数据-->
                 <div class="baby_content_tab" ms-if="curPage =='class'" >
+                    <div class="user-title" style="width: 100%">
+                        <h3>集团</h3>
+                    </div>
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>学校名称</li>
@@ -419,7 +422,10 @@
                         <li>{{el.class_name}}</li>
                         <li>{{el.vipCount}}/{{el.totalCount}}</li>
                         <li>{{el.name}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li>
+                            <a class="edit" href="javascript: void(0)" >编辑</a>
+                            <a class="edit" ms-click="router('student')" >查看</a>
+                        </li>
                     </ul>
                 </div>
 

@@ -42,7 +42,7 @@
                 lastReq: 0,
                 goodsReq: 0,
                 orderReq: 0,
-                curPage: "device",
+                curPage: "goods",
                 getGoods: function () {
                     vm.goodsList=[]
                     $.ajax({
@@ -147,29 +147,23 @@
             </div>
         </div>
 
-        <!--搜索框-->
-        <table class="tb-type1 noborder search">
-            <tbody>
-            <tr>
-                <td>
-                    <select placeholder="" name="searchName" id="searchName">
-                        <option value = "0">全部</option>
-                        <option value = "1">教材</option>
-                        <option value = "2">器材</option>
-                        <option value = "3">服饰</option>
-                        <option value = "4">其他</option>
-                    </select>
-                </td>
-                <td><a href="javascript:;" id="search" class="btn-search " title="查询" onclick="chickSubmit();">
-                    &nbsp;</a></td>
-            </tr>
-            </tbody>
-        </table>
+
+        <div class="select" ms-if="curPage=='goods'">
+            <span>设备组：&nbsp;</span>
+            <select name=""  ms-duplex="deger_id">
+                <option value="0">全部</option>
+                <option value="1">教材</option>
+                <option value="2">器材</option>
+                <option value="3">服饰</option>
+                <option value="4">其他</option>
+                <!--<option ms-attr-value="{{el.deger_id}}" ms-repeat="dataList">{{el.tegr_name}}</option>-->
+            </select>
+        </div>
+
 
         <div class="baby_conter_right">
-            <form action="http://banxiaobao.com:8015/gbb/admin/teacherList.do" method="post" id="formId">
-                <input type="hidden" id="adminId" name="adminId">
-                <input value="1" type="hidden" id="pageNum" name="pageNum">
+            <form method="post" id="formId">
+
 
                 <!--数据主体-->
 
