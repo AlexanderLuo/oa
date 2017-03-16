@@ -23,7 +23,7 @@
     <script src="./js/lib/common.js"></script>
     <script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
     <script type="text/javascript" src="js/iframeTools.js"></script>
-
+    <script type="text/javascript" src="js/page/device.js"></script>
 
     <style>
         .show{
@@ -33,310 +33,12 @@
             display: block!important;
         }
     </style>
-    <script>
-        avalon.ready(function () {
-            var vm = avalon.define({
-                $id: "deviceVm",
-                //公用
-                conf:{},
-                user: {},
-                degr_id: "",   //当前用户设备组
-                dataList:[],
-                deviceReq:0,
-                ringReq: 0,
-                rulerReq:0,
-                steelyardReq:0,
-                pageNo:1,
-                pageSize:10,
-
-
-
-
-
-                //逻辑
-                queryUrl:"",
-                queryData:{},
-                addUrl:"",
-                addData:{},
-                revUrl:"",
-                revData:{},
-                delUrl:"",
-                delData:"",
-
-
-
-                //控制
-                weight:1,  //权限
-                curPage: "",  //当前路由
-                checkAllFlag:false,  //全选标志
-                pop:false,
-                popData:{},
-
-
-                query:function(pageNo){
-                    vm.pageNo=pageNo;
-                    var path = vm.upperPage();
-                    $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData.$model}).done(function(data){vm.queryHandle(data,vm["get"+path])})
-                },
-                del:function(){
-                },
-                add:function(){
-                    var path = vm.upperPage();
-                    vm.popData.collecData();
-                    var check=vm.popData.isLegal();
-                    if(check){
-                        $.ajax({url: vm.addUrl, type: "post", data: vm.addData.$model}).done(function(data){vm.addHandle(data,vm["add"+path])})
-                    }else{
-                        console.log("worng");
-                    }
-                    vm.close();
-                },
-                rev:function(){
-                },
-                queryHandle(data,callback,error){
-                    var json = eval("(" + data + ")");// 解析json
-                    if (json.code == 200) {
-                        callback(json);
-                    }else{
-                        error && error.call()
-                    }
-                },
-                addHandle(data,callback,error){
-                    var json = eval("(" + data + ")");// 解析json
-                    if (json.code == 200) {
-                        callback(json);
-                    }else{
-                        error && error.call()
-                    }
-                },
-                //查询设备
-                getDevice: function (json) {
-                    vm.deviceReq = json.result.last_req_time;
-                    var tar=json.result.list.filter(function(el){
-                        return el.user_id==vm.user.user_id;
-                    });
-                    vm.degr_id=tar[0].degr_id;
-                    json.result.list.forEach(function(el){
-                        el.check=false;
-                    });
-                    vm.dataList = json.result.list;
-                },
-                //查询手环
-                getRing: function (json) {
-                    vm.ringReq = json.result.last_req_time;
-                    json.result.list.forEach(function(el){
-                        el.check=false;
-                    });
-                    vm.dataList = json.result.list;
-                },
-                //身高尺
-                getRuler: function (json) {
-                    vm.rulerReq = json.result.last_req_time;
-                    json.result.list.forEach(function(el){
-                        el.check=false;
-                    });
-                    vm.dataList = json.result.list;
-                },
-//                健康秤
-                getSteelyard: function (json) {
-                    vm.steelyardReq= json.result.last_req_time;
-                    json.result.list.forEach(function(el){
-                        el.check=false;
-                    });
-                    vm.dataList = json.result.list;
-                },
-
-                delDevice:function(){
-                },
-                delRing:function(){
-                },
-                delRuler:function(){
-                },
-                delSteelyard:function(){
-                },
-                addDevice:function(){
-                },
-                addRing:function(){
-                },
-                addRuler:function(){
-                },
-                addSteelyard:function(){
-                },
-                revDevice:function(){
-                },
-                revRing:function(){
-                },
-                revRuler:function(){
-                },
-                revSteelyard:function(){
-                },
-
-                //路由
-                router: function (str) {
-                    vm.dataList=[];
-                    vm.checkAllFlag=false;
-                    vm.curPage=str;
-                    vm.pageAdapter();
-                    vm.query(1);
-                },
-                //单词首字母大写
-                upperPage:function(){
-                    var word = vm.curPage.toLowerCase().replace(/\b\w+\b/g, function(word){
-                        return word.substring(0,1).toUpperCase()+word.substring(1);
-                    });
-                    return word;
-                },
-                //路由适配
-                pageAdapter:function(str){
-                    if(!str){
-                        var path = vm.upperPage();
-                        var c=vm.conf;
-                        var b= c.baseUrl;
-                        vm.addUrl= b+ c["add"+path]
-                        vm.delUrl= b+ c["del"+path]
-                        vm.revUrl= b+ c["rev"+path]
-                        vm.queryUrl=b+c["query"+path]
-                        switch (vm.curPage){
-                            case "device":
-                                    vm.queryData= {
-                                        user_id: vm.user.user_id,
-                                        tegr_id: vm.user.tegr_id,
-                                        page: vm.pageNo,
-                                        page_size:  vm.pageSize,
-                                        last_req_time: vm.deviceReq
-                                    }
-                                    vm.popData={
-                                        title:"设备组",
-                                        rows:[{name:"集团ID",key:"",value:""},{name:"所属用户ID",key:"",value:""},{name:"设备组名称",key:"",value:""}],
-                                        isLegal:function(){
-                                           if(vm.popData.rows[0].value==""){
-                                               return false;
-                                           } else{
-                                               return true;
-                                           }
-                                        },
-                                        collecData:function(){
-                                            vm.addData={
-                                                tegr_id:vm.popData.rows[0].value,
-                                                user_id:vm.popData.rows[1].value,
-                                                degr_name:vm.popData.rows[2].value
-                                            }
-                                        }
-                                    }
-                                break;
-                            case "ring":
-                                    vm.queryData={
-                                        user_id: vm.user.user_id,
-                                        degr_id: vm.degr_id,
-                                        page: vm.pageNo,
-                                        page_size:  vm.pageSize,
-                                        last_req_time: vm.ringReq
-                                    }
-                                vm.popData={
-                                    title:"手环",
-                                    rows:[{name:"学生ID",key:"",value:""},{name:"设备组ID",key:"",value:""},{name:"手环编号",key:"",value:""},{name:"手环地址",key:"",value:""}]
-                                }
-                                break;
-                            case "ruler":
-                                    vm.queryData={
-                                        user_id: vm.user.user_id,
-                                        tegr_id: vm.user.tegr_id,
-                                        page: vm.pageNo,
-                                        page_size:  vm.pageSize,
-                                        last_req_time: vm.ringReq
-                                    };
-                                    vm.popData={
-                                        title:"身高尺",
-                                        rows:[{name:"身高尺编号",key:"",value:""},{name:"身高尺地址",key:"",value:""},{name:"集团ID",key:"",value:""}]
-                                    }
-                                    vm.addData={
-
-                                    }
-
-                                break;
-                            case "steelyard":
-                                    vm.queryData={
-                                        user_id: vm.user.user_id,
-                                        tegr_id: vm.user.tegr_id,
-                                        page: vm.pageNo,
-                                        page_size:  vm.pageSize,
-                                        last_req_time: vm.ringReq
-                                    }
-                                vm.popData={
-                                    title:"健康秤",
-                                    rows:[{name:"健康秤编号",key:"",value:""},{name:"健康秤地址",key:"",value:""},{name:"集团ID",key:"",value:""}]
-                                }
-                                break;
-                        }
-                    }
-
-                },
-                //单选
-                checkOne:function(el){
-                    el.check=!el.check;
-                    var no=vm.dataList.filter(function(al){
-                        return al.check==false;
-                    })
-                    if(no.length==0){
-                        vm.checkAllFlag=true
-                    }
-                    if(no.length>0){
-                        vm.checkAllFlag=false
-                    }
-
-                },
-                //弹窗
-                open:function(){
-                    vm.pop=true;
-                },
-                //关掉
-                close:function(){
-                    vm.pop=false;
-                },
-                //全选
-                checkAll:function(){
-                    vm.checkAllFlag=!vm.checkAllFlag
-                    vm.dataList.forEach(function(el){
-                        el.check=vm.checkAllFlag;
-                    })
-                },
-                //初始化
-                init: function () {
-                    var user = getLocalValue('user');
-                    if (user == null) {location.href="/oa/login.html";}
-                    vm.user = user;
-                    var ty=user.role_type;
-                    if(ty=="8"){vm.weight=2}
-                    else if(ty=="16" || ty=="32"){vm.weight=3}
-                    else{vm.weight=1}
-                    $.ajax({
-                        url: "/oa/conf/config.json",
-                        async:false,
-                        success: function(res){
-                            vm.conf=res
-                        }
-                    });
-                    vm.router("device")
-                }
-            })
-
-
-
-            avalon.scan()
-            vm.init();
-
-        })
-    </script>
 </head>
 
-
 <body ms-controller="deviceVm">
-
 <div class="baby_content">
-
     <!--头部-->
     <div ms-include-src=" './component/banner.html'"></div>
-
      <!--子导航栏-->
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
@@ -350,6 +52,8 @@
                 <div class="p">Powered by glorymi<br>深圳市伴小宝科技有限公司</div>
             </div>
         </div>
+
+
 
 
 
@@ -367,8 +71,8 @@
                 <!--集团选择框-->
                 <div class="select" ms-if="curPage=='ruler'|| curPage =='steelyard'">
                     <span>集团：&nbsp;</span>
-                    <select name="" id="" ms-duplex="teger_id">
-                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                    <select  ms-duplex="tegr_id">
+                        <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                     </select>
                 </div>
 
@@ -497,48 +201,4 @@
     </div>
 </div>
 </body>
-
-
-
-
-
-<!--query脚本-->
-<script type="text/javascript">
-    function delAdmin() {
-        var adminId = $("#adminId").val().trim();
-        if (isNull(adminId)) {
-            alertMsg("请先选择一条信息", 0);
-            return;
-        }
-        if (confirm("确定要删除该消息吗？") != "0") {
-            $.ajax({
-                url: "admin/delAdmin.do",// 跳转到 action
-                data: {
-                    "ids": adminId
-                },
-                type: 'post',
-                cache: false,
-                success: function (data) {
-                    if (data == 'loseSession') {
-                        location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                        return;
-                    }
-                    var json = eval("(" + data + ")");// 解析json
-                    var code = json.code;
-                    if (code == 200) {
-                        alertMsg("操作成功", 1);
-                        window.location.reload();
-                    } else {
-                        alertMsg("操作失败", 2);
-                    }
-                },
-                error: function () {
-                    alertMsg("系统错误！", 2);
-                }
-            });
-        }
-    }
-
-
-</script>
 </html>
