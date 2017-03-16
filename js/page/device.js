@@ -2,13 +2,15 @@
 
 var conf={}
 var user={}
+function  error(){
+    layer.msg("未知异常")
+}
 avalon.ready(function () {
     var vm = avalon.define({
         $id: "deviceVm",
         //公用
 
         degr_id: "",   //当前用户设备组
-
 
 
         deviceReq:0,
@@ -19,7 +21,7 @@ avalon.ready(function () {
         pageSize:10,
 
         tegr_id:0,
-        tegrList:[],
+        tegerList:[],
 
         //逻辑
         queryUrl:"",
@@ -35,10 +37,26 @@ avalon.ready(function () {
 
         //控制
         weight:1,  //权限
+
         curPage: "",  //当前路由
         checkAllFlag:false,  //全选标志
         pop:false,
         popData:{},
+        querytTeg:function(){
+            $.ajax({url:conf.baseUrl+conf.getTegrList,type:"post",data:{user_id:user.user_id}}).done(function(data){
+                var json = eval("(" + data + ")");// 解析json
+                if (json.code == 200) {
+                    var li=[{tegr_id:0,tegr_name:"默认"}]
+                    li=li.concat(json.result)
+                    vm.tegerList=li;
+                }else{
+                    error && error.call()
+                }
+            })
+        }
+
+
+        ,
 
 
         query:function(pageNo){
@@ -144,6 +162,16 @@ avalon.ready(function () {
             vm.dataList=[];
             vm.checkAllFlag=false;
             vm.curPage=str;
+            vm.tegr_id=0;
+
+            var path = vm.upperPage();
+            var c=conf;
+            var b= c.baseUrl;
+            vm.addUrl= b+ c["add"+path]
+            vm.delUrl= b+ c["del"+path]
+            vm.revUrl= b+ c["rev"+path]
+            vm.queryUrl=b+c["query"+path]
+
             vm.pageAdapter();
             vm.query(1);
         },
@@ -156,14 +184,8 @@ avalon.ready(function () {
         },
         //路由适配
         pageAdapter:function(str){
+            vm.queryData={}
             if(!str){
-                var path = vm.upperPage();
-                var c=conf;
-                var b= c.baseUrl;
-                vm.addUrl= b+ c["add"+path]
-                vm.delUrl= b+ c["del"+path]
-                vm.revUrl= b+ c["rev"+path]
-                vm.queryUrl=b+c["query"+path]
                 switch (vm.curPage){
                     case "device":
                         vm.queryData= {
@@ -172,24 +194,6 @@ avalon.ready(function () {
                             page: vm.pageNo,
                             page_size:  vm.pageSize,
                             last_req_time: vm.deviceReq
-                        }
-                        vm.popData={
-                            title:"设备组",
-                            rows:[{name:"集团ID",key:"",value:""},{name:"所属用户ID",key:"",value:""},{name:"设备组名称",key:"",value:""}],
-                            isLegal:function(){
-                                if(vm.popData.rows[0].value==""){
-                                    return false;
-                                } else{
-                                    return true;
-                                }
-                            },
-                            collecData:function(){
-                                vm.addData={
-                                    tegr_id:vm.popData.rows[0].value,
-                                    user_id:vm.popData.rows[1].value,
-                                    degr_name:vm.popData.rows[2].value
-                                }
-                            }
                         }
                         break;
                     case "ring":
@@ -200,10 +204,6 @@ avalon.ready(function () {
                             page_size:  vm.pageSize,
                             last_req_time: vm.ringReq
                         }
-                        vm.popData={
-                            title:"手环",
-                            rows:[{name:"学生ID",key:"",value:""},{name:"设备组ID",key:"",value:""},{name:"手环编号",key:"",value:""},{name:"手环地址",key:"",value:""}]
-                        }
                         break;
                     case "ruler":
                         vm.queryData={
@@ -213,14 +213,6 @@ avalon.ready(function () {
                             page_size:  vm.pageSize,
                             last_req_time: vm.ringReq
                         };
-                        vm.popData={
-                            title:"身高尺",
-                            rows:[{name:"身高尺编号",key:"",value:""},{name:"身高尺地址",key:"",value:""},{name:"集团ID",key:"",value:""}]
-                        }
-                        vm.addData={
-
-                        }
-
                         break;
                     case "steelyard":
                         vm.queryData={
@@ -230,14 +222,68 @@ avalon.ready(function () {
                             page_size:  vm.pageSize,
                             last_req_time: vm.ringReq
                         }
-                        vm.popData={
-                            title:"健康秤",
-                            rows:[{name:"健康秤编号",key:"",value:""},{name:"健康秤地址",key:"",value:""},{name:"集团ID",key:"",value:""}]
-                        }
                         break;
                 }
             }
 
+        },
+        //弹窗
+        open:function(){
+            vm.pop=true;
+            switch (vm.curPage){
+                case "device":
+                    vm.popData={
+                        title:"设备组",
+                        rows:[{name:"集团ID",key:"",value:""},{name:"所属用户ID",key:"",value:""},{name:"设备组名称",key:"",value:""}],
+                        isLegal:function(){
+                            if(vm.popData.rows[0].value==""){
+                                return false;
+                            } else{
+                                return true;
+                            }
+                        },
+                        collecData:function(){
+                            vm.addData={
+                                tegr_id:vm.popData.rows[0].value,
+                                user_id:vm.popData.rows[1].value,
+                                degr_name:vm.popData.rows[2].value
+                            }
+                        }
+                    }
+                    break;
+                case "ring":
+                    vm.popData={
+                        title:"手环",
+                        rows:[{name:"学生ID",key:"",value:""},{name:"设备组ID",key:"",value:""},{name:"手环编号",key:"",value:""},{name:"手环地址",key:"",value:""}]
+                    }
+                    break;
+                case "ruler":
+                    vm.popData={
+                        title:"身高尺",
+                        rows:[{name:"身高尺编号",key:"",value:""},{name:"身高尺地址",key:"",value:""},{name:"集团ID",key:"",value:""}]
+                    }
+                    break;
+                case "steelyard":
+                    vm.popData={
+                        title:"健康秤",
+                        rows:[{name:"健康秤编号",key:"",value:""},{name:"健康秤地址",key:"",value:""},{name:"集团ID",key:"",value:""}]
+                    }
+                    break;
+            }
+
+        },
+
+
+        //关掉
+        close:function(){
+            vm.pop=false;
+        },
+        //全选
+        checkAll:function(){
+            vm.checkAllFlag=!vm.checkAllFlag
+            vm.dataList.forEach(function(el){
+                el.check=vm.checkAllFlag;
+            })
         },
         //单选
         checkOne:function(el){
@@ -253,21 +299,7 @@ avalon.ready(function () {
             }
 
         },
-        //弹窗
-        open:function(){
-            vm.pop=true;
-        },
-        //关掉
-        close:function(){
-            vm.pop=false;
-        },
-        //全选
-        checkAll:function(){
-            vm.checkAllFlag=!vm.checkAllFlag
-            vm.dataList.forEach(function(el){
-                el.check=vm.checkAllFlag;
-            })
-        },
+
         //初始化
         init: function () {
             var userr = getLocalValue('user');
@@ -284,6 +316,7 @@ avalon.ready(function () {
                     conf=res
                 }
             });
+            vm.querytTeg();
             vm.router("device")
         }
     })
@@ -292,5 +325,9 @@ avalon.ready(function () {
 
     avalon.scan()
     vm.init();
+    vm.$watch("tegr_id",function(data){
+        vm.queryData.tegr_id=data;
+        vm.query(1)
+    })
 
 })
