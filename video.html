@@ -1,456 +1,362 @@
 <!DOCTYPE html>
-<!-- saved from url=(0051)http://banxiaobao.com:8015/gbb/admin/teacherList.do -->
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!--<base href="http://banxiaobao.com:8015/gbb/">-->
-    <base href=".">
+    <title>幼儿安全健康管理</title>
     <link rel="Shortcut Icon" href="http://banxiaobao.com:8015/gbb/img/logotitle.png">
-
-
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/left.css" type="text/css">
     <link rel="stylesheet" href="css/nav.css" type="text/css">
     <link rel="stylesheet" href="css/gatawaylist.css" type="text/css">
     <link type="text/css" rel="stylesheet" href="css/layer.css" id="skinlayercss">
     <link rel="stylesheet" href="css/dialog.css" type="text/css">
+    <link rel="stylesheet" href="css/twitter.css" type="text/css">
 
     <!--js区-->
     <script src="./js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.shove-1.0.js"></script>
+    <script type="text/javascript" src="js/layer.min.js"></script>
+    <script type="text/javascript" src="js/msg.js"></script>
+    <script charset="utf-8" src="js/jquery.form.js"></script>
     <script src="./js/md5.js"></script>
     <script src="./js/lib/avalon.js"></script>
+    <script src="./js/lib/common.js"></script>
+    <script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
+    <script type="text/javascript" src="js/iframeTools.js"></script>
+
+
+    <style>
+        .show{
+            display: table!important;
+        }
+        .block{
+            display: block!important;
+        }
+    </style>
     <script>
-        avalon.ready(function(){
-            var vm=avalon.define({
-                $id:"videoVm",
-                test:"tes",
-                user:{},
-                router:function(str){
-                    console.log(str)
+        avalon.ready(function () {
+            var vm = avalon.define({
+                $id: "deviceVm",
+                //公用
+                conf:{},
+                user: {},
+                degr_id: "",   //当前用户设备组
+                dataList:[],
+                lastReq: 0,
+                weight:1,  //权限
+                curPage: "",  //当前路由
+                checkAllFlag:false,  //全选标志
+                pop:false,
+                pageNo:1,
+                pageSize:10,
+
+
+                deviceReq:0,
+                ringReq: 0,
+                rulerReq:0,
+                steelyardReq:0,
+
+                query:function(pageNo){
+                    vm.pageNo=pageNo;
+                    if(vm.curPage=="device"){vm.getDevice()}
+                    if(vm.curPage=="ring"){  vm.getRing()}
+                    if(vm.curPage=="ruler"){ vm.getRuler()}
+                    if(vm.curPage=='steelyard'){ vm.getSteelyard()}
                 },
-                init:function(){
+                del:function(){
+                    if(vm.curPage=="device"){vm.getDevice()}
+                    if(vm.curPage=="ring"){  vm.getRing()}
+                    if(vm.curPage=="ruler"){ vm.getRuler()}
+                    if(vm.curPage=='steelyard'){ vm.getSteelyard()}
+                },
+                add:function(){
+                    if(vm.curPage=="device"){vm.getDevice()}
+                    if(vm.curPage=="ring"){  vm.getRing()}
+                    if(vm.curPage=="ruler"){ vm.getRuler()}
+                    if(vm.curPage=='steelyard'){ vm.getSteelyard()}
+                },
+                rev:function(){
+                    if(vm.curPage=="device"){vm.getDevice()}
+                    if(vm.curPage=="ring"){  vm.getRing()}
+                    if(vm.curPage=="ruler"){ vm.getRuler()}
+                    if(vm.curPage=='steelyard'){ vm.getSteelyard()}
+                },
+                //查询设备
+                getDevice: function () {
+                    $.ajax({
+                        url: vm.conf.baseUrl+vm.conf.queryDevice,
+                        type: "post",
+                        data: {
+                            user_id: vm.user.user_id,
+                            tegr_id: vm.user.tegr_id,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
+                            last_req_time: vm.deviceReq
+                        },
+                        success: function (data) {
+                            var json = eval("(" + data + ")");// 解析json
+                            if (json.code == 200) {
+                                vm.deviceReq = json.result.last_req_time;
+                                var tar=json.result.list.filter(function(el){
+                                    return el.user_id==vm.user.user_id;
+                                })
+                                vm.degr_id=tar[0].degr_id
+                                json.result.list.forEach(function(el){
+                                    el.check=false;
+                                })
+                                vm.dataList = json.result.list;
+                            }
 
+                        }
+                    })
+                },
+                //查询手环
+                getRing: function () {
+                    $.ajax({
+                        url: vm.conf.baseUrl+vm.conf.queryRing,
+                        type: 'post',
+                        data: {
+                            user_id: vm.user.user_id,
+                            degr_id: vm.degr_id,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
+                            last_req_time: vm.ringReq
+                        },
+                        success: function (data) {
+                            var json = eval("(" + data + ")");// 解析json
+                            if (json.code == 200) {
+                                vm.ringReq = json.result.last_req_time;
+                                json.result.list.forEach(function(el){
+                                    el.check=false;
+                                })
+                                vm.dataList = json.result.list;
+                            }
+                        }
+
+                    })
+                },
+//                健康秤
+                getSteelyard: function () {
+                    $.ajax({
+                        url: vm.conf.baseUrl+vm.conf.querySteelyard,
+                        type: 'post',
+                        data: {
+                            user_id: vm.user.user_id,
+                            tegr_id: vm.user.tegr_id,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
+                            last_req_time: vm.ringReq
+                        },
+                        success: function (data) {
+                            var json = eval("(" + data + ")");// 解析json
+                            console.log(json);
+                            if (json.code == 200) {
+                                vm.steelyardReq= json.result.last_req_time;
+                                json.result.list.forEach(function(el){
+                                    el.check=false;
+                                })
+                                vm.dataList = json.result.list;
+                            }
+                        }
+
+                    })
+                },
+                delDevice:function(){
+                },
+                delRing:function(){
+                },
+                delRuler:function(){
+                },
+                delSteelyard:function(){
+                },
+                addDevice:function(){
+                },
+                addRing:function(){
+                },
+                addRuler:function(){
+                },
+                addSteelyard:function(){
+                },
+                revDevice:function(){
+                },
+                revRing:function(){
+                },
+                revRuler:function(){
+                },
+                revSteelyard:function(){
+                },
+
+                //路由
+                router: function (str) {
+                    vm.dataList=[];
+                    vm.checkAllFlag=false;
+                    vm.curPage=str;
+                    vm.query(1);
+                },
+                //单选
+                checkOne:function(el){
+                    el.check=!el.check;
+                    var no=vm.dataList.filter(function(al){
+                        return al.check==false;
+                    })
+                    if(no.length==0){
+                        vm.checkAllFlag=true
+                    }
+                    if(no.length>0){
+                        vm.checkAllFlag=false
+                    }
+
+                },
+                //弹窗
+                open:function(str){
+
+                    vm.pop=true;
+                },
+                //全选
+                checkAll:function(){
+                    vm.checkAllFlag=!vm.checkAllFlag
+                    vm.dataList.forEach(function(el){
+                        el.check=vm.checkAllFlag;
+                    })
+                },
+                //初始化
+                init: function () {
+                    var user = getLocalValue('user');
+                    if (user == null) {location.href="/oa/login.html";}
+                    vm.user = user;
+                    var ty=user.role_type;
+                    if(ty=="8"){vm.weight=2}
+                    else if(ty=="16" || ty=="32"){vm.weight=3}
+                    else{vm.weight=1}
+                    $.ajax({
+                        url: "/oa/conf/config.json",
+                        async:false,
+                        success: function(res){
+                            vm.conf=res
+                        }
+                    });
+                    vm.router("video")
                 }
-
             })
 
+            avalon.scan()
             vm.init();
-            avalon.scan();
+
         })
     </script>
 </head>
 
 
-<body ms-controller="videoVm">
+<body ms-controller="deviceVm">
 
-<!--头部-->
+<div class="baby_content">
+
+    <!--头部-->
     <div ms-include-src=" './component/banner.html'"></div>
 
-
-    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.shove-1.0.js"></script>
-    <script type="text/javascript" src="js/layer.min.js"></script>
-    <script type="text/javascript" src="js/msg.js"></script>
-    <script charset="utf-8" src="js/jquery.form.js"></script>
-    <title>幼儿健康管理专家</title>
-
-    <script type="text/javascript">
-
-
-        function loginOut() {//退出
-            if (confirm("确定要退出登录吗？") != "0") {
-                window.location.href = "http://banxiaobao.com:8015/gbb/admin/loginOut.do";
-            }
-        }
-
-        function clickTop(id) {//点击头部菜单
-            var roleId = $("#roleId").val();
-            if (id == "deviceId") {
-                window.location.href = "http://banxiaobao.com:8015/gbb/machine/machineList.do";
-                /* 	$("#deviceLeft_Id").show().siblings("div").hide(); */
-            } else if (id == "teachId") {
-                if (roleId == -1 || roleId == 1 || roleId == 4) {
-                    window.location.href = "http://banxiaobao.com:8015/gbb/school/schoolList.do";
-                } else {
-                    window.location.href = "http://banxiaobao.com:8015/gbb/attendance/attendanceList.do";
-                }
-                /* 	$("#teachLeft_Id").show().siblings("div").hide(); */
-            } else if (id == "adminId") {
-                window.location.href = "http://banxiaobao.com:8015/gbb/admin/adminList.do";
-            } else if (id == "healthId") {
-                window.location.href = "http://banxiaobao.com:8015/gbb/sports/tosportsList.do";
-                /* $("#healthLeft_Id").show().siblings("div").hide(); */
-            } else if (id == "attenId") {
-                window.location.href = "http://banxiaobao.com:8015/gbb/attendance/attendanceTeacherInit.do";
-            }
-        }
-
-        /*个人设置*/
-        $(function ($) {
-            //弹出登录
-            $("#example").hover(function () {
-                $(this).stop().animate({
-                    opacity: '1'
-                }, 600);
-            }, function () {
-                $(this).stop().animate({
-                    opacity: '0.6'
-                }, 1000);
-            }).on('click', function () {
-                $("body").append("<div id='mask'></div>");
-                $("#mask").addClass("mask").fadeIn("slow");
-                $("#LoginBox").fadeIn("slow");
-                $.ajax({
-                    url: "admin/findBySelfAdmin.do",// 跳转到 action
-                    data: {},
-                    type: 'post',
-                    cache: false,
-                    success: function (data) {
-                        if (data == 'loseSession') {
-                            location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                            return;
-                        }
-                        var json = eval("(" + data + ")");// 解析json
-                        $("#schoolname").val(json.admin.schoolname);
-                        var isaid = json.admin.isaid;
-                        if (isaid == 1) {
-                            $("#rolename").val("园长助理");
-                        } else {
-                            $("#rolename").val(json.admin.roleName);
-                        }
-                        $("#ROLEID").val(json.admin.roleid);
-                        $("#name").val(json.admin.name);
-                        $("#adminId").val(json.admin.id);
-                    },
-                    error: function () {
-                        alert("系统错误！");
-                    }
-                });
-            });
-            //
-            //按钮的透明度
-            $("#loginbtn").hover(function () {
-                $(this).stop().animate({
-                    opacity: '1'
-                }, 600);
-            }, function () {
-                $(this).stop().animate({
-                    opacity: '0.8'
-                }, 1000);
-            });
-            //文本框不允许为空---按钮触发
-            $("#loginbtn").click(function () {
-                var name = $("#name").val().trim();
-                if (isNull(name)) {
-                    alertMsg("姓名不能为空!", 0);
-                    return;
-                }
-                var rawpassword = $("#rawpassword").val().trim();
-                var password = $("#password").val().trim();
-                var ispassword = $("#ispassword").val().trim();
-                if (!isNull(password) || !isNull(ispassword)) {
-                    if (isNull(rawpassword)) {
-                        alertMsg("原始密码不能为空!", 0);
-                        return;
-                    }
-                    if (password.length < 6 || password.length > 16) {
-                        alertMsg("密码长度错误!", 0);
-                        return;
-                    }
-                }
-                if (!isNull(rawpassword)) {
-                    if (isNull(password) || isNull(ispassword)) {
-                        alertMsg("密码不能为空", 0);
-                        return;
-                    }
-                }
-                if (password != ispassword) {
-                    alertMsg("两次密码输入不一致!", 0);
-                    return;
-                }
-                $("#fromtId").ajaxSubmit({
-                    type: "post",
-                    success: function (data) {
-                        if (data == 'loseSession') {
-                            location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                            return;
-                        }
-                        var json = eval("(" + data + ")");// 解析json
-                        var code = json.code;
-                        if (code == 200) {
-                            alertMsg("操作成功", 1);
-                            if (!isNull(password)) {
-                                location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                            } else {
-                                $("#LoginBox").fadeOut("fast");
-                                $("#mask").css({display: 'none'});
-                            }
-
-                        } else {
-                            alertMsg("操作失败", 2);
-                        }
-                    }
-                });
-            });
-            //关闭
-            $(".close_btn").hover(function () {
-                $(this).css({color: 'black'})
-            }, function () {
-                $(this).css({color: '#999'})
-            }).on('click', function () {
-                $("#LoginBox").fadeOut("fast");
-                $("#mask").css({display: 'none'});
-            });
-        });
-
-    </script>
-
-
+    <!--子导航栏-->
     <div class="baby_conter_cd">
-
-
         <div class="baby_conter_left">
-
-
-            <div class="baby_conter_li" id="teachLeft_Id">
-                <a href="" id="attendance" class="baby_conter_school"><img src="img/buttom.png">课程管理</a>
+            <div class="baby_conter_li">
+                <a ms-class="baby_conter_school:curPage == 'video' "      ms-click="router('video')"><img src="img/buttom.png">讲堂管理</a>
             </div>
-
-
             <div class="Copyright">
                 <div class="p">Powered by glorymi<br>深圳市伴小宝科技有限公司</div>
             </div>
         </div>
 
 
+
         <div class="baby_conter_right">
-            <form action="http://banxiaobao.com:8015/gbb/admin/teacherList.do" method="post" id="formId">
-                <input type="hidden" id="adminId" name="adminId">
-                <input value="1" type="hidden" id="pageNum" name="pageNum">
-                <table class="tb-type1 noborder search">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <input placeholder="姓名" name="searchName" id="searchName">
-                        </td>
-                        <td><a href="javascript:;" id="search" class="btn-search " title="查询" onclick="chickSubmit();">
-                            &nbsp;</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="baby_content_tab">
+            <form>
+                <!--视频管理-->
+                <div class="baby_content_tab"     style="display: none"  ms-class="show:curPage == 'video'"  ms-if="curPage == 'video' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
-                        <li>姓名</li>
-                        <li>班级</li>
-                        <li>账号</li>
-                        <li>成员类型</li>
-                        <li>上次登录时间</li>
-                        <li>操作</li>
+                        <li>视频名称</li>
+                        <li>视频大小</li>
+                        <li>视频封面</li>
+                        <li>视频文件</li>
+                        <li>上传人</li>
+                        <li>上传时间</li>
+                        <li>管理</li>
                     </ul>
 
-
-                    <ul class="baby_content_tab_ul1 ">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
-                                                                value="190 " onclick="checkBox(&#39;0&#39;,this);"></li>
-                        <li>zhang</li>
-                        <li></li>
-                        <li>13971227532</li>
-                        <li>
-
-
-                            园长助理
-
-
-                        </li>
-                        <li>2016-09-19 15:19:06</li>
-
-
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
-
-
+                    <!--数据-->
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
+                        <li>{{el.degr_id}}</li>
+                        <li>{{el.degr_name}}</li>
+                        <li>{{el.tegr_name}}</li>
+                        <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
+                        <li ><a class="edit" href="javascript: void(0)"  ms-if="weight>=2">编辑</a></li>
                     </ul>
-
-                    <ul class="baby_content_tab_ul1 baby_content_tab_bg">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_1" name="checkbox"
-                                                                value="193 " onclick="checkBox(&#39;1&#39;,this);"></li>
-                        <li>刘总</li>
-                        <li></li>
-                        <li>13332660866</li>
-                        <li>
-
-
-                            园长助理
-
-
-                        </li>
-                        <li>2016-10-28 14:53:18</li>
-
-
-                        <li><a class="edit" href="javascript: void(0)" eid="193">编辑</a></li>
-
-
-                    </ul>
-
-                    <ul class="baby_content_tab_ul1 ">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
-                                                                value="147 " onclick="checkBox(&#39;2&#39;,this);"></li>
-                        <li>蔡总</li>
-                        <li>内部班</li>
-                        <li>13823727161</li>
-                        <li>
-
-
-                            老师
-
-
-                        </li>
-                        <li>2016-08-30 14:36:04</li>
-
-
-                        <li><a class="edit" href="javascript: void(0)" eid="147">编辑</a></li>
-
-
-                    </ul>
-
-                    <ul class="baby_content_tab_ul1 baby_content_tab_bg">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
-                                                                value="148 " onclick="checkBox(&#39;3&#39;,this);"></li>
-                        <li>聂总</li>
-                        <li>内部班</li>
-                        <li>13798285925</li>
-                        <li>
-
-
-                            老师
-
-
-                        </li>
-                        <li>2016-12-24 10:23:34</li>
-
-
-                        <li><a class="edit" href="javascript: void(0)" eid="148">编辑</a></li>
-
-
-                    </ul>
-
-                    <ul class="baby_content_tab_ul1 ">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_4" name="checkbox"
-                                                                value="149 " onclick="checkBox(&#39;4&#39;,this);"></li>
-                        <li>周晶</li>
-                        <li>内部班</li>
-                        <li>18824397727</li>
-                        <li>
-
-
-                            班主任
-
-
-                        </li>
-                        <li>2017-02-13 10:22:14</li>
-
-
-                        <li><a class="edit" href="javascript: void(0)" eid="149">编辑</a></li>
-
-
-                    </ul>
-
-                    <ul class="baby_content_tab_ul1 baby_content_tab_bg">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_5" name="checkbox"
-                                                                value="178 " onclick="checkBox(&#39;5&#39;,this);"></li>
-                        <li>李恒</li>
-                        <li>中班</li>
-                        <li>18676727061</li>
-                        <li>
-
-
-                            班主任
-
-
-                        </li>
-                        <li>2017-02-14 14:01:23</li>
-
-
-                        <li><a class="edit" href="javascript: void(0)" eid="178">编辑</a></li>
-
-
-                    </ul>
-
                 </div>
-            </form>
+
+
+        </form>
+
             <div class="baby_content_dt">
                 <div class="baby_content_dt-1">
-                    <input type="checkbox" onclick="checkBoxAll(this);">
-                    <span style="cursor: pointer;">全选</span>
-                    <span class="baby_content_del" onclick="delAdmin();">批量删除</span>
-                    <span class="baby_content_del edit">添加</span>
+                    <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
+                    <span style="cursor: pointer;" >全选</span>
+                    <span class="baby_content_del" ms-click="open('del')">批量删除</span>
+                    <span class="baby_content_del edit" ms-click="open('add')">添加</span>
                 </div>
 
 
-                <!--<base href="http://banxiaobao.com:8015/gbb/">-->
-                <base href=".">
-                <title>网关列表</title>
-                <link rel="stylesheet" href="css/style.css" type="text/css">
-                <link rel="stylesheet" href="css/left.css" type="text/css">
-                <link rel="stylesheet" href="css/gatawaylist.css" type="text/css">
-                <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-                <script type="text/javascript">
-                    function goToPage(pagenum) {
-                        $("#pageNum").val(pagenum);
-                        $("#formId").submit();
-                    }
-
-                </script>
 
 
+
+                <!--弹窗-->
+                <div class="shade"   ms-class="block:pop">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>设备组：</h3>
+                            </div>
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th width="40%">设备组名称：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">设备组老师：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">教师集团：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex-string=""/></td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">创建时间：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="save"/>
+                                <input type="button" value="返回" class="oper" ms-click="back"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.shove-1.0.js"></script>
-<script type="text/javascript" src="js/layer.min.js"></script>
-<link rel="stylesheet" href="css/twitter.css">
-<script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
-<script type="text/javascript" src="js/iframeTools.js"></script>
-<script type="text/javascript" src="js/msg.js"></script>
+</body>
+
+
+
+
+
+
+
+<!--query脚本-->
 <script type="text/javascript">
-    function checkBoxAll(obj) {
-        $("#adminId").val("");
-        if (obj.checked == true) {
-            $("[name='checkbox']").attr("checked", 'true');//全选
-            var str = "";
-            $("[name='checkbox'][checked]").each(function (i) {
-                if (i == 0) {
-                    str = $(this).val();
-                } else {
-                    str += "," + $(this).val();
-                }
-            });
-            $("#adminId").val(str);
-
-        } else {
-            $("[name='checkbox']").removeAttr("checked");//取消全选
-        }
-    }
-    function checkBox(index, obj) {
-        $("#adminId").val("");
-        if (obj.checked == true) {
-            $("#checkid_" + index).attr("checked", true);
-        } else {
-            $("#checkid_" + index).attr("checked", false);
-        }
-        var str = "";
-        $("[name='checkbox'][checked]").each(function (i) {
-            if (i == 0) {
-                str = $(this).val();
-            } else {
-                str += "," + $(this).val();
-            }
-        });
-        $("#adminId").val(str);
-    }
-
     function delAdmin() {
         var adminId = $("#adminId").val().trim();
         if (isNull(adminId)) {
@@ -485,70 +391,7 @@
             });
         }
     }
-    function chickSubmit() {
-        $("#formId").submit();
-    }
-
-    (function (config) {
-        config['lock'] = true;
-        config['fixed'] = true;
-        config['opacity'] = .4;
-        config['okVal'] = '确定';
-        config['cancelVal'] = '取消';
-        // [more..]
-    })(art.dialog.defaults);
 
 
-    $(function () {
-        $("#searchName").val("");
-
-        $(".edit").click(function () {
-            var $this = $(this);
-            var eid = $this.attr("eid");
-            var title = '编辑';
-            if (eid == undefined) {
-                eid = "";
-                title = '新增';
-            }
-            art.dialog.open("admin/editTeacher.do?id=" + eid, {
-                width: 600,
-                height: 470,
-                title: title,
-                // 在open()方法中，init会等待iframe加载完毕后执行
-                init: function () {
-                    //var iframe = this.iframe.contentWindow;
-                    //var top = art.dialog.top;// 引用顶层页面window对象
-
-                },
-                ok: function () {
-                    var iframe = this.iframe.contentWindow;
-                    if (!iframe.document.body) {
-                        alert('iframe还没加载完毕呢');
-                        return false;
-                    }
-                    ;
-                    var dialog = this;
-                    iframe.submitAdmin(function (state) {
-                        switch (state) {
-                            case 0: // 成功
-                                dialog.close();
-                                window.location.reload();
-                                break;
-                            case 2: // 未登录
-                                location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                                break;
-                            default:
-                                break;
-                        }
-                    });
-                    return false;
-                },
-                cancel: true
-            });
-        });
-    });
 </script>
-
-<div style="display: none; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; cursor: move; opacity: 0; background: rgb(255, 255, 255);"></div>
-</body>
 </html>

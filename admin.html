@@ -256,13 +256,11 @@
         <!--子导航栏-->
         <div class="baby_conter_left">
             <div class="baby_conter_li" id="teachLeft_Id">
-                <a ms-class="baby_conter_school:curPage == 'admin' "    ms-click="router('admin')"  ms-if="weight==3 "><img src="img/buttom.png">管理员管理</a>
-                <a ms-class="baby_conter_school:curPage == 'teger' "    ms-click="router('teger')" ms-if="weight==3 " ><img src="img/buttom.png">集团管理</a>
-                <a ms-class="baby_conter_school:curPage == 'teacher' "  ms-click="router('teacher')" ms-if="weight>=2 "><img src="img/buttom.png">教师管理</a>
-                <a ms-class="baby_conter_school:curPage == 'school' "   ms-click="router('school')" ><img src="img/buttom.png">学校管理</a>
-                <a ms-class="baby_conter_school:curPage == 'class' "    ms-click="router('class')"><img src="img/buttom.png">班级管理</a>
-                <a ms-class="baby_conter_school:curPage == 'parent' "   ms-click="router('parent')"><img src="img/buttom.png">家长管理</a>
-                <a ms-class="baby_conter_school:curPage == 'student' "  ms-click="router('student')"><img src="img/buttom.png">学生管理</a>
+                <a ms-class="baby_conter_school:curPage == 'admin' "    ms-click="router('admin')"  ms-if="weight==3 "><img src="img/buttom.png">系统用户</a>
+                <a ms-class="baby_conter_school:curPage == 'teger' "    ms-click="router('teger')" ms-if="weight==3 " ><img src="img/buttom.png">集团列表</a>
+                <a ms-class="baby_conter_school:curPage == 'school' "   ms-click="router('school')" ><img src="img/buttom.png">学校列表</a>
+                <a ms-class="baby_conter_school:curPage == 'parent' "   ms-click="router('parent')"><img src="img/buttom.png">家长列表</a>
+
 
             </div>
             <div class="Copyright">
@@ -291,14 +289,14 @@
                     </select>
                     <span>学校：&nbsp;</span>
                     <select name=""  ms-duplex="school_id">
-                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
+                        <option ms-attr-value="{{el.school_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
                     </select>
                 </div>
                 <!--选择框-->
                 <div class="select" ms-if="curPage=='student'">
                     <span>学校：&nbsp;</span>
                     <select name=""  ms-duplex="school_id">
-                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
+                        <option ms-attr-value="{{el.school_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
                     </select>
                     <span>班级：&nbsp;</span>
                     <select name=""  ms-duplex="class_id">
@@ -328,7 +326,8 @@
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
-                    <!--集团数据-->
+
+                <!--集团数据-->
                 <div class="baby_content_tab" ms-if="curPage == 'teger'  && weight==3 ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
@@ -348,7 +347,10 @@
                         <li>{{el.totalCount}}</li>
                         <li>{{el.vipCount}}</li>
                         <li>{{el.name}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li>
+                            <a class="edit" href="javascript: void(0)" eid="190">编辑</a>
+                            <a class="edit" ms-click="router('teacher')" eid="190">查看</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -392,9 +394,13 @@
                         <li>{{el.school_name}}</li>
                         <li>{{el.vipCount}}/{{el.totalCount}}</li>
                         <li>{{el.name}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li>
+                            <a class="edit" href="javascript: void(0)" >编辑</a>
+                            <a class="edit" ms-click="router('class')" >查看</a>
+                        </li>
                     </ul>
                 </div>
+
                 <!--班级管理数据-->
                 <div class="baby_content_tab" ms-if="curPage =='class'" >
                     <ul class="baby_content_tab_menu">
@@ -416,6 +422,7 @@
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
+
                 <!--家长管理数据-->
                 <div class="baby_content_tab" ms-if="curPage =='parent'" >
                     <ul class="baby_content_tab_menu">
@@ -441,6 +448,7 @@
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
+
                 <!--学生管理数据-->
                 <div class="baby_content_tab" ms-if="curPage =='student'" >
 

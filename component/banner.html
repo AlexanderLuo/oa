@@ -88,42 +88,42 @@
 
 <!-- 个人设置 -->
 <div id="LoginBox">
-    <form method="post" action="http://banxiaobao.com:8015/gbb/admin/addAdmin.do" id="fromtId">
+    <form method="post"  id="fromtId">
         <input id=" " name="id" type="hidden">
         <input id="ROLEID" name="roleid" type="hidden">
         <div class="row1">
             修改账号基本信息<a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
         </div>
-        <div class="row">
-            &nbsp;幼儿园: <span class="inputBox">
-	               <input type="text" id="schoolname" name="schoolname" disabled="disabled" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-        </div>
-        <div class="row">
-            类&nbsp;&nbsp;型: <span class="inputBox">
-	               <input type="text" id="rolename" name="rolename" disabled="disabled" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-        </div>
-        <div class="row">
-            姓&nbsp;&nbsp;名: <span class="inputBox">
-	               <input type="text" id="name" name="name" disabled="disabled" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-        </div>
-        <div class="row">
-            原始密码: <span class="inputBox">
-	               <input type="password" id="rawpassword" name="rawpassword" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-        </div>
-        <div class="row">
-            密&nbsp;&nbsp;码: <span class="inputBox">
-	               <input type="password" id="password" name="password" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-        </div>
-        <div class="row">
-            确认密码: <span class="inputBox">
-	               <input type="password" id="ispassword" name="ispassword" style="width: 185px;">
-	           </span><a href="javascript:void(0)" title="提示" class="warning" id="warn">*</a>
-        </div>
+            <div class="user-edit">
+                <div class="user-main" >
+                    <table class="table_1" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="40%">设备组名称：</th>
+                            <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="40%">设备组老师：</th>
+                            <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="40%">教师集团：</th>
+                            <td width="60%"><input type="text" name="" ms-duplex-string=""/></td>
+                        </tr>
+                        <tr>
+                            <th width="40%">创建时间：</th>
+                            <td width="60%"><input type="text" name="" ms-duplex-string=""/>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="user-btn">
+                        <input type="button" value="保存" class="oper" ms-click="save"/>
+                        <input type="button" value="返回" class="oper" ms-click="back"/>
+                    </div>
+                </div>
+
+            </div>
         <div class="row">
             <a id="loginbtn">确认</a>
         </div>
