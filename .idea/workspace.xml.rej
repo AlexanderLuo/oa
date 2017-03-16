@@ -1,0 +1,10 @@
+diff a/.idea/workspace.xml b/.idea/workspace.xml	(rejected hunks)
+@@ -44,7 +44,7 @@
+       <file leaf-file-name="admin.html" pinned="false" current-in-tab="false">
+         <entry file="file://$PROJECT_DIR$/admin.html">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="435">
++            <state relative-caret-position="6365">
+               <caret line="395" column="44" selection-start-line="395" selection-start-column="44" selection-end-line="395" selection-end-column="44" />
+               <folding>
+                 <element signature="n#div#0;n#form#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
