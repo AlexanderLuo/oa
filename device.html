@@ -57,12 +57,8 @@
         </div>
 
 
-
-
-
         <div class="baby_conter_right">
             <form>
-
                 <!--设备组选择框-->
                 <div class="select" ms-if="curPage=='ring'">
                     <span>设备组：&nbsp;</span>
@@ -70,7 +66,6 @@
                         <option ms-attr-value="{{el.deger_id}}" ms-repeat="dataList">{{el.tegr_name}}</option>
                     </select>
                 </div>
-
                 <!--集团选择框-->
                 <div class="select" ms-if="curPage=='ruler'|| curPage =='steelyard'">
                     <span>集团：&nbsp;</span>
@@ -78,7 +73,6 @@
                         <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                     </select>
                 </div>
-
                 <!--设备组数据-->
                 <div class="baby_content_tab"     style="display: none"  ms-class="show:curPage == 'device'"  ms-if="curPage == 'device' ">
                     <ul class="baby_content_tab_menu">
@@ -89,7 +83,6 @@
                         <li>创建时间</li>
                         <li>操作</li>
                     </ul>
-
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
@@ -100,8 +93,6 @@
                         <li ><a class="edit" href="javascript: void(0)"  ms-if="weight>=2">编辑</a></li>
                     </ul>
                 </div>
-
-
             <!--    &lt;!&ndash;手环组数据-->
                 <div class="baby_content_tab"  style="display: none"  ms-class="show:curPage == 'ring'"  ms-if="curPage == 'ring' ">
                     <ul class="baby_content_tab_menu">
@@ -120,9 +111,6 @@
                         <li><a class="edit" href="javascript: void(0)" >编辑</a></li>
                     </ul>
                 </div>
-
-
-
                 <!--&lt;!&ndash;身高尺数据&ndash;&gt;-->
                 <div class="baby_content_tab" style="display: none"  ms-class="show:curPage == 'ruler'"   ms-if="curPage =='ruler'">
                     <ul class="baby_content_tab_menu">
@@ -143,8 +131,6 @@
                         <li><a class="edit" href="javascript: void(0)" ms-if="weight>=2">编辑</a></li>
                     </ul>
                 </div>
-
-
                 <!--&lt;!&ndash;健康秤数据&ndash;&gt;-->
                 <div class="baby_content_tab" style="display: none"  ms-class="show:curPage == 'steelyard'"  ms-if="curPage =='steelyard'" >
                     <ul class="baby_content_tab_menu">
@@ -166,6 +152,10 @@
                     </ul>
                 </div>
             </form>
+
+
+
+
 
             <div class="baby_content_dt">
                 <div class="baby_content_dt-1">
