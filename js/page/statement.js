@@ -99,7 +99,7 @@ avalon.ready(function () {
                     conf=res
                 }
             });
-            vm.query(1);
+            vm.router("statement")
         }
     })
 
