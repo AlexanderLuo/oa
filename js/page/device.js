@@ -35,11 +35,11 @@ avalon.ready(function () {
 
         //控制
         weight:1,  //权限
-
         curPage: "device",  //当前路由
         checkAllFlag:false,  //全选标志
         pop:false,
         popData:{},
+
         querytTeg:function(){
             $.ajax({url:conf.baseUrl+conf.getTegrList,type:"post",data:{user_id:user.user_id}}).done(function(data){
                 var json = eval("(" + data + ")");// 解析json
@@ -51,14 +51,10 @@ avalon.ready(function () {
                     error && error.call()
                 }
             })
-        }
-
-
-        ,
-
-
+        },
         query:function(pageNo){
             vm.pageNo=pageNo;
+            vm.queryData.page=pageNo
             var path = vm.upperPage();
             $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function(data){vm.queryHandle(data,vm["get"+path])})
         },

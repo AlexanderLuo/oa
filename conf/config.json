@@ -1,22 +1,35 @@
 {
   "baseUrl":"http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/",
   "getTegrList":"tegrApi/getTegrList",
+
   "getChildStatementList":"childStatementApi/getChildStatementList",
   "addDevice":"deviceGroupApi/addDeviceGroup",
   "delDevice":"deviceGroupApi/deleteDeviceGroup",
   "revDevice":"deviceGroupApi/editDeviceGroup",
+
   "queryDevice":"deviceGroupApi/getDeviceGroupList",
   "addRing":"deviceBraceletApi/addDeviceBracelet",
   "delRing":"deviceBraceletApi	/deleteDeviceBracelet",
   "revRing":"deviceBraceletApi/editDeviceBracelet",
+
   "queryRing":"deviceBraceletApi/getDeviceBraceletList",
   "addRuler":"rulerApi/addRuler",
   "delRuler":"rulerApi/deleteRuler",
   "revRuler":"rulerApi/editRuler",
   "queryRuler":"rulerApi/getRulerList",
+
   "addSteelyard":"scalesApi/addScales",
   "delSteelyard":"scalesApi/deleteScales",
   "revSteelyard":"scalesApi/editScales",
-  "querySteelyard":"scalesApi/getScalesList"
+  "querySteelyard":"scalesApi/getScalesList",
+
+
+  "queryGoods":"goodsApi/getGoodsList",
+  "addGoods":"goodsApi/addGoods",
+  "revGoods":"goodsApi/updateGoods",
+  "delGoods":"goodsApi/deleteGoods",
+  "detailGoods":"goodsApi/getGoods"
+
+
 }
 
