@@ -11,15 +11,14 @@ avalon.ready(function () {
         degr_id: "",   //当前用户设备组
 
 
-        deviceReq:0,
-        ringReq: 0,
-        rulerReq:0,
-        steelyardReq:0,
+        pageSize:4,
         pageNo:1,
-        pageSize:10,
+        total:1,
+        records:0,
 
         tegr_id:0,
         tegerList:[],
+
 
         //逻辑
         queryUrl:"",
@@ -31,6 +30,10 @@ avalon.ready(function () {
         delUrl:"",
         delData:"",
         dataList:[],
+        deviceReq:0,
+        ringReq: 0,
+        rulerReq:0,
+        steelyardReq:0,
 
 
         //控制
@@ -53,8 +56,13 @@ avalon.ready(function () {
             })
         },
         query:function(pageNo){
+
             vm.pageNo=pageNo;
-            vm.queryData.page=pageNo
+            vm.records=0;
+            vm.total=1;
+            vm.checkAllFlag=false;
+            vm.queryData.page=pageNo;
+
             var path = vm.upperPage();
             $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function(data){vm.queryHandle(data,vm["get"+path])})
         },
@@ -146,11 +154,11 @@ avalon.ready(function () {
         },
         //查询设备
         getDevice: function (json) {
+
             vm.deviceReq = json.result.last_req_time;
-            var tar=json.result.list.filter(function(el){
-                return el.user_id==user.user_id;
-            });
-            vm.degr_id=tar[0].degr_id;
+            vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
+
             json.result.list.forEach(function(el){
                 el.check=false;
             });
@@ -163,6 +171,10 @@ avalon.ready(function () {
                 el.check=false;
             });
             vm.dataList = json.result.list;
+        },
+        ringProxy:function(did){
+            vm.degr_id=did;
+            vm.router('ring')
         },
         //身高尺
         getRuler: function (json) {
@@ -211,6 +223,7 @@ avalon.ready(function () {
             vm.dataList=[];
             vm.checkAllFlag=false;
             vm.curPage=str;
+
             vm.tegr_id=0;
 
             var path = vm.upperPage();
@@ -367,29 +380,31 @@ avalon.ready(function () {
             $.ajax({
                 url: "/oa/conf/config.json",
                 success: function(res){
-                    conf=res
-                     vm.querytTeg();
+                     conf=res
                      vm.router("device")
+                     vm.querytTeg()
                 },
                 complete:function(res){
                     conf=eval("("+res.responseText+")")
-                    vm.querytTeg();
                     vm.router("device")
+                    vm.querytTeg()
                 }
             });
+
+
 
 
 
         }
     })
 
-
-
     avalon.scan()
     vm.init();
+
     vm.$watch("tegr_id",function(data){
         vm.queryData.tegr_id=data;
         vm.query(1)
     })
+
 
 })
