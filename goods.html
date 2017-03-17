@@ -24,106 +24,12 @@
     <script src="./js/lib/common.js"></script>
     <script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
     <script type="text/javascript" src="js/iframeTools.js"></script>
+    <script type="text/javascript" src="js/page/goods.js"></script>
 
 
 
     <script>
-        avalon.ready(function () {
-            var vm = avalon.define({
-                $id: "goodsVm",
-                user: {},
-//                degr_id: "",   //设备组 id
-//                tegr_id: 0,   //集团ID
-                goods_type:0,
-                order_state:0,
-                list:[],
-                goodsList: [],
-                orderList: [],
-                lastReq: 0,
-                goodsReq: 0,
-                orderReq: 0,
-                curPage: "goods",
-                getGoods: function () {
-                    vm.goodsList=[]
-                    $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/goodsApi/getGoodsList",
-                        type: "post",
-                        data: {
-                            goods_type: vm.goods_type,
-                            page: 1,
-                            page_size: 10,
-                            last_req_time: vm.lastReq
-                        },
-                        success: function (data) {
-                            var json = eval("(" + data + ")");// 解析json
-                            if (json.code == 200) {
-//                                var tar = json.result.list.filter(function (el) {
-//                                    return el.user_id == vm.user.user_id;
-//                                })
-//                                vm.lastReq = json.result.last_req_time;
-//                                vm.degr_id = tar[0].degr_id;
-                                vm.goodsList = json.result.list;
-                            }
 
-                        }
-                    })
-                },
-
-                getOrder: function () {
-                    vm.orderList = [];
-                    $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/orderApi/getOrderList",
-                        type: 'post',
-                        data: {
-                            user_id: vm.user.user_id,
-                            order_state: vm.order_state,
-                            page: 1,
-                            page_size: 10,
-                            last_req_time: vm.orderReq
-                        },
-                        success: function (data) {
-                            var json = eval("(" + data + ")");// 解析json
-                            if (json.code == 200) {
-                                vm.orderReq = json.result.last_req_time;
-                                vm.orderList = json.result.list;
-                            }
-                        }
-
-                    })
-                },
-
-
-                router: function (str) {
-                    vm.curPage=str;
-                },
-                init: function () {
-                    var user = getLocalValue('user');
-                    if (user == null) {
-                        console.log("失效")
-
-                    }
-                    vm.user = user;
-                    vm.getGoods();
-                }
-            })
-
-            vm.init();
-            avalon.scan()
-
-            vm.$watch('degr_id', function (value, oldValue) {
-                vm.getRing();
-            })
-            vm.$watch('curPage',function(value){
-                if(value=="goods"){
-                    vm.getGoods();
-                }
-                if(value=="order"){
-                    vm.getOrder();
-                }
-            })
-
-
-        })
     </script>
 </head>
 
@@ -148,7 +54,7 @@
         </div>
 
 
-        <div class="select" ms-if="curPage=='goods'">
+        <div class="select" ms-if="curPage== 'goods'  ">
             <span>设备组：&nbsp;</span>
             <select name=""  ms-duplex="deger_id">
                 <option value="0">全部</option>

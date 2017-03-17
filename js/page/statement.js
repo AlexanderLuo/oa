@@ -49,7 +49,19 @@ avalon.ready(function () {
 
             })
         },
+        del:function(){
+            var delete_scales_id="";
+            for(var a=0;a<vm.dataList.length;a++){
+                if(vm.dataList[a].check==true){
+                    delete_scales_id=delete_scales_id+vm.dataList[a].scales_id
+                    if(a!=vm.dataList.length-1){
+                        delete_scales_id=delete_scales_id+","
+                    }
+                }
+            }
 
+
+        },
         //路由
         router: function (str) {
             vm.dataList=[];
