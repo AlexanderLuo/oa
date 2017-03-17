@@ -336,7 +336,6 @@
                         <li>选择</li>
                         <li>集团名称</li>
                         <li>人数</li>
-                        <li>会员人数</li>
                         <li>管理员</li>
                         <li>操作</li>
                     </ul>
@@ -348,7 +347,6 @@
                         </li>
                         <li>{{el.tegr_name}}</li>
                         <li>{{el.totalCount}}</li>
-                        <li>{{el.vipCount}}</li>
                         <li>{{el.name}}</li>
                         <li>
                             <a class="edit" href="javascript: void(0)" eid="190">编辑</a>
@@ -393,8 +391,7 @@
                         <li>选择</li>
                         <li>集团名称</li>
                         <li>学校名称</li>
-                        <li>会员人数比</li>
-                        <li>管理员</li>
+                        <li>集团管理员</li>
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
@@ -403,7 +400,6 @@
                                                                 value="190 " onclick="checkBox(3,this);"></li>
                         <li>{{el.tegr_name}}</li>
                         <li>{{el.school_name}}</li>
-                        <li>{{el.vipCount}}/{{el.totalCount}}</li>
                         <li>{{el.name}}</li>
                         <li>
                             <a class="edit" href="javascript: void(0)" >编辑</a>
@@ -426,8 +422,6 @@
                         <li>选择</li>
                         <li>学校名称</li>
                         <li>班级</li>
-                        <li>会员人数比</li>
-                        <li>管理员</li>
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
@@ -436,8 +430,6 @@
                                                                 value="190 " onclick="checkBox(3,this);"></li>
                         <li>{{el.school_name}}</li>
                         <li>{{el.class_name}}</li>
-                        <li>{{el.vipCount}}/{{el.totalCount}}</li>
-                        <li>{{el.name}}</li>
                         <li>
                             <a class="edit" href="javascript: void(0)" >编辑</a>
                             <a class="edit" ms-click="router('student')" >查看</a>
@@ -449,12 +441,9 @@
                 <div class="baby_content_tab" ms-if="curPage =='parent'" >
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
-                        <li>班级</li>
-                        <li>孩子姓名</li>
                         <li>姓名</li>
                         <li>账号</li>
-                        <li>会员等级</li>
-                        <li>到期时间</li>
+                        <li>简介</li>
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
@@ -463,10 +452,7 @@
                                                                 value="190 " onclick="checkBox(3,this);"></li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.class_name}}</li>
-                        <li>{{}}</li>
-                        <li>{{el.username}}</li>
                         <li>{{el.level}}</li>
-                        <li>{{}}</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
@@ -488,6 +474,8 @@
                         <li>姓名</li>
                         <li>性别</li>
                         <li>出生日期</li>
+                        <li>家长姓名</li>
+                        <li>家长电话</li>
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
@@ -498,6 +486,8 @@
                         <li>{{el.children_name}}</li>
                         <li>{{el.sex}}</li>
                         <li>{{el.birthday | date('yyyy-MM-dd') }}</li>
+                        <li>{{el.sex}}</li>
+                        <li>{{el.sex}}</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
@@ -572,6 +562,135 @@
                         </div>
                     </div>
                 </div>
+
+                <!--教师弹窗-->
+                <div class="shade"   ms-class="block:pop=='teacher' ">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>教师：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr >
+                                    <th width="40%">姓名：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">账号：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">角色：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="tegr_id">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">简介：</th>
+                                    <td width="60%"><textarea rows="4" cols="30"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>、
+
+                <!--学校弹窗-->
+                <div class="shade"   ms-class="block:pop=='teacher' ">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>学校：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr >
+                                    <th width="40%">学校名称：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">集团名称：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="degr_id">
+                                            <option ms-attr-value="{{el.degr_id}}" ms-repeat="tegerList">{{el.degr_name}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--班级弹窗-->
+                <div class="shade"   ms-class="block:pop=='class' ">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>系统用户：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr >
+                                    <th width="40%">班级名称：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--家长弹窗-->
+                <div class="shade"   ms-class="block:pop=='admin' ">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>系统用户：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr >
+                                    <th width="40%">姓名：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">账号：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">简介：</th>
+                                    <td width="60%"><textarea rows="4" cols="30"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         </div>
