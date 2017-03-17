@@ -58,13 +58,13 @@
 
         <div class="baby_conter_right">
             <form>
-                <!--设备组选择框-->
-                <div class="select" ms-if="curPage=='ring'">
-                    <span>设备组：&nbsp;</span>
-                    <select name=""  ms-duplex="deger_id">
-                        <option ms-attr-value="{{el.deger_id}}" ms-repeat="dataList">{{el.tegr_name}}</option>
-                    </select>
-                </div>
+                <!--&lt;!&ndash;设备组选择框&ndash;&gt;-->
+                <!--<div class="select" ms-if="curPage=='ring'">-->
+                    <!--<span>设备组：&nbsp;</span>-->
+                    <!--<select name=""  ms-duplex="deger_id">-->
+                        <!--<option ms-attr-value="{{el.deger_id}}" ms-repeat="dataList">{{el.tegr_name}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
                 <!--集团选择框-->
                 <div class="select" ms-if="curPage=='ruler'|| curPage =='steelyard'">
                     <span>集团：&nbsp;</span>
@@ -99,7 +99,7 @@
 
                 <div class="user-main2" style="display: none" ms-class="block:curPage == 'ring'" ms-if="curPage == 'ring' ">
                     <div class="user-title2">
-                        <a ms-click="router('deger')" class="back">
+                        <a ms-click="router('device')" class="back">
                             <img src="img/back.png" title="">
                         </a>
                         <h3>{{？设备组}}</h3>
