@@ -231,6 +231,11 @@
     width: 100%;
     background: white;
 }
+.back{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
 
 .user-edit .table_1 {
     margin-top: 20px;
@@ -286,6 +291,7 @@
     border-radius: 10px 10px 0 0;
 }
 .user-title2{
+    position: relative;
     height: 40px;
     background: #d36200;
     border-top: 1px solid #ddd;
