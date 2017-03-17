@@ -36,7 +36,7 @@ avalon.ready(function () {
         //控制
         weight:1,  //权限
 
-        curPage: "",  //当前路由
+        curPage: "device",  //当前路由
         checkAllFlag:false,  //全选标志
         pop:false,
         popData:{},

@@ -46,8 +46,7 @@
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
             <div class="baby_conter_li">
-                <a ms-class="baby_conter_school:curPage == 'device' "      ms-click="router('device')"><img src="img/buttom.png">设备管理</a>
-                <a ms-class="baby_conter_school:curPage == 'ring'   "      ms-click="router('ring')"><img src="img/buttom.png">手环管理</a>
+                <a ms-class="baby_conter_school:curPage == 'device' "      ms-click="router('device')"><img src="img/buttom.png">设备组管理</a>
                 <a ms-class="baby_conter_school:curPage == 'ruler'  "      ms-click="router('ruler')"><img src="img/buttom.png">身高尺管理</a>
                 <a ms-class="baby_conter_school:curPage == 'steelyard' "   ms-click="router('steelyard')"><img src="img/buttom.png">健康秤管理</a>
             </div>
@@ -90,7 +89,10 @@
                         <li>{{el.degr_name}}</li>
                         <li>{{el.tegr_name}}</li>
                         <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
-                        <li ><a class="edit" href="javascript: void(0)"  ms-if="weight>=2">编辑</a></li>
+                        <li >
+                            <a class="edit" href="javascript: void(0)"  ms-if="weight>=2">编辑</a>
+                            <a class="edit" ms-click="router('ring')"  >查看</a>
+                        </li>
                     </ul>
                 </div>
             <!--    &lt;!&ndash;手环组数据-->
