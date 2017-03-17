@@ -239,6 +239,11 @@
     top: 10px;
     left: 10px;
 }
+.close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
 
 .user-edit .table_1 {
     margin-top: 20px;
@@ -254,6 +259,10 @@
 .user-edit .table_1 th {
     text-align: right;
 }
+
+.wid_50{
+    width: 50px!important;
+   }
 
 
 .user-edit input[type="text"] {
@@ -383,4 +392,13 @@ input.oper:hover {
         float: left;
         width: 84%;
     }
+}
+.ms-controller, .ms-important, [ms-controller], [ms-important] {
+    visibility: hidden;
+}
+.show{
+    display: table!important;
+}
+.block{
+    display: block!important;
 }
