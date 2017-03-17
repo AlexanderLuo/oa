@@ -25,6 +25,18 @@
     <script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
     <script type="text/javascript" src="js/iframeTools.js"></script>
 
+    <style>
+        .ms-controller, .ms-important, [ms-controller], [ms-important] {
+            visibility: hidden;
+        }
+        .show{
+            display: table!important;
+        }
+        .block{
+            display: block!important;
+        }
+    </style>
+
 
     <script>
         avalon.ready(function () {
@@ -275,14 +287,14 @@
                 <input value="1" type="hidden" id="pageNum" name="pageNum">
 
                 <!--集团选择框-->
-                <div class="select" ms-if="curPage=='teacher'|| curPage =='school'">
+                <div class="select" ms-if="curPage =='school'">
                     <span>集团：&nbsp;</span>
                     <select name="" id="" ms-duplex="teger_id">
                         <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                     </select>
                 </div>
                 <!--选择框-->
-                <div class="select" ms-if="curPage =='class'||curPage=='parent'">
+                <div class="select" ms-if="curPage=='parent'">
                     <span>集团：&nbsp;</span>
                     <select name=""  ms-duplex="teger_id">
                         <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
@@ -292,17 +304,7 @@
                         <option ms-attr-value="{{el.school_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
                     </select>
                 </div>
-                <!--选择框-->
-                <div class="select" ms-if="curPage=='student'">
-                    <span>学校：&nbsp;</span>
-                    <select name=""  ms-duplex="school_id">
-                        <option ms-attr-value="{{el.school_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
-                    </select>
-                    <span>班级：&nbsp;</span>
-                    <select name=""  ms-duplex="class_id">
-                        <option ms-attr-value="{{el.class_id}}" ms-repeat="classlList">{{el.class_name}}</option>
-                    </select>
-                </div>
+
 
                 <!--数据主体-->
 
@@ -355,6 +357,11 @@
                 </div>
 
                 <!--教师管理数据-->
+                <div class="user-main2" style="display: none" ms-class="block:curPage == 'teacher'" ms-if="curPage == 'teacher' ">
+                    <div class="user-title2">
+                        <h3>{{？集团}}</h3>
+                    </div>
+                </div>
                 <div class="baby_content_tab" ms-if="curPage =='teacher'   && weight>=2 ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
@@ -402,10 +409,12 @@
                 </div>
 
                 <!--班级管理数据-->
-                <div class="baby_content_tab" ms-if="curPage =='class'" >
-                    <div class="user-title" style="width: 100%">
-                        <h3>集团</h3>
+                <div class="user-main2" style="display: none" ms-class="block:curPage == 'class'" ms-if="curPage == 'class' ">
+                    <div class="user-title2">
+                        <h3>{{？学校}}</h3>
                     </div>
+                </div>
+                <div class="baby_content_tab" ms-if="curPage =='class'" >
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>学校名称</li>
@@ -456,6 +465,11 @@
                 </div>
 
                 <!--学生管理数据-->
+                <div class="user-main2" style="display: none" ms-class="block:curPage == 'student'" ms-if="curPage == 'student' ">
+                    <div class="user-title2">
+                        <h3>{{？班级}}</h3>
+                    </div>
+                </div>
                 <div class="baby_content_tab" ms-if="curPage =='student'" >
 
                     <ul class="baby_content_tab_menu">
