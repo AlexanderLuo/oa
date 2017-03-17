@@ -4,8 +4,9 @@
       var vm= avalon.define({
           $id:"bannerVm",
           curPage:"",
-          router:function(){
-
+          pop:"",
+          router:function(str){
+              vm.pop=str;
           },
           init:function(){
               var page=window.location.pathname;
@@ -78,7 +79,7 @@
             <div class="baby_top_info_pad">
                 <p class="baby_info_user">龙园长</p>
                 |
-                <strong><a id="example" style="color: #999;cursor:pointer" title="个人设置">个人设置 </a></strong>
+                <strong><a id="example" style="color: #999;cursor:pointer" title="个人设置" ms-click="router('set')">个人设置 </a></strong>
                 <!--<div class="baby_info_num">消息<span class="baby_info_num_bg"></span></div>-->
                 <!--    <img src="img/select.png" class="baby_info_select"> -->
             </div>
@@ -87,201 +88,196 @@
 </div>
 
 <!-- 个人设置 -->
-<div id="LoginBox">
+<div id="LoginBox"  >
     <form method="post"  id="fromtId">
-        <input id=" " name="id" type="hidden">
-        <input id="ROLEID" name="roleid" type="hidden">
         <div class="row1">
             修改账号基本信息<a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
         </div>
-            <div class="user-edit">
+            <div class="user-edit"  ms-class="block:pop=='device'>">
                 <div class="user-main" >
                     <table class="table_1" cellpadding="0" cellspacing="0">
                         <tr>
-                            <th width="40%">设备组名称：</th>
+                            <th width="40%">昵称：</th>
                             <td width="60%"><input type="text" name="" ms-duplex-string=""/>
                             </td>
                         </tr>
                         <tr>
-                            <th width="40%">设备组老师：</th>
+                            <th width="40%">性别：</th>
                             <td width="60%"><input type="text" name="" ms-duplex-string=""/>
                             </td>
                         </tr>
                         <tr>
-                            <th width="40%">教师集团：</th>
+                            <th width="40%">生日：</th>
                             <td width="60%"><input type="text" name="" ms-duplex-string=""/></td>
                         </tr>
                         <tr>
-                            <th width="40%">创建时间：</th>
+                            <th width="40%">个性签名：</th>
                             <td width="60%"><input type="text" name="" ms-duplex-string=""/>
                             </td>
                         </tr>
                     </table>
                     <div class="user-btn">
                         <input type="button" value="保存" class="oper" ms-click="save"/>
-                        <input type="button" value="返回" class="oper" ms-click="back"/>
+                        <input type="button" value="返回" class="oper" ms-click="close"/>
                     </div>
                 </div>
 
             </div>
-        <div class="row">
-            <a id="loginbtn">确认</a>
-        </div>
     </form>
 </div>
 
 
 
-<script type="text/javascript">
+<!--<script type="text/javascript">-->
 
 
-    function loginOut() {//退出
-        if (confirm("确定要退出登录吗？") != "0") {
-            window.location.href = "http://banxiaobao.com:8015/gbb/admin/loginOut.do";
-        }
-    }
+    <!--function loginOut() {//退出-->
+        <!--if (confirm("确定要退出登录吗？") != "0") {-->
+            <!--window.location.href = "http://banxiaobao.com:8015/gbb/admin/loginOut.do";-->
+        <!--}-->
+    <!--}-->
 
-    function clickTop(id) {//点击头部菜单
-        var roleId = $("#roleId").val();
-        if (id == "deviceId") {
-            window.location.href = "http://banxiaobao.com:8015/gbb/machine/machineList.do";
-            /* 	$("#deviceLeft_Id").show().siblings("div").hide(); */
-        } else if (id == "teachId") {
-            if (roleId == -1 || roleId == 1 || roleId == 4) {
-                window.location.href = "http://banxiaobao.com:8015/gbb/school/schoolList.do";
-            } else {
-                window.location.href = "http://banxiaobao.com:8015/gbb/attendance/attendanceList.do";
-            }
-            /* 	$("#teachLeft_Id").show().siblings("div").hide(); */
-        } else if (id == "adminId") {
-            window.location.href = "http://banxiaobao.com:8015/gbb/admin/adminList.do";
-        } else if (id == "healthId") {
-            window.location.href = "http://banxiaobao.com:8015/gbb/sports/tosportsList.do";
-            /* $("#healthLeft_Id").show().siblings("div").hide(); */
-        } else if (id == "attenId") {
-            window.location.href = "http://banxiaobao.com:8015/gbb/attendance/attendanceTeacherInit.do";
-        }
-    }
+    <!--function clickTop(id) {//点击头部菜单-->
+        <!--var roleId = $("#roleId").val();-->
+        <!--if (id == "deviceId") {-->
+            <!--window.location.href = "http://banxiaobao.com:8015/gbb/machine/machineList.do";-->
+            <!--/* 	$("#deviceLeft_Id").show().siblings("div").hide(); */-->
+        <!--} else if (id == "teachId") {-->
+            <!--if (roleId == -1 || roleId == 1 || roleId == 4) {-->
+                <!--window.location.href = "http://banxiaobao.com:8015/gbb/school/schoolList.do";-->
+            <!--} else {-->
+                <!--window.location.href = "http://banxiaobao.com:8015/gbb/attendance/attendanceList.do";-->
+            <!--}-->
+            <!--/* 	$("#teachLeft_Id").show().siblings("div").hide(); */-->
+        <!--} else if (id == "adminId") {-->
+            <!--window.location.href = "http://banxiaobao.com:8015/gbb/admin/adminList.do";-->
+        <!--} else if (id == "healthId") {-->
+            <!--window.location.href = "http://banxiaobao.com:8015/gbb/sports/tosportsList.do";-->
+            <!--/* $("#healthLeft_Id").show().siblings("div").hide(); */-->
+        <!--} else if (id == "attenId") {-->
+            <!--window.location.href = "http://banxiaobao.com:8015/gbb/attendance/attendanceTeacherInit.do";-->
+        <!--}-->
+    <!--}-->
 
-    /*个人设置*/
-    $(function ($) {
-        //弹出登录
-        $("#example").hover(function () {
-            $(this).stop().animate({
-                opacity: '1'
-            }, 600);
-        }, function () {
-            $(this).stop().animate({
-                opacity: '0.6'
-            }, 1000);
-        }).on('click', function () {
-            $("body").append("<div id='mask'></div>");
-            $("#mask").addClass("mask").fadeIn("slow");
-            $("#LoginBox").fadeIn("slow");
-            $.ajax({
-                url: "admin/findBySelfAdmin.do",// 跳转到 action
-                data: {},
-                type: 'post',
-                cache: false,
-                success: function (data) {
-                    if (data == 'loseSession') {
-                        location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                        return;
-                    }
-                    var json = eval("(" + data + ")");// 解析json
-                    $("#schoolname").val(json.admin.schoolname);
-                    var isaid = json.admin.isaid;
-                    if (isaid == 1) {
-                        $("#rolename").val("园长助理");
-                    } else {
-                        $("#rolename").val(json.admin.roleName);
-                    }
-                    $("#ROLEID").val(json.admin.roleid);
-                    $("#name").val(json.admin.name);
-                    $("#adminId").val(json.admin.id);
-                },
-                error: function () {
-                    alert("系统错误！");
-                }
-            });
-        });
-        //
-        //按钮的透明度
-        $("#loginbtn").hover(function () {
-            $(this).stop().animate({
-                opacity: '1'
-            }, 600);
-        }, function () {
-            $(this).stop().animate({
-                opacity: '0.8'
-            }, 1000);
-        });
-        //文本框不允许为空---按钮触发
-        $("#loginbtn").click(function () {
-            var name = $("#name").val().trim();
-            if (isNull(name)) {
-                alertMsg("姓名不能为空!", 0);
-                return;
-            }
-            var rawpassword = $("#rawpassword").val().trim();
-            var password = $("#password").val().trim();
-            var ispassword = $("#ispassword").val().trim();
-            if (!isNull(password) || !isNull(ispassword)) {
-                if (isNull(rawpassword)) {
-                    alertMsg("原始密码不能为空!", 0);
-                    return;
-                }
-                if (password.length < 6 || password.length > 16) {
-                    alertMsg("密码长度错误!", 0);
-                    return;
-                }
-            }
-            if (!isNull(rawpassword)) {
-                if (isNull(password) || isNull(ispassword)) {
-                    alertMsg("密码不能为空", 0);
-                    return;
-                }
-            }
-            if (password != ispassword) {
-                alertMsg("两次密码输入不一致!", 0);
-                return;
-            }
-            $("#fromtId").ajaxSubmit({
-                type: "post",
-                success: function (data) {
-                    if (data == 'loseSession') {
-                        location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                        return;
-                    }
-                    var json = eval("(" + data + ")");// 解析json
-                    var code = json.code;
-                    if (code == 200) {
-                        alertMsg("操作成功", 1);
-                        if (!isNull(password)) {
-                            location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                        } else {
-                            $("#LoginBox").fadeOut("fast");
-                            $("#mask").css({display: 'none'});
-                        }
+    <!--/*个人设置*/-->
+    <!--$(function ($) {-->
+        <!--//弹出登录-->
+        <!--$("#example").hover(function () {-->
+            <!--$(this).stop().animate({-->
+                <!--opacity: '1'-->
+            <!--}, 600);-->
+        <!--}, function () {-->
+            <!--$(this).stop().animate({-->
+                <!--opacity: '0.6'-->
+            <!--}, 1000);-->
+        <!--}).on('click', function () {-->
+            <!--$("body").append("<div id='mask'></div>");-->
+            <!--$("#mask").addClass("mask").fadeIn("slow");-->
+            <!--$("#LoginBox").fadeIn("slow");-->
+            <!--$.ajax({-->
+                <!--url: "admin/findBySelfAdmin.do",// 跳转到 action-->
+                <!--data: {},-->
+                <!--type: 'post',-->
+                <!--cache: false,-->
+                <!--success: function (data) {-->
+                    <!--if (data == 'loseSession') {-->
+                        <!--location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";-->
+                        <!--return;-->
+                    <!--}-->
+                    <!--var json = eval("(" + data + ")");// 解析json-->
+                    <!--$("#schoolname").val(json.admin.schoolname);-->
+                    <!--var isaid = json.admin.isaid;-->
+                    <!--if (isaid == 1) {-->
+                        <!--$("#rolename").val("园长助理");-->
+                    <!--} else {-->
+                        <!--$("#rolename").val(json.admin.roleName);-->
+                    <!--}-->
+                    <!--$("#ROLEID").val(json.admin.roleid);-->
+                    <!--$("#name").val(json.admin.name);-->
+                    <!--$("#adminId").val(json.admin.id);-->
+                <!--},-->
+                <!--error: function () {-->
+                    <!--alert("系统错误！");-->
+                <!--}-->
+            <!--});-->
+        <!--});-->
+        <!--//-->
+        <!--//按钮的透明度-->
+        <!--$("#loginbtn").hover(function () {-->
+            <!--$(this).stop().animate({-->
+                <!--opacity: '1'-->
+            <!--}, 600);-->
+        <!--}, function () {-->
+            <!--$(this).stop().animate({-->
+                <!--opacity: '0.8'-->
+            <!--}, 1000);-->
+        <!--});-->
+        <!--//文本框不允许为空-&#45;&#45;按钮触发-->
+        <!--$("#loginbtn").click(function () {-->
+            <!--var name = $("#name").val().trim();-->
+            <!--if (isNull(name)) {-->
+                <!--alertMsg("姓名不能为空!", 0);-->
+                <!--return;-->
+            <!--}-->
+            <!--var rawpassword = $("#rawpassword").val().trim();-->
+            <!--var password = $("#password").val().trim();-->
+            <!--var ispassword = $("#ispassword").val().trim();-->
+            <!--if (!isNull(password) || !isNull(ispassword)) {-->
+                <!--if (isNull(rawpassword)) {-->
+                    <!--alertMsg("原始密码不能为空!", 0);-->
+                    <!--return;-->
+                <!--}-->
+                <!--if (password.length < 6 || password.length > 16) {-->
+                    <!--alertMsg("密码长度错误!", 0);-->
+                    <!--return;-->
+                <!--}-->
+            <!--}-->
+            <!--if (!isNull(rawpassword)) {-->
+                <!--if (isNull(password) || isNull(ispassword)) {-->
+                    <!--alertMsg("密码不能为空", 0);-->
+                    <!--return;-->
+                <!--}-->
+            <!--}-->
+            <!--if (password != ispassword) {-->
+                <!--alertMsg("两次密码输入不一致!", 0);-->
+                <!--return;-->
+            <!--}-->
+            <!--$("#fromtId").ajaxSubmit({-->
+                <!--type: "post",-->
+                <!--success: function (data) {-->
+                    <!--if (data == 'loseSession') {-->
+                        <!--location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";-->
+                        <!--return;-->
+                    <!--}-->
+                    <!--var json = eval("(" + data + ")");// 解析json-->
+                    <!--var code = json.code;-->
+                    <!--if (code == 200) {-->
+                        <!--alertMsg("操作成功", 1);-->
+                        <!--if (!isNull(password)) {-->
+                            <!--location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";-->
+                        <!--} else {-->
+                            <!--$("#LoginBox").fadeOut("fast");-->
+                            <!--$("#mask").css({display: 'none'});-->
+                        <!--}-->
 
-                    } else {
-                        alertMsg("操作失败", 2);
-                    }
-                }
-            });
-        });
-        //关闭
-        $(".close_btn").hover(function () {
-            $(this).css({color: 'black'})
-        }, function () {
-            $(this).css({color: '#999'})
-        }).on('click', function () {
-            $("#LoginBox").fadeOut("fast");
-            $("#mask").css({display: 'none'});
-        });
-    });
+                    <!--} else {-->
+                        <!--alertMsg("操作失败", 2);-->
+                    <!--}-->
+                <!--}-->
+            <!--});-->
+        <!--});-->
+        <!--//关闭-->
+        <!--$(".close_btn").hover(function () {-->
+            <!--$(this).css({color: 'black'})-->
+        <!--}, function () {-->
+            <!--$(this).css({color: '#999'})-->
+        <!--}).on('click', function () {-->
+            <!--$("#LoginBox").fadeOut("fast");-->
+            <!--$("#mask").css({display: 'none'});-->
+        <!--});-->
+    <!--});-->
 
-</script>
+<!--</script>-->
 
 
 
