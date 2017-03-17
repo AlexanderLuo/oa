@@ -9,7 +9,7 @@
 
   "queryDevice":"deviceGroupApi/getDeviceGroupList",
   "addRing":"deviceBraceletApi/addDeviceBracelet",
-  "delRing":"deviceBraceletApi	/deleteDeviceBracelet",
+  "delRing":"deviceBraceletApi/deleteDeviceBracelet",
   "revRing":"deviceBraceletApi/editDeviceBracelet",
 
   "queryRing":"deviceBraceletApi/getDeviceBraceletList",
@@ -28,7 +28,12 @@
   "addGoods":"goodsApi/addGoods",
   "revGoods":"goodsApi/updateGoods",
   "delGoods":"goodsApi/deleteGoods",
-  "detailGoods":"goodsApi/getGoods"
+  "detailGoods":"goodsApi/getGoods",
+
+  "queryVideos":"curriculumApi/getVideoList",
+  "addVideos":"curriculumApi/addVideo",
+  "revVideos":"curriculumApi/updateVideo",
+  "delVideos":"curriculumApi/deleteVideo"
 
 
 }

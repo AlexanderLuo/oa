@@ -82,9 +82,9 @@
                     if(vm.curPage=='steelyard'){ vm.getSteelyard()}
                 },
                 //查询设备
-                getDevice: function () {
+                getVideos: function () {
                     $.ajax({
-                        url: vm.conf.baseUrl+vm.conf.queryDevice,
+                        url: vm.conf.baseUrl+vm.conf.queryVideos ,
                         type: "post",
                         data: {
                             user_id: vm.user.user_id,
@@ -264,7 +264,8 @@
                             vm.conf=res
                         }
                     });
-                    vm.router("video")
+                    vm.router("video");
+                    vm.getVideos();
                 }
             })
 
@@ -314,9 +315,11 @@
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
-                        <li>{{el.degr_id}}</li>
-                        <li>{{el.degr_name}}</li>
-                        <li>{{el.tegr_name}}</li>
+                        <li>{{el.video_name}}</li>
+                        <li>{{el.video_size}}</li>
+                        <li><img ms-src="el.video_cover" alt=""></li>
+                        <li ><a class="edit" ms-click="show('el.video_path')">查看</a></li>
+                        <li>{{el.user_name}}</li>
                         <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
                         <li ><a class="edit" href="javascript: void(0)"  ms-if="weight>=2">编辑</a></li>
                     </ul>
@@ -334,7 +337,22 @@
                 </div>
 
 
+                <!--查看视频弹窗-->
+                <div class="shade"   ms-class="block:pop">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>视频：</h3>
+                            </div >
+                            <div style="text-align: center">
+                                <video width="320" height="240" src="www.glorymi.com" controls="controls"></video>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                
 
 
                 <!--弹窗-->
