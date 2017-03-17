@@ -227,6 +227,10 @@
     border: 1px solid #ddd;
     border-radius: 10px;
 }
+.user-main2 {
+    width: 100%;
+    background: white;
+}
 
 .user-edit .table_1 {
     margin-top: 20px;
@@ -281,11 +285,20 @@
     text-align: left;
     border-radius: 10px 10px 0 0;
 }
+.user-title2{
+    height: 40px;
+    background: #d36200;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
 .user-title h3{
     padding-left: 10px;
     line-height: 40px;
 }
-
+.user-title2 h3{
+    padding-left: 10px;
+    line-height: 40px;
+}
 input.oper {
     background: #d36200;
     height: 28px;
