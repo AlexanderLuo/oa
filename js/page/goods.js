@@ -37,58 +37,32 @@ avalon.ready(function () {
         delUrl:"",
         delData:"",
         dataList:[],
-
-
-
-
-
-        getGoods: function () {
-            vm.goodsList=[]
-            $.ajax({
-                url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/goodsApi/getGoodsList",
-                type: "post",
-                data: {
-                    goods_type: vm.goods_type,
-                    page: 1,
-                    page_size: 10,
-                    last_req_time: vm.lastReq
-                },
-                success: function (data) {
-                    var json = eval("(" + data + ")");// 解析json
-                    if (json.code == 200) {
-//                                var tar = json.result.list.filter(function (el) {
-//                                    return el.user_id == vm.user.user_id;
-//                                })
-//                                vm.lastReq = json.result.last_req_time;
-//                                vm.degr_id = tar[0].degr_id;
-                        vm.goodsList = json.result.list;
-                    }
-
-                }
-            })
+        query:function(pageNo){
+            vm.pageNo=pageNo
+            vm.queryData.page=pageNo;
+            var path = vm.upperPage();
+            $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function(data){vm.queryHandle(data,vm["get"+path])})
+        },
+        queryHandle:function(data,callback,error){
+            var json = eval("(" + data + ")");// 解析json
+            if (json.code == 200) {
+                callback(json);
+            }else{
+                error && error.call()
+            }
         },
 
-        getOrder: function () {
-            vm.orderList = [];
-            $.ajax({
-                url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/orderApi/getOrderList",
-                type: 'post',
-                data: {
-                    user_id: vm.user.user_id,
-                    order_state: vm.order_state,
-                    page: vm.pageNo,
-                    page_size: vm.pageSize,
-                    last_req_time: vm.goodsReq
-                },
-                success: function (data) {
-                    var json = eval("(" + data + ")");// 解析json
-                    if (json.code == 200) {
-                        vm.orderReq = json.result.last_req_time;
-                        vm.orderList = json.result.list;
-                    }
-                }
 
-            })
+
+        getGoods: function (json) {
+            vm.goodsReq=json.result.last_req_time;
+            vm.records=json.result.total_count;
+            vm.dataList = json.result.list;
+        },
+
+        getOrder: function (json) {
+            vm.orderReq = json.result.last_req_time;
+            vm.dataList = json.result.list;
         },
 
 
@@ -96,7 +70,6 @@ avalon.ready(function () {
             vm.dataList=[];
             vm.checkAllFlag=false;
             vm.curPage=str;
-
             var path = vm.upperPage();
             var c=conf;
             var b= c.baseUrl;
@@ -162,18 +135,5 @@ avalon.ready(function () {
 
     vm.init();
     avalon.scan()
-
-    vm.$watch('degr_id', function (value, oldValue) {
-        vm.getRing();
-    })
-    vm.$watch('curPage',function(value){
-        if(value=="goods"){
-            vm.getGoods();
-        }
-        if(value=="order"){
-            vm.getOrder();
-        }
-    })
-
 
 })
