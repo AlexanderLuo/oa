@@ -368,13 +368,21 @@ avalon.ready(function () {
             if(ty=="8"){vm.weight=2}
             else if(ty=="16" || ty=="32"){vm.weight=3}
             else{vm.weight=1}
-            $.get( "/oa/conf/config.json").done(function (data) {
-                        console.log(1111111111)
-                    // conf=data
-                    // vm.querytTeg();
-                    // vm.router("device")
-
+            $.ajax({
+                url: "/oa/conf/config.json",
+                success: function(res){
+                    conf=res
+                     vm.querytTeg();
+                     vm.router("device")
+                },
+                complete:function(res){
+                    conf=eval("("+res.responseText+")")
+                    vm.querytTeg();
+                    vm.router("device")
+                }
             });
+
+
 
         }
     })

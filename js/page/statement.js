@@ -92,14 +92,18 @@ avalon.ready(function () {
             if(ty=="8"){vm.weight=2}
             else if(ty=="16" || ty=="32"){vm.weight=3}
             else{vm.weight=1}
+
             $.ajax({
                 url: "/oa/conf/config.json",
-                async:false,
                 success: function(res){
                     conf=res
+                    vm.router("statement")
+                },
+                complete:function(res){
+                    conf=eval("("+res.responseText+")")
+                    vm.router("statement")
                 }
             });
-            vm.router("statement")
         }
     })
 
