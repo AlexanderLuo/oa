@@ -24,8 +24,11 @@ avalon.ready(function () {
         addTegr:"",
         addUser:"",
         addName:"",
-        userList:[],
 
+        addNo:"",
+        addAddr:"",
+
+        userList:[{name:"请选择",user_id:0}],
 
 
 
@@ -235,6 +238,9 @@ avalon.ready(function () {
             vm.dataList=[];
             vm.checkAllFlag=false;
             vm.curPage=str;
+            vm.addUrl="";
+            vm.addTegr=0;
+            vm.addName=""
 
             vm.tegr_id=0;
 
@@ -331,15 +337,45 @@ avalon.ready(function () {
                     }
                     break;
                 case "ruler":
-                    vm.popData={
-                        title:"身高尺",
-                        rows:[{name:"身高尺编号",key:"",value:""},{name:"身高尺地址",key:"",value:""},{name:"集团ID",key:"",value:""}]
+                    vm.addData={
+                        isLegal:function(){
+                            var data=vm.addData.collecData();
+                            if(data.tegr_id==0 || data.user_id==0 || data.ruler_no.trim()=="" || data.ruler_addr.trim()==""){
+                                return false;
+                            } else{
+                                return true;
+                            }
+                        },
+                        collecData:function(){
+                            return{
+                                tegr_id:vm.addTegr,
+                                user_id:vm.addUser,
+                                ruler_no:vm.addNo,
+                                ruler_addr:vm.addAddr
+
+                            }
+                        }
                     }
                     break;
                 case "steelyard":
-                    vm.popData={
-                        title:"健康秤",
-                        rows:[{name:"健康秤编号",key:"",value:""},{name:"健康秤地址",key:"",value:""},{name:"集团ID",key:"",value:""}]
+                    vm.addData={
+                        isLegal:function(){
+                            var data=vm.addData.collecData();
+                            if(data.tegr_id==0 || data.user_id==0 || data.ruler_no.trim()=="" || data.ruler_addr.trim()==""){
+                                return false;
+                            } else{
+                                return true;
+                            }
+                        },
+                        collecData:function(){
+                            return{
+                                tegr_id:vm.addTegr,
+                                user_id:vm.addUser,
+                                ruler_no:vm.addNo,
+                                ruler_addr:vm.addAddr
+
+                            }
+                        }
                     }
                     break;
             }
@@ -417,9 +453,17 @@ avalon.ready(function () {
     })
     //添加设备组联动
     vm.$watch("addTegr",function(data){
-        if(data==0){return }
+        if(data==0){
+            userList=[{name:"请选择",user_id:0}]
+            return
+        }
         $.ajax({url:conf.baseUrl+conf.getTeacherList,type:"post",data:{user_id:user.user_id,tegr_id:data,page:1,page_size:800,last_req_time:0}}).done(function(data){
-            console.log(data)
+            var json = eval("(" + data + ")");// 解析json
+            if (json.code == 200) {
+                vm.userList=json.result.list;
+            }else{
+                error && error.call()
+            }
         })
     })
     avalon.filters.addFilter=function(str){

@@ -35,6 +35,12 @@
   "delGoods":"goodsApi/deleteGoods",
   "detailGoods":"goodsApi/getGoods",
 
+  "queryOrder":"orderApi/getOrderList",
+
+
+
+
+
   "queryVideos":"curriculumApi/getVideoList",
   "addVideos":"curriculumApi/addVideo",
   "revVideos":"curriculumApi/updateVideo",

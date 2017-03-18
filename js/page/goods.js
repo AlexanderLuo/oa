@@ -25,6 +25,7 @@ avalon.ready(function () {
 
         pageNo:1,
         pageSize:10,
+        total:1,
         records:0,
 
         //逻辑
@@ -37,6 +38,9 @@ avalon.ready(function () {
         delUrl:"",
         delData:"",
         dataList:[],
+
+        checkAllFlag:false,  //全选标志
+
         query:function(pageNo){
             vm.pageNo=pageNo
             vm.queryData.page=pageNo;
@@ -56,12 +60,23 @@ avalon.ready(function () {
 
         getGoods: function (json) {
             vm.goodsReq=json.result.last_req_time;
+            vm.orderReq = json.result.last_req_time;
             vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
+            json.result.list.forEach(function(el){
+                el.check=false;
+            });
+
             vm.dataList = json.result.list;
         },
 
         getOrder: function (json) {
             vm.orderReq = json.result.last_req_time;
+            vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
+            json.result.list.forEach(function(el){
+                el.check=false;
+            });
             vm.dataList = json.result.list;
         },
 
@@ -103,6 +118,26 @@ avalon.ready(function () {
                     break;
             }
 
+        },     //全选
+        checkAll:function(){
+            vm.checkAllFlag=!vm.checkAllFlag
+            vm.dataList.forEach(function(el){
+                el.check=vm.checkAllFlag;
+            })
+        },
+        //单选
+        checkOne:function(el){
+            el.check=!el.check;
+            var no=vm.dataList.filter(function(al){
+                return al.check==false;
+            })
+            if(no.length==0){
+                vm.checkAllFlag=true
+            }
+            if(no.length>0){
+                vm.checkAllFlag=false
+            }
+
         },
         init: function () {
             var userr = getLocalValue('user');
@@ -114,10 +149,10 @@ avalon.ready(function () {
             else{vm.weight=1}
             $.ajax({
                 url: "/oa/conf/config.json",
-                success: function(res){
-                    conf=res
-                    vm.router("goods")
-                },
+                // success: function(res){
+                //     conf=res
+                //     vm.router("goods")
+                // },
                 complete:function(res){
                     conf=eval("("+res.responseText+")")
                     vm.router("goods")

@@ -212,7 +212,7 @@
                                     <th width="40%">设备所属用户：</th>
                                     <td width="60%">
                                         <select  ms-duplex="addUser">
-                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                            <option ms-attr-value="{{el.user_id}}" ms-repeat="userList">{{el.name}}</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -271,29 +271,29 @@
                                 <tr >
                                     <th width="40%">集团：</th>
                                     <td width="60%">
-                                        <select  ms-duplex="tegr_id">
-                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        <select  ms-duplex="addTegr">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name | addFilter}}</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr >
                                     <th width="40%">教师：</th>
                                     <td width="60%">
-                                        <select  ms-duplex="tegr_id">
-                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        <select  ms-duplex="addUser">
+                                            <option ms-attr-value="{{el.user_id}}" ms-repeat="userList">{{el.name}}</option>
                                         </select>
                                     </td>
                                 </tr>
 
                                 <tr >
                                     <th width="40%">身高尺编号：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addNo"/>
                                     </td>
                                 </tr>
 
                                 <tr >
                                     <th width="40%">身高尺地址：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addAddr"/>
                                     </td>
                                 </tr>
                             </table>
@@ -317,8 +317,8 @@
                                 <tr >
                                     <th width="40%">集团：</th>
                                     <td width="60%">
-                                        <select  ms-duplex="tegr_id">
-                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        <select  ms-duplex="addTegr">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name | addFilter}}</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -326,20 +326,20 @@
                                 <tr >
                                     <th width="40%">教师：</th>
                                     <td width="60%">
-                                        <select  ms-duplex="tegr_id">
-                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                                        <select  ms-duplex="addUser">
+                                            <option ms-attr-value="{{el.user_id}}" ms-repeat="userList">{{el.name}}</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr >
                                     <th width="40%">健康秤编号：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addNo"/>
                                     </td>
                                 </tr>
 
                                 <tr >
                                     <th width="40%">健康秤地址：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addAddr"/>
                                     </td>
                                 </tr>
                             </table>

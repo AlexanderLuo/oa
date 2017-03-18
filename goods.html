@@ -93,8 +93,7 @@
 
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
-                                                                value="190 " onclick="checkBox(0,this);"></li>
+                        <li class="baby_tab_checkbox_li"><input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/></li>
                         <li>{{el.goods_name}}</li>
                         <li>{{el.goods_type}}</li>
                         <!--<li>{{el.goods_size}}</li>-->
@@ -132,10 +131,9 @@
                         <li>操作</li>
                     </ul>
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="orderList" ms-class="baby_content_tab_bg:$index%2!=0">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li">
-                            <input type="checkbox" id="checkid_1" name="checkbox" value="190 "
-                                   onclick="checkBox(1,this);">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
                         </li>
                         <li>{{el.order_number}}</li>
                         <li>{{el.user_name}}</li>
@@ -151,7 +149,7 @@
                         <!--<li>{{el.goods_discount}}</li>-->
                         <!--<li>{{el.order_message}}</li>-->
                         <!--<li>{{el.order_stream}}</li>-->
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li><a class="edit" href="javascript: void(0)" >编辑</a></li>
                     </ul>
                 </div>
 
@@ -159,7 +157,7 @@
             </form>
             <div class="baby_content_dt">
                 <div class="baby_content_dt-1">
-                    <input type="checkbox" onclick="checkBoxAll(this);">
+                    <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;">全选</span>
                     <span class="baby_content_del" onclick="delAdmin();">批量删除</span>
                     <span class="baby_content_del edit">添加</span>
