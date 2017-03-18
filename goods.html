@@ -27,8 +27,8 @@
     <script type="text/javascript" src="js/page/goods.js"></script>
 
     <style>
-        .table_1 tr{
-            height: 30px!important;
+        .table_1 tr {
+            height: 30px !important;
         }
     </style>
 </head>
@@ -117,18 +117,18 @@
                         <li>选择</li>
                         <li>订单编号</li>
                         <li>购买者</li>
-                        <li>订单总价</li>
+                        <!--<li>订单总价</li>-->
                         <li>下单时间</li>
-                        <li>收货地址</li>
-                        <li>商品名称</li>
-                        <li>商品大小</li>
-                        <li>商品颜色</li>
-                        <li>商品外形</li>
-                        <li>订单数量</li>
-                        <li>订单折扣</li>
-                        <li>订单留言</li>
-                        <li>订单邮费</li>
-                        <li>订单流水时间</li>
+                        <!--<li>收货地址</li>-->
+                        <!--<li>商品名称</li>-->
+                        <!--<li>商品大小</li>-->
+                        <!--<li>商品颜色</li>-->
+                        <!--<li>商品外形</li>-->
+                        <!--<li>订单数量</li>-->
+                        <!--<li>订单折扣</li>-->
+                        <!--<li>订单留言</li>-->
+                        <!--<li>订单邮费</li>-->
+                        <!--<li>订单流水时间</li>-->
                         <li>操作</li>
                     </ul>
                     <!--数据-->
@@ -138,19 +138,19 @@
                                    onclick="checkBox(1,this);">
                         </li>
                         <li>{{el.order_number}}</li>
-                        <li>{{el.user_id}}</li>
-                        <li>{{el.order_price}}</li>
+                        <li>{{el.user_name}}</li>
+                        <!--<li>{{el.order_price}}</li>-->
                         <li>{{el.create_time}}</li>
-                        <li>{{el.address_info}}</li>
-                        <li>{{el.goods_name}}</li>
-                        <li>{{el.goods_type}}</li>
-                        <li>{{el.goods_size}}</li>
-                        <li>{{el.goods_color}}</li>
-                        <li>{{el.goods_shape}}</li>
-                        <li>{{el.order_amount}}</li>
-                        <li>{{el.goods_discount}}</li>
-                        <li>{{el.order_message}}</li>
-                        <li>{{el.order_stream}}</li>
+                        <!--<li>{{el.address_info}}</li>-->
+                        <!--<li>{{el.goods_name}}</li>-->
+                        <!--<li>{{el.goods_type}}</li>-->
+                        <!--<li>{{el.goods_size}}</li>-->
+                        <!--<li>{{el.goods_color}}</li>-->
+                        <!--<li>{{el.goods_shape}}</li>-->
+                        <!--<li>{{el.order_amount}}</li>-->
+                        <!--<li>{{el.goods_discount}}</li>-->
+                        <!--<li>{{el.order_message}}</li>-->
+                        <!--<li>{{el.order_stream}}</li>-->
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
@@ -236,7 +236,7 @@
                                 <tr>
                                     <th width="40%">是否上架：</th>
                                     <td width="60%">
-                                        <form >
+                                        <form>
                                             <input name="true" type="radio" checked="checked" value="0"/>是
                                             <input name="true" type="radio" value="1"/>否
                                         </form>
@@ -252,6 +252,96 @@
                                     <th width="40%">商品详情：</th>
                                     <td width="60%">
                                         <img src="" alt="">
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--订单管理弹窗-->
+                <div class="shade" ms-class="">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>订单：</h3>
+                                <a ms-click="router('device')" class="close">
+                                    <img src="img/clo.png" title="">
+                                </a>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th width="40%">订单编号：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">订单流水时间：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">购买者电话：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">下单时间：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">下单总价：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品名称：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品外形：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品大小：</th>
+                                    <td width="10%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品数量：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品颜色：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">订单留言：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">收货地址：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">订单状态：</th>
+                                    <td width="60%">
+                                        <select name="" ms-duplex="deger_id">
+                                            <option value="0">待付款</option>
+                                            <option value="1">待发货</option>
+                                            <option value="2">待收货</option>
+                                            <option value="3">已收货</option>
+                                        </select>
                                     </td>
                                 </tr>
                             </table>
