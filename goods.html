@@ -165,6 +165,19 @@
                     <span class="baby_content_del edit">添加</span>
                 </div>
 
+                <div class="baby_content_dt-2">
+                    <div class="baby_content_dt-2-fy">
+                        <!-- 分页首页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)" ms-if="total!=1 && pageNo!=1">首页</a>
+                        <!-- 前一页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)" ms-if="pageNo>1"> &lt;&lt; 上一页</a>
+                        <!-- 下一页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)" ms-if="pageNo<total">下一页 &gt;&gt;</a>
+                        <!-- 分页尾页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)" ms-if="total!=1 && pageNo!=total">尾页</a>
+                    </div>
+                </div>
+
                 <!--商品管理弹窗-->
                 <div class="shade" ms-class=" ">
                     <div class="user-edit">
@@ -354,14 +367,6 @@
                     </div>
                 </div>
 
-
-                <script type="text/javascript">
-                    function goToPage(pagenum) {
-                        $("#pageNum").val(pagenum);
-                        $("#formId").submit();
-                    }
-
-                </script>
 
 
             </div>
