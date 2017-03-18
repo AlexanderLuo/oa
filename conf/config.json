@@ -2,6 +2,11 @@
   "baseUrl":"http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/",
   "getTegrList":"tegrApi/getTegrList",
 
+
+  "getTeacherList":"teacherApi/getTeacherList",
+
+
+
   "getChildStatementList":"childStatementApi/getChildStatementList",
   "addDevice":"deviceGroupApi/addDeviceGroup",
   "delDevice":"deviceGroupApi/deleteDeviceGroup",

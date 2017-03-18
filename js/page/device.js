@@ -11,6 +11,8 @@ avalon.ready(function () {
         degr_id: "",   //当前用户设备组
 
 
+
+
         pageSize:4,
         pageNo:1,
         total:1,
@@ -18,6 +20,13 @@ avalon.ready(function () {
 
         tegr_id:0,
         tegerList:[],
+
+        addTegr:"",
+        addUser:"",
+        addName:"",
+        userList:[],
+
+
 
 
         //逻辑
@@ -125,14 +134,15 @@ avalon.ready(function () {
         },
         add:function(){
             var path = vm.upperPage();
-            vm.popData.collecData();
-            var check=vm.popData.isLegal();
+            var check=vm.addData.isLegal();
             if(check){
-                $.ajax({url: vm.addUrl, type: "post", data: vm.addData.$model}).done(function(data){vm.addHandle(data,vm["add"+path])})
+                console.log(vm.addData.collecData())
+                $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function(data){vm.addHandle(data,vm["add"+path])})
             }else{
-                console.log("worng");
+                layer.msg("请填写完整")
+                //console.log("worng");
             }
-            vm.close();
+
         },
         rev:function(){
         },
@@ -163,6 +173,7 @@ avalon.ready(function () {
                 el.check=false;
             });
             vm.dataList = json.result.list;
+
         },
         //查询手环
         getRing: function (json) {
@@ -202,6 +213,7 @@ avalon.ready(function () {
         delSteelyard:function(){
         },
         addDevice:function(){
+            vm.close();
         },
         addRing:function(){
         },
@@ -294,22 +306,21 @@ avalon.ready(function () {
             vm.pop=vm.curPage;
             switch (vm.curPage){
                 case "device":
-                    vm.popData={
-                        title:"设备组",
-                        rows:[{name:"集团ID",key:"",value:""},{name:"所属用户ID",key:"",value:""},{name:"设备组名称",key:"",value:""}],
+                    vm.addData={
                         isLegal:function(){
-                            if(vm.popData.rows[0].value==""){
+                            var data=vm.addData.collecData();
+                            if(data.tegr_id==0 || data.user_id==0 || data.degr_name.trim()==""){
                                 return false;
                             } else{
                                 return true;
                             }
                         },
                         collecData:function(){
-                            vm.addData={
-                                tegr_id:vm.popData.rows[0].value,
-                                user_id:vm.popData.rows[1].value,
-                                degr_name:vm.popData.rows[2].value
-                            }
+                                return{
+                                    tegr_id:vm.addTegr,
+                                    user_id:vm.addUser,
+                                    degr_name:vm.addName
+                                }
                         }
                     }
                     break;
@@ -394,7 +405,6 @@ avalon.ready(function () {
 
 
 
-
         }
     })
 
@@ -405,6 +415,19 @@ avalon.ready(function () {
         vm.queryData.tegr_id=data;
         vm.query(1)
     })
+    //添加设备组联动
+    vm.$watch("addTegr",function(data){
+        if(data==0){return }
+        $.ajax({url:conf.baseUrl+conf.getTeacherList,type:"post",data:{user_id:user.user_id,tegr_id:data,page:1,page_size:800,last_req_time:0}}).done(function(data){
+            console.log(data)
+        })
+    })
+    avalon.filters.addFilter=function(str){
+        if(str=="默认"){
+            return "请选择"
+        }else {
+            return str}
+    }
 
 
 })
