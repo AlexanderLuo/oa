@@ -63,7 +63,20 @@
 
         <div class="baby_conter_right">
             <form>
-                <!--设备组数据-->
+
+                <!--选择框-->
+                <div class="select" >
+                    <span>集团：&nbsp;</span>
+                    <select name=""  ms-duplex="teger_id">
+                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                    </select>
+                    <span>学校：&nbsp;</span>
+                    <select name=""  ms-duplex="school_id">
+                        <option ms-attr-value="{{el.school_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
+                    </select>
+                </div>
+
+                <!--一级页面数据-->
                 <div class="baby_content_tab"     style="display: none"  ms-class="show:curPage == 'statement'"  ms-if="curPage == 'statement' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
@@ -80,8 +93,7 @@
                         <li>{{el.school_name}}</li>
                         <li>{{el.tegr_name}}</li>
                         <li>
-                            <a class="edit" href="javascript: void(0)" >编辑</a>
-                            <a class="edit" ms-click="router('class')" >查看</a>
+                            <a class="edit" ms-click="" >查看</a>
                         </li>
                     </ul>
                 </div>
@@ -92,7 +104,7 @@
                 <div class="baby_content_dt-1">
                     <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;" >全选</span>
-                    <span class="baby_content_del edit" ms-click="">报表下载</span>
+                    <span class="baby_content_del edit" ms-click="">批量下载</span>
                 </div>
 
 

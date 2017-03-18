@@ -25,6 +25,7 @@
     <script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
     <script type="text/javascript" src="js/iframeTools.js"></script>
 
+
     <style>
         .ms-controller, .ms-important, [ms-controller], [ms-important] {
             visibility: hidden;
@@ -260,7 +261,6 @@
 <body ms-controller="adminVm">
 
 <div class="baby_content">
-
     <!--头部-->
     <div ms-include-src=" './component/banner.html'"></div>
 
@@ -605,7 +605,7 @@
                 </div>、
 
                 <!--学校弹窗-->
-                <div class="shade"   ms-class="block:pop=='teacher' ">
+                <div class="shade"   ms-class="block:pop=='school' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
@@ -659,7 +659,7 @@
                 </div>
 
                 <!--家长弹窗-->
-                <div class="shade"   ms-class="block:pop=='admin' ">
+                <div class="shade"   ms-class="block:pop=='parent' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
@@ -680,6 +680,53 @@
                                 <tr >
                                     <th width="40%">简介：</th>
                                     <td width="60%"><textarea rows="4" cols="30"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--家长弹窗-->
+                <div class="shade"   ms-class="block:pop=='student' ">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>学生：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr >
+                                    <th width="40%">学生姓名：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">学生性别：</th>
+                                    <td width="60%">
+                                        <form>
+                                            <input name="true" type="radio" checked="checked" value="0"/>男
+                                            <input name="true" type="radio" value="1"/>女
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">出生日期：</th>
+                                    <td width="60%"><textarea rows="4" cols="30"></textarea>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">家长姓名：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">家长电话：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                             </table>

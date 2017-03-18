@@ -127,10 +127,10 @@
     width: 40px;
     height: 40px;
 }
-.baby_content_tab_ul1 li img:hover{
-    width: 100px;
-    height: 100px;
-}
+/*.baby_content_tab_ul1 li img:hover{*/
+    /*width: 100px;*/
+    /*height: 100px;*/
+/*}*/
 .baby_content_tab_ul1  .baby_tab_checkbox_li{
 	height: 27px;
 	line-height:27px;
