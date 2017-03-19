@@ -6,6 +6,16 @@
   "getTeacherList":"teacherApi/getTeacherList",
 
 
+  "queryAdmin":"userApi/getAdminList",
+  "queryTeger":"tegrApi/getTegrList",
+  "queryTeacher":"teacherApi/getTeacherList",
+  "querySchool":"schoolApi/getSchoolList",
+  "queryClass":"classApi/getClassList",
+  "queryParent":"parentApi/getParentList",
+  "queryChild":"childApi/getChildList",
+
+
+
 
   "getChildStatementList":"childStatementApi/getChildStatementList",
   "addDevice":"deviceGroupApi/addDeviceGroup",

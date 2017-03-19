@@ -74,7 +74,6 @@ avalon.ready(function () {
             vm.total=1;
             vm.checkAllFlag=false;
             vm.queryData.page=pageNo;
-
             var path = vm.upperPage();
             $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function(data){vm.queryHandle(data,vm["get"+path])})
         },

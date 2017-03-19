@@ -105,9 +105,10 @@
                     </ul>
 
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="adminList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
-                                                                value="190 " onclick="checkBox(0,this);"></li>
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.name}}</li>
                         <li>{{el.remark}}</li>
                         <li>{{el.username}}</li>
@@ -125,10 +126,9 @@
                         <li>操作</li>
                     </ul>
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="tegerList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li">
-                            <input type="checkbox" id="checkid_1" name="checkbox" value="190 "
-                                   onclick="checkBox(1,this);">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
                         </li>
                         <li>{{el.tegr_name}}</li>
                         <li>{{el.totalCount}}</li>
@@ -160,8 +160,9 @@
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="teacherList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
-                                                                value="" onclick="checkBox(2,this);"></li>
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.tegr_id}}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.role_type}}</li>
@@ -180,9 +181,10 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="schoolList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox"  name="checkbox"
-                                                                value="190 " onclick="checkBox(3,this);"></li>
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.tegr_name}}</li>
                         <li>{{el.school_name}}</li>
                         <li>{{el.name}}</li>
@@ -211,8 +213,9 @@
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="classList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox"  name="checkbox"
-                                                                value="190 " onclick="checkBox(3,this);"></li>
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.school_name}}</li>
                         <li>{{el.class_name}}</li>
                         <li>
@@ -233,8 +236,9 @@
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="parentList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox"  name="checkbox"
-                                                                value="190 " onclick="checkBox(3,this);"></li>
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.level}}</li>
@@ -265,8 +269,9 @@
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="studentList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
-                                                                value="190 " onclick="checkBox(3,this);"></li>
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.children_name}}</li>
                         <li>{{el.sex}}</li>
@@ -280,7 +285,7 @@
             </form>
             <div class="baby_content_dt">
                 <div class="baby_content_dt-1">
-                    <input type="checkbox" onclick="checkBoxAll(this);">
+                    <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;">全选</span>
                     <span class="baby_content_del" onclick="delAdmin();">批量删除</span>
                     <span class="baby_content_del edit">添加</span>

@@ -7,11 +7,10 @@ function  error(){
 avalon.ready(function () {
     var vm = avalon.define({
         $id: "adminVm",
-        user: {},
         tegr_id: 0,   //集团ID
         school_id:0,//学校ID
         list:[],
-        weight:1,
+
         adminList: [],
         tegerList: [],
         teacherList: [],
@@ -19,94 +18,102 @@ avalon.ready(function () {
         classList: [],
         parentList: [],
         studentList: [],
-        lastReq: 0,
+
+
+
         tegerReq: 0,
-        curPage: " ",
         teacherReq:0,
         schoolReq:0,
         classReq:0,
         parentReq:0,
         studentReq:0,
-        pop:"",
-        getAdmin: function () {
-            vm.adminList=[]
-            $.ajax({
-                url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/userApi/getAdminList",
-                type: "post",
-                data: {
-                    user_id: vm.user.user_id,
-                },
-                success: function (data) {
-                    var json = eval("(" + data + ")");// 解析json
-                    console.log(json);
-                    if (json.code == 200) {
-                        vm.adminList = json.returnObject;
-                    }
-                }
-            })
-        },
-        getTeger: function () {
-            vm.tegerList = [];
-            $.ajax({
-                url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/tegrApi/getTegrList",
-                type: 'post',
-                data: {
-                    user_id: vm.user.user_id,
-                },
-                success: function (data) {
-                    var json = eval("(" + data + ")");// 解析json
-                    if (json.code == 200) {
-                        vm.tegerList = json.result;
-                    }
-                }
 
-            })
-        },
-        getTeacher: function () {
-            vm.teacherList = [];
-            $.ajax({
-                url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/teacherApi/getTeacherList",
-                type: 'post',
-                data: {
-                    user_id: vm.user.user_id,
-                    tegr_id: vm.user.tegr_id,
-                    page: 1,
-                    page_size: 10,
-                    last_req_time: vm.teacherReq
-                },
-                success: function (data) {
-                    var json = eval("(" + data + ")");// 解析json
-                    if (json.code == 200) {
-                        vm.teacherReq= json.result.last_req_time;
-                        vm.teacherList = json.result.list;
-                    }
-                }
 
-            })
-        },
-        getSchool: function () {
-            vm.rulerList = [];
-            $.ajax({
-                url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/schoolApi/getSchoolList",
-                type: 'post',
-                data: {
-//                            user_id: vm.user.user_id,
-                    tegr_id: vm.tegr_id,
-                    page: 1,
-                    page_size: 10,
-                    last_req_time: vm.ringReq
-                },
-                success: function (data) {
-                    var json = eval("(" + data + ")");// 解析json
-                    if (json.code == 200) {
-                        vm.lastReq = json.result.last_req_time;
-                        vm.schoolList = json.result.list;
-                    }
-                }
 
-            })
+        //逻辑
+        queryUrl:"",
+        queryData:{},
+        addUrl:"",
+        addData:{},
+        revUrl:"",
+        revData:{},
+        delUrl:"",
+        delData:"",
+        dataList:[],
+        popData:{},
+        //控制
+        weight:1,  //权限
+        curPage: "",  //当前路由
+        checkAllFlag:false,  //全选标志
+        pop:false,
+        //数据
+        pageSize:4,
+        pageNo:1,
+        total:1,
+        records:0,
+
+
+
+
+
+        //单词首字母大写
+        upperPage:function(){
+            var word = vm.curPage.toLowerCase().replace(/\b\w+\b/g, function(word){
+                return word.substring(0,1).toUpperCase()+word.substring(1);
+            });
+            return word;
         },
-        getClass: function () {
+        query:function (pageNo) {
+            vm.pageNo=pageNo;
+            vm.records=0;
+            vm.total=1;
+            vm.checkAllFlag=false;
+            vm.queryData.page=pageNo;
+            var path = vm.upperPage();
+            $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function(data){vm.queryHandle(data,vm["get"+path])})
+        },
+        queryHandle:function(data,callback,error){
+            var json = eval("(" + data + ")");// 解析json
+            if (json.code == 200) {
+                callback(json);
+            }else{
+                error && error.call()
+            }
+        },
+
+
+        getAdmin: function (json) {
+
+            var li=json.returnObject;
+            li.forEach(function (p1, p2, p3) {
+                p1.check=false;
+            })
+            vm.dataList= li;
+        },
+        getTeger: function (json) {
+            var li=json.result;
+            li.forEach(function (p1, p2, p3) {
+                p1.check=false;
+            })
+            vm.dataList= li;
+        },
+        getTeacher: function (json) {
+            vm.teacherReq= json.result.last_req_time;
+            vm.teacherList = json.result.list;
+
+        },
+        getSchool: function (json) {
+            vm.schoolReq = json.result.last_req_time;
+            vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
+
+            var li=json.result.list;
+            li.forEach(function (p1, p2, p3) {
+                p1.check=false;
+            })
+            vm.dataList = li
+        },
+        getClass: function (json) {
             vm.classList = [];
             $.ajax({
                 url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/classApi/getClassList",
@@ -129,30 +136,17 @@ avalon.ready(function () {
 
             })
         },
-        getParent: function () {
-            vm.steelyardList = [];
-            $.ajax({
-                url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/parentApi/getParentList",
-                type: 'post',
-                data: {
-                    teger_id: vm.user.teger_id,
-                    school_id: vm.school_id,
-                    page: 1,
-                    page_size: 10,
-                    last_req_time: vm.ringReq
-                },
-                success: function (data) {
-                    var json = eval("(" + data + ")");// 解析json
-                    console.log(json);
-                    if (json.code == 200) {
-                        vm.lastReq = json.result.last_req_time;
-                        vm.parentList = json.result.list;
-                    }
-                }
+        getParent: function (json) {
 
+            vm.parentReq = json.result.last_req_time;
+            vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
+            li.forEach(function (p1, p2, p3) {
+                p1.check=false;
             })
+            vm.dataList = li
         },
-        getStudent: function () {
+        getStudent: function (json) {
             vm.studentList = [];
             $.ajax({
                 url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/childApi/getChildList",
@@ -174,15 +168,125 @@ avalon.ready(function () {
                 }
             })
         },
-        router: function (str) {
-            vm.curPage=str;
+        //全选
+        checkAll:function(){
+            vm.checkAllFlag=!vm.checkAllFlag
+            vm.dataList.forEach(function(el){
+                el.check=vm.checkAllFlag;
+            })
         },
+        //单选
+        checkOne:function(el){
+            el.check=!el.check;
+            var no=vm.dataList.filter(function(al){
+                return al.check==false;
+            })
+            if(no.length==0){
+                vm.checkAllFlag=true
+            }
+            if(no.length>0){
+                vm.checkAllFlag=false
+            }
+
+        },
+        router: function (str) {
+            vm.dataList=[];
+            vm.checkAllFlag=false;
+            vm.curPage=str;
+            vm.addUrl="";
+            vm.addTegr=0;
+            vm.addName=""
+
+            vm.tegr_id=0;
+
+            var path = vm.upperPage();
+            var c=conf;
+            var b= c.baseUrl;
+            vm.addUrl= b+ c["add"+path]
+            vm.delUrl= b+ c["del"+path]
+            vm.revUrl= b+ c["rev"+path]
+            vm.queryUrl=b+c["query"+path]
+
+            vm.pageAdapter();
+            vm.query(1);
+        },
+        pageAdapter:function (str) {
+            vm.queryData={}
+            if(!str){
+                switch (vm.curPage){
+                    case "admin":
+                        vm.queryData= {
+                            user_id: user.user_id,
+                        }
+                        break;
+                    case "teger":
+                        vm.queryData={
+                            user_id: user.user_id,
+                            degr_id: vm.degr_id,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
+                            last_req_time: vm.tegerReq
+                        }
+                        break;
+                        //todo 配置tegr ID
+                    case "teacher":
+                        vm.queryData={
+                            user_id: user.user_id,
+                            tegr_id: user.tegr_id,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
+                            last_req_time: vm.teacherReq
+                        };
+                        break;
+                    //todo 配置tegr ID
+                    case "school":
+                        vm.queryData={
+                            tegr_id: user.tegr_id,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
+                            last_req_time: vm.schoolReq
+                        }
+                        break;
+                    case "class":
+                        vm.queryData={
+                            user_id: user.user_id,
+                            tegr_id: user.tegr_id,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
+                            last_req_time: vm.classReq
+                        }
+                        break;
+                    //todo 配置tegr ID
+                    case "parent":
+                        vm.queryData={
+                            tegr_id: user.tegr_id,
+                            school_id:vm.school_id,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
+                            last_req_time: vm.parentReq
+                        }
+                        break;
+                    case "student":
+                        vm.queryData={
+                            user_id: user.user_id,
+                            tegr_id: user.tegr_id,
+                            page: vm.pageNo,
+                            page_size:  vm.pageSize,
+                            last_req_time: vm.ringReq
+                        }
+                        break;
+                }
+            }
+        },
+
+
+
         init: function () {
-            var user = getLocalValue('user');
-            if (user == null) {
+            var userr = getLocalValue('user');
+            if (userr == null) {
                 location.href="/oa/login.html";
             }
-            vm.user = user;
+            user = userr;
             var ty=user.role_type;
             if(ty=="8"){
                 vm.weight=2
@@ -213,18 +317,6 @@ avalon.ready(function () {
     })
 
 
-    vm.$watch('tegr_id', function (value, oldValue) {
-        vm.getTeger();
-    })
-    vm.$watch('curPage',function(value){
-        if(value=="admin"){vm.getAdmin();}
-        if(value=="teger"){vm.getTeger();}
-        if(value=="teacher"){vm.getTeger();vm.getTeacher();}
-        if(value=="school"){vm.getSchool();}
-        if(value=='class'){vm.getClass();}
-        if(value=='parent'){vm.getParent();}
-        if(value=='student'){vm.getStudent();}
-    })
 
     avalon.scan()
     vm.init();
