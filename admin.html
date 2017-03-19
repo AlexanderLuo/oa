@@ -135,7 +135,7 @@
                         <li>{{el.name}}</li>
                         <li>
                             <a class="edit" href="javascript: void(0)" eid="190">编辑</a>
-                            <a class="edit" ms-click="router('teacher')" eid="190">查看</a>
+                            <a class="edit" ms-click="seeTeacher(el)" >查看</a>
                         </li>
                     </ul>
                 </div>
@@ -146,7 +146,7 @@
                         <a ms-click="router('teger')" class="back">
                             <img src="img/back.png" title="">
                         </a>
-                        <h3>{{？集团}}</h3>
+                        <h3>{{tegrName}}</h3>
                     </div>
                 </div>
                 <div class="baby_content_tab" ms-if="curPage =='teacher'   && weight>=2 ">
@@ -159,7 +159,7 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="teacherList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li">
                             <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
                         </li>
@@ -190,7 +190,7 @@
                         <li>{{el.name}}</li>
                         <li>
                             <a class="edit" href="javascript: void(0)" >编辑</a>
-                            <a class="edit" ms-click="router('class')" >查看</a>
+                            <a class="edit" ms-click="seeClass(el)" >查看</a>
                         </li>
                     </ul>
                 </div>
@@ -201,7 +201,7 @@
                         <a ms-click="router('school')" class="back">
                             <img src="img/back.png" title="">
                         </a>
-                        <h3>{{？学校}}</h3>
+                        <h3>{{schoolName}}</h3>
                     </div>
                 </div>
                 <div class="baby_content_tab" ms-if="curPage =='class'" >
@@ -212,7 +212,7 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="classList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li">
                             <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
                         </li>
@@ -220,7 +220,7 @@
                         <li>{{el.class_name}}</li>
                         <li>
                             <a class="edit" href="javascript: void(0)" >编辑</a>
-                            <a class="edit" ms-click="router('student')" >查看</a>
+                            <a class="edit" ms-click="seeStudent(el)" >查看</a>
                         </li>
                     </ul>
                 </div>
@@ -252,7 +252,7 @@
                         <a ms-click="router('class')" class="back">
                             <img src="img/back.png" title="">
                         </a>
-                        <h3>{{？班级}}</h3>
+                        <h3>{{className}}</h3>
                     </div>
                 </div>
                 <div class="baby_content_tab" ms-if="curPage =='student'" >
@@ -268,7 +268,7 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="studentList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li">
                             <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
                         </li>

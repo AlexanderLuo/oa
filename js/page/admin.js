@@ -9,6 +9,7 @@ avalon.ready(function () {
         $id: "adminVm",
         tegr_id: 0,   //集团ID
         school_id:0,//学校ID
+        class_id:0,
         list:[],
 
         adminList: [],
@@ -52,7 +53,10 @@ avalon.ready(function () {
         total:1,
         records:0,
 
-
+        //查看集团下的老师
+        tegrName:"",
+        schoolName:"",
+        className:"",
 
 
 
@@ -97,9 +101,17 @@ avalon.ready(function () {
             })
             vm.dataList= li;
         },
+
         getTeacher: function (json) {
-            vm.teacherReq= json.result.last_req_time;
-            vm.teacherList = json.result.list;
+            vm.teacherReq = json.result.last_req_time;
+            vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
+            var li=json.result.list;
+            li.forEach(function (p1, p2, p3) {
+                p1.check=false;
+            })
+
+            vm.dataList = li;
 
         },
         getSchool: function (json) {
@@ -114,27 +126,14 @@ avalon.ready(function () {
             vm.dataList = li
         },
         getClass: function (json) {
-            vm.classList = [];
-            $.ajax({
-                url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/classApi/getClassList",
-                type: 'post',
-                data: {
-                    user_id: vm.user.user_id,
-                    school_id: vm.school_id,
-                    page: 1,
-                    page_size: 10,
-                    last_req_time: vm.ringReq
-                },
-                success: function (data) {
-                    var json = eval("(" + data + ")");// 解析json
-                    console.log(json);
-                    if (json.code == 200) {
-                        vm.lastReq = json.result.last_req_time;
-                        vm.classList = json.result.list;
-                    }
-                }
-
+            vm.classReq= json.result.last_req_time;
+            vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
+            var li=json.result.list;
+            li.forEach(function (p1, p2, p3) {
+                p1.check=false;
             })
+            vm.dataList = li
         },
         getParent: function (json) {
 
@@ -147,26 +146,14 @@ avalon.ready(function () {
             vm.dataList = li
         },
         getStudent: function (json) {
-            vm.studentList = [];
-            $.ajax({
-                url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/childApi/getChildList",
-                type: 'post',
-                data: {
-                    class_id: vm.user.user_id,
-                    school_id: vm.school_id,
-                    page: 1,
-                    page_size: 10,
-                    last_req_time: vm.ringReq
-                },
-                success: function (data) {
-                    var json = eval("(" + data + ")");// 解析json
-                    console.log(json);
-                    if (json.code == 200) {
-                        vm.lastReq = json.result.last_req_time;
-                        vm.studentList = json.result.list;
-                    }
-                }
+            vm.studentReq= json.result.last_req_time;
+            vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
+            var li=json.result.list;
+            li.forEach(function (p1, p2, p3) {
+                p1.check=false;
             })
+            vm.dataList = li
         },
         //全选
         checkAll:function(){
@@ -196,8 +183,6 @@ avalon.ready(function () {
             vm.addUrl="";
             vm.addTegr=0;
             vm.addName=""
-
-            vm.tegr_id=0;
 
             var path = vm.upperPage();
             var c=conf;
@@ -230,9 +215,10 @@ avalon.ready(function () {
                         break;
                         //todo 配置tegr ID
                     case "teacher":
+                        console.log(vm.tegr_id)
                         vm.queryData={
                             user_id: user.user_id,
-                            tegr_id: user.tegr_id,
+                            tegr_id: vm.tegr_id,
                             page: vm.pageNo,
                             page_size:  vm.pageSize,
                             last_req_time: vm.teacherReq
@@ -249,8 +235,8 @@ avalon.ready(function () {
                         break;
                     case "class":
                         vm.queryData={
-                            user_id: user.user_id,
-                            tegr_id: user.tegr_id,
+                            tegr_id: vm.tegr_id,
+                            school_id:vm.school_id,
                             page: vm.pageNo,
                             page_size:  vm.pageSize,
                             last_req_time: vm.classReq
@@ -268,19 +254,33 @@ avalon.ready(function () {
                         break;
                     case "student":
                         vm.queryData={
-                            user_id: user.user_id,
-                            tegr_id: user.tegr_id,
+                            class_id: vm.class_id,
+                            school_id: vm.school_id,
                             page: vm.pageNo,
                             page_size:  vm.pageSize,
-                            last_req_time: vm.ringReq
+                            last_req_time: vm.studentReq
                         }
                         break;
                 }
             }
         },
-
-
-
+        seeTeacher:function(el){
+            vm.tegr_id=el.tegr_id
+            vm.tegrName=el.tegr_name
+            vm.router('teacher')
+        },
+        seeClass:function(el){
+            vm.tegr_id=el.tegr_id
+            vm.school_id=el.school_id
+            vm.schoolName=el.school_name
+            vm.router('class')
+        },
+        seeStudent:function (el) {
+            vm.class_id=el.class_id
+            vm.className=el.class_name
+            vm.school_id=el.school_id;
+            vm.router('student')
+        },
         init: function () {
             var userr = getLocalValue('user');
             if (userr == null) {

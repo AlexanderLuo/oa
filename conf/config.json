@@ -12,7 +12,7 @@
   "querySchool":"schoolApi/getSchoolList",
   "queryClass":"classApi/getClassList",
   "queryParent":"parentApi/getParentList",
-  "queryChild":"childApi/getChildList",
+  "queryStudent":"childApi/getChildList",
 
 
 
