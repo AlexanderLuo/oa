@@ -28,6 +28,7 @@ avalon.ready(function () {
         classReq:0,
         parentReq:0,
         studentReq:0,
+        tegerList:[],
 
 
 
@@ -58,6 +59,11 @@ avalon.ready(function () {
         schoolName:"",
         className:"",
 
+        //查询条件
+        teger_search:0,
+        school_search:0,
+
+
 
 
         //单词首字母大写
@@ -66,6 +72,18 @@ avalon.ready(function () {
                 return word.substring(0,1).toUpperCase()+word.substring(1);
             });
             return word;
+        },
+        querytTeg:function(){
+            $.ajax({url:conf.baseUrl+conf.getTegrList,type:"post",data:{user_id:user.user_id}}).done(function(data){
+                var json = eval("(" + data + ")");// 解析json
+                if (json.code == 200) {
+                    var li=[{tegr_id:0,tegr_name:"默认"}]
+                    li=li.concat(json.result)
+                    vm.tegerList=li;
+                }else{
+                    error && error.call()
+                }
+            })
         },
         query:function (pageNo) {
             vm.pageNo=pageNo;
@@ -245,7 +263,7 @@ avalon.ready(function () {
                     //todo 配置tegr ID
                     case "parent":
                         vm.queryData={
-                            tegr_id: user.tegr_id,
+                            tegr_id: vm.tegr_id,
                             school_id:vm.school_id,
                             page: vm.pageNo,
                             page_size:  vm.pageSize,
@@ -308,18 +326,28 @@ avalon.ready(function () {
                     if(  vm.weight==2 ){ vm.router('teacher')}
                     if(  vm.weight==3){  vm.router('admin')}
                     if(  vm.weight==1){  vm.router('school')}
+                    vm.querytTeg()
                 }
             });
-
 
 
         }
     })
 
 
-
     avalon.scan()
     vm.init();
+
+    vm.$watch("teger_search",function(data){
+        console.log(1)
+        vm.queryData.tegr_id=data;
+        vm.query(1)
+    })
+    vm.$watch("school_search",function(data){
+        vm.queryData.school_id=data;
+        vm.query(1)
+    })
+
 
 
 

@@ -75,18 +75,18 @@
                 <!--集团选择框-->
                 <div class="select" ms-if="curPage =='school'">
                     <span>集团：&nbsp;</span>
-                    <select name="" id="" ms-duplex="teger_id">
+                    <select name="" id="" ms-duplex="teger_search">
                         <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                     </select>
                 </div>
                 <!--选择框-->
                 <div class="select" ms-if="curPage=='parent'">
                     <span>集团：&nbsp;</span>
-                    <select name=""  ms-duplex="teger_id">
+                    <select name=""  ms-duplex="teger_search">
                         <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                     </select>
                     <span>学校：&nbsp;</span>
-                    <select name=""  ms-duplex="school_id">
+                    <select name=""  ms-duplex="school_search">
                         <option ms-attr-value="{{el.school_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
                     </select>
                 </div>
