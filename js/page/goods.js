@@ -27,6 +27,7 @@ avalon.ready(function () {
         pop:"",
         popData:{},
         imgList:{},
+        detailList:{},
 
 
 
