@@ -62,16 +62,36 @@ avalon.ready(function () {
 
             })
         },
-        del: function () {
-            var delete_scales_id = "";
-            for (var a = 0; a < vm.dataList.length; a++) {
-                if (vm.dataList[a].check == true) {
-                    delete_scales_id = delete_scales_id + vm.dataList[a].scales_id
-                    if (a != vm.dataList.length - 1) {
-                        delete_scales_id = delete_scales_id + ","
+        del:function(){
+            var ids=""
+            var li=[]
+            switch (vm.curPage){
+                case "video":
+                    for(var a=0;a<vm.dataList.length;a++){
+                        if(vm.dataList[a].check==true){
+                            li.push(vm.dataList[a].degr_id)
+                        }
                     }
-                }
+                    for(var b=0;b<li.length;b++){
+                        ids=ids+li[b]
+                        if(b!=li.length-1){
+                            ids=ids+","
+                        }
+                    }
+                    vm.delData= {
+                        user_id: user.user_id,
+                        delete_degr_id:ids
+                    }
+                    break;
             }
+            var path = vm.upperPage();
+            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function(data){vm.query(1)})
+
+        },
+        delPop:function () {
+            layer.confirm("确定删除吗？",function () {
+                vm.del()
+                layer.closeAll()},layer.closeAll())
         },
         addHandle:function(data,callback,error){
             var json = eval("(" + data + ")");// 解析json
@@ -94,10 +114,13 @@ avalon.ready(function () {
 
         },
 
-        open: function () {
+        open: function (el) {
             vm.pop = true;
             switch (vm.curPage) {
                 case "video":
+                    if(el){
+                        //vm.addTegr=el.
+                    }
                     vm.addData = {
                         isLegal: function () {
                             var data = vm.addData.collecData();
@@ -120,6 +143,13 @@ avalon.ready(function () {
                     break;
             }
 
+        },
+        //单词首字母大写
+        upperPage:function(){
+            var word = vm.curPage.toLowerCase().replace(/\b\w+\b/g, function(word){
+                return word.substring(0,1).toUpperCase()+word.substring(1);
+            });
+            return word;
         },
         //路由
         router: function (str) {

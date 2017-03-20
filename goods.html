@@ -282,7 +282,7 @@
                         </div>
                     </div>
                 </div>
-                <!--订单管理弹窗-->
+                <!--订单编辑弹窗-->
                 <div class="shade" ms-class="block:pop=='order' ">
                     <div class="user-edit">
                         <div class="user-main">
@@ -346,6 +346,97 @@
                                 <tr>
                                     <th width="40%">订单留言：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">收货地址：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">订单状态：</th>
+                                    <td width="60%">
+                                        <select name="" ms-duplex="deger_id">
+                                            <option value="0">待付款</option>
+                                            <option value="1">待发货</option>
+                                            <option value="2">待收货</option>
+                                            <option value="3">已收货</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--订单添加弹窗-->
+                <div class="shade" ms-class="block:pop=='xxx' ">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>订单：</h3>
+                                <a ms-click="close" class="close">
+                                    <img src="img/clo.png" title="">
+                                </a>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th width="40%">订单编号：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">订单流水时间：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">购买者电话：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">下单时间：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">下单总价：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品名称：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品外形：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品大小：</th>
+                                    <td width="10%"><input type="text" name="" ms-duplex="el.value" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品数量：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品颜色：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">订单留言：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
                                     </td>
                                 </tr>
                                 <tr>

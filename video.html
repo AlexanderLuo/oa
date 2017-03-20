@@ -79,10 +79,10 @@
                         <li>{{el.video_name}}</li>
                         <li>{{el.video_length}}</li>
                         <li>{{el.video_size}}</li>
-                        <li><img ms-src="el.video_cover" alt=""></li>
+                        <li><img ms-src="http://www.kh122.com:8080/{{el.video_cover}}" alt=""></li>
                         <li>{{el.user_name}}</li>
                         <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
-                        <li ><a class="edit" href="javascript: void(0)"  ms-if="weight>=2">编辑</a></li>
+                        <li ><a class="edit"  ms-click="open(el)" ms-if="weight>=2">编辑</a></li>
                     </ul>
                 </div>
 
@@ -145,7 +145,7 @@
                             <tr>
                                 <th width="40%">视频封面：</th>
                                 <td width="60%">
-                                    <img src="" alt="">
+                                    <img ms-src="http://www.kh122.com:8080/el.video_cover" alt="">
                                 </td>
                             </tr>
                         </table>
