@@ -201,7 +201,12 @@
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr >
-                                    <th width="40%">集团：</th>
+                                    <th width="40%">设备组名称：</th>
+                                    <td width="60%"><input type="text"  ms-duplex="addName"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">设备组集团：</th>
                                     <td width="60%">
                                         <select  ms-duplex="addTegr">
                                             <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList" >{{el.tegr_name | addFilter}}</option>
@@ -209,18 +214,14 @@
                                     </td>
                                 </tr>
                                 <tr >
-                                    <th width="40%">设备所属用户：</th>
+                                    <th width="40%">设备组教师：</th>
                                     <td width="60%">
                                         <select  ms-duplex="addUser">
                                             <option ms-attr-value="{{el.user_id}}" ms-repeat="userList">{{el.name}}</option>
                                         </select>
                                     </td>
                                 </tr>
-                                <tr >
-                                    <th width="40%">设备组名称：</th>
-                                    <td width="60%"><input type="text"  ms-duplex="addName"/>
-                                    </td>
-                                </tr>
+
                             </table>
                             <div class="user-btn">
                                 <input type="button" value="保存" class="oper" ms-click="add"/>
@@ -239,12 +240,6 @@
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
-                                <tr >
-                                    <th width="40%">手环编号：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-
                                 <tr >
                                     <th width="40%">手环地址：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
@@ -266,10 +261,14 @@
                             <div class="user-title">
                                 <h3>身高尺：</h3>
                             </div>
-
+                            <tr >
+                                <th width="40%">身高尺地址：</th>
+                                <td width="60%"><input type="text" name="" ms-duplex="addAddr"/>
+                                </td>
+                            </tr>
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr >
-                                    <th width="40%">集团：</th>
+                                    <th width="40%">身高尺集团：</th>
                                     <td width="60%">
                                         <select  ms-duplex="addTegr">
                                             <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name | addFilter}}</option>
@@ -277,25 +276,18 @@
                                     </td>
                                 </tr>
                                 <tr >
-                                    <th width="40%">教师：</th>
+                                    <th width="40%">身高尺负责人：</th>
                                     <td width="60%">
                                         <select  ms-duplex="addUser">
                                             <option ms-attr-value="{{el.user_id}}" ms-repeat="userList">{{el.name}}</option>
                                         </select>
                                     </td>
                                 </tr>
-
-                                <tr >
-                                    <th width="40%">身高尺编号：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="addNo"/>
-                                    </td>
-                                </tr>
-
-                                <tr >
-                                    <th width="40%">身高尺地址：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="addAddr"/>
-                                    </td>
-                                </tr>
+                                <!--<tr >-->
+                                    <!--<th width="40%">身高尺编号：</th>-->
+                                    <!--<td width="60%"><input type="text" name="" ms-duplex="addNo"/>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
                             </table>
                             <div class="user-btn">
                                 <input type="button" value="保存" class="oper" ms-click="add"/>
@@ -314,8 +306,14 @@
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
+
                                 <tr >
-                                    <th width="40%">集团：</th>
+                                    <th width="40%">健康秤地址：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex=""/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">健康秤集团：</th>
                                     <td width="60%">
                                         <select  ms-duplex="addTegr">
                                             <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name | addFilter}}</option>
@@ -324,22 +322,11 @@
                                 </tr>
 
                                 <tr >
-                                    <th width="40%">教师：</th>
+                                    <th width="40%">健康秤负责人：</th>
                                     <td width="60%">
                                         <select  ms-duplex="addUser">
                                             <option ms-attr-value="{{el.user_id}}" ms-repeat="userList">{{el.name}}</option>
                                         </select>
-                                    </td>
-                                </tr>
-                                <tr >
-                                    <th width="40%">健康秤编号：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="addNo"/>
-                                    </td>
-                                </tr>
-
-                                <tr >
-                                    <th width="40%">健康秤地址：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex=""/>
                                     </td>
                                 </tr>
                             </table>
