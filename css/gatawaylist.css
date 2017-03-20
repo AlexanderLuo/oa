@@ -238,8 +238,21 @@
 .user-main img{
     float: left;
     padding: 5px;
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
+}
+.del{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 20px!important;
+    height: 20px!important;
+}
+.imglist{
+    float: left;
+    position: relative;
+    width: 70px;
+    height: 70px;
 }
 .user-main2 {
     width: 100%;

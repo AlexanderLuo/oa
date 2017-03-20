@@ -30,14 +30,17 @@
         .table_1 tr {
             height: 30px !important;
         }
+
         .ms-controller, .ms-important, [ms-controller], [ms-important] {
             visibility: hidden;
         }
-        .show{
-            display: table!important;
+
+        .show {
+            display: table !important;
         }
-        .block{
-            display: block!important;
+
+        .block {
+            display: block !important;
         }
     </style>
 </head>
@@ -92,7 +95,8 @@
 
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/></li>
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" ms-attr-checked="el.check"
+                                                                ms-click="checkOne(el)"/></li>
                         <li>{{el.goods_name}}</li>
                         <li>{{el.goods_type | typeStrFilter}}</li>
                         <li>{{el.goods_repertory}}</li>
@@ -100,7 +104,7 @@
                         <li>{{el.goods_price}}</li>
                         <li>{{el.goods_discount}}</li>
                         <li>{{el.goods_sell_state | saleStrFilter }}</li>
-                        <li ms-click="open(el)"><a class="edit"  >编辑</a></li>
+                        <li ms-click="open(el)"><a class="edit">编辑</a></li>
                     </ul>
                 </div>
                 <!--    &lt;!&ndash;订单数据-->
@@ -115,12 +119,12 @@
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li">
-                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                            <input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>
                         </li>
                         <li>{{el.order_number}}</li>
                         <li>{{el.user_name}}</li>
                         <li>{{el.create_time}}</li>
-                        <li ms-click="open(el)"><a class="edit"   >编辑</a></li>
+                        <li ms-click="open(el)"><a class="edit">编辑</a></li>
                     </ul>
                 </div>
 
@@ -137,24 +141,28 @@
                 <div class="baby_content_dt-2">
                     <div class="baby_content_dt-2-fy">
                         <!-- 分页首页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)" ms-if="total!=1 && pageNo!=1">首页</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)"
+                           ms-if="total!=1 && pageNo!=1">首页</a>
                         <!-- 前一页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)" ms-if="pageNo>1"> &lt;&lt; 上一页</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)"
+                           ms-if="pageNo>1"> &lt;&lt; 上一页</a>
                         <!-- 下一页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)" ms-if="pageNo<total">下一页 &gt;&gt;</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)"
+                           ms-if="pageNo<total">下一页 &gt;&gt;</a>
                         <!-- 分页尾页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)" ms-if="total!=1 && pageNo!=total">尾页</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)"
+                           ms-if="total!=1 && pageNo!=total">尾页</a>
                     </div>
                 </div>
 
                 <!--商品管理弹窗-->
-                <div class="shade"  ms-class="block:pop=='goods' ">
+                <div class="shade" ms-class="block:pop=='goods' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
                                 <h3>商品：</h3>
                                 <!--<a ms-click="close" class="close">-->
-                                    <!--<img src="img/clo.png" title="">-->
+                                <!--<img src="img/clo.png" title="">-->
                                 <!--</a>-->
                             </div>
 
@@ -167,7 +175,7 @@
                                 <tr>
                                     <th width="40%">商品类型：</th>
                                     <td width="60%">
-                                        <select name=""  ms-duplex="popData.goods_type">
+                                        <select name="" ms-duplex="popData.goods_type">
                                             <option ms-attr-value="el.id" ms-repeat="typeList">{{el.name}}</option>
                                         </select>
                                     </td>
@@ -189,53 +197,80 @@
                                 </tr>
                                 <tr>
                                     <th width="40%">商品库存：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_repertory" class="wid_50"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_repertory"
+                                                           class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品销量：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_sales" class="wid_50"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_sales"
+                                                           class="wid_50"/>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品原价：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_price" class="wid_50"/>
+                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_price"
+                                                           class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品邮费：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_postage" class="wid_50"/>
+                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_postage"
+                                                           class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品折扣：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_discount" class="wid_50"/>
+                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_discount"
+                                                           class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">是否上架：</th>
                                     <td width="60%">
                                         <form>
-                                            <input name="true" type="radio"   ms-duplex="saleList[0].select"/>是
-                                            <input name="true" type="radio"   ms-duplex="saleList[1].select"/>否
+                                            <input name="true" type="radio" ms-duplex="saleList[0].select"/>是
+                                            <input name="true" type="radio" ms-duplex="saleList[1].select"/>否
                                         </form>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品图片：</th>
                                     <td width="60%">
-                                        <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg" alt="" >
-                                        <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg" alt="" >
-                                        <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg" alt="" >
-                                        <a href=""><img src="img/add.png" alt=""></a>
+                                        <div class="imglist">
+                                            <a href=""><img src="img/del.png" alt="" class="del"></a>
+                                            <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg"
+                                                 alt="">
+                                        </div>
+                                        <div class="imglist">
+                                            <a href=""><img src="img/del.png" alt="" class="del"></a>
+                                            <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg"
+                                                 alt="">
+                                        </div>
+                                        <div class="imglist">
+                                            <a href=""><img src="img/del.png" alt="" class="del"></a>
+                                            <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg"
+                                                 alt="">
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品详情：</th>
                                     <td width="60%">
-                                        <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg" alt="" >
-                                        <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg" alt="" >
-                                        <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg" alt="" >
-                                        <a href=""><img src="img/add.png" alt=""></a>
+                                        <div class="imglist">
+                                            <a href=""><img src="img/del.png" alt="" class="del"></a>
+                                            <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg"
+                                                 alt="">
+                                        </div>
+                                        <div class="imglist">
+                                            <a href=""><img src="img/del.png" alt="" class="del"></a>
+                                            <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg"
+                                                 alt="">
+                                        </div>
+                                        <div class="imglist">
+                                            <a href=""><img src="img/del.png" alt="" class="del"></a>
+                                            <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg"
+                                                 alt="">
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -248,7 +283,6 @@
                 </div>
 
 
-
                 <!--订单管理弹窗-->
 
                 <div class="shade" ms-class="block:pop=='order' ">
@@ -257,7 +291,7 @@
                             <div class="user-title">
                                 <h3>订单：</h3>
                                 <!--<a ms-click="close" class="close">-->
-                                    <!--<img src="img/clo.png" title="">-->
+                                <!--<img src="img/clo.png" title="">-->
                                 <!--</a>-->
                             </div>
 
@@ -355,56 +389,56 @@
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="40%">订单编号：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">订单流水时间：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">购买者电话：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">下单时间：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">下单总价：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品名称：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品外形：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品大小：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="10%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品数量：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品颜色：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">订单留言：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" />
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -432,7 +466,6 @@
                         </div>
                     </div>
                 </div>
-
 
 
             </div>
