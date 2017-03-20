@@ -289,8 +289,8 @@
                 <div class="baby_content_dt-1">
                     <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;">全选</span>
-                    <span class="baby_content_del" onclick="delAdmin();">批量删除</span>
-                    <span class="baby_content_del edit" ms-click="open">添加</span>
+                    <span class="baby_content_del"       ms-click="delPop">批量删除</span>
+                    <span class="baby_content_del edit"  ms-click="open">添加</span>
                 </div>
                 <div class="baby_content_dt-2">
                     <div class="baby_content_dt-2-fy">
@@ -346,7 +346,7 @@
                     </div>
                 </div>
                 <!--集团弹窗-->
-                <div class="shade"   ms-class="block:pop=='deger' ">
+                <div class="shade"   ms-class="block:pop=='teger' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
@@ -418,19 +418,36 @@
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
-                                <tr >
-                                    <th width="40%">学校名称：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
+
                                 <tr >
                                     <th width="40%">集团名称：</th>
                                     <td width="60%">
-                                        <select  ms-duplex="degr_id">
-                                            <option ms-attr-value="{{el.degr_id}}" ms-repeat="tegerList">{{el.degr_name}}</option>
+                                        <select  ms-duplex="addTegr">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                                         </select>
                                     </td>
                                 </tr>
+                                <tr >
+                                    <th width="40%">学校名称：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addSchoolName"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">学校地址：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addAddr"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">联系电话：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addPhone"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">联系人：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addUserName"/>
+                                    </td>
+                                </tr>
+
                             </table>
                             <div class="user-btn">
                                 <input type="button" value="保存" class="oper" ms-click="add"/>
@@ -550,140 +567,4 @@
 </div>
 
 </body>
-
-<!--query脚本-->
-<script type="text/javascript">
-    function checkBoxAll(obj) {
-        $("#adminId").val("");
-        if (obj.checked == true) {
-            $("[name='checkbox']").attr("checked", 'true');//全选
-            var str = "";
-            $("[name='checkbox'][checked]").each(function (i) {
-                if (i == 0) {
-                    str = $(this).val();
-                } else {
-                    str += "," + $(this).val();
-                }
-            });
-            $("#adminId").val(str);
-
-        } else {
-            $("[name='checkbox']").removeAttr("checked");//取消全选
-        }
-    }
-    function checkBox(index, obj) {
-        $("#adminId").val("");
-        if (obj.checked == true) {
-            $("#checkid_" + index).attr("checked", true);
-        } else {
-            $("#checkid_" + index).attr("checked", false);
-        }
-        var str = "";
-        $("[name='checkbox'][checked]").each(function (i) {
-            if (i == 0) {
-                str = $(this).val();
-            } else {
-                str += "," + $(this).val();
-            }
-        });
-        $("#adminId").val(str);
-    }
-
-    function delAdmin() {
-        var adminId = $("#adminId").val().trim();
-        if (isNull(adminId)) {
-            alertMsg("请先选择一条信息", 0);
-            return;
-        }
-        if (confirm("确定要删除该消息吗？") != "0") {
-            $.ajax({
-                url: "admin/delAdmin.do",// 跳转到 action
-                data: {
-                    "ids": adminId
-                },
-                type: 'post',
-                cache: false,
-                success: function (data) {
-                    if (data == 'loseSession') {
-                        location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                        return;
-                    }
-                    var json = eval("(" + data + ")");// 解析json
-                    var code = json.code;
-                    if (code == 200) {
-                        alertMsg("操作成功", 1);
-                        window.location.reload();
-                    } else {
-                        alertMsg("操作失败", 2);
-                    }
-                },
-                error: function () {
-                    alertMsg("系统错误！", 2);
-                }
-            });
-        }
-    }
-    function chickSubmit() {
-        $("#formId").submit();
-    }
-
-    (function (config) {
-        config['lock'] = true;
-        config['fixed'] = true;
-        config['opacity'] = .4;
-        config['okVal'] = '确定';
-        config['cancelVal'] = '取消';
-        // [more..]
-    })(art.dialog.defaults);
-
-
-    $(function () {
-        $("#searchName").val("");
-
-        $(".edit").click(function () {
-            var $this = $(this);
-            var eid = $this.attr("eid");
-            var title = '编辑';
-            if (eid == undefined) {
-                eid = "";
-                title = '新增';
-            }
-            art.dialog.open("admin/editTeacher.do?id=" + eid, {
-                width: 600,
-                height: 470,
-                title: title,
-                // 在open()方法中，init会等待iframe加载完毕后执行
-                init: function () {
-                    //var iframe = this.iframe.contentWindow;
-                    //var top = art.dialog.top;// 引用顶层页面window对象
-
-                },
-                ok: function () {
-                    var iframe = this.iframe.contentWindow;
-                    if (!iframe.document.body) {
-                        alert('iframe还没加载完毕呢');
-                        return false;
-                    }
-                    ;
-                    var dialog = this;
-                    iframe.submitAdmin(function (state) {
-                        switch (state) {
-                            case 0: // 成功
-                                dialog.close();
-                                window.location.reload();
-                                break;
-                            case 2: // 未登录
-                                location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                                break;
-                            default:
-                                break;
-                        }
-                    });
-                    return false;
-                },
-                cancel: true
-            });
-        });
-    });
-</script>
 </html>

@@ -10,10 +10,14 @@ avalon.ready(function () {
         tegr_id: 0,   //集团ID
         school_id:0,//学校ID
         class_id:0,
+
+
+        tegerList: [],
+
         list:[],
 
         adminList: [],
-        tegerList: [],
+
         teacherList: [],
         schoolList: [],
         classList: [],
@@ -58,10 +62,25 @@ avalon.ready(function () {
         tegrName:"",
         schoolName:"",
         className:"",
+        isReving:false,
 
         //查询条件
         teger_search:0,
         school_search:0,
+
+
+        addName:"",
+
+
+        addAccount:"",
+        addSummary:"",
+        addRole:"",
+        //学校添加
+        addTegr:"",
+        addSchoolName:"",
+        addAddr:"",
+        addPhone:"",
+        addUserName:"",
 
 
 
@@ -73,13 +92,13 @@ avalon.ready(function () {
             });
             return word;
         },
-        querytTeg:function(){
+        querytTeg:function(callback){
             $.ajax({url:conf.baseUrl+conf.getTegrList,type:"post",data:{user_id:user.user_id}}).done(function(data){
                 var json = eval("(" + data + ")");// 解析json
                 if (json.code == 200) {
-                    var li=[{tegr_id:0,tegr_name:"默认"}]
-                    li=li.concat(json.result)
-                    vm.tegerList=li;
+                    vm.tegerList=json.result;
+                    vm.tegr_id=vm.tegerList[0].tegr_id
+                    callback();
                 }else{
                     error && error.call()
                 }
@@ -106,18 +125,72 @@ avalon.ready(function () {
             vm.pop=vm.curPage;
             vm.popData={}
             switch (vm.curPage){
-                case 'goods':
-                    vm.popData={
+                case 'admin':
+                    if(el){
 
 
+                    }else{
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.addData.collecData();
+                                if(data.tegr_id==0 || data.user_id==0 || data.scales_no.trim()=="" || data.scales_addr.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    tegr_id:vm.addTegr,
+                                    user_id:vm.addUser,
+                                    scales_no:vm.addNo,
+                                    scales_addr:vm.addAddr,
+                                    login_user_id:user.user_id
+                                }
+                            }
+                        }
                     }
                     break;
-                case 'order':
-                    break
+                case 'teger':
+                    if(el){
+
+                    }else{
+                        vm.popData={
+
+
+                        }
+                    }
+                    break;
+                case 'school':
+                    if(el){
+
+
+                    }else{
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.addData.collecData();
+                                if(data.tegr_id==0 || data.user_id==0 || data.scales_no.trim()=="" || data.scales_addr.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    tegr_id:vm.addTegr,
+                                    user_id:vm.addUser,
+                                    scales_no:vm.addNo,
+                                    scales_addr:vm.addAddr,
+                                    login_user_id:user.user_id
+                                }
+                            }
+                        }
+                    }
+
+                    break;
             }
         },
         getAdmin: function (json) {
-
             var li=json.returnObject;
             li.forEach(function (p1, p2, p3) {
                 p1.check=false;
@@ -213,6 +286,7 @@ avalon.ready(function () {
             vm.addUrl="";
             vm.addTegr=0;
             vm.addName=""
+            vm.tegr_id=vm.tegerList[0].tegr_id;
 
             var path = vm.upperPage();
             var c=conf;
@@ -294,6 +368,16 @@ avalon.ready(function () {
                 }
             }
         },
+        //关掉
+        close:function(){
+            vm.pop=false;
+            vm.isReving=false;
+        },
+        delPop:function () {
+            layer.confirm("确定删除吗？",function () {
+                vm.del()
+                layer.closeAll()},layer.closeAll())
+        },
         seeTeacher:function(el){
             vm.tegr_id=el.tegr_id
             vm.tegrName=el.tegr_name
@@ -335,10 +419,14 @@ avalon.ready(function () {
                 // },
                 complete:function(res){
                     conf=eval("("+res.responseText+")")
-                    if(  vm.weight==2 ){ vm.router('teacher')}
-                    if(  vm.weight==3){  vm.router('admin')}
-                    if(  vm.weight==1){  vm.router('school')}
-                    vm.querytTeg()
+
+                    function goto() {
+                        if(  vm.weight==2 ){ vm.router('teacher')}
+                        if(  vm.weight==3){  vm.router('admin')}
+                        if(  vm.weight==1){  vm.router('school')}
+                    }
+
+                    vm.querytTeg(goto)
                 }
             });
 
