@@ -27,8 +27,8 @@
     <script type="text/javascript" src="js/page/goods.js"></script>
 
     <style>
-        .table_1 tr{
-            height: 30px!important;
+        .table_1 tr {
+            height: 30px !important;
         }
     </style>
 </head>
@@ -93,8 +93,7 @@
 
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
-                                                                value="190 " onclick="checkBox(0,this);"></li>
+                        <li class="baby_tab_checkbox_li"><input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/></li>
                         <li>{{el.goods_name}}</li>
                         <li>{{el.goods_type}}</li>
                         <!--<li>{{el.goods_size}}</li>-->
@@ -117,41 +116,40 @@
                         <li>选择</li>
                         <li>订单编号</li>
                         <li>购买者</li>
-                        <li>订单总价</li>
+                        <!--<li>订单总价</li>-->
                         <li>下单时间</li>
-                        <li>收货地址</li>
-                        <li>商品名称</li>
-                        <li>商品大小</li>
-                        <li>商品颜色</li>
-                        <li>商品外形</li>
-                        <li>订单数量</li>
-                        <li>订单折扣</li>
-                        <li>订单留言</li>
-                        <li>订单邮费</li>
-                        <li>订单流水时间</li>
+                        <!--<li>收货地址</li>-->
+                        <!--<li>商品名称</li>-->
+                        <!--<li>商品大小</li>-->
+                        <!--<li>商品颜色</li>-->
+                        <!--<li>商品外形</li>-->
+                        <!--<li>订单数量</li>-->
+                        <!--<li>订单折扣</li>-->
+                        <!--<li>订单留言</li>-->
+                        <!--<li>订单邮费</li>-->
+                        <!--<li>订单流水时间</li>-->
                         <li>操作</li>
                     </ul>
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="orderList" ms-class="baby_content_tab_bg:$index%2!=0">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li">
-                            <input type="checkbox" id="checkid_1" name="checkbox" value="190 "
-                                   onclick="checkBox(1,this);">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
                         </li>
                         <li>{{el.order_number}}</li>
-                        <li>{{el.user_id}}</li>
-                        <li>{{el.order_price}}</li>
+                        <li>{{el.user_name}}</li>
+                        <!--<li>{{el.order_price}}</li>-->
                         <li>{{el.create_time}}</li>
-                        <li>{{el.address_info}}</li>
-                        <li>{{el.goods_name}}</li>
-                        <li>{{el.goods_type}}</li>
-                        <li>{{el.goods_size}}</li>
-                        <li>{{el.goods_color}}</li>
-                        <li>{{el.goods_shape}}</li>
-                        <li>{{el.order_amount}}</li>
-                        <li>{{el.goods_discount}}</li>
-                        <li>{{el.order_message}}</li>
-                        <li>{{el.order_stream}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <!--<li>{{el.address_info}}</li>-->
+                        <!--<li>{{el.goods_name}}</li>-->
+                        <!--<li>{{el.goods_type}}</li>-->
+                        <!--<li>{{el.goods_size}}</li>-->
+                        <!--<li>{{el.goods_color}}</li>-->
+                        <!--<li>{{el.goods_shape}}</li>-->
+                        <!--<li>{{el.order_amount}}</li>-->
+                        <!--<li>{{el.goods_discount}}</li>-->
+                        <!--<li>{{el.order_message}}</li>-->
+                        <!--<li>{{el.order_stream}}</li>-->
+                        <li><a class="edit" href="javascript: void(0)" >编辑</a></li>
                     </ul>
                 </div>
 
@@ -159,10 +157,23 @@
             </form>
             <div class="baby_content_dt">
                 <div class="baby_content_dt-1">
-                    <input type="checkbox" onclick="checkBoxAll(this);">
+                    <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;">全选</span>
                     <span class="baby_content_del" onclick="delAdmin();">批量删除</span>
                     <span class="baby_content_del edit">添加</span>
+                </div>
+
+                <div class="baby_content_dt-2">
+                    <div class="baby_content_dt-2-fy">
+                        <!-- 分页首页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)" ms-if="total!=1 && pageNo!=1">首页</a>
+                        <!-- 前一页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)" ms-if="pageNo>1"> &lt;&lt; 上一页</a>
+                        <!-- 下一页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)" ms-if="pageNo<total">下一页 &gt;&gt;</a>
+                        <!-- 分页尾页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)" ms-if="total!=1 && pageNo!=total">尾页</a>
+                    </div>
                 </div>
 
                 <!--商品管理弹窗-->
@@ -236,9 +247,9 @@
                                 <tr>
                                     <th width="40%">是否上架：</th>
                                     <td width="60%">
-                                        <form >
-                                       <input name="true" type="radio" checked="checked" value="0"/>是
-                                       <input name="true" type="radio" value="1"/>否
+                                        <form>
+                                            <input name="true" type="radio" checked="checked" value="0"/>是
+                                            <input name="true" type="radio" value="1"/>否
                                         </form>
                                     </td>
                                 </tr>
@@ -262,15 +273,98 @@
                         </div>
                     </div>
                 </div>
+                <!--订单管理弹窗-->
+                <div class="shade" ms-class="">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>订单：</h3>
+                                <a ms-click="router('device')" class="close">
+                                    <img src="img/clo.png" title="">
+                                </a>
+                            </div>
 
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th width="40%">订单编号：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">订单流水时间：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">购买者电话：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">下单时间：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">下单总价：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品名称：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品外形：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品大小：</th>
+                                    <td width="10%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品数量：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">商品颜色：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">订单留言：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">收货地址：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">订单状态：</th>
+                                    <td width="60%">
+                                        <select name="" ms-duplex="deger_id">
+                                            <option value="0">待付款</option>
+                                            <option value="1">待发货</option>
+                                            <option value="2">待收货</option>
+                                            <option value="3">已收货</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
 
-                <script type="text/javascript">
-                    function goToPage(pagenum) {
-                        $("#pageNum").val(pagenum);
-                        $("#formId").submit();
-                    }
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                </script>
 
 
             </div>

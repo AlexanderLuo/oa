@@ -6,6 +6,21 @@
   "getTeacherList":"teacherApi/getTeacherList",
 
 
+  "queryAdmin":"userApi/getAdminList",
+  "queryTeger":"tegrApi/getTegrList",
+  "queryTeacher":"teacherApi/getTeacherList",
+  "querySchool":"schoolApi/getSchoolList",
+  "queryClass":"classApi/getClassList",
+  "queryParent":"parentApi/getParentList",
+  "queryStudent":"childApi/getChildList",
+
+
+
+
+
+  "getTeacherList":"teacherApi/getTeacherList",
+
+
 
   "getChildStatementList":"childStatementApi/getChildStatementList",
   "addDevice":"deviceGroupApi/addDeviceGroup",
@@ -34,6 +49,12 @@
   "revGoods":"goodsApi/updateGoods",
   "delGoods":"goodsApi/deleteGoods",
   "detailGoods":"goodsApi/getGoods",
+
+  "queryOrder":"orderApi/getOrderList",
+
+
+
+
 
   "queryVideos":"curriculumApi/getVideoList",
   "addVideos":"curriculumApi/addVideo",

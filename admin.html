@@ -25,6 +25,9 @@
     <script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
     <script type="text/javascript" src="js/iframeTools.js"></script>
 
+    <script type="text/javascript" src="js/page/admin.js"></script>
+
+
     <style>
         .ms-controller, .ms-important, [ms-controller], [ms-important] {
             visibility: hidden;
@@ -37,230 +40,12 @@
         }
     </style>
 
-
-    <script>
-        avalon.ready(function () {
-            var vm = avalon.define({
-                $id: "adminVm",
-                user: {},
-                tegr_id: 0,   //集团ID
-                school_id:0,//学校ID
-                list:[],
-                weight:1,
-                adminList: [],
-                tegerList: [],
-                teacherList: [],
-                schoolList: [],
-                classList: [],
-                parentList: [],
-                studentList: [],
-                lastReq: 0,
-                tegerReq: 0,
-                curPage: " ",
-                teacherReq:0,
-                schoolReq:0,
-                classReq:0,
-                parentReq:0,
-                studentReq:0,
-                pop:"",
-                getAdmin: function () {
-                    vm.adminList=[]
-                    $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/userApi/getAdminList",
-                        type: "post",
-                        data: {
-                            user_id: vm.user.user_id,
-                        },
-                        success: function (data) {
-                            var json = eval("(" + data + ")");// 解析json
-                            console.log(json);
-                            if (json.code == 200) {
-                                vm.adminList = json.returnObject;
-                            }
-                        }
-                    })
-                },
-                getTeger: function () {
-                    vm.tegerList = [];
-                    $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/tegrApi/getTegrList",
-                        type: 'post',
-                        data: {
-                            user_id: vm.user.user_id,
-                        },
-                        success: function (data) {
-                            var json = eval("(" + data + ")");// 解析json
-                            if (json.code == 200) {
-                                vm.tegerList = json.result;
-                            }
-                        }
-
-                    })
-                },
-                getTeacher: function () {
-                    vm.teacherList = [];
-                    $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/teacherApi/getTeacherList",
-                        type: 'post',
-                        data: {
-                            user_id: vm.user.user_id,
-                            tegr_id: vm.user.tegr_id,
-                            page: 1,
-                            page_size: 10,
-                            last_req_time: vm.teacherReq
-                        },
-                        success: function (data) {
-                            var json = eval("(" + data + ")");// 解析json
-                            if (json.code == 200) {
-                                vm.teacherReq= json.result.last_req_time;
-                                vm.teacherList = json.result.list;
-                            }
-                        }
-
-                    })
-                },
-                getSchool: function () {
-                    vm.rulerList = [];
-                    $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/schoolApi/getSchoolList",
-                        type: 'post',
-                        data: {
-//                            user_id: vm.user.user_id,
-                            tegr_id: vm.tegr_id,
-                            page: 1,
-                            page_size: 10,
-                            last_req_time: vm.ringReq
-                        },
-                        success: function (data) {
-                            var json = eval("(" + data + ")");// 解析json
-                            if (json.code == 200) {
-                                vm.lastReq = json.result.last_req_time;
-                                vm.schoolList = json.result.list;
-                            }
-                        }
-
-                    })
-                },
-                getClass: function () {
-                    vm.classList = [];
-                    $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/classApi/getClassList",
-                        type: 'post',
-                        data: {
-                            user_id: vm.user.user_id,
-                            school_id: vm.school_id,
-                            page: 1,
-                            page_size: 10,
-                            last_req_time: vm.ringReq
-                        },
-                        success: function (data) {
-                            var json = eval("(" + data + ")");// 解析json
-                            console.log(json);
-                            if (json.code == 200) {
-                                vm.lastReq = json.result.last_req_time;
-                                vm.classList = json.result.list;
-                            }
-                        }
-
-                    })
-                },
-                getParent: function () {
-                    vm.steelyardList = [];
-                    $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/parentApi/getParentList",
-                        type: 'post',
-                        data: {
-                            teger_id: vm.user.teger_id,
-                            school_id: vm.school_id,
-                            page: 1,
-                            page_size: 10,
-                            last_req_time: vm.ringReq
-                        },
-                        success: function (data) {
-                            var json = eval("(" + data + ")");// 解析json
-                            console.log(json);
-                            if (json.code == 200) {
-                                vm.lastReq = json.result.last_req_time;
-                                vm.parentList = json.result.list;
-                            }
-                        }
-
-                    })
-                },
-                getStudent: function () {
-                    vm.studentList = [];
-                    $.ajax({
-                        url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/childApi/getChildList",
-                        type: 'post',
-                        data: {
-                            class_id: vm.user.user_id,
-                            school_id: vm.school_id,
-                            page: 1,
-                            page_size: 10,
-                            last_req_time: vm.ringReq
-                        },
-                        success: function (data) {
-                            var json = eval("(" + data + ")");// 解析json
-                            console.log(json);
-                            if (json.code == 200) {
-                                vm.lastReq = json.result.last_req_time;
-                                vm.studentList = json.result.list;
-                            }
-                        }
-                    })
-                },
-                router: function (str) {
-                    vm.curPage=str;
-                },
-                init: function () {
-                    var user = getLocalValue('user');
-                    if (user == null) {
-                        location.href="/oa/login.html";
-                    }
-                    vm.user = user;
-                    var ty=user.role_type;
-                    if(ty=="8"){
-                        vm.weight=2
-                        vm.router('teacher')
-                    }
-                    else if(ty=="16" || ty=="32"){
-                        vm.weight=3
-                        vm.router('admin')
-                    }else{
-                        vm.weight=1
-                        vm.router('school')
-                    }
-                }
-            })
-
-
-            vm.$watch('tegr_id', function (value, oldValue) {
-                vm.getTeger();
-            })
-            vm.$watch('curPage',function(value){
-                if(value=="admin"){vm.getAdmin();}
-                if(value=="teger"){vm.getTeger();}
-                if(value=="teacher"){vm.getTeger();vm.getTeacher();}
-                if(value=="school"){vm.getSchool();}
-                if(value=='class'){vm.getClass();}
-                if(value=='parent'){vm.getParent();}
-                if(value=='student'){vm.getStudent();}
-            })
-
-            avalon.scan()
-            vm.init();
-
-
-
-        })
-    </script>
 </head>
 
 
 <body ms-controller="adminVm">
 
 <div class="baby_content">
-
     <!--头部-->
     <div ms-include-src=" './component/banner.html'"></div>
 
@@ -290,18 +75,18 @@
                 <!--集团选择框-->
                 <div class="select" ms-if="curPage =='school'">
                     <span>集团：&nbsp;</span>
-                    <select name="" id="" ms-duplex="teger_id">
+                    <select name="" id="" ms-duplex="teger_search">
                         <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                     </select>
                 </div>
                 <!--选择框-->
                 <div class="select" ms-if="curPage=='parent'">
                     <span>集团：&nbsp;</span>
-                    <select name=""  ms-duplex="teger_id">
+                    <select name=""  ms-duplex="teger_search">
                         <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                     </select>
                     <span>学校：&nbsp;</span>
-                    <select name=""  ms-duplex="school_id">
+                    <select name=""  ms-duplex="school_search">
                         <option ms-attr-value="{{el.school_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
                     </select>
                 </div>
@@ -320,9 +105,10 @@
                     </ul>
 
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="adminList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_0" name="checkbox"
-                                                                value="190 " onclick="checkBox(0,this);"></li>
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.name}}</li>
                         <li>{{el.remark}}</li>
                         <li>{{el.username}}</li>
@@ -340,17 +126,16 @@
                         <li>操作</li>
                     </ul>
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="tegerList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li">
-                            <input type="checkbox" id="checkid_1" name="checkbox" value="190 "
-                                   onclick="checkBox(1,this);">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
                         </li>
                         <li>{{el.tegr_name}}</li>
                         <li>{{el.totalCount}}</li>
                         <li>{{el.name}}</li>
                         <li>
                             <a class="edit" href="javascript: void(0)" eid="190">编辑</a>
-                            <a class="edit" ms-click="router('teacher')" eid="190">查看</a>
+                            <a class="edit" ms-click="seeTeacher(el)" >查看</a>
                         </li>
                     </ul>
                 </div>
@@ -361,7 +146,7 @@
                         <a ms-click="router('teger')" class="back">
                             <img src="img/back.png" title="">
                         </a>
-                        <h3>{{？集团}}</h3>
+                        <h3>{{tegrName}}</h3>
                     </div>
                 </div>
                 <div class="baby_content_tab" ms-if="curPage =='teacher'   && weight>=2 ">
@@ -374,9 +159,10 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="teacherList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_2" name="checkbox"
-                                                                value="" onclick="checkBox(2,this);"></li>
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.tegr_id}}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.role_type}}</li>
@@ -395,15 +181,16 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="schoolList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox"  name="checkbox"
-                                                                value="190 " onclick="checkBox(3,this);"></li>
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.tegr_name}}</li>
                         <li>{{el.school_name}}</li>
                         <li>{{el.name}}</li>
                         <li>
                             <a class="edit" href="javascript: void(0)" >编辑</a>
-                            <a class="edit" ms-click="router('class')" >查看</a>
+                            <a class="edit" ms-click="seeClass(el)" >查看</a>
                         </li>
                     </ul>
                 </div>
@@ -414,7 +201,7 @@
                         <a ms-click="router('school')" class="back">
                             <img src="img/back.png" title="">
                         </a>
-                        <h3>{{？学校}}</h3>
+                        <h3>{{schoolName}}</h3>
                     </div>
                 </div>
                 <div class="baby_content_tab" ms-if="curPage =='class'" >
@@ -425,14 +212,15 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="classList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox"  name="checkbox"
-                                                                value="190 " onclick="checkBox(3,this);"></li>
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.school_name}}</li>
                         <li>{{el.class_name}}</li>
                         <li>
                             <a class="edit" href="javascript: void(0)" >编辑</a>
-                            <a class="edit" ms-click="router('student')" >查看</a>
+                            <a class="edit" ms-click="seeStudent(el)" >查看</a>
                         </li>
                     </ul>
                 </div>
@@ -448,8 +236,9 @@
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="parentList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox"  name="checkbox"
-                                                                value="190 " onclick="checkBox(3,this);"></li>
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.level}}</li>
@@ -463,7 +252,7 @@
                         <a ms-click="router('class')" class="back">
                             <img src="img/back.png" title="">
                         </a>
-                        <h3>{{？班级}}</h3>
+                        <h3>{{className}}</h3>
                     </div>
                 </div>
                 <div class="baby_content_tab" ms-if="curPage =='student'" >
@@ -479,9 +268,10 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="studentList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox" id="checkid_3" name="checkbox"
-                                                                value="190 " onclick="checkBox(3,this);"></li>
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li">
+                            <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
+                        </li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.children_name}}</li>
                         <li>{{el.sex}}</li>
@@ -495,11 +285,24 @@
             </form>
             <div class="baby_content_dt">
                 <div class="baby_content_dt-1">
-                    <input type="checkbox" onclick="checkBoxAll(this);">
+                    <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;">全选</span>
                     <span class="baby_content_del" onclick="delAdmin();">批量删除</span>
                     <span class="baby_content_del edit">添加</span>
                 </div>
+                <div class="baby_content_dt-2">
+                    <div class="baby_content_dt-2-fy">
+                        <!-- 分页首页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)" ms-if="total!=1 && pageNo!=1">首页</a>
+                        <!-- 前一页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)" ms-if="pageNo>1"> &lt;&lt; 上一页</a>
+                        <!-- 下一页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)" ms-if="pageNo<total">下一页 &gt;&gt;</a>
+                        <!-- 分页尾页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)" ms-if="total!=1 && pageNo!=total">尾页</a>
+                    </div>
+                </div>
+
                 <!--系统用户弹窗-->
                 <div class="shade"   ms-class="block:pop=='admin' ">
                     <div class="user-edit">
@@ -605,7 +408,7 @@
                 </div>、
 
                 <!--学校弹窗-->
-                <div class="shade"   ms-class="block:pop=='teacher' ">
+                <div class="shade"   ms-class="block:pop=='school' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
@@ -659,7 +462,7 @@
                 </div>
 
                 <!--家长弹窗-->
-                <div class="shade"   ms-class="block:pop=='admin' ">
+                <div class="shade"   ms-class="block:pop=='parent' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
@@ -680,6 +483,53 @@
                                 <tr >
                                     <th width="40%">简介：</th>
                                     <td width="60%"><textarea rows="4" cols="30"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--家长弹窗-->
+                <div class="shade"   ms-class="block:pop=='student' ">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>学生：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr >
+                                    <th width="40%">学生姓名：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">学生性别：</th>
+                                    <td width="60%">
+                                        <form>
+                                            <input name="true" type="radio" checked="checked" value="0"/>男
+                                            <input name="true" type="radio" value="1"/>女
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">出生日期：</th>
+                                    <td width="60%"><textarea rows="4" cols="30"></textarea>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">家长姓名：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">家长电话：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
                                     </td>
                                 </tr>
                             </table>

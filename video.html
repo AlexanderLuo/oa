@@ -304,21 +304,21 @@
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>视频名称</li>
+                        <li>视频时长</li>
                         <li>视频大小</li>
                         <li>视频封面</li>
-                        <li>视频文件</li>
                         <li>上传人</li>
                         <li>上传时间</li>
-                        <li>管理</li>
+                        <li>操作</li>
                     </ul>
 
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
                         <li>{{el.video_name}}</li>
+                        <li>{{el.video_length}}</li>
                         <li>{{el.video_size}}</li>
                         <li><img ms-src="el.video_cover" alt=""></li>
-                        <li ><a class="edit" ms-click="show('el.video_path')">查看</a></li>
                         <li>{{el.user_name}}</li>
                         <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
                         <li ><a class="edit" href="javascript: void(0)"  ms-if="weight>=2">编辑</a></li>
@@ -335,61 +335,66 @@
                     <span class="baby_content_del" ms-click="open('del')">批量删除</span>
                     <span class="baby_content_del edit" ms-click="open('add')">添加</span>
                 </div>
-
-
-                <!--查看视频弹窗-->
-                <div class="shade"   ms-class="block:pop">
-                    <div class="user-edit">
-                        <div class="user-main">
-                            <div class="user-title">
-                                <h3>视频：</h3>
-                            </div >
-                            <div style="text-align: center">
-                                <video width="320" height="240" src="www.glorymi.com" controls="controls"></video>
-                            </div>
-                            </div>
-                        </div>
+                <div class="baby_content_dt-2">
+                    <div class="baby_content_dt-2-fy">
+                        <!-- 分页首页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)" ms-if="total!=1 && pageNo!=1">首页</a>
+                        <!-- 前一页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)" ms-if="pageNo>1"> &lt;&lt; 上一页</a>
+                        <!-- 下一页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)" ms-if="pageNo<total">下一页 &gt;&gt;</a>
+                        <!-- 分页尾页按钮 -->
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)" ms-if="total!=1 && pageNo!=total">尾页</a>
                     </div>
                 </div>
-
                 
 
+            <!--视频管理弹窗-->
+            <div class="shade" ms-class="">
+                <div class="user-edit">
+                    <div class="user-main">
+                        <div class="user-title">
+                            <h3>视频：</h3>
+                            <a ms-click="router('device')" class="close">
+                                <img src="img/clo.png" title="">
+                            </a>
+                        </div>
 
-                <!--弹窗-->
-                <div class="shade"   ms-class="block:pop">
-                    <div class="user-edit">
-                        <div class="user-main">
-                            <div class="user-title">
-                                <h3>设备组：</h3>
-                            </div>
-                            <table class="table_1" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <th width="40%">设备组名称：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex-string=""/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">设备组老师：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex-string=""/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">教师集团：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex-string=""/></td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">创建时间：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex-string=""/>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div class="user-btn">
-                                <input type="button" value="保存" class="oper" ms-click="save"/>
-                                <input type="button" value="返回" class="oper" ms-click="back"/>
-                            </div>
+                        <table class="table_1" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th width="40%">视频名称：</th>
+                                <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th width="40%">视频时长：</th>
+                                <td width="60%"><input type="text" name="" ms-duplex="el.value"/>秒
+                                </td>
+                            </tr>
+                            <tr>
+                                <th width="40%">视频大小：</th>
+                                <td width="60%"><input type="text" name="" ms-duplex="el.value"/>KB
+                                </td>
+                            </tr>
+                            <tr>
+                                <th width="40%">视频路径：</th>
+                                <td width="60%"><input type="text" name="" ms-duplex="el.value"/>上传
+                                </td>
+                            </tr>
+                            <tr>
+                                <th width="40%">视频封面：</th>
+                                <td width="60%">
+                                    <img src="" alt="">
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="user-btn">
+                            <input type="button" value="保存" class="oper" ms-click="add"/>
+                            <input type="button" value="返回" class="oper" ms-click="close"/>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
