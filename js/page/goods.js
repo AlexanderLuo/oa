@@ -26,8 +26,13 @@ avalon.ready(function () {
         curPage: "",
         pop:"",
         popData:{},
+<<<<<<< HEAD
         imgList:{},
         detailList:{},
+=======
+        readOnly:false,
+        imgList:[],
+>>>>>>> 3b90ece7c535c593c2f933a1aab3166f18617503
 
 
 
@@ -47,7 +52,6 @@ avalon.ready(function () {
         delUrl:"",
         delData:"",
         dataList:[],
-
 
         checkAllFlag:false,  //全选标志
 
@@ -174,9 +178,10 @@ avalon.ready(function () {
         open:function(el){
             vm.pop=vm.curPage;
             vm.popData={}
-
+            vm.readOnly=false;
             switch (vm.curPage){
                 case "goods":
+                    el=el || {}
                     vm.saleList[0].select=false
                     vm.saleList[1].select=false
                     vm.popData={
@@ -204,6 +209,13 @@ avalon.ready(function () {
 
                     break;
                 case "order":
+                    if(el){vm.readOnly=true};
+                    el=el || {}
+                    vm.popData={
+
+
+                    }
+
                     break;
             }
 
