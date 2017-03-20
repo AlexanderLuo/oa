@@ -30,6 +30,15 @@
         .table_1 tr {
             height: 30px !important;
         }
+        .ms-controller, .ms-important, [ms-controller], [ms-important] {
+            visibility: hidden;
+        }
+        .show{
+            display: table!important;
+        }
+        .block{
+            display: block!important;
+        }
     </style>
 </head>
 
@@ -107,7 +116,7 @@
                         <!--<li>{{el.goods_postage}}</li>-->
                         <!--<li><img  ms-src="el.goods_image" alt=""></li>-->
                         <li>{{el.goods_sell_state}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li ms-click="open(el)"><a class="edit"  >编辑</a></li>
                     </ul>
                 </div>
                 <!--    &lt;!&ndash;订单数据-->
@@ -149,7 +158,7 @@
                         <!--<li>{{el.goods_discount}}</li>-->
                         <!--<li>{{el.order_message}}</li>-->
                         <!--<li>{{el.order_stream}}</li>-->
-                        <li><a class="edit" href="javascript: void(0)" >编辑</a></li>
+                        <li ms-click="open(el)"><a class="edit" href="javascript: void(0)"  >编辑</a></li>
                     </ul>
                 </div>
 
@@ -177,12 +186,12 @@
                 </div>
 
                 <!--商品管理弹窗-->
-                <div class="shade" ms-class=" ">
+                <div class="shade"  ms-class="block:pop=='goods' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
                                 <h3>商品：</h3>
-                                <a ms-click="router('device')" class="close">
+                                <a ms-click="close" class="close">
                                     <img src="img/clo.png" title="">
                                 </a>
                             </div>
@@ -190,7 +199,7 @@
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="40%">商品名称：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_name"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -207,41 +216,41 @@
                                 </tr>
                                 <tr>
                                     <th width="40%">商品大小：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_size"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品颜色：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_color"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品外形：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_shape"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品库存：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" class="wid_50"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_repertory" class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品销量：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" class="wid_50"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_sales" class="wid_50"/>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品原价：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="el.value" class="wid_50"/>
+                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_price" class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品邮费：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="el.value" class="wid_50"/>
+                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_postage" class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品折扣：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="el.value" class="wid_50"/>
+                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_discount" class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -274,12 +283,12 @@
                     </div>
                 </div>
                 <!--订单管理弹窗-->
-                <div class="shade" ms-class="">
+                <div class="shade" ms-class="block:pop=='order' ">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
                                 <h3>订单：</h3>
-                                <a ms-click="router('device')" class="close">
+                                <a ms-click="close" class="close">
                                     <img src="img/clo.png" title="">
                                 </a>
                             </div>
@@ -375,139 +384,4 @@
 
 </body>
 
-<!--query脚本-->
-<script type="text/javascript">
-    function checkBoxAll(obj) {
-        $("#adminId").val("");
-        if (obj.checked == true) {
-            $("[name='checkbox']").attr("checked", 'true');//全选
-            var str = "";
-            $("[name='checkbox'][checked]").each(function (i) {
-                if (i == 0) {
-                    str = $(this).val();
-                } else {
-                    str += "," + $(this).val();
-                }
-            });
-            $("#adminId").val(str);
-
-        } else {
-            $("[name='checkbox']").removeAttr("checked");//取消全选
-        }
-    }
-    function checkBox(index, obj) {
-        $("#adminId").val("");
-        if (obj.checked == true) {
-            $("#checkid_" + index).attr("checked", true);
-        } else {
-            $("#checkid_" + index).attr("checked", false);
-        }
-        var str = "";
-        $("[name='checkbox'][checked]").each(function (i) {
-            if (i == 0) {
-                str = $(this).val();
-            } else {
-                str += "," + $(this).val();
-            }
-        });
-        $("#adminId").val(str);
-    }
-
-    function delAdmin() {
-        var adminId = $("#adminId").val().trim();
-        if (isNull(adminId)) {
-            alertMsg("请先选择一条信息", 0);
-            return;
-        }
-        if (confirm("确定要删除该消息吗？") != "0") {
-            $.ajax({
-                url: "admin/delAdmin.do",// 跳转到 action
-                data: {
-                    "ids": adminId
-                },
-                type: 'post',
-                cache: false,
-                success: function (data) {
-                    if (data == 'loseSession') {
-                        location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                        return;
-                    }
-                    var json = eval("(" + data + ")");// 解析json
-                    var code = json.code;
-                    if (code == 200) {
-                        alertMsg("操作成功", 1);
-                        window.location.reload();
-                    } else {
-                        alertMsg("操作失败", 2);
-                    }
-                },
-                error: function () {
-                    alertMsg("系统错误！", 2);
-                }
-            });
-        }
-    }
-    function chickSubmit() {
-        $("#formId").submit();
-    }
-
-    (function (config) {
-        config['lock'] = true;
-        config['fixed'] = true;
-        config['opacity'] = .4;
-        config['okVal'] = '确定';
-        config['cancelVal'] = '取消';
-        // [more..]
-    })(art.dialog.defaults);
-
-
-    $(function () {
-        $("#searchName").val("");
-
-        $(".edit").click(function () {
-            var $this = $(this);
-            var eid = $this.attr("eid");
-            var title = '编辑';
-            if (eid == undefined) {
-                eid = "";
-                title = '新增';
-            }
-            art.dialog.open("admin/editTeacher.do?id=" + eid, {
-                width: 600,
-                height: 470,
-                title: title,
-                // 在open()方法中，init会等待iframe加载完毕后执行
-                init: function () {
-                    //var iframe = this.iframe.contentWindow;
-                    //var top = art.dialog.top;// 引用顶层页面window对象
-
-                },
-                ok: function () {
-                    var iframe = this.iframe.contentWindow;
-                    if (!iframe.document.body) {
-                        alert('iframe还没加载完毕呢');
-                        return false;
-                    }
-                    ;
-                    var dialog = this;
-                    iframe.submitAdmin(function (state) {
-                        switch (state) {
-                            case 0: // 成功
-                                dialog.close();
-                                window.location.reload();
-                                break;
-                            case 2: // 未登录
-                                location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                                break;
-                            default:
-                                break;
-                        }
-                    });
-                    return false;
-                },
-                cancel: true
-            });
-        });
-    });
-</script>
 </html>

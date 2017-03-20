@@ -18,10 +18,6 @@
 
 
 
-  "getTeacherList":"teacherApi/getTeacherList",
-
-
-
   "getChildStatementList":"childStatementApi/getChildStatementList",
   "addDevice":"deviceGroupApi/addDeviceGroup",
   "delDevice":"deviceGroupApi/deleteDeviceGroup",

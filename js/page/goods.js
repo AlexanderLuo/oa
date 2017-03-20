@@ -19,6 +19,8 @@ avalon.ready(function () {
         goodsReq: 0,
         orderReq: 0,
         curPage: "",
+        pop:"",
+        popData:{},
 
 
 
@@ -136,6 +138,38 @@ avalon.ready(function () {
             }
             if(no.length>0){
                 vm.checkAllFlag=false
+            }
+
+        },
+        //关掉
+        close:function(){
+            vm.pop=false;
+        },
+        open:function(el){
+            vm.pop=vm.curPage;
+            vm.popData={}
+
+            switch (vm.curPage){
+                case "goods":
+                    vm.popData={
+                        goods_name:el.goods_name,
+                        goods_type:el.goods_type,
+                        goods_size:el.goods_size,
+                        goods_color:el.goods_color,
+                        goods_shape:el.goods_shape,
+                        goods_repertory:el.goods_repertory,
+                        goods_sales:el.goods_sales,
+                        goods_price:el.goods_price,
+                        goods_postage:el.goods_postage,
+                        goods_discount:el.goods_discount,
+                        goods_sell_state:el.goods_sell_state,
+                        goods_image:el.goods_image,
+                        goods_detail:el.goods_detail
+                    }
+
+                    break;
+                case "order":
+                    break;
             }
 
         },

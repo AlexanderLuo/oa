@@ -11,8 +11,6 @@ avalon.ready(function () {
         degr_id: "",   //当前用户设备组
 
 
-
-
         pageSize:4,
         pageNo:1,
         total:1,
@@ -24,7 +22,7 @@ avalon.ready(function () {
         addTegr:"",
         addUser:"",
         addName:"",
-
+        addDegr:0,
         addNo:"",
         addAddr:"",
 
@@ -55,6 +53,11 @@ avalon.ready(function () {
         pop:false,
         popData:{},
 
+
+        //查看
+        degrName:"",
+
+
         querytTeg:function(){
             $.ajax({url:conf.baseUrl+conf.getTegrList,type:"post",data:{user_id:user.user_id}}).done(function(data){
                 var json = eval("(" + data + ")");// 解析json
@@ -68,7 +71,6 @@ avalon.ready(function () {
             })
         },
         query:function(pageNo){
-
             vm.pageNo=pageNo;
             vm.records=0;
             vm.total=1;
@@ -78,60 +80,83 @@ avalon.ready(function () {
             $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function(data){vm.queryHandle(data,vm["get"+path])})
         },
         del:function(){
+            var ids=""
+            var li=[]
             switch (vm.curPage){
                 case "device":
-                    vm.queryData= {
+                    for(var a=0;a<vm.dataList.length;a++){
+                        if(vm.dataList[a].check==true){
+                            li.push(vm.dataList[a].degr_id)
+                        }
+                    }
+                    for(var b=0;b<li.length;b++){
+                        ids=ids+li[b]
+                        if(b!=li.length-1){
+                            ids=ids+","
+                        }
+                    }
+                    vm.delData= {
                         user_id: user.user_id,
-                        tegr_id: user.tegr_id,
-                        page: vm.pageNo,
-                        page_size:  vm.pageSize,
-                        last_req_time: vm.deviceReq
+                        delete_degr_id:ids
                     }
                     break;
                 case "ring":
-                    vm.queryData={
-                        user_id: user.user_id,
-                        degr_id: vm.degr_id,
-                        page: vm.pageNo,
-                        page_size:  vm.pageSize,
-                        last_req_time: vm.ringReq
-                    }
-                    break;
-                case "ruler":
-                    var delete_ruler_id=""
                     for(var a=0;a<vm.dataList.length;a++){
                         if(vm.dataList[a].check==true){
-                            delete_ruler_id=delete_ruler_id+vm.dataList[a].ruler_id
-                            if(a!=vm.dataList.length-1){
-                                delete_ruler_id=delete_ruler_id+","
-                            }
+                            li.push(vm.dataList[a].bracelet_id)
                         }
                     }
-                    vm.queryData={
+                    for(var b=0;b<li.length;b++){
+                        ids=ids+li[b]
+                        if(b!=li.length-1){
+                            ids=ids+","
+                        }
+                    }
+                    vm.delData={
                         user_id: user.user_id,
-                        tegr_id: user.tegr_id,
-                        delete_ruler_id: delete_ruler_id
+                        delete_bracelet_id: ids
                     };
                     break;
-                case "steelyard":
-                    var delete_scales_id="";
+                case "ruler":
                     for(var a=0;a<vm.dataList.length;a++){
                         if(vm.dataList[a].check==true){
-                            delete_scales_id=delete_scales_id+vm.dataList[a].scales_id
-                            if(a!=vm.dataList.length-1){
-                                delete_scales_id=delete_scales_id+","
-                            }
+                            li.push(vm.dataList[a].ruler_id)
+                        }
+                    }
+                    for(var b=0;b<li.length;b++) {
+                        ids = ids + li[b]
+                        if (b != li.length - 1) {
+                            ids = ids + ","
                         }
                     }
                     vm.delData={
                         user_id: user.user_id,
                         tegr_id: user.tegr_id,
-                        delete_scales_id:delete_scales_id
+                        delete_ruler_id: ids
+                    };
+                    break;
+                case "steelyard":
+                    for(var a=0;a<vm.dataList.length;a++){
+                        if(vm.dataList[a].check==true){
+                            li.push(vm.dataList[a].scales_id)
+                        }
+                    }
+                    for(var b=0;b<li.length;b++) {
+                        ids = ids + li[b]
+                        if (b != li.length - 1) {
+                            ids = ids + ","
+                        }
+                    }
+                    vm.delData={
+                        user_id: user.user_id,
+                        tegr_id: user.tegr_id,
+                        delete_scales_id:ids
                     }
                     break;
             }
+
             var path = vm.upperPage();
-            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function(data){console.log(111)})
+            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function(data){vm.query(1)})
 
         },
         add:function(){
@@ -147,6 +172,12 @@ avalon.ready(function () {
 
         },
         rev:function(){
+        },
+        seeRing:function(el){
+            vm.degrName=el.degr_name
+            vm.degr_id=el.degr_id
+            vm.addDegr=el.degr_id
+            vm.router('ring')
         },
         queryHandle:function(data,callback,error){
             var json = eval("(" + data + ")");// 解析json
@@ -185,10 +216,6 @@ avalon.ready(function () {
             });
             vm.dataList = json.result.list;
         },
-        ringProxy:function(did){
-            vm.degr_id=did;
-            vm.router('ring')
-        },
         //身高尺
         getRuler: function (json) {
             vm.rulerReq = json.result.last_req_time;
@@ -218,10 +245,14 @@ avalon.ready(function () {
             vm.close();
         },
         addRing:function(){
+            vm.close();
+            vm.query(1)
         },
         addRuler:function(){
+            vm.close();
         },
         addSteelyard:function(){
+            vm.close();
         },
         revDevice:function(){
         },
@@ -240,6 +271,7 @@ avalon.ready(function () {
             vm.addUrl="";
             vm.addTegr=0;
             vm.addName=""
+
 
             vm.tegr_id=0;
 
@@ -307,10 +339,13 @@ avalon.ready(function () {
 
         },
         //弹窗
-        open:function(){
+        open:function(el){
             vm.pop=vm.curPage;
             switch (vm.curPage){
                 case "device":
+                    if(el){
+                        //vm.addTegr=el.
+                    }
                     vm.addData={
                         isLegal:function(){
                             var data=vm.addData.collecData();
@@ -330,9 +365,22 @@ avalon.ready(function () {
                     }
                     break;
                 case "ring":
-                    vm.popData={
-                        title:"手环",
-                        rows:[{name:"学生ID",key:"",value:""},{name:"设备组ID",key:"",value:""},{name:"手环编号",key:"",value:""},{name:"手环地址",key:"",value:""}]
+                    vm.addData={
+                        isLegal:function(){
+                            var data=vm.addData.collecData();
+                            if(data.addDegr==0 || data.bracelet_no.trim()=="" || data.bracelet_address.trim()==""){
+                                return false;
+                            } else{
+                                return true;
+                            }
+                        },
+                        collecData:function(){
+                            return{
+                                degr_id:vm.addDegr,
+                                bracelet_no:vm.addNo,
+                                bracelet_address:vm.addAddr
+                            }
+                        }
                     }
                     break;
                 case "ruler":
@@ -360,7 +408,7 @@ avalon.ready(function () {
                     vm.addData={
                         isLegal:function(){
                             var data=vm.addData.collecData();
-                            if(data.tegr_id==0 || data.user_id==0 || data.ruler_no.trim()=="" || data.ruler_addr.trim()==""){
+                            if(data.tegr_id==0 || data.user_id==0 || data.scales_no.trim()=="" || data.scales_addr.trim()==""){
                                 return false;
                             } else{
                                 return true;
@@ -370,9 +418,8 @@ avalon.ready(function () {
                             return{
                                 tegr_id:vm.addTegr,
                                 user_id:vm.addUser,
-                                ruler_no:vm.addNo,
-                                ruler_addr:vm.addAddr
-
+                                scales_no:vm.addNo,
+                                scales_addr:vm.addAddr
                             }
                         }
                     }
@@ -391,6 +438,10 @@ avalon.ready(function () {
         //关掉
         close:function(){
             vm.pop=false;
+            vm.addNo=""
+            vm.addAddr=""
+            vm.addUser=""
+            vm.addName=""
         },
         //全选
         checkAll:function(){
@@ -454,7 +505,7 @@ avalon.ready(function () {
     //添加设备组联动
     vm.$watch("addTegr",function(data){
         if(data==0){
-            userList=[{name:"请选择",user_id:0}]
+            vm.userList=[{name:"请选择",user_id:0}]
             return
         }
         $.ajax({url:conf.baseUrl+conf.getTeacherList,type:"post",data:{user_id:user.user_id,tegr_id:data,page:1,page_size:800,last_req_time:0}}).done(function(data){
