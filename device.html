@@ -72,16 +72,14 @@
                         <li>选择</li>
                         <li>设备组名称</li>
                         <li>设备组老师</li>
-                        <!--<li>教师集团</li>-->
                         <li>创建时间</li>
                         <li>操作</li>
                     </ul>
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
-                        <li>{{el.degr_id}}</li>
                         <li>{{el.degr_name}}</li>
-                        <!--<li>{{el.tegr_name}}</li>-->
+                        <li>{{el.name}}</li>
                         <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
                         <li >
                             <a class="edit" href="javascript: void(0)"  ms-if="weight>=2" ms-click="open(el)">编辑</a>

@@ -52,6 +52,7 @@ avalon.ready(function () {
         checkAllFlag:false,  //全选标志
         pop:false,
         popData:{},
+        edit:false,
 
 
         //查看
@@ -164,10 +165,12 @@ avalon.ready(function () {
             var check=vm.addData.isLegal();
             if(check){
                 console.log(vm.addData.collecData())
-                $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function(data){vm.addHandle(data,vm["add"+path])})
+                $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function(data){
+                    vm.close();
+                    vm.query(1)
+                })
             }else{
                 layer.msg("请填写完整")
-                //console.log("worng");
             }
 
         },
@@ -240,28 +243,6 @@ avalon.ready(function () {
         delRuler:function(){
         },
         delSteelyard:function(){
-        },
-        addDevice:function(){
-            vm.close();
-        },
-        addRing:function(){
-            vm.close();
-            vm.query(1)
-        },
-        addRuler:function(){
-            vm.close();
-        },
-        addSteelyard:function(){
-            vm.close();
-        },
-        revDevice:function(){
-        },
-        revRing:function(){
-        },
-
-        revRuler:function(){
-        },
-        revSteelyard:function(){
         },
 
         //路由
@@ -513,6 +494,7 @@ avalon.ready(function () {
             var json = eval("(" + data + ")");// 解析json
             if (json.code == 200) {
                 vm.userList=json.result.list;
+                vm.addUser=vm.userList[0].user_id
             }else{
                 error && error.call()
             }
