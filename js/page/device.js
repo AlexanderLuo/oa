@@ -258,6 +258,7 @@ avalon.ready(function () {
         },
         revRing:function(){
         },
+
         revRuler:function(){
         },
         revSteelyard:function(){
