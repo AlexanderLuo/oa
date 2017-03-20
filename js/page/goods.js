@@ -26,13 +26,12 @@ avalon.ready(function () {
         curPage: "",
         pop:"",
         popData:{},
-<<<<<<< HEAD
+
         imgList:{},
         detailList:{},
-=======
+
         readOnly:false,
-        imgList:[],
->>>>>>> 3b90ece7c535c593c2f933a1aab3166f18617503
+
 
 
 
