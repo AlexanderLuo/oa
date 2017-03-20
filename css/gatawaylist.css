@@ -235,6 +235,12 @@
     border: 1px solid #ddd;
     border-radius: 10px;
 }
+.user-main img{
+    float: left;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+}
 .user-main2 {
     width: 100%;
     background: white;
