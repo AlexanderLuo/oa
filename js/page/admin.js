@@ -28,7 +28,7 @@ avalon.ready(function () {
         classReq:0,
         parentReq:0,
         studentReq:0,
-        tegerList:[],
+
 
 
 
@@ -102,8 +102,20 @@ avalon.ready(function () {
                 error && error.call()
             }
         },
+        open:function(el){
+            vm.pop=vm.curPage;
+            vm.popData={}
+            switch (vm.curPage){
+                case 'goods':
+                    vm.popData={
 
 
+                    }
+                    break;
+                case 'order':
+                    break
+            }
+        },
         getAdmin: function (json) {
 
             var li=json.returnObject;
