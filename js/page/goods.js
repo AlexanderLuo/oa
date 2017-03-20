@@ -10,11 +10,16 @@ avalon.ready(function () {
     var vm = avalon.define({
         $id: "goodsVm",
         typeList:[{id:0,name:"全部"},{id:1,name:"教材"},{id:2,name:"器材"},{id:3,name:"服饰"},{id:4,name:"其他"}],
+        typeFilter:0,
+        saleList:[{id:0,name:"上架",select:false},{id:1,name:"下架",select:false}],
+        orderList:[{id:0,name:"全部"},{id:1,name:"待付款"},{id:2,name:"待发货"},{id:3,name:"待收货"},{id:4,name:"已收货"}],
+
+
+
         goods_type:0,
         order_state:0,
         list:[],
         goodsList: [],
-        orderList: [],
         lastReq: 0,
         goodsReq: 0,
         orderReq: 0,
@@ -81,7 +86,25 @@ avalon.ready(function () {
             });
             vm.dataList = json.result.list;
         },
+        rev:function(){
+            switch (vm.curPage){
+                case "goods":
+                    var co=0;
+                    vm.saleList.forEach(function(el){
+                        if(el.select){
+                            co=el.id
+                        }
+                    })
+                    vm.popData.goods_sell_state=co;
 
+
+                    break;
+                case "order":
+                    break
+            }
+            var path = vm.upperPage();
+            $.ajax({url: vm.revUrl, type: "post", data: vm.popData}).done(function(data){vm.close();vm.query(1)})
+        },
 
         router: function (str) {
             vm.dataList=[];
@@ -151,7 +174,10 @@ avalon.ready(function () {
 
             switch (vm.curPage){
                 case "goods":
+                    vm.saleList[0].select=false
+                    vm.saleList[1].select=false
                     vm.popData={
+                        goods_id:el.goods_id,
                         goods_name:el.goods_name,
                         goods_type:el.goods_type,
                         goods_size:el.goods_size,
@@ -165,6 +191,12 @@ avalon.ready(function () {
                         goods_sell_state:el.goods_sell_state,
                         goods_image:el.goods_image,
                         goods_detail:el.goods_detail
+                    }
+                    if(el.goods_sell_state==0){
+                        vm.saleList[0].select=true
+                    }
+                    if(el.goods_sell_state==1){
+                        vm.saleList[1].select=true
                     }
 
                     break;
@@ -204,5 +236,30 @@ avalon.ready(function () {
 
     vm.init();
     avalon.scan()
+
+    vm.$watch("typeFilter",function(data){
+        console.log(data)
+    })
+
+
+    avalon.filters.typeStrFilter=function(str){
+        var re="";
+        vm.typeList.forEach(function(el){
+            if(el.id==str){
+                re=el.name
+            }
+        })
+        return re
+    }
+    avalon.filters.saleStrFilter=function(str){
+        var re="";
+        vm.saleList.forEach(function(el){
+            if(el.id==str){
+                re=el.name
+            }
+        })
+        return re
+    }
+
 
 })
