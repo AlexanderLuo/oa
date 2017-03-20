@@ -111,12 +111,12 @@
                 
 
             <!--视频管理弹窗-->
-            <div class="shade" ms-class="">
+            <div class="shade" ms-class="block:pop">
                 <div class="user-edit">
                     <div class="user-main">
                         <div class="user-title">
                             <h3>视频：</h3>
-                            <a ms-click="router('device')" class="close">
+                            <a ms-click="close" class="close">
                                 <img src="img/clo.png" title="">
                             </a>
                         </div>
@@ -124,22 +124,22 @@
                         <table class="table_1" cellpadding="0" cellspacing="0">
                             <tr>
                                 <th width="40%">视频名称：</th>
-                                <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                <td width="60%"><input type="text"  ms-duplex="addName"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th width="40%">视频时长：</th>
-                                <td width="60%"><input type="text" name="" ms-duplex="el.value"/>秒
+                                <td width="60%"><input type="text"  ms-duplex="addLength"/>秒
                                 </td>
                             </tr>
                             <tr>
                                 <th width="40%">视频大小：</th>
-                                <td width="60%"><input type="text" name="" ms-duplex="el.value"/>KB
+                                <td width="60%"><input type="text"  ms-duplex="addSize"/>KB
                                 </td>
                             </tr>
                             <tr>
                                 <th width="40%">视频路径：</th>
-                                <td width="60%"><input type="text" name="" ms-duplex="el.value"/>上传
+                                <td width="60%"><input type="text"  ms-duplex="addPath"/>上传
                                 </td>
                             </tr>
                             <tr>

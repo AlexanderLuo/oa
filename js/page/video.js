@@ -24,6 +24,15 @@ avalon.ready(function () {
         pageSize: 10,
         records: 0,
 
+        addUrl:conf.baseUrl + conf.addVideos,
+        addData:{},
+
+        addName:"",
+        addLength:"",
+        addSize:"",
+        addPath:"",
+
+
         addvideo: "",
 
         last_req_time: 0,
@@ -64,26 +73,47 @@ avalon.ready(function () {
                 }
             }
         },
+        addHandle:function(data,callback,error){
+            var json = eval("(" + data + ")");// 解析json
+            if (json.code == 200) {
+                callback(json);
+            }else{
+                error && error.call()
+            }
+        },
+        add:function(){
+            var path = vm.upperPage();
+            var check=vm.addData.isLegal();
+            if(check){
+                console.log(vm.addData.collecData())
+                $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function(data){vm.addHandle(data,vm["add"+path])})
+            }else{
+                layer.msg("请填写完整")
+                //console.log("worng");
+            }
+
+        },
 
         open: function () {
-            vm.pop = vm.curPage;
+            vm.pop = true;
             switch (vm.curPage) {
                 case "video":
                     vm.addData = {
                         isLegal: function () {
                             var data = vm.addData.collecData();
-                            if (data.tegr_id == 0 || data.user_id == 0 || data.degr_name.trim() == "") {
+                            if (data.addName.trim() == ""|| data.addLength.trim() == ""||data.addSize.trim()==""||data.addPath.trim()=="") {
                                 return false;
                             } else {
                                 return true;
                             }
                         },
-                        collecData
-                            : function () {
+                        collecData: function () {
                             return {
-                                tegr_id: vm.addTegr,
-                                user_id: vm.addUser,
-                                degr_name: vm.addName
+                                addName: vm.addName,
+                                user_id: user.user_id,
+                                addLength: vm.addLength,
+                                addSize:vm.addSize,
+                                addPath:vm.addPath
                             }
                         }
                     }
@@ -113,9 +143,13 @@ avalon.ready(function () {
 
         },
         //弹窗
-        open: function (str) {
-
-            vm.pop = true;
+        // open: function (str) {
+        //
+        //     vm.pop = true;
+        // },
+        //关掉
+        close:function(){
+            vm.pop=false;
         },
         //全选
         checkAll: function () {

@@ -60,7 +60,7 @@
             <form>
 
                 <!--集团选择框-->
-                <div class="select" ms-if="curPage=='ruler'|| curPage =='steelyard'">
+                <div class="select" ms-if="curPage!='ring'">
                     <span>集团：&nbsp;</span>
                     <select  ms-duplex="tegr_id">
                         <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
@@ -72,7 +72,7 @@
                         <li>选择</li>
                         <li>设备组名称</li>
                         <li>设备组老师</li>
-                        <li>教师集团</li>
+                        <!--<li>教师集团</li>-->
                         <li>创建时间</li>
                         <li>操作</li>
                     </ul>
@@ -81,7 +81,7 @@
                         <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
                         <li>{{el.degr_id}}</li>
                         <li>{{el.degr_name}}</li>
-                        <li>{{el.tegr_name}}</li>
+                        <!--<li>{{el.tegr_name}}</li>-->
                         <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
                         <li >
                             <a class="edit" href="javascript: void(0)"  ms-if="weight>=2" ms-click="open(el)">编辑</a>
@@ -123,7 +123,7 @@
                         <li>身高尺编号</li>
                         <li>身高尺mac地址</li>
                         <li>身高尺负责人</li>
-                        <li>负责人集团名称</li>
+                        <!--<li>负责人集团名称</li>-->
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
@@ -132,7 +132,7 @@
                         <li>{{el.ruler_no}}</li>
                         <li>{{el.ruler_addr}}</li>
                         <li>{{el.name}}</li>
-                        <li>{{el.tegr_name}}</li>
+                        <!--<li>{{el.tegr_name}}</li>-->
                         <li><a class="edit" href="javascript: void(0)" ms-if="weight>=2" ms-click="open(el)">编辑</a></li>
                     </ul>
                 </div>
@@ -143,7 +143,7 @@
                         <li>健康秤编号</li>
                         <li>健康秤mac地址</li>
                         <li>健康秤负责人</li>
-                        <li>负责人集团名称</li>
+                        <!--<li>负责人集团名称</li>-->
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
@@ -152,7 +152,7 @@
                         <li>{{el.scales_no}}</li>
                         <li>{{el.scales_addr}}</li>
                         <li>{{el.name}}</li>
-                        <li>{{el.tegr_name}}</li>
+                        <!--<li>{{el.tegr_name}}</li>-->
                         <li><a class="edit" href="javascript: void(0)"  ms-if="weight>=2" ms-click="open(el)">编辑</a></li>
                     </ul>
                 </div>
@@ -183,7 +183,7 @@
                 </div>
 
 
-                <!--设备组弹窗-->
+                <!--设备组添加弹窗-->
                 <div class="shade"   ms-class="block:pop=='device' ">
                     <div class="user-edit">
                         <div class="user-main">
@@ -200,6 +200,35 @@
                                         </select>
                                     </td>
                                 </tr>
+                                <tr >
+                                    <th width="40%">设备所属用户：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="addUser">
+                                            <option ms-attr-value="{{el.user_id}}" ms-repeat="userList">{{el.name}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th width="40%">设备组名称：</th>
+                                    <td width="60%"><input type="text"  ms-duplex="addName"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--设备组编辑弹窗-->
+                <div class="shade"   ms-class="block:pop=='aaa' ">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>设备组：</h3>
+                            </div>
+                            <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr >
                                     <th width="40%">设备所属用户：</th>
                                     <td width="60%">
