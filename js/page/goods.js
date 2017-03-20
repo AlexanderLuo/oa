@@ -26,6 +26,7 @@ avalon.ready(function () {
         curPage: "",
         pop:"",
         popData:{},
+        imgList:{},
 
 
 
@@ -45,6 +46,7 @@ avalon.ready(function () {
         delUrl:"",
         delData:"",
         dataList:[],
+
 
         checkAllFlag:false,  //全选标志
 
