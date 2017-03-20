@@ -16,7 +16,9 @@ avalon.ready(function () {
         total:1,
         records:0,
 
+        //集团导航过滤条件
         tegr_id:0,
+
         tegerList:[],
 
         addTegr:"",
@@ -52,6 +54,7 @@ avalon.ready(function () {
         checkAllFlag:false,  //全选标志
         pop:false,
         popData:{},
+        isReving:false,
         edit:false,
 
 
@@ -59,13 +62,14 @@ avalon.ready(function () {
         degrName:"",
 
 
-        querytTeg:function(){
+        querytTeg:function(callback,args){
             $.ajax({url:conf.baseUrl+conf.getTegrList,type:"post",data:{user_id:user.user_id}}).done(function(data){
                 var json = eval("(" + data + ")");// 解析json
                 if (json.code == 200) {
-                    var li=[{tegr_id:0,tegr_name:"默认"}]
-                    li=li.concat(json.result)
-                    vm.tegerList=li;
+                    vm.tegerList=json.result;
+                    vm.tegr_id=json.result[0].tegr_id
+                    console.log(vm.tegr_id)
+                    callback(args)
                 }else{
                     error && error.call()
                 }
@@ -77,6 +81,7 @@ avalon.ready(function () {
             vm.total=1;
             vm.checkAllFlag=false;
             vm.queryData.page=pageNo;
+            vm.dataList=[]
             var path = vm.upperPage();
             $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function(data){vm.queryHandle(data,vm["get"+path])})
         },
@@ -132,7 +137,8 @@ avalon.ready(function () {
                     }
                     vm.delData={
                         user_id: user.user_id,
-                        tegr_id: user.tegr_id,
+                        // tegr_id: user.tegr_id,
+                        tegr_id: vm.tegr_id,
                         delete_ruler_id: ids
                     };
                     break;
@@ -150,9 +156,11 @@ avalon.ready(function () {
                     }
                     vm.delData={
                         user_id: user.user_id,
-                        tegr_id: user.tegr_id,
+                        tegr_id: vm.tegr_id,
+                        // tegr_id: user.tegr_id,
                         delete_scales_id:ids
                     }
+                    console.log(vm.delData)
                     break;
             }
 
@@ -161,6 +169,10 @@ avalon.ready(function () {
 
         },
         add:function(){
+            if(vm.isReving){
+                vm.rev();
+                return;
+            }
             var path = vm.upperPage();
             var check=vm.addData.isLegal();
             if(check){
@@ -175,6 +187,18 @@ avalon.ready(function () {
 
         },
         rev:function(){
+            var path = vm.upperPage();
+            var check=vm.addData.isLegal();
+            if(check){
+                $.ajax({url: vm.revUrl, type: "post", data: vm.addData.collecData()}).done(function(data){
+                    vm.close();
+                    vm.query(1)
+                })
+            }else{
+                layer.msg("请填写完整")
+            }
+
+
         },
         seeRing:function(el){
             vm.degrName=el.degr_name
@@ -214,6 +238,8 @@ avalon.ready(function () {
         //查询手环
         getRing: function (json) {
             vm.ringReq = json.result.last_req_time;
+            vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
             json.result.list.forEach(function(el){
                 el.check=false;
             });
@@ -222,6 +248,9 @@ avalon.ready(function () {
         //身高尺
         getRuler: function (json) {
             vm.rulerReq = json.result.last_req_time;
+            vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
+
             json.result.list.forEach(function(el){
                 el.check=false;
             });
@@ -230,20 +259,15 @@ avalon.ready(function () {
 //                健康秤
         getSteelyard: function (json) {
             vm.steelyardReq= json.result.last_req_time;
+            vm.records=json.result.total_count;
+            vm.total=Math.ceil(vm.records/vm.pageSize)
+
             json.result.list.forEach(function(el){
                 el.check=false;
             });
             vm.dataList = json.result.list;
         },
 
-        delDevice:function(){
-        },
-        delRing:function(){
-        },
-        delRuler:function(){
-        },
-        delSteelyard:function(){
-        },
 
         //路由
         router: function (str) {
@@ -253,9 +277,10 @@ avalon.ready(function () {
             vm.addUrl="";
             vm.addTegr=0;
             vm.addName=""
+            vm.isReving=false;
 
 
-            vm.tegr_id=0;
+            vm.tegr_id=vm.tegerList[0].tegr_id;
 
             var path = vm.upperPage();
             var c=conf;
@@ -283,7 +308,7 @@ avalon.ready(function () {
                     case "device":
                         vm.queryData= {
                             user_id: user.user_id,
-                            tegr_id: user.tegr_id,
+                            tegr_id: vm.tegr_id,
                             page: vm.pageNo,
                             page_size:  vm.pageSize,
                             last_req_time: vm.deviceReq
@@ -301,7 +326,7 @@ avalon.ready(function () {
                     case "ruler":
                         vm.queryData={
                             user_id: user.user_id,
-                            tegr_id: user.tegr_id,
+                            tegr_id: vm.tegr_id,
                             page: vm.pageNo,
                             page_size:  vm.pageSize,
                             last_req_time: vm.ringReq
@@ -310,7 +335,7 @@ avalon.ready(function () {
                     case "steelyard":
                         vm.queryData={
                             user_id: user.user_id,
-                            tegr_id: user.tegr_id,
+                            tegr_id: vm.tegr_id,
                             page: vm.pageNo,
                             page_size:  vm.pageSize,
                             last_req_time: vm.ringReq
@@ -323,85 +348,196 @@ avalon.ready(function () {
         //弹窗
         open:function(el){
             vm.pop=vm.curPage;
+            vm.addData={}
             switch (vm.curPage){
                 case "device":
                     if(el){
-                        //vm.addTegr=el.
-                    }
-                    vm.addData={
-                        isLegal:function(){
-                            var data=vm.addData.collecData();
-                            if(data.tegr_id==0 || data.user_id==0 || data.degr_name.trim()==""){
-                                return false;
-                            } else{
-                                return true;
+                        vm.isReving=true
+                        vm.addUser=el.user_id
+                        vm.addName=el.degr_name;
+                        vm.addTegr=el.tegr_id
+                        vm.addData={
+                            isLegal:function(){
+                                var data=vm.addData.collecData();
+                                if(data.tegr_id==0 || data.user_id==0 || data.degr_name.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    degr_id:el.degr_id,
+                                    user_id:vm.addUser,
+                                    degr_name:vm.addName
+                                }
                             }
-                        },
-                        collecData:function(){
-                            return{
-                                tegr_id:vm.addTegr,
-                                user_id:vm.addUser,
-                                degr_name:vm.addName
+                        }
+
+                    }else{
+                        vm.addData={
+                            isLegal:function(){
+                                var data=vm.addData.collecData();
+                                if(data.tegr_id==0 || data.user_id==0 || data.degr_name.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    tegr_id:vm.addTegr,
+                                    user_id:vm.addUser,
+                                    degr_name:vm.addName
+                                }
                             }
                         }
                     }
+
                     break;
                 case "ring":
-                    vm.addData={
-                        isLegal:function(){
-                            var data=vm.addData.collecData();
-                            if(data.addDegr==0 || data.bracelet_no.trim()=="" || data.bracelet_address.trim()==""){
-                                return false;
-                            } else{
-                                return true;
-                            }
-                        },
-                        collecData:function(){
-                            return{
-                                degr_id:vm.addDegr,
-                                bracelet_no:vm.addNo,
-                                bracelet_address:vm.addAddr
+                    if(el){
+                        vm.isReving=true
+                        vm.addNo=el.bracelet_no
+                        vm.addAddr=el.bracelet_address
+                        vm.addData={
+                            isLegal:function(){
+                                var data=vm.addData.collecData();
+                                if(data.addDegr==0 || data.bracelet_no.trim()=="" || data.bracelet_address.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    bracelet_id:el.bracelet_id,
+                                    degr_id:vm.addDegr,
+                                    bracelet_no:vm.addNo,
+                                    bracelet_address:vm.addAddr,
+                                    child_id:el.child_id
+                                }
                             }
                         }
+
+                    }else{
+                        vm.addData={
+                            isLegal:function(){
+                                var data=vm.addData.collecData();
+                                if(data.addDegr==0 || data.bracelet_no.trim()=="" || data.bracelet_address.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    degr_id:vm.addDegr,
+                                    bracelet_no:vm.addNo,
+                                    bracelet_address:vm.addAddr
+                                }
+                            }
+                        }
+
                     }
                     break;
                 case "ruler":
-                    vm.addData={
-                        isLegal:function(){
-                            var data=vm.addData.collecData();
-                            if(data.tegr_id==0 || data.user_id==0 || data.ruler_no.trim()=="" || data.ruler_addr.trim()==""){
-                                return false;
-                            } else{
-                                return true;
-                            }
-                        },
-                        collecData:function(){
-                            return{
-                                tegr_id:vm.addTegr,
-                                user_id:vm.addUser,
-                                ruler_no:vm.addNo,
-                                ruler_addr:vm.addAddr
+                    if(el){
+                        vm.isReving=true
+                        vm.addUser=el.user_id
+                        vm.addAddr=el.ruler_addr;
+                        vm.addTegr=el.tegr_id
+                        vm.addNo=el.ruler_no;
 
+                        vm.addData={
+                            isLegal:function(){
+                                var data=vm.addData.collecData();
+                                if(data.tegr_id==0 || data.user_id==0 || data.ruler_addr.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    ruler_id:el.ruler_id,
+                                    user_id:vm.addUser,
+                                    login_user_id:user.user_id,
+                                    ruler_no:vm.addNo,
+                                    ruler_addr:vm.addAddr
+                                }
+                            }
+                        }
+
+                    }else {
+                        vm.addData={
+                            isLegal:function(){
+                                var data=vm.addData.collecData();
+                                if(data.tegr_id==0 || data.user_id==0 || data.ruler_no.trim()=="" || data.ruler_addr.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    tegr_id:vm.addTegr,
+                                    user_id:vm.addUser,
+                                    ruler_no:vm.addNo,
+                                    ruler_addr:vm.addAddr,
+                                    login_user_id:user.user_id
+                                }
                             }
                         }
                     }
                     break;
                 case "steelyard":
-                    vm.addData={
-                        isLegal:function(){
-                            var data=vm.addData.collecData();
-                            if(data.tegr_id==0 || data.user_id==0 || data.scales_no.trim()=="" || data.scales_addr.trim()==""){
-                                return false;
-                            } else{
-                                return true;
+                    if(el){
+                        vm.isReving=true;
+                        vm.addTegr=el.tegr_id;
+                        vm.addUser=el.user_id;
+                        vm.addNo=el.scales_no
+                        vm.addAddr=el.scales_addr
+                        vm.addData={
+                            isLegal:function(){
+                                var data=vm.addData.collecData();
+                                if(data.tegr_id==0 || data.user_id==0 || data.scales_no.trim()=="" || data.scales_addr.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    scales_id:el.scales_id,
+                                    tegr_id:vm.addTegr,
+                                    user_id:vm.addUser,
+                                    scales_no:vm.addNo,
+                                    scales_addr:vm.addAddr,
+                                    login_user_id:user.user_id
+                                }
                             }
-                        },
-                        collecData:function(){
-                            return{
-                                tegr_id:vm.addTegr,
-                                user_id:vm.addUser,
-                                scales_no:vm.addNo,
-                                scales_addr:vm.addAddr
+                        }
+
+
+                    }else {
+                        vm.addData={
+                            isLegal:function(){
+                                var data=vm.addData.collecData();
+                                if(data.tegr_id==0 || data.user_id==0 || data.scales_no.trim()=="" || data.scales_addr.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    tegr_id:vm.addTegr,
+                                    user_id:vm.addUser,
+                                    scales_no:vm.addNo,
+                                    scales_addr:vm.addAddr,
+                                    login_user_id:user.user_id
+                                }
                             }
                         }
                     }
@@ -424,6 +560,7 @@ avalon.ready(function () {
             vm.addAddr=""
             vm.addUser=""
             vm.addName=""
+            vm.isReving=false;
         },
         //全选
         checkAll:function(){
@@ -465,8 +602,7 @@ avalon.ready(function () {
                 // },
                 complete:function(res){
                     conf=eval("("+res.responseText+")")
-                    vm.router("device")
-                    vm.querytTeg()
+                    vm.querytTeg(vm.router,"device")
                 }
             });
 
@@ -486,11 +622,17 @@ avalon.ready(function () {
     })
     //添加设备组联动
     vm.$watch("addTegr",function(data){
-        if(data==0){
+        if(data==0 || !data){
             vm.userList=[{name:"请选择",user_id:0}]
-            return
+            return;
         }
-        $.ajax({url:conf.baseUrl+conf.getTeacherList,type:"post",data:{user_id:user.user_id,tegr_id:data,page:1,page_size:800,last_req_time:0}}).done(function(data){
+        console.log(data)
+        $.ajax({url:conf.baseUrl+conf.getTeacherList,type:"post",data:{
+            user_id:user.user_id,
+            tegr_id:data,
+            page:1,
+            page_size:800,
+            last_req_time:0}}).done(function(data){
             var json = eval("(" + data + ")");// 解析json
             if (json.code == 200) {
                 vm.userList=json.result.list;
