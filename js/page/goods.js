@@ -9,7 +9,7 @@ function  error(){
 avalon.ready(function () {
     var vm = avalon.define({
         $id: "goodsVm",
-
+        typeList:[{id:0,name:"全部"},{id:1,name:"教材"},{id:2,name:"器材"},{id:3,name:"服饰"},{id:4,name:"其他"}],
         goods_type:0,
         order_state:0,
         list:[],
