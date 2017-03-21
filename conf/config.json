@@ -10,6 +10,7 @@
   "queryTeger":"tegrApi/getTegrList",
   "queryTeacher":"teacherApi/getTeacherList",
   "querySchool":"schoolApi/getSchoolList",
+  "addSchool":"schoolApi/addSchool",
   "queryClass":"classApi/getClassList",
   "queryParent":"parentApi/getParentList",
   "queryStudent":"childApi/getChildList",

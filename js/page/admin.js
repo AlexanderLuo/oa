@@ -16,13 +16,9 @@ avalon.ready(function () {
 
         list:[],
 
-        adminList: [],
 
-        teacherList: [],
-        schoolList: [],
-        classList: [],
-        parentList: [],
-        studentList: [],
+
+
 
 
 
@@ -75,6 +71,10 @@ avalon.ready(function () {
         addAccount:"",
         addSummary:"",
         addRole:"",
+        //集团添加
+        addTegrName:"",
+        addAdmin:"",
+        adminList: [],
         //学校添加
         addTegr:"",
         addSchoolName:"",
@@ -112,6 +112,36 @@ avalon.ready(function () {
             vm.queryData.page=pageNo;
             var path = vm.upperPage();
             $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function(data){vm.queryHandle(data,vm["get"+path])})
+            if(vm.curPage=='teger'){
+                $.ajax({
+                    url:conf.baseUrl+conf.queryAdmin,
+                    data:{
+                        user_id: user.user_id
+                    },
+                    type:"post"
+                }).done(function(data){vm.queryHandle(data,function(json){
+                    vm.adminList=json.returnObject
+                })})
+            }
+        },
+        add:function(){
+            if(vm.isReving){
+                vm.rev();
+                return;
+            }
+            console.log(11)
+            var path = vm.upperPage();
+            var check=vm.popData.isLegal();
+            if(check){
+                console.log(vm.popData.collecData())
+                $.ajax({url: vm.addUrl, type: "post", data: vm.popData.collecData()}).done(function(data){
+                    vm.close();
+                    vm.query(1)
+                })
+            }else{
+                layer.msg("请填写完整")
+            }
+
         },
         queryHandle:function(data,callback,error){
             var json = eval("(" + data + ")");// 解析json
@@ -122,8 +152,12 @@ avalon.ready(function () {
             }
         },
         open:function(el){
+            console.log(el)
             vm.pop=vm.curPage;
-            vm.popData={}
+            vm.popData={
+                isLegal:function(){},
+                collecData:function(){}
+            }
             switch (vm.curPage){
                 case 'admin':
                     if(el){
@@ -164,12 +198,11 @@ avalon.ready(function () {
                 case 'school':
                     if(el){
 
-
                     }else{
                         vm.popData={
                             isLegal:function(){
-                                var data=vm.addData.collecData();
-                                if(data.tegr_id==0 || data.user_id==0 || data.scales_no.trim()=="" || data.scales_addr.trim()==""){
+                                var data=vm.popData.collecData();
+                                if(data.tegr_id==0 || data.user_id==0 || data.school_person.trim()=="" ||data.school_name.trim()=="" || data.school_call.trim()=="" || data.school_address.trim()==""){
                                     return false;
                                 } else{
                                     return true;
@@ -178,10 +211,10 @@ avalon.ready(function () {
                             collecData:function(){
                                 return{
                                     tegr_id:vm.addTegr,
-                                    user_id:vm.addUser,
-                                    scales_no:vm.addNo,
-                                    scales_addr:vm.addAddr,
-                                    login_user_id:user.user_id
+                                    school_name:vm.addSchoolName,
+                                    school_call:vm.addPhone,
+                                    school_person:vm.addUserName,
+                                    school_address:vm.addAddr
                                 }
                             }
                         }

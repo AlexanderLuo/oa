@@ -48,7 +48,7 @@
 
 <div class="baby_content">
     <!--头部-->
-    <div ms-include-src=" './component/banner.html'"></div>
+    <!--<div ms-include-src=" './component/banner.html'"></div>-->
 
 
 
@@ -290,7 +290,7 @@
                     <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;">全选</span>
                     <span class="baby_content_del"       ms-click="delPop">批量删除</span>
-                    <span class="baby_content_del edit"  ms-click="open">添加</span>
+                    <span class="baby_content_del edit"  ms-click="open('')">添加</span>
                 </div>
                 <div class="baby_content_dt-2">
                     <div class="baby_content_dt-2-fy">
@@ -350,13 +350,22 @@
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
-                                <h3>系统用户：</h3>
+                                <h3>集团：</h3>
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr >
+                                    <th width="40%">管理员：</th>
+                                    <td width="60%">
+                                        <select  ms-duplex="addAdmin">
+                                            <option ms-attr-value="{{el.user_id}}" ms-repeat="adminList">{{el.name}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr >
                                     <th width="40%">集团名称：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addTegrName"/>
                                     </td>
                                 </tr>
                             </table>
