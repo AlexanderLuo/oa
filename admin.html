@@ -26,6 +26,7 @@
     <script type="text/javascript" src="js/iframeTools.js"></script>
 
     <script type="text/javascript" src="js/page/admin.js"></script>
+    <script src="js/lib/laydate/laydate.js"></script>
 
 
     <style>
@@ -547,7 +548,11 @@
                                 </tr>
                                 <tr >
                                     <th width="40%">出生日期：</th>
-                                    <td width="60%"><textarea rows="4" cols="30"></textarea>
+                                    <td>
+                                        <input type="text" ms-duplex="birthDate" id="birth" name="birth" readOnly="true"
+                                               class="set_text"
+                                               onclick="laydate({istime: false,isclear:false, format: 'YYYY-MM-DD'})"/>
+                                    </td>
                                     </td>
                                 </tr>
                                 <tr >
