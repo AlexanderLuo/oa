@@ -131,11 +131,11 @@
 
             </form>
             <div class="baby_content_dt">
-                <div class="baby_content_dt-1">
+                <div class="baby_content_dt-1" ms-if="curPage!='order' ">
                     <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;">全选</span>
-                    <span class="baby_content_del" onclick="delAdmin();">批量删除</span>
-                    <span class="baby_content_del edit" ms-click="open">添加</span>
+                    <span class="baby_content_del" ms-click="delPop">批量删除</span>
+                    <span class="baby_content_del edit" ms-click="open('')">添加</span>
                 </div>
 
                 <div class="baby_content_dt-2">
@@ -161,66 +161,64 @@
                         <div class="user-main" style="top: 5%">
                             <div class="user-title">
                                 <h3>商品：</h3>
-                                <!--<a ms-click="close" class="close">-->
-                                <!--<img src="img/clo.png" title="">-->
-                                <!--</a>-->
+
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="40%">商品名称：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_name"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addGoodsName"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品类型：</th>
                                     <td width="60%">
-                                        <select name="" ms-duplex="popData.goods_type">
+                                        <select name="" ms-duplex="addGoodsType">
                                             <option ms-attr-value="el.id" ms-repeat="typeList">{{el.name}}</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品大小：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_size"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addGoodsSize"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品颜色：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_color"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addGoodsColor"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品外形：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_shape"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addGoodsShape"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品库存：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_repertory"
+                                    <td width="60%"><input type="text" name="" ms-duplex="addGoodsRepertory"
                                                            class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品销量：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="popData.goods_sales"
+                                    <td width="60%"><input type="text" name="" ms-duplex="addGoodsSales"
                                                            class="wid_50"/>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品原价：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_price"
+                                    <td width="10%"><input type="text" name="" ms-duplex="addGoodsPrice"
                                                            class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品邮费：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_postage"
+                                    <td width="10%"><input type="text" name="" ms-duplex="addGoodsPostage"
                                                            class="wid_50"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品折扣：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="popData.goods_discount"
+                                    <td width="10%"><input type="text" name="" ms-duplex="addGoodsDiscount"
                                                            class="wid_50"/>
                                     </td>
                                 </tr>
@@ -228,8 +226,8 @@
                                     <th width="40%">是否上架：</th>
                                     <td width="60%">
                                         <form>
-                                            <input name="true" type="radio" ms-duplex="saleList[0].select"/>是
-                                            <input name="true" type="radio" ms-duplex="saleList[1].select"/>否
+                                            <input name="true" type="radio" ms-duplex="saleList[0].select" ms-click="switchCheck(0)"/>是
+                                            <input name="true" type="radio" ms-duplex="saleList[1].select" ms-click="switchCheck(1)"/>否
                                         </form>
                                     </td>
                                 </tr>
@@ -267,7 +265,7 @@
                                 </tr>
                             </table>
                             <div class="user-btn">
-                                <input type="button" value="保存" class="oper" ms-click="rev"/>
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
                                 <input type="button" value="返回" class="oper" ms-click="close"/>
                             </div>
                         </div>

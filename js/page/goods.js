@@ -14,8 +14,6 @@ avalon.ready(function () {
         saleList:[{id:0,name:"上架",select:false},{id:1,name:"下架",select:false}],
         orderList:[{id:0,name:"全部"},{id:1,name:"待付款"},{id:2,name:"待发货"},{id:3,name:"待收货"},{id:4,name:"已收货"}],
 
-
-
         goods_type:0,
         order_state:0,
         list:[],
@@ -30,11 +28,22 @@ avalon.ready(function () {
         imgList:{},
         detailList:{},
 
-        readOnly:false,
+        isReving:false,
 
-
-
-
+        //添加商品
+        addGoodsName:"",
+        addGoodsType:"",
+        addGoodsSize:"",
+        addGoodsColor:"",
+        addGoodsShape:"",
+        addGoodsRepertory:"",
+        addGoodsSales:"",
+        addGoodsPrice:"",
+        addGoodsPostage:"",
+        addGoodsDiscount:"",
+        addGoodsState:"",
+        addGoodsImg:"",
+        addGoodsDetail:"",
 
         pageNo:1,
         pageSize:10,
@@ -69,6 +78,33 @@ avalon.ready(function () {
             }
         },
 
+        del:function(){
+            var ids=""
+            var li=[]
+            switch (vm.curPage){
+                case "goods":
+                    for(var a=0;a<vm.dataList.length;a++){
+                        if(vm.dataList[a].check==true){
+                            li.push(vm.dataList[a].goods_id)
+                        }
+                    }
+                    for(var b=0;b<li.length;b++){
+                        ids=ids+li[b]
+                        if(b!=li.length-1){
+                            ids=ids+","
+                        }
+                    }
+                    vm.delData= {
+                        delete_goods_id:ids
+                    }
+                    break
+            }
+
+            var path = vm.upperPage();
+            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function(data){vm.query(1)})
+
+        },
+
 
 
         getGoods: function (json) {
@@ -93,23 +129,16 @@ avalon.ready(function () {
             vm.dataList = json.result.list;
         },
         rev:function(){
-            switch (vm.curPage){
-                case "goods":
-                    var co=0;
-                    vm.saleList.forEach(function(el){
-                        if(el.select){
-                            co=el.id
-                        }
-                    })
-                    vm.popData.goods_sell_state=co;
-
-
-                    break;
-                case "order":
-                    break
-            }
             var path = vm.upperPage();
-            $.ajax({url: vm.revUrl, type: "post", data: vm.popData}).done(function(data){vm.close();vm.query(1)})
+            var check=vm.popData.isLegal();
+            if(check){
+                $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function(data){
+                    vm.close();
+                    vm.query(1)
+                })
+            }else{
+                layer.msg("请填写完整")
+            }
         },
 
         router: function (str) {
@@ -126,6 +155,24 @@ avalon.ready(function () {
             vm.pageAdapter();
             vm.query(1);
 
+        },
+        add:function(){
+            if(vm.isReving){
+                console.log("reving")
+                vm.rev();
+                return;
+            }
+            var path = vm.upperPage();
+            var check=vm.popData.isLegal();
+            console.log(vm.addUrl)
+            if(check){
+                $.ajax({url: vm.addUrl, type: "post", data: vm.popData.collecData()}).done(function(data){
+                    vm.close();
+                    vm.query(1)
+                })
+            }else{
+                layer.msg("请填写完整")
+            }
         },
         pageAdapter:function(){
             vm.queryData={}
@@ -177,48 +224,190 @@ avalon.ready(function () {
         open:function(el){
             vm.pop=vm.curPage;
             vm.popData={}
-            vm.readOnly=false;
+            vm.isReving=false;
             switch (vm.curPage){
                 case "goods":
-                    el=el || {}
                     vm.saleList[0].select=false
                     vm.saleList[1].select=false
-                    vm.popData={
-                        goods_id:el.goods_id,
-                        goods_name:el.goods_name,
-                        goods_type:el.goods_type,
-                        goods_size:el.goods_size,
-                        goods_color:el.goods_color,
-                        goods_shape:el.goods_shape,
-                        goods_repertory:el.goods_repertory,
-                        goods_sales:el.goods_sales,
-                        goods_price:el.goods_price,
-                        goods_postage:el.goods_postage,
-                        goods_discount:el.goods_discount,
-                        goods_sell_state:el.goods_sell_state,
-                        goods_image:el.goods_image,
-                        goods_detail:el.goods_detail
-                    }
-                    if(el.goods_sell_state==0){
-                        vm.saleList[0].select=true
-                    }
-                    if(el.goods_sell_state==1){
-                        vm.saleList[1].select=true
+                    vm.addGoodsName=""
+                    vm.addGoodsType=""
+                    vm.addGoodsSize= ""
+                    vm.addGoodsColor=""
+                    vm.addGoodsShape=""
+                    vm.addGoodsRepertory=""
+                    vm.addGoodsSales=""
+                    vm.addGoodsPrice=""
+                    vm.addGoodsPostage=""
+                    vm.addGoodsDiscount=""
+                    vm.addGoodsState=""
+                    vm.addGoodsImg= ""
+                    vm.addGoodsDetail=""
+
+
+                    if(el){
+                        vm.isReving=true;
+                        vm.addGoodsName=el.goods_name;
+                        vm.addGoodsType=el.goods_type;
+                        vm.addGoodsSize= el.goods_size;
+                        vm.addGoodsColor=el.goods_color;
+                        vm.addGoodsShape=el.goods_shape;
+                        vm.addGoodsRepertory=el.goods_repertory;
+                        vm.addGoodsSales=el.goods_sales;
+                        vm.addGoodsPrice=el.goods_price;
+                        vm.addGoodsPostage=el.goods_postage;
+                        vm.addGoodsDiscount=el.goods_discount;
+                        vm.addGoodsState=el.goods_sell_state;
+                        vm.addGoodsImg= el.goods_image;
+                        vm.addGoodsDetail=el.goods_detail;
+                        if(el.goods_sell_state==0){
+                            vm.saleList[0].select=true
+                        }
+                        if(el.goods_sell_state==1){
+                            vm.saleList[1].select=true
+                        }
+
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.popData.collecData();
+                                if(data.goods_name.trim()==""
+                                    || data.goods_size.trim()==""
+                                    || data.goods_color.trim()==""
+                                    || data.goods_shape.trim()==""
+                                    || data.goods_repertory==""
+                                    || data.goods_sales==""
+                                    || data.goods_price==""
+                                    || data.goods_postage==""
+                                    || data.goods_discount==""
+                                    || data.goods_sell_state==-1
+                                ){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                var ud=-1;
+                                if( vm.saleList[0].select=true){
+                                    ud=vm.saleList[0].id
+                                }
+                                if( vm.saleList[1].select=true){
+                                    ud=vm.saleList[1].id
+                                }
+                                console.log(ud,1111111)
+                                return{
+                                    goods_id:el.goods_id,
+                                    goods_name:vm.addGoodsName,
+                                    goods_type:vm.addGoodsType,
+                                    goods_size:vm.addGoodsSize,
+                                    goods_color:vm.addGoodsColor,
+                                    goods_shape:vm.addGoodsShape,
+                                    goods_repertory:vm.addGoodsRepertory,
+                                    goods_sales:vm.addGoodsSales,
+                                    goods_price:vm.addGoodsPrice,
+                                    goods_postage:vm.addGoodsPostage,
+                                    goods_discount:vm.addGoodsDiscount,
+                                    goods_sell_state:ud,
+                                    goods_image:vm.addGoodsImg,
+                                    goods_detail:vm.addGoodsDetail
+                                }
+                            }
+
+                        }
+                        if(el.goods_sell_state==0){
+                            vm.saleList[0].select=true
+                        }
+                        if(el.goods_sell_state==1){
+                            vm.saleList[1].select=true
+                        }
+                    }else{
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.popData.collecData();
+                                if(data.goods_name.trim()==""
+                                    || data.goods_size.trim()==""
+                                    || data.goods_color.trim()==""
+                                    || data.goods_shape.trim()==""
+                                    || data.goods_repertory==""
+                                    || data.goods_sales==""
+                                    || data.goods_price==""
+                                    || data.goods_postage==""
+                                    || data.goods_discount==""
+                                    || data.goods_sell_state==-1
+                                ){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                var ud=-1;
+                                if( vm.saleList[0].select=true){
+                                    ud=vm.saleList[0].id
+                                }
+                                if( vm.saleList[1].select=true){
+                                    ud=vm.saleList[1].id
+                                }
+                                return{
+                                    goods_name:vm.addGoodsName,
+                                    goods_type:vm.addGoodsType,
+                                    goods_size:vm.addGoodsSize,
+                                    goods_color:vm.addGoodsColor,
+                                    goods_shape:vm.addGoodsShape,
+                                    goods_repertory:vm.addGoodsRepertory,
+                                    goods_sales:vm.addGoodsSales,
+                                    goods_price:vm.addGoodsPrice,
+                                    goods_postage:vm.addGoodsPostage,
+                                    goods_discount:vm.addGoodsDiscount,
+                                    goods_sell_state:ud,
+                                    goods_image:"44444",
+                                    goods_detail:"dfs",
+                                }
+                            }
+                        }
+
                     }
 
                     break;
                 case "order":
-                    if(el){vm.readOnly=true};
-                    el=el || {}
-                    vm.popData={
-
-
-                    }
-
                     break;
             }
 
         },
+        switchCheck:function(str){
+            var goto;
+            if(str==0){
+                if(vm.saleList[1].select==true){
+                    vm.saleList[0].select=true
+                    goto=function(){
+                        vm.saleList[1].select=false;
+                    }
+                }
+                if(vm.saleList[1].select==false){
+                    vm.saleList[0].select=false
+                    goto=function(){}
+                }
+                goto()
+            }
+            if(str==1){
+                if(vm.saleList[0].select==true){
+                    vm.saleList[1].select=true
+                    goto=function(){
+                        vm.saleList[0].select=false;
+                    }
+                }
+                if(vm.saleList[0].select==false){
+                    vm.saleList[1].select=false
+                    goto=function(){}
+                }
+                goto()
+            }
+        },
+        delPop:function () {
+            layer.confirm("确定删除吗？",function () {
+                vm.del()
+                layer.closeAll()},layer.closeAll())
+        },
+
         init: function () {
             var userr = getLocalValue('user');
             if (userr == null) {location.href="/oa/login.html";}
@@ -252,7 +441,8 @@ avalon.ready(function () {
     avalon.scan()
 
     vm.$watch("typeFilter",function(data){
-        console.log(data)
+        vm.queryData.goods_type=data
+        vm.query(1)
     })
 
 
