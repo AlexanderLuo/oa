@@ -65,6 +65,8 @@ avalon.ready(function () {
         school_search:0,
 
 
+
+        //用户添加
         addName:"",
 
 
@@ -80,7 +82,8 @@ avalon.ready(function () {
         addSchoolName:"",
         addAddr:"",
         addPhone:"",
-        addUserName:"",
+        addUserName:"", //用户添加
+        addOtherName:"",
 
 
 
@@ -121,6 +124,7 @@ avalon.ready(function () {
                     type:"post"
                 }).done(function(data){vm.queryHandle(data,function(json){
                     vm.adminList=json.returnObject
+                    vm.addAdmin=json.returnObject[0].user_id
                 })})
             }
         },
@@ -129,7 +133,7 @@ avalon.ready(function () {
                 vm.rev();
                 return;
             }
-            console.log(11)
+
             var path = vm.upperPage();
             var check=vm.popData.isLegal();
             if(check){
@@ -166,8 +170,8 @@ avalon.ready(function () {
                     }else{
                         vm.popData={
                             isLegal:function(){
-                                var data=vm.addData.collecData();
-                                if(data.tegr_id==0 || data.user_id==0 || data.scales_no.trim()=="" || data.scales_addr.trim()==""){
+                                var data=vm.popData.collecData();
+                                if(data.name.trim()=="" || data.username.trim()==""){
                                     return false;
                                 } else{
                                     return true;
@@ -175,11 +179,8 @@ avalon.ready(function () {
                             },
                             collecData:function(){
                                 return{
-                                    tegr_id:vm.addTegr,
-                                    user_id:vm.addUser,
-                                    scales_no:vm.addNo,
-                                    scales_addr:vm.addAddr,
-                                    login_user_id:user.user_id
+                                    username:vm.addUserName,
+                                    name:vm.addOtherName
                                 }
                             }
                         }
@@ -190,8 +191,20 @@ avalon.ready(function () {
 
                     }else{
                         vm.popData={
-
-
+                            isLegal:function(){
+                                var data=vm.popData.collecData();
+                                if(data.user_id==0 || data.tegr_name.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    user_id:vm.addAdmin,
+                                    tegr_name:vm.addTegrName
+                                }
+                            }
                         }
                     }
                     break;

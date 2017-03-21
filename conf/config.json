@@ -7,7 +7,9 @@
 
 
   "queryAdmin":"userApi/getAdminList",
+  "addAdmin":"userApi/addAdmin",
   "queryTeger":"tegrApi/getTegrList",
+  "addTeger":"tegrApi/addTegr",
   "queryTeacher":"teacherApi/getTeacherList",
   "querySchool":"schoolApi/getSchoolList",
   "addSchool":"schoolApi/addSchool",
