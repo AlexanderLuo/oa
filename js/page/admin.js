@@ -13,6 +13,7 @@ avalon.ready(function () {
 
 
         tegerList: [],
+        schoolList:[],
 
         list:[],
 
@@ -84,6 +85,7 @@ avalon.ready(function () {
         addPhone:"",
         addUserName:"", //用户添加
         addOtherName:"",
+        parentLock:false,
 
 
 
@@ -285,10 +287,10 @@ avalon.ready(function () {
             vm.dataList = li
         },
         getParent: function (json) {
-
             vm.parentReq = json.result.last_req_time;
             vm.records=json.result.total_count;
             vm.total=Math.ceil(vm.records/vm.pageSize)
+            var li=json.result.list;
             li.forEach(function (p1, p2, p3) {
                 p1.check=false;
             })
@@ -333,6 +335,8 @@ avalon.ready(function () {
             vm.addTegr=0;
             vm.addName=""
             vm.tegr_id=vm.tegerList[0].tegr_id;
+            vm.teger_search=vm.tegerList[0].tegr_id
+
 
             var path = vm.upperPage();
             var c=conf;
@@ -343,7 +347,9 @@ avalon.ready(function () {
             vm.queryUrl=b+c["query"+path]
 
             vm.pageAdapter();
-            vm.query(1);
+            if(vm.curPage!='parent'){
+                vm.query(1);
+            }
         },
         pageAdapter:function (str) {
             vm.queryData={}
@@ -377,7 +383,7 @@ avalon.ready(function () {
                     //todo 配置tegr ID
                     case "school":
                         vm.queryData={
-                            tegr_id: user.tegr_id,
+                            tegr_id: vm.teger_search,
                             page: vm.pageNo,
                             page_size:  vm.pageSize,
                             last_req_time: vm.schoolReq
@@ -392,15 +398,28 @@ avalon.ready(function () {
                             last_req_time: vm.classReq
                         }
                         break;
-                    //todo 配置tegr ID
                     case "parent":
-                        vm.queryData={
-                            tegr_id: vm.tegr_id,
-                            school_id:vm.school_id,
-                            page: vm.pageNo,
-                            page_size:  vm.pageSize,
-                            last_req_time: vm.parentReq
-                        }
+                        $.ajax({
+                            url:conf.baseUrl+conf.querySchool,
+                            type:"post",
+                            data:{
+                                tegr_id:vm.teger_search,
+                                page:1,
+                                page_size:800,
+                                last_req_time:0
+                            }
+                        }).done(function(data){vm.queryHandle(data,function(json){
+                            vm.schoolList=json.result.list;
+                            vm.school_search=json.result.list[0].school_id
+                            vm.queryData={
+                                tegr_id: vm.teger_search,
+                                school_id:vm.school_search,
+                                page: vm.pageNo,
+                                page_size:  vm.pageSize,
+                                last_req_time: vm.parentReq
+                            }
+                            vm.query(1)
+                        })})
                         break;
                     case "student":
                         vm.queryData={
@@ -471,7 +490,6 @@ avalon.ready(function () {
                         if(  vm.weight==3){  vm.router('admin')}
                         if(  vm.weight==1){  vm.router('school')}
                     }
-
                     vm.querytTeg(goto)
                 }
             });
@@ -485,13 +503,20 @@ avalon.ready(function () {
     vm.init();
 
     vm.$watch("teger_search",function(data){
-        console.log(1)
         vm.queryData.tegr_id=data;
-        vm.query(1)
+        if(vm.curPage=='parent'){
+
+        }else {
+            vm.query(1)
+        }
     })
     vm.$watch("school_search",function(data){
         vm.queryData.school_id=data;
-        vm.query(1)
+        if(vm.curPage=='parent'){
+            vm.query(1)
+        }else {
+            vm.query(1)
+        }
     })
 
 

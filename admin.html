@@ -78,14 +78,14 @@
                 <div class="select" ms-if="curPage =='school'">
                     <span>集团：&nbsp;</span>
                     <select name="" id="" ms-duplex="teger_search">
-                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                        <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                     </select>
                 </div>
                 <!--选择框-->
                 <div class="select" ms-if="curPage=='parent'">
                     <span>集团：&nbsp;</span>
                     <select name=""  ms-duplex="teger_search">
-                        <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
+                        <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                     </select>
                     <span>学校：&nbsp;</span>
                     <select name=""  ms-duplex="school_search">
@@ -237,13 +237,13 @@
                         <li>操作</li>
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="parentList" ms-class = "baby_content_tab_bg:$index%2!=0">
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li">
                             <input type="checkbox"    ms-attr-checked="el.check"  ms-click="checkOne(el)"/>
                         </li>
+                        <li>{{el.name}}</li>
                         <li>{{el.class_name}}</li>
-                        <li>{{el.class_name}}</li>
-                        <li>{{el.level}}</li>
+                        <li>{{el.remark}}</li>
                         <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
@@ -286,7 +286,7 @@
 
             </form>
             <div class="baby_content_dt">
-                <div class="baby_content_dt-1">
+                <div class="baby_content_dt-1" ms-if="curPage!='parent' ">
                     <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;">全选</span>
                     <span class="baby_content_del"       ms-click="delPop">批量删除</span>
