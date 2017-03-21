@@ -197,8 +197,6 @@ avalon.ready(function () {
             }else{
                 layer.msg("请填写完整")
             }
-
-
         },
         seeRing:function(el){
             vm.degrName=el.degr_name

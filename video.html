@@ -116,9 +116,6 @@
                     <div class="user-main">
                         <div class="user-title">
                             <h3>视频：</h3>
-                            <!--<a ms-click="close" class="close">-->
-                                <!--<img src="img/clo.png" title="">-->
-                            <!--</a>-->
                         </div>
 
                         <table class="table_1" cellpadding="0" cellspacing="0">
@@ -162,50 +159,4 @@
     </div>
 </div>
 </body>
-
-
-
-
-
-
-
-<!--query脚本-->
-<script type="text/javascript">
-    function delAdmin() {
-        var adminId = $("#adminId").val().trim();
-        if (isNull(adminId)) {
-            alertMsg("请先选择一条信息", 0);
-            return;
-        }
-        if (confirm("确定要删除该消息吗？") != "0") {
-            $.ajax({
-                url: "admin/delAdmin.do",// 跳转到 action
-                data: {
-                    "ids": adminId
-                },
-                type: 'post',
-                cache: false,
-                success: function (data) {
-                    if (data == 'loseSession') {
-                        location.href = "http://banxiaobao.com:8015/gbb/admin/loginInit.do";
-                        return;
-                    }
-                    var json = eval("(" + data + ")");// 解析json
-                    var code = json.code;
-                    if (code == 200) {
-                        alertMsg("操作成功", 1);
-                        window.location.reload();
-                    } else {
-                        alertMsg("操作失败", 2);
-                    }
-                },
-                error: function () {
-                    alertMsg("系统错误！", 2);
-                }
-            });
-        }
-    }
-
-
-</script>
 </html>

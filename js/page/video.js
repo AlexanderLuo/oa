@@ -24,13 +24,13 @@ avalon.ready(function () {
         pageSize: 10,
         records: 0,
 
-        addUrl:conf.baseUrl + conf.addVideos,
-        addData:{},
+        addUrl: conf.baseUrl + conf.addVideos,
+        addData: {},
 
-        addName:"",
-        addLength:"",
-        addSize:"",
-        addPath:"",
+        addName: "",
+        addLength: "",
+        addSize: "",
+        addPath: "",
 
 
         addvideo: "",
@@ -62,69 +62,113 @@ avalon.ready(function () {
 
             })
         },
-        del:function(){
-            var ids=""
-            var li=[]
-            switch (vm.curPage){
+        del: function () {
+            var ids = ""
+            var li = []
+            switch (vm.curPage) {
                 case "video":
-                    for(var a=0;a<vm.dataList.length;a++){
-                        if(vm.dataList[a].check==true){
+                    for (var a = 0; a < vm.dataList.length; a++) {
+                        if (vm.dataList[a].check == true) {
                             li.push(vm.dataList[a].degr_id)
                         }
                     }
-                    for(var b=0;b<li.length;b++){
-                        ids=ids+li[b]
-                        if(b!=li.length-1){
-                            ids=ids+","
+                    for (var b = 0; b < li.length; b++) {
+                        ids = ids + li[b]
+                        if (b != li.length - 1) {
+                            ids = ids + ","
                         }
                     }
-                    vm.delData= {
+                    vm.delData = {
                         user_id: user.user_id,
-                        delete_degr_id:ids
+                        delete_degr_id: ids
                     }
                     break;
             }
             var path = vm.upperPage();
-            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function(data){vm.query(1)})
+            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
+                vm.query(1)
+            })
 
         },
-        delPop:function () {
-            layer.confirm("确定删除吗？",function () {
+        delPop: function () {
+            layer.confirm("确定删除吗？", function () {
                 vm.del()
-                layer.closeAll()},layer.closeAll())
+                layer.closeAll()
+            }, layer.closeAll())
         },
-        addHandle:function(data,callback,error){
+        addHandle: function (data, callback, error) {
             var json = eval("(" + data + ")");// 解析json
             if (json.code == 200) {
                 callback(json);
-            }else{
+            } else {
                 error && error.call()
             }
         },
-        add:function(){
+        add: function () {
+            if(vm.isReving){
+                vm.rev();
+                return;
+            }
             var path = vm.upperPage();
-            var check=vm.addData.isLegal();
-            if(check){
+            var check = vm.addData.isLegal();
+            if (check) {
                 console.log(vm.addData.collecData())
-                $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function(data){vm.addHandle(data,vm["add"+path])})
-            }else{
+                $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
+                    vm.addHandle(data, vm["add" + path])
+                })
+            } else {
                 layer.msg("请填写完整")
                 //console.log("worng");
             }
 
         },
 
+        rev:function(){
+            var path = vm.upperPage();
+            var check=vm.addData.isLegal();
+            if(check){
+                $.ajax({url: vm.revUrl, type: "post", data: vm.addData.collecData()}).done(function(data){
+                    vm.close();
+                    vm.query(1)
+                })
+            }else{
+                layer.msg("请填写完整")
+            }
+        },
+
         open: function (el) {
             vm.pop = true;
             switch (vm.curPage) {
                 case "video":
-                    if(el){
-                        //vm.addTegr=el.
+                    if (el) {
+                        vm.isReving = true;
+                        vm.addLength = el.video_name;
+                        vm.addName = el.video_length;
+                        vm.addSize = el.video_size;
+                        vm.addPath = el.video_path;
+                        vm.addData = {
+                            isLegal: function () {
+                                var data = vm.addData.collecData();
+                                if (data.addName.trim() == "" || data.addLength.trim() == "" || data.addSize.trim() == "" || data.addPath.trim() == "") {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+                            },
+                            collecData: function () {
+                                return {
+                                    video_name: vm.addName,
+                                    video_length: vm.addLength,
+                                    video_size: vm.addSize,
+                                    video_path: vm.addPath,
+                                }
+                            }
+                        }
                     }
                     vm.addData = {
                         isLegal: function () {
                             var data = vm.addData.collecData();
-                            if (data.addName.trim() == ""|| data.addLength.trim() == ""||data.addSize.trim()==""||data.addPath.trim()=="") {
+                            if (data.addName.trim()==""||data.addLength.trim() == "" || data.addSize.trim() == "" || data.addPath.trim() == "") {
                                 return false;
                             } else {
                                 return true;
@@ -133,10 +177,9 @@ avalon.ready(function () {
                         collecData: function () {
                             return {
                                 addName: vm.addName,
-                                user_id: user.user_id,
                                 addLength: vm.addLength,
-                                addSize:vm.addSize,
-                                addPath:vm.addPath
+                                addSize: vm.addSize,
+                                addPath: vm.addPath
                             }
                         }
                     }
@@ -145,9 +188,9 @@ avalon.ready(function () {
 
         },
         //单词首字母大写
-        upperPage:function(){
-            var word = vm.curPage.toLowerCase().replace(/\b\w+\b/g, function(word){
-                return word.substring(0,1).toUpperCase()+word.substring(1);
+        upperPage: function () {
+            var word = vm.curPage.toLowerCase().replace(/\b\w+\b/g, function (word) {
+                return word.substring(0, 1).toUpperCase() + word.substring(1);
             });
             return word;
         },
@@ -178,8 +221,8 @@ avalon.ready(function () {
         //     vm.pop = true;
         // },
         //关掉
-        close:function(){
-            vm.pop=false;
+        close: function () {
+            vm.pop = false;
         },
         //全选
         checkAll: function () {
