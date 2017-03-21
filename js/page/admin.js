@@ -398,6 +398,7 @@ avalon.ready(function () {
                             last_req_time: vm.classReq
                         }
                         break;
+                    //todo 配置tegr ID
                     case "parent":
                         $.ajax({
                             url:conf.baseUrl+conf.querySchool,
@@ -490,6 +491,7 @@ avalon.ready(function () {
                         if(  vm.weight==3){  vm.router('admin')}
                         if(  vm.weight==1){  vm.router('school')}
                     }
+
                     vm.querytTeg(goto)
                 }
             });
