@@ -82,7 +82,7 @@ avalon.ready(function () {
                 case "video":
                     for (var a = 0; a < vm.dataList.length; a++) {
                         if (vm.dataList[a].check == true) {
-                            li.push(vm.dataList[a].degr_id)
+                            li.push(vm.dataList[a].video_id)
                         }
                     }
                     for (var b = 0; b < li.length; b++) {
@@ -92,8 +92,7 @@ avalon.ready(function () {
                         }
                     }
                     vm.delData = {
-                        user_id: user.user_id,
-                        delete_degr_id: ids
+                        delete_video_id: ids
                     }
                     break;
             }
