@@ -58,8 +58,9 @@
   "queryVideos":"curriculumApi/getVideoList",
   "addVideos":"curriculumApi/addVideo",
   "revVideos":"curriculumApi/updateVideo",
-  "delVideos":"curriculumApi/deleteVideo"
+  "delVideos":"curriculumApi/deleteVideo",
 
 
+  "statementJump":"http://www.kh122.com:8080/Childrensys/servlet/api/meas/measureReport"
 }
 
