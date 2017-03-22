@@ -226,8 +226,8 @@
                                     <th width="40%">是否上架：</th>
                                     <td width="60%">
                                         <!--<form>-->
-                                            <!--<input name="true" type="radio" ms-duplex="saleList[0].select" ms-click="switchCheck(0)"/>是-->
-                                            <!--<input name="true" type="radio" ms-duplex="saleList[1].select" ms-click="switchCheck(1)"/>否-->
+                                        <!--<input name="true" type="radio" ms-duplex="saleList[0].select" ms-click="switchCheck(0)"/>是-->
+                                        <!--<input name="true" type="radio" ms-duplex="saleList[1].select" ms-click="switchCheck(1)"/>否-->
                                         <!--</form>-->
                                         <select name="" ms-duplex="">
                                             <option>是</option>
@@ -244,11 +244,8 @@
                                                  alt="">
                                         </div>
                                         <div class="imglist">
-                                            <a href=""><img src="img/del.png" alt="" class="del"></a>
-                                            <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg"
-                                                 alt="">
+
                                         </div>
-                                        <a href=""><img src="img/add.png" alt=""></a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -259,12 +256,19 @@
                                             <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg"
                                                  alt="">
                                         </div>
+
                                         <div class="imglist">
-                                            <a href=""><img src="img/del.png" alt="" class="del"></a>
-                                            <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg"
-                                                 alt="">
+                                        <form id="form" enctype="multipart/form-data" method="post"
+                                              action="${base}/news/addImage">
+                                            <div style="float: left">
+                                                <div id="imageDiv">
+                                                    <div id="previewImage" align="center"></div> 
+                                                        <input type="file" name="file" onchange="handleFiles(this)" >
+                                                </div>
+                                                 <input id="size" type="hidden"/>       
+                                            </div>
+                                        </form>
                                         </div>
-                                        <a href=""><img src="img/add.png" alt=""></a>
                                     </td>
                                 </tr>
                             </table>
@@ -369,97 +373,6 @@
                         </div>
                     </div>
                 </div>
-                <!--订单添加弹窗-->
-                <div class="shade" ms-class="block:pop=='xxx' ">
-                    <div class="user-edit">
-                        <div class="user-main">
-                            <div class="user-title">
-                                <h3>订单：</h3>
-                                <a ms-click="close" class="close">
-                                    <img src="img/clo.png" title="">
-                                </a>
-                            </div>
-
-                            <table class="table_1" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <th width="40%">订单编号：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">订单流水时间：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">购买者电话：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">下单时间：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">下单总价：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">商品名称：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                </tr>
-                                <tr>
-                                    <th width="40%">商品外形：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">商品大小：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">商品数量：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">商品颜色：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">订单留言：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">收货地址：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">订单状态：</th>
-                                    <td width="60%">
-                                        <select name="" ms-duplex="deger_id">
-                                            <option value="0">待付款</option>
-                                            <option value="1">待发货</option>
-                                            <option value="2">待收货</option>
-                                            <option value="3">已收货</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div class="user-btn">
-                                <input type="button" value="保存" class="oper" ms-click="add"/>
-                                <input type="button" value="返回" class="oper" ms-click="close"/>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
             </div>
@@ -467,7 +380,79 @@
     </div>
 </div>
 
+<!--<form id="form" enctype="multipart/form-data" method="post" action="${base}/news/addImage" >-->
+
+<!--<div style="position:absolute;width: 300px;height: 300px;top: 50%;left: 50%">-->
+<!--<div id="imageDiv">  -->
+<!--<input  id="image" name="file" title="上传图片" type="file"-->
+<!--onchange="handleFiles(this)">  -->
+<!--<input type="button" value="删除"/>          -->
+<!--</div>-->
+<!--        -->
+<!--<div id="previewImage" align="center"></div>-->
+<!--<input type="button" value="保存" class="btn btn-large btn-danger" onclick="upload()"/>  -->
+<!-- <input id="size" type="hidden"/>       -->
+<!--</div>-->
+<!-- -->
+<!-- -->
+<!--</form>-->
 
 </body>
-
+<script>
+    function doSubmit() {
+        var size = $("#size").val();
+        if (size > 104857600) {
+            $("#msg").text("上传的图片尺寸过大");
+            return;
+        }
+        $("#form").submit();
+    }
+    function upload() {
+        var formData = new FormData($("#form")[0]);
+        $.ajax({
+            url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/uploadApi/uploadImage",
+            type: "POST",
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                layer.msg("上传成功");
+            }
+        });
+    }
+    function handleFiles(obj) {
+        var files = obj.files;
+        var size = files[0].size;
+        $("#size").val(size);
+        img = new Image();
+        if (window.URL) {
+            img.src = window.URL.createObjectURL(files[0]);
+            img.onload = function (e) {
+                window.URL.revokeObjectURL(this.src);
+            }
+            $("#previewImage").append(img);
+            upload();
+        } else if (window.FileReader) {
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+            reader.onload = function (e) {
+                img.src = this.result;
+                $("#previewImage").append(img);
+                upload();
+            }
+        } else {
+            obj.select();
+            obj.blur();
+            var nfile = document.selection.createRange().text;
+            document.selection.empty();
+            img.src = nfile;
+            img.onload = function () {
+            }
+            $("#previewImage").append(img);
+            upload();
+        }
+    }
+</script>
 </html>
