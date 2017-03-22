@@ -21,24 +21,32 @@ avalon.ready(function () {
         checkAllFlag: false,  //全选标志
         pop: false,
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 4,
         records: 0,
+        total:1,
 
-        addUrl: conf.baseUrl + conf.addVideos,
+
+        isReving:false,
+
+        addUrl:"",
+
         addData: {},
 
+
+        //添加
         addName: "",
         addLength: "",
         addSize: "",
         addPath: "",
-
-
-        addvideo: "",
+        addVideo: "",
 
         last_req_time: 0,
 
+
+
         query: function (pageNo) {
             vm.pageNo = pageNo;
+            vm.dataList=[]
             $.ajax({
                 url: conf.baseUrl + conf.queryVideos,
                 type: "post",
@@ -51,6 +59,10 @@ avalon.ready(function () {
                 var json = eval("(" + data + ")");// 解析json
                 if (json.code == 200) {
                     vm.last_req_time = json.result.last_req_time;
+
+                    vm.records=json.result.total_count;
+                    vm.total=Math.ceil(vm.records/vm.pageSize)
+
                     json.result.list.forEach(function (p1, p2, p3) {
                         p1.check = false
                     })
@@ -62,6 +74,7 @@ avalon.ready(function () {
 
             })
         },
+
         del: function () {
             var ids = ""
             var li = []
@@ -114,7 +127,8 @@ avalon.ready(function () {
             if (check) {
                 console.log(vm.addData.collecData())
                 $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
-                    vm.addHandle(data, vm["add" + path])
+                    vm.close();
+                    vm.query(1)
                 })
             } else {
                 layer.msg("请填写完整")
@@ -138,18 +152,45 @@ avalon.ready(function () {
 
         open: function (el) {
             vm.pop = true;
+            vm.isReving=false
             switch (vm.curPage) {
                 case "video":
                     if (el) {
                         vm.isReving = true;
-                        vm.addLength = el.video_name;
-                        vm.addName = el.video_length;
+                        vm.addLength = el.video_length;
+                        vm.addName = el.video_name;
                         vm.addSize = el.video_size;
                         vm.addPath = el.video_path;
                         vm.addData = {
                             isLegal: function () {
                                 var data = vm.addData.collecData();
-                                if (data.addName.trim() == "" || data.addLength.trim() == "" || data.addSize.trim() == "" || data.addPath.trim() == "") {
+                                if (data.video_name.trim()==""|| data.video_path.trim() == ""
+                                    || data.video_cover.trim() == "") {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+                            },
+                            collecData: function () {
+                                return {
+                                    video_id:el.video_id,
+                                    video_name: vm.addName,
+                                    video_length: vm.addLength,
+                                    video_size: vm.addSize,
+                                    video_path: vm.addPath,
+                                    video_cover:el.video_cover,
+                                    video_see_count:el.video_see_count,
+                                    user_id:el.user_id
+                                }
+                            }
+                        }
+                    }else{
+                        vm.addData = {
+                            isLegal: function () {
+                                console.log(vm.addData.collecData())
+                                var data = vm.addData.collecData();
+                                if (data.video_name.trim()==""|| data.video_path.trim() == ""
+                                    || data.video_cover.trim() == "") {
                                     return false;
                                 } else {
                                     return true;
@@ -160,30 +201,16 @@ avalon.ready(function () {
                                     video_name: vm.addName,
                                     video_length: vm.addLength,
                                     video_size: vm.addSize,
-                                    video_path: vm.addPath,
+                                    //video_path: vm.addPath,
+                                    video_path: 123+"34",
+                                    video_cover:"sdf+",
+                                    user_id:user.user_id,
+                                    video_see_count:0
                                 }
                             }
                         }
+                        break;
                     }
-                    vm.addData = {
-                        isLegal: function () {
-                            var data = vm.addData.collecData();
-                            if (data.addName.trim()==""||data.addLength.trim() == "" || data.addSize.trim() == "" || data.addPath.trim() == "") {
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        },
-                        collecData: function () {
-                            return {
-                                addName: vm.addName,
-                                addLength: vm.addLength,
-                                addSize: vm.addSize,
-                                addPath: vm.addPath
-                            }
-                        }
-                    }
-                    break;
             }
 
         },
@@ -199,6 +226,9 @@ avalon.ready(function () {
             vm.dataList = [];
             vm.checkAllFlag = false;
             vm.curPage = str;
+            vm.addUrl=conf.baseUrl + conf.addVideos
+            vm.revUrl=conf.baseUrl+conf.revVideos
+            vm.delUrl=conf.baseUrl+conf.delVideos
             vm.query(1);
         },
         //单选
@@ -223,6 +253,11 @@ avalon.ready(function () {
         //关掉
         close: function () {
             vm.pop = false;
+            vm.addName= ""
+            vm.addLength=""
+            vm.addSize=""
+            vm.addPath=""
+            vm.addVideo=""
         },
         //全选
         checkAll: function () {

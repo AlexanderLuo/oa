@@ -18,18 +18,12 @@ avalon.ready(function () {
         list:[],
 
 
-
-
-
-
-
         tegerReq: 0,
         teacherReq:0,
         schoolReq:0,
         classReq:0,
         parentReq:0,
         studentReq:0,
-
 
 
 
@@ -234,7 +228,6 @@ avalon.ready(function () {
                             }
                         }
                     }
-
                     break;
             }
         },
