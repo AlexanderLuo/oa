@@ -18,21 +18,18 @@ avalon.ready(function () {
         order_state:0,
         list:[],
         goodsList: [],
-        lastReq: 0,
         goodsReq: 0,
         orderReq: 0,
         curPage: "",
         pop:"",
         popData:{},
 
-        imgList:{},
-        detailList:{},
-
         isReving:false,
 
 
-
         picList:[],
+        detailList:[],
+
         //添加商品
         addGoodsName:"",
         addGoodsType:"",
@@ -110,7 +107,29 @@ avalon.ready(function () {
 
 
 
-        getGoods: function (json) {
+        upload:function(str) {
+        $.ajax({
+            url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/uploadApi/uploadImage",
+            cache: false,
+            type:"post",
+            data: new FormData($('#uploadForm'+str)[0]),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                var json = eval("(" + data + ")");// 解析json
+                if(str==0){
+                    vm.picList.push(json.result)
+                }
+                if(str==1){
+                    vm.detailList.push(json.result)
+                }
+            }
+        });
+    },
+
+
+
+    getGoods: function (json) {
             vm.goodsReq=json.result.last_req_time;
             vm.orderReq = json.result.last_req_time;
             vm.records=json.result.total_count;
