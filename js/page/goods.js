@@ -30,6 +30,9 @@ avalon.ready(function () {
 
         isReving:false,
 
+
+
+        picList:[],
         //添加商品
         addGoodsName:"",
         addGoodsType:"",
@@ -118,7 +121,6 @@ avalon.ready(function () {
 
             vm.dataList = json.result.list;
         },
-
         getOrder: function (json) {
             vm.orderReq = json.result.last_req_time;
             vm.records=json.result.total_count;
@@ -140,7 +142,6 @@ avalon.ready(function () {
                 layer.msg("请填写完整")
             }
         },
-
         router: function (str) {
             vm.dataList=[];
             vm.checkAllFlag=false;
@@ -217,35 +218,18 @@ avalon.ready(function () {
             }
 
         },
-        //关掉
-        close:function(){
-            vm.pop=false;
-        },
         open:function(el){
             vm.pop=vm.curPage;
             vm.popData={}
             vm.isReving=false;
             switch (vm.curPage){
                 case "goods":
-                    vm.saleList[0].select=false
-                    vm.saleList[1].select=false
-                    vm.addGoodsName=""
-                    vm.addGoodsType=""
-                    vm.addGoodsSize= ""
-                    vm.addGoodsColor=""
-                    vm.addGoodsShape=""
-                    vm.addGoodsRepertory=""
-                    vm.addGoodsSales=""
-                    vm.addGoodsPrice=""
-                    vm.addGoodsPostage=""
-                    vm.addGoodsDiscount=""
-                    vm.addGoodsState=""
-                    vm.addGoodsImg= ""
-                    vm.addGoodsDetail=""
-
-
                     if(el){
                         vm.isReving=true;
+                        var str=el.goods_image;
+                        vm.picList=str.split(",");
+
+
                         vm.addGoodsName=el.goods_name;
                         vm.addGoodsType=el.goods_type;
                         vm.addGoodsSize= el.goods_size;
@@ -259,13 +243,6 @@ avalon.ready(function () {
                         vm.addGoodsState=el.goods_sell_state;
                         vm.addGoodsImg= el.goods_image;
                         vm.addGoodsDetail=el.goods_detail;
-                        if(el.goods_sell_state==0){
-                            vm.saleList[0].select=true
-                        }
-                        if(el.goods_sell_state==1){
-                            vm.saleList[1].select=true
-                        }
-
                         vm.popData={
                             isLegal:function(){
                                 var data=vm.popData.collecData();
@@ -286,14 +263,6 @@ avalon.ready(function () {
                                 }
                             },
                             collecData:function(){
-                                var ud=-1;
-                                if( vm.saleList[0].select=true){
-                                    ud=vm.saleList[0].id
-                                }
-                                if( vm.saleList[1].select=true){
-                                    ud=vm.saleList[1].id
-                                }
-                                console.log(ud,1111111)
                                 return{
                                     goods_id:el.goods_id,
                                     goods_name:vm.addGoodsName,
@@ -306,18 +275,12 @@ avalon.ready(function () {
                                     goods_price:vm.addGoodsPrice,
                                     goods_postage:vm.addGoodsPostage,
                                     goods_discount:vm.addGoodsDiscount,
-                                    goods_sell_state:ud,
+                                    goods_sell_state:vm.addGoodsState,
                                     goods_image:vm.addGoodsImg,
                                     goods_detail:vm.addGoodsDetail
                                 }
                             }
 
-                        }
-                        if(el.goods_sell_state==0){
-                            vm.saleList[0].select=true
-                        }
-                        if(el.goods_sell_state==1){
-                            vm.saleList[1].select=true
                         }
                     }else{
                         vm.popData={
@@ -340,13 +303,6 @@ avalon.ready(function () {
                                 }
                             },
                             collecData:function(){
-                                var ud=-1;
-                                if( vm.saleList[0].select=true){
-                                    ud=vm.saleList[0].id
-                                }
-                                if( vm.saleList[1].select=true){
-                                    ud=vm.saleList[1].id
-                                }
                                 return{
                                     goods_name:vm.addGoodsName,
                                     goods_type:vm.addGoodsType,
@@ -358,7 +314,7 @@ avalon.ready(function () {
                                     goods_price:vm.addGoodsPrice,
                                     goods_postage:vm.addGoodsPostage,
                                     goods_discount:vm.addGoodsDiscount,
-                                    goods_sell_state:ud,
+                                    goods_sell_state:vm.addGoodsState,
                                     goods_image:"44444",
                                     goods_detail:"dfs",
                                 }
@@ -372,6 +328,24 @@ avalon.ready(function () {
                     break;
             }
 
+        },
+        close:function(){
+            vm.pop=false;
+            vm.saleList[0].select=false
+            vm.saleList[1].select=false
+            vm.addGoodsName=""
+            vm.addGoodsType=""
+            vm.addGoodsSize= ""
+            vm.addGoodsColor=""
+            vm.addGoodsShape=""
+            vm.addGoodsRepertory=""
+            vm.addGoodsSales=""
+            vm.addGoodsPrice=""
+            vm.addGoodsPostage=""
+            vm.addGoodsDiscount=""
+            vm.addGoodsState=""
+            vm.addGoodsImg= ""
+            vm.addGoodsDetail=""
         },
         switchCheck:function(str){
             var goto;
