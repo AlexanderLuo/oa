@@ -241,12 +241,15 @@ avalon.ready(function () {
             vm.pop=vm.curPage;
             vm.popData={}
             vm.isReving=false;
+            vm.picList=[];
+            vm.detailList=[];
             switch (vm.curPage){
                 case "goods":
                     if(el){
                         vm.isReving=true;
-                        var str=el.goods_image;
-                        vm.picList=str.split(",");
+
+                        vm.picList=el.goods_image.split(",");
+                        vm.detailList=el.goods_detail.split(",")
 
 
                         vm.addGoodsName=el.goods_name;
@@ -260,8 +263,10 @@ avalon.ready(function () {
                         vm.addGoodsPostage=el.goods_postage;
                         vm.addGoodsDiscount=el.goods_discount;
                         vm.addGoodsState=el.goods_sell_state;
+
                         vm.addGoodsImg= el.goods_image;
                         vm.addGoodsDetail=el.goods_detail;
+
                         vm.popData={
                             isLegal:function(){
                                 var data=vm.popData.collecData();
@@ -275,6 +280,8 @@ avalon.ready(function () {
                                     || data.goods_postage==""
                                     || data.goods_discount==""
                                     || data.goods_sell_state==-1
+                                    || data.addGoodsImg==""
+                                    || data.addGoodsDetail==""
                                 ){
                                     return false;
                                 } else{
@@ -282,6 +289,23 @@ avalon.ready(function () {
                                 }
                             },
                             collecData:function(){
+                                var st="";
+                                for(var b=0;b<vm.picList.length;b++){
+                                    st=st+vm.picList[b]
+                                    if(b!=vm.picList.length-1){
+                                        st=st+","
+                                    }
+                                }
+                                vm.addGoodsImg=st;
+                                var at=""
+                                for(var b=0;b<vm.detailList.length;b++){
+                                    at=at+vm.detailList[b]
+                                    if(b!=vm.detailList.length-1){
+                                        at=at+","
+                                    }
+                                }
+                                vm.addGoodsDetail=at;
+
                                 return{
                                     goods_id:el.goods_id,
                                     goods_name:vm.addGoodsName,
@@ -315,6 +339,8 @@ avalon.ready(function () {
                                     || data.goods_postage==""
                                     || data.goods_discount==""
                                     || data.goods_sell_state==-1
+                                    || data.addGoodsImg==""
+                                    || data.addGoodsDetail==""
                                 ){
                                     return false;
                                 } else{
@@ -322,6 +348,22 @@ avalon.ready(function () {
                                 }
                             },
                             collecData:function(){
+                                var st="";
+                                for(var b=0;b<vm.picList.length;b++){
+                                    st=st+vm.picList[b]
+                                    if(b!=vm.picList.length-1){
+                                        st=st+","
+                                    }
+                                }
+                                vm.addGoodsImg=st;
+                                var at=""
+                                for(var b=0;b<vm.detailList.length;b++){
+                                    at=at+vm.detailList[b]
+                                    if(b!=vm.detailList.length-1){
+                                        at=at+","
+                                    }
+                                }
+                                vm.addGoodsDetail=at;
                                 return{
                                     goods_name:vm.addGoodsName,
                                     goods_type:vm.addGoodsType,
@@ -334,8 +376,8 @@ avalon.ready(function () {
                                     goods_postage:vm.addGoodsPostage,
                                     goods_discount:vm.addGoodsDiscount,
                                     goods_sell_state:vm.addGoodsState,
-                                    goods_image:"44444",
-                                    goods_detail:"dfs",
+                                    goods_image:vm.addGoodsImg,
+                                    goods_detail:vm.addGoodsDetail
                                 }
                             }
                         }
@@ -347,6 +389,14 @@ avalon.ready(function () {
                     break;
             }
 
+        },
+        delPic:function(index,el){
+            if(index==0){
+                vm.picList.remove(el)
+            }
+            if(index==1){
+                vm.detailList.remove(el)
+            }
         },
         close:function(){
             vm.pop=false;

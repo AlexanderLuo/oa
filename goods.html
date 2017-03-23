@@ -237,11 +237,16 @@
                                 <tr>
                                     <th width="40%">商品图片：</th>
                                     <td width="60%">
+
+                                        <div class="imglist" ms-repeat="picList">
+                                            <a ms-click="delPic(0,el)"><img src='img/del.png' alt='' class='del'></a>
+                                            <img ms-attr-src="  'http://www.kh122.com:8080/' +el " alt="">
+                                        </div>
+
                                         <div>
                                             <form id="uploadForm0" enctype="multipart/form-data">
                                                 <input  type="file" name="file" ms-change="upload(0)"/>
                                             </form>
-
                                         </div>
 
                                     </td>
@@ -249,6 +254,12 @@
                                 <tr>
                                     <th width="40%">商品详情：</th>
                                     <td width="60%">
+
+                                        <div class="imglist" ms-repeat="detailList">
+                                            <a ms-click="delPic(1,el)"><img src='img/del.png' alt='' class='del'></a>
+                                            <img ms-attr-src=" 'http://www.kh122.com:8080/'+el" alt="">
+                                        </div>
+
                                         <div>
                                             <form id="uploadForm1" enctype="multipart/form-data">
                                                 <input  type="file" name="file" ms-change="upload(1)"/>
