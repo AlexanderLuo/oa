@@ -382,15 +382,14 @@ avalon.ready(function () {
                                 }
                             }
                         }
-
                     }
-
                     break;
                 case "order":
+
                     vm.orderLi = el;
+
                     break;
             }
-
         },
         delPic:function(index,el){
             if(index==0){
