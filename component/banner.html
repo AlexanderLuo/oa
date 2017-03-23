@@ -8,7 +8,7 @@
             user: {},
             user_id: "",
             addUsername: "",
-            addOthername: "",
+            addOtherName: "",
             addSex: 0,
             addDate: "",
             addRemark: "",
@@ -49,7 +49,6 @@
                 vm.blo = false;
             },
             rev: function () {
-//                var path = vm.upperPage();
                 var check = vm.popData.isLegal();
                 if (check) {
                     $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
@@ -64,7 +63,9 @@
             init: function () {
                 var page = window.location.pathname;
                 vm.user = getLocalValue("user");
+                console.log(vm.user.name);
                 vm.addOtherName = vm.user.name;
+                console.log(vm.addOtherName)
                 vm.addSex = vm.user.sex;
                 vm.addData = vm.user.birthday;
                 vm.addRemark = vm.user.remark;
@@ -86,6 +87,7 @@
             }
         })
         vm.init();
+        avalon.scan()
 
     })
 
@@ -144,7 +146,7 @@
 
         <div class="baby_top_rig_info">
             <div class="baby_top_info_pad">
-                <p class="baby_info_user" ms-duplex="addUsername"></p>
+                <p class="baby_info_user">{{addOtherName}}</p>
                 |
                 <strong><a id="example" style="color: #999;cursor:pointer" title="个人设置"
                            ms-click="router">个人设置 </a></strong>
