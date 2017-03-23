@@ -123,7 +123,7 @@
                         </li>
                         <li>{{el.order_number}}</li>
                         <li>{{el.user_name}}</li>
-                        <li>{{el.create_time}}</li>
+                        <li>{{el.create_time|date('yyyy-MM-dd')}}</li>
                         <li ms-click="open(el)"><a class="edit">编辑</a></li>
                     </ul>
                 </div>
@@ -247,6 +247,7 @@
                                             <form id="uploadForm0" enctype="multipart/form-data">
                                                 <input  type="file" name="file" ms-change="upload(0)"/>
                                             </form>
+
                                         </div>
 
                                     </td>
@@ -292,52 +293,43 @@
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="40%">订单编号：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
-                                    </td>
+                                    <td width="60%">{{orderLi.order_number}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">订单流水时间：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
-                                    </td>
+                                    <td width="60%">{{orderLi.order_stream | date('yyyy-MM-dd')}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">购买者电话：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
-                                    </td>
+                                    <td width="60%">{{orderLi.address_info.addr_phone}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">下单时间：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
-                                    </td>
+                                    <td width="60%">{{orderLi.create_time | date('yyyy-MM-dd')}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">下单总价：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
-                                    </td>
+                                    <td width="60%">{{orderLi.order_price}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品名称：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
+                                    <td width="60%">{{orderLi.goods_name}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品外形：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
-                                    </td>
+                                    <td width="60%">{{orderLi.goods_shape}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品大小：</th>
-                                    <td width="10%"><input type="text" name="" ms-duplex="el.value" readonly/>
-                                    </td>
+                                    <td width="10%">{{orderLi.goods_size}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品数量：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
-                                    </td>
+                                    <td width="60%">{{orderLi.order_amount}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品颜色：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value" readonly/>
-                                    </td>
+                                    <td width="60%">{{orderLi.goods_color}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">订单留言：</th>

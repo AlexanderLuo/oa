@@ -35,7 +35,7 @@
                             user_id: vm.user.user_id,
                             name: vm.addOtherName,
                             sex: vm.addSex,
-                            birthday: vm.addDate,
+                            birthday: vm.datefort(vm.addDate),
                             remark: vm.addRemark
                         }
                     }
@@ -60,6 +60,11 @@
 
 
             },
+            datefort:function (str) {
+                var date = new Date(Date.parse(str.replace(/-/g, "/")));
+                date =date.getTime();
+                return date;
+            },
             init: function () {
                 var page = window.location.pathname;
                 vm.user = getLocalValue("user");
@@ -67,7 +72,7 @@
                 vm.addOtherName = vm.user.name;
                 console.log(vm.addOtherName)
                 vm.addSex = vm.user.sex;
-                vm.addData = vm.user.birthday;
+                vm.addDate = vm.user.birthday;
                 vm.addRemark = vm.user.remark;
                 if (page == '/oa/device.html') {
                     vm.curPage = "device"
