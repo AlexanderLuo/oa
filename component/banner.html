@@ -52,25 +52,31 @@
                 var check = vm.popData.isLegal();
                 if (check) {
                     $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
+                        var json = eval("(" + data + ")");// 解析json
+                        if (json.code == 200) {
+                            var users = getLocalValue('user');
+                            users.name = vm.addOtherName;
+                            setLocalValue('user',users);
+                        }
                         vm.close();
                     })
                 } else {
-                    layer.msg("请填写完整")
+                    layer.msg("请填写完整");
                 }
 
 
             },
             datefort:function (str) {
-                var date = new Date(Date.parse(str.replace(/-/g, "/")));
-                date =date.getTime();
-                return date;
+                if (typeof str == 'string') {
+                    var date = new Date(Date.parse(str.replace(/-/g, "/")));
+                    date =date.getTime();
+                    return date;
+                }
             },
             init: function () {
                 var page = window.location.pathname;
                 vm.user = getLocalValue("user");
-                console.log(vm.user.name);
                 vm.addOtherName = vm.user.name;
-                console.log(vm.addOtherName)
                 vm.addSex = vm.user.sex;
                 vm.addDate = vm.user.birthday;
                 vm.addRemark = vm.user.remark;
