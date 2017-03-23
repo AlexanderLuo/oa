@@ -259,6 +259,7 @@ avalon.ready(function () {
             vm.steelyardReq= json.result.last_req_time;
             vm.records=json.result.total_count;
             vm.total=Math.ceil(vm.records/vm.pageSize)
+            console.log(vm.total)
 
             json.result.list.forEach(function(el){
                 el.check=false;
