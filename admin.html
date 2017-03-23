@@ -328,28 +328,30 @@
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <th width="40%">用户名：</th>
+                                    <th width="40%">姓名：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="addUserName"/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th width="40%">昵称：</th>
+                                    <th width="40%">账号：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="addOtherName"/>
                                     </td>
                                 </tr>
-                                <!--<tr >-->
-                                <!--<th width="40%">角色：</th>-->
-                                <!--<td width="60%">-->
-                                <!--<select  ms-duplex="tegr_id">-->
-                                <!--<option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>-->
-                                <!--</select>-->
-                                <!--</td>-->
-                                <!--</tr>-->
-                                <!--<tr >-->
-                                <!--<th width="40%">简介：</th>-->
-                                <!--<td width="60%"><textarea rows="4" cols="30"></textarea>-->
-                                <!--</td>-->
-                                <!--</tr>-->
+                                <tr>
+                                    <th width="40%">角色：</th>
+                                    <td width="60%">
+                                        <select ms-duplex="tegr_id">
+                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">
+                                                {{el.tegr_name}}
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">简介：</th>
+                                    <td width="60%"><textarea rows="4" cols="30"></textarea>
+                                    </td>
+                                </tr>
                             </table>
                             <div class="user-btn">
                                 <input type="button" value="保存" class="oper" ms-click="add"/>
@@ -367,16 +369,15 @@
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <th width="40%">管理员：</th>
-                                    <td width="60%">
-                                        <select ms-duplex="addAdmin">
-                                            <option ms-attr-value="{{el.user_id}}" ms-repeat="adminList">{{el.name}}
-                                            </option>
-                                        </select>
-                                    </td>
-                                </tr>
-
+                                <!--<tr>-->
+                                    <!--<th width="40%">管理员：</th>-->
+                                    <!--<td width="60%">-->
+                                        <!--<select ms-duplex="addAdmin">-->
+                                            <!--<option ms-attr-value="{{el.user_id}}" ms-repeat="adminList">{{el.name}}-->
+                                            <!--</option>-->
+                                        <!--</select>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
                                 <tr>
                                     <th width="40%">集团名称：</th>
                                     <td width="60%"><input type="text" name="" ms-duplex="addTegrName"/>
@@ -411,7 +412,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th width="40%">所属集团：</th>
+                                    <th width="40%">角色：</th>
                                     <td width="60%">
                                         <select ms-duplex="addTegr">
                                             <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">
@@ -444,7 +445,11 @@
                             </div>
 
                             <table class="table_1" cellpadding="0" cellspacing="0">
-
+                                <tr>
+                                    <th width="40%">学校名称：</th>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addSchoolName"/>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th width="40%">集团名称：</th>
                                     <td width="60%">
@@ -453,26 +458,6 @@
                                                 {{el.tegr_name}}
                                             </option>
                                         </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">学校名称：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="addSchoolName"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">学校地址：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="addAddr"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">联系电话：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="addPhone"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th width="40%">联系人：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="addUserName"/>
                                     </td>
                                 </tr>
 
