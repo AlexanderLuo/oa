@@ -13,7 +13,7 @@ avalon.ready(function () {
         typeFilter:0,
         saleList:[{id:0,name:"上架",select:false},{id:1,name:"下架",select:false}],
         orderList:[{id:0,name:"全部"},{id:1,name:"待付款"},{id:2,name:"待发货"},{id:3,name:"待收货"},{id:4,name:"已收货"}],
-        orderLi:{},
+        orderList2:[{id:1,name:"待付款"},{id:2,name:"待发货"},{id:3,name:"待收货"},{id:4,name:"已收货"}],
 
         goods_type:0,
         order_state:0,
@@ -45,6 +45,22 @@ avalon.ready(function () {
         addGoodsState:"",
         addGoodsImg:"",
         addGoodsDetail:"",
+        //订单
+        addOrderNumber:"",
+        addOrderStream:"",
+        addAddrPhone:"",
+        addCreateTime:"",
+        addOrderPrice:"",
+        addOrderAmount:"",
+        addOrderAddr:"",
+        addOrderState:"",
+
+
+
+
+
+
+
 
         pageNo:1,
         pageSize:10,
@@ -252,7 +268,6 @@ avalon.ready(function () {
                         vm.picList=el.goods_image.split(",");
                         vm.detailList=el.goods_detail.split(",")
 
-
                         vm.addGoodsName=el.goods_name;
                         vm.addGoodsType=el.goods_type;
                         vm.addGoodsSize= el.goods_size;
@@ -385,8 +400,50 @@ avalon.ready(function () {
                     }
                     break;
                 case "order":
+                    el=el || {}
+                    vm.addOrderNumber=el.order_number
+                    vm.addOrderStream=el.order_stream
+                    vm.addAddrPhone=el.address_info.addr_phone
+                    vm.addCreateTime=el.create_time
+                    vm.addOrderPrice=el.order_price
+                    vm.addGoodsName=el.goods_name
+                    vm.addGoodsShape=el.goods_shape
+                    vm.addGoodsSize=el.goods_size
+                    vm.addOrderAmount=el.order_amount
+                    vm.addGoodsColor=el.goods_color
+                    vm.addGoodsDetail=el.order_message
+                    vm.addOrderAddr=el.address_info.addr_detail
+                    vm.addOrderState=el.order_state
 
-                    vm.orderLi = el;
+                    vm.popData={
+                        isLegal:function(){
+                            var data=vm.popData.collecData();
+                            if(data.goods_name.trim()==""
+                            ){
+                                return false;
+                            } else{
+                                return true;
+                            }
+                        },
+                        collecData:function(){
+                            return{
+                                goods_name:vm.addGoodsName,
+                                goods_type:vm.addGoodsType,
+                                goods_size:vm.addGoodsSize,
+                                goods_color:vm.addGoodsColor,
+                                goods_shape:vm.addGoodsShape,
+                                goods_repertory:vm.addGoodsRepertory,
+                                goods_sales:vm.addGoodsSales,
+                                goods_price:vm.addGoodsPrice,
+                                goods_postage:vm.addGoodsPostage,
+                                goods_discount:vm.addGoodsDiscount,
+                                goods_sell_state:vm.addGoodsState,
+                                goods_image:vm.addGoodsImg,
+                                goods_detail:vm.addGoodsDetail
+                            }
+                        }
+                    }
+
 
                     break;
             }
@@ -486,6 +543,7 @@ avalon.ready(function () {
 
     vm.$watch("typeFilter",function(data){
         vm.queryData.goods_type=data
+        vm.checkAllFlag=false;
         vm.query(1)
     })
 

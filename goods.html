@@ -110,7 +110,7 @@
                 <!--    &lt;!&ndash;订单数据-->
                 <div class="baby_content_tab" ms-if="curPage == 'order' ">
                     <ul class="baby_content_tab_menu">
-                        <li>选择</li>
+                        <!--<li>选择</li>-->
                         <li>订单编号</li>
                         <li>购买者</li>
                         <li>下单时间</li>
@@ -118,9 +118,9 @@
                     </ul>
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li">
-                            <input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>
-                        </li>
+                        <!--<li class="baby_tab_checkbox_li">-->
+                            <!--<input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>-->
+                        <!--</li>-->
                         <li>{{el.order_number}}</li>
                         <li>{{el.user_name}}</li>
                         <li>{{el.create_time|date('yyyy-MM-dd')}}</li>
@@ -293,62 +293,59 @@
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="40%">订单编号：</th>
-                                    <td width="60%">{{orderLi.order_number}}</td>
+                                    <td width="60%">{{addOrderNumber}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">订单流水时间：</th>
-                                    <td width="60%">{{orderLi.order_stream | date('yyyy-MM-dd')}}</td>
+                                    <td width="60%">{{addOrderStream | date('yyyy-MM-dd')}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">购买者电话：</th>
-                                    <td width="60%">{{orderLi.address_info.addr_phone}}</td>
+                                    <td width="60%">{{addAddrPhone}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">下单时间：</th>
-                                    <td width="60%">{{orderLi.create_time | date('yyyy-MM-dd')}}</td>
+                                    <td width="60%">{{addCreateTime | date('yyyy-MM-dd')}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">下单总价：</th>
-                                    <td width="60%">{{orderLi.order_price}}</td>
+                                    <td width="60%">{{addOrderPrice}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品名称：</th>
-                                    <td width="60%">{{orderLi.goods_name}}</td>
+                                    <td width="60%">{{addGoodsName}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品外形：</th>
-                                    <td width="60%">{{orderLi.goods_shape}}</td>
+                                    <td width="60%">{{addGoodsShape}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品大小：</th>
-                                    <td width="10%">{{orderLi.goods_size}}</td>
+                                    <td width="10%">{{addGoodsSize}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品数量：</th>
-                                    <td width="60%">{{orderLi.order_amount}}</td>
+                                    <td width="60%">{{addOrderAmount}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">商品颜色：</th>
-                                    <td width="60%">{{orderLi.goods_color}}</td>
+                                    <td width="60%">{{addGoodsColor}}</td>
                                 </tr>
                                 <tr>
                                     <th width="40%">订单留言：</th>
-                                    <td width="60%">{{orderLi.goods_detail}}
+                                    <td width="60%">{{addGoodsDetail}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">收货地址：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addOrderAddr"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">订单状态：</th>
                                     <td width="60%">
-                                        <select name="" ms-duplex="deger_id">
-                                            <option value="0">待付款</option>
-                                            <option value="1">待发货</option>
-                                            <option value="2">待收货</option>
-                                            <option value="3">已收货</option>
+                                        <select name="" ms-duplex="addOrderState">
+                                            <option ms-repeat="orderList2" ms-attr-value="el.id">{{el.name}}</option>
                                         </select>
                                     </td>
                                 </tr>
