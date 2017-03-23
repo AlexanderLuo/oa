@@ -437,6 +437,101 @@ avalon.ready(function () {
                 vm.del()
                 layer.closeAll()},layer.closeAll())
         },
+        del:function(){
+            var ids = ""
+            var li = []
+            var idKey=""
+            var task
+            switch (vm.curPage) {
+                case "admin":
+                    vm.delData = {
+                        delete_user_id: ids
+                    }
+                    idKey="user_id"
+                    task=function(){
+                        vm.delData.delete_user_id=ids;
+                    }
+                    break;
+                case "teger":
+                    vm.delData = {
+                        delete_tegr_id: ids,
+                        user_id:user.user_id
+                    }
+                    idKey="tegr_id"
+                    task=function(){
+                        vm.delData.delete_tegr_id=ids;
+                    }
+                    break;
+                case "teacher":
+                    vm.delData = {
+                        delete_user_id: ids,
+                        user_id:user.user_id
+                    }
+                    idKey="user_id"
+                    task=function(){
+                        vm.delData.delete_user_id=ids;
+                    }
+                    break;
+                case "school":
+                    vm.delData = {
+                        delete_school_id: ids,
+                        user_id:user.user_id
+                    }
+                    idKey="school_id"
+                    task=function(){
+                        vm.delData.delete_school_id=ids;
+                    }
+                    break;
+
+                case "class":
+                    vm.delData = {
+                        delete_class_id: ids,
+                        user_id:user.user_id
+                    }
+                    idKey="class_id"
+                    task=function(){
+                        vm.delData.delete_class_id=ids;
+                    }
+                    break;
+                case "parent":
+                    vm.delData = {
+                        delete_user_id: ids,
+                        user_id:user.user_id
+                    }
+                    idKey="user_id"
+                    task=function(){
+                        vm.delData.delete_user_id=ids;
+                    }
+                    break;
+                case "student":
+                    vm.delData = {
+                        delete_child_id: ids,
+                        user_id:user.user_id
+                    }
+                    idKey="class_id"
+                    task=function(){
+                        vm.delData.delete_child_id=ids;
+                    }
+                    break;
+            }
+            for (var a = 0; a < vm.dataList.length; a++) {
+                if (vm.dataList[a].check == true) {
+                    li.push(vm.dataList[a][idKey])
+                }
+            }
+            for (var b = 0; b < li.length; b++) {
+                ids = ids + li[b]
+                if (b != li.length - 1) {
+                    ids = ids + ","
+                }
+            }
+            task();
+
+            var path = vm.upperPage();
+            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
+                vm.query(1)
+            })
+        },
         seeTeacher:function(el){
             vm.tegr_id=el.tegr_id
             vm.tegrName=el.tegr_name
@@ -500,9 +595,27 @@ avalon.ready(function () {
     vm.$watch("teger_search",function(data){
         vm.queryData.tegr_id=data;
         if(vm.curPage=='parent'){
+            vm.dataList=[]
+            vm.querytTeg(function(){
+                $.ajax({
+                    url:conf.baseUrl+conf.querySchool,
+                    type:"post",
+                    data:{
+                        tegr_id:data,
+                        page:1,
+                        page_size:800,
+                        last_req_time:0
+                    }
+                }).done(function(data){
+                    var json = eval("(" + data + ")");// 解析json
+                    if (json.code == 200) {
+                        vm.schoolList=json.result.list;
+                        vm.school_search=json.result.list[0].school_id || "请选择"
+                    }
+                })
+            });
 
         }else {
-            vm.query(1)
         }
     })
     vm.$watch("school_search",function(data){

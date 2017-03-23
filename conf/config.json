@@ -8,14 +8,42 @@
 
   "queryAdmin":"userApi/getAdminList",
   "addAdmin":"userApi/addAdmin",
+  "delAdmin":"userApi/deleteAdmin",
+  "revAdmin":"uuserApi/editUserInfo",
+
+
   "queryTeger":"tegrApi/getTegrList",
   "addTeger":"tegrApi/addTegr",
+  "delTeger":"tegrApi/deleteTegr",
+  "revTeger":"tegrApi/editTegr",
+
+
   "queryTeacher":"teacherApi/getTeacherList",
+  "addTeacher":"teacherApi/addTeacher",
+  "delTeacher":"teacherApi/deleteTeacher",
+  "revTeacher":"teacherApi/editTeacher",
+
   "querySchool":"schoolApi/getSchoolList",
   "addSchool":"schoolApi/addSchool",
+  "delSchool":"schoolApi/deleteSchool",
+  "revSchool":"schoolApi/editSchool",
+
   "queryClass":"classApi/getClassList",
+  "revClass":"classApi/editClass",
+  "addClass":"classApi/addClass",
+  "delClass":"classApi/deleteClass",
+
+
   "queryParent":"parentApi/getParentList",
+  "addParent":"parentApi/addParent",
+  "revParent":"parentApi/editParent",
+  "delParent":"parentApi/deleteParent",
+
   "queryStudent":"childApi/getChildList",
+  "addStudent":"childApi/addChild",
+  "revStudent":"childApi/eidtChild",
+  "delStudent":"childApi/deleteChild",
+
 
 
 
