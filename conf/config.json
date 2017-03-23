@@ -9,7 +9,7 @@
   "queryAdmin":"userApi/getAdminList",
   "addAdmin":"userApi/addAdmin",
   "delAdmin":"userApi/deleteAdmin",
-  "revAdmin":"uuserApi/editUserInfo",
+  "revAdmin":"userApi/editUserInfo",
 
 
   "queryTeger":"tegrApi/getTegrList",

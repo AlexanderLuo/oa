@@ -142,7 +142,7 @@
                         <li>{{el.totalCount}}</li>
                         <li>{{el.name}}</li>
                         <li>
-                            <a class="edit" href="javascript: void(0)" eid="190">编辑</a>
+                            <a class="edit" href="javascript: void(0)" eid="190" ms-click="open(el)">编辑</a>
                             <a class="edit" ms-click="seeTeacher(el)">查看</a>
                         </li>
                     </ul>
@@ -176,7 +176,7 @@
                         <li>{{el.name}}</li>
                         <li>{{el.role_type}}</li>
                         <li>{{el.username}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li ms-click="open(el)"><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
 
@@ -198,7 +198,7 @@
                         <li>{{el.school_name}}</li>
                         <li>{{el.name}}</li>
                         <li>
-                            <a class="edit" href="javascript: void(0)">编辑</a>
+                            <a class="edit" href="javascript: void(0)" ms-click="open(el)">编辑</a>
                             <a class="edit" ms-click="seeClass(el)">查看</a>
                         </li>
                     </ul>
@@ -229,7 +229,7 @@
                         <li>{{el.school_name}}</li>
                         <li>{{el.class_name}}</li>
                         <li>
-                            <a class="edit" href="javascript: void(0)">编辑</a>
+                            <a class="edit" href="javascript: void(0)" ms-click="open(el)">编辑</a>
                             <a class="edit" ms-click="seeStudent(el)">查看</a>
                         </li>
                     </ul>
@@ -252,7 +252,7 @@
                         <li>{{el.name}}</li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.remark}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li ms-click="open(el)"><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
 
@@ -289,7 +289,7 @@
                         <li>{{el.birthday | date('yyyy-MM-dd') }}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.username}}</li>
-                        <li><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
+                        <li ms-click="open(el)"><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
                 </div>
 
@@ -402,18 +402,18 @@
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="40%">姓名：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addUserName"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">账号：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addName"/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th width="40%">角色：</th>
+                                    <th width="40%">所属集团：</th>
                                     <td width="60%">
-                                        <select ms-duplex="tegr_id">
+                                        <select ms-duplex="addTegr">
                                             <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">
                                                 {{el.tegr_name}}
                                             </option>

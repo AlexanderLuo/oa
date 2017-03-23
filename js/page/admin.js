@@ -80,7 +80,8 @@ avalon.ready(function () {
         addUserName:"", //用户添加
         addOtherName:"",
         parentLock:false,
-
+        //添加教师
+        addMark:"",
 
 
 
@@ -124,6 +125,18 @@ avalon.ready(function () {
                 })})
             }
         },
+        rev:function(){
+            var path = vm.upperPage();
+            var check=vm.popData.isLegal();
+            if(check){
+                $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function(data){
+                    vm.close();
+                    vm.query(1)
+                })
+            }else{
+                layer.msg("请填写完整")
+            }
+        },
         add:function(){
             if(vm.isReving){
                 vm.rev();
@@ -154,6 +167,7 @@ avalon.ready(function () {
         open:function(el){
             console.log(el)
             vm.pop=vm.curPage;
+            vm.isReving=false;
             vm.popData={
                 isLegal:function(){},
                 collecData:function(){}
@@ -161,7 +175,26 @@ avalon.ready(function () {
             switch (vm.curPage){
                 case 'admin':
                     if(el){
-
+                        vm.isReving=true
+                        vm.addUserName=el.username
+                        vm.addOtherName=el.name
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.popData.collecData();
+                                if(data.name.trim()=="" || data.username.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    user_id:el.user_id,
+                                    username:vm.addUserName,
+                                    name:vm.addOtherName
+                                }
+                            }
+                        }
 
                     }else{
                         vm.popData={
@@ -184,6 +217,27 @@ avalon.ready(function () {
                     break;
                 case 'teger':
                     if(el){
+                        vm.isReving=true
+                        vm.addAdmin=el.user_id
+                        vm.addTegrName=el.tegr_name
+
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.popData.collecData();
+                                if(data.user_id==0 || data.tegr_name.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    tegr_id:el.tegr_id,
+                                    user_id:vm.addAdmin,
+                                    tegr_name:vm.addTegrName
+                                }
+                            }
+                        }
 
                     }else{
                         vm.popData={
@@ -206,6 +260,32 @@ avalon.ready(function () {
                     break;
                 case 'school':
                     if(el){
+                        vm.isReving=true
+                        vm.addTegr=el.tegr_id
+                        vm.addSchoolName=el.school_name
+                        vm.addPhone=el.school_call
+                        vm.addUserName=el.school_person
+                        vm.addAddr=el.school_address
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.popData.collecData();
+                                if(data.tegr_id==0 || data.user_id==0 || data.school_person.trim()=="" ||data.school_name.trim()=="" || data.school_call.trim()=="" || data.school_address.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    school_id:el.school_id,
+                                    tegr_id:vm.addTegr,
+                                    school_name:vm.addSchoolName,
+                                    school_call:vm.addPhone,
+                                    school_person:vm.addUserName,
+                                    school_address:vm.addAddr
+                                }
+                            }
+                        }
 
                     }else{
                         vm.popData={
@@ -229,7 +309,51 @@ avalon.ready(function () {
                         }
                     }
                     break;
+                case "teacher":
+                    if(el){
+                        vm.isReving=true
+                        vm.addUserName=el.username
+                        vm.addOtherName=el.name
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.popData.collecData();
+                                if(data.name.trim()=="" || data.username.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    user_id:el.user_id,
+                                    username:vm.addUserName,
+                                    name:vm.addOtherName
+                                }
+                            }
+                        }
+
+                    }else{
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.popData.collecData();
+                                if(data.name.trim()=="" || data.username.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    username:vm.addUserName,
+                                    name:vm.addOtherName
+                                }
+                            }
+                        }
+                    }
+                    break;
+
             }
+
         },
         getAdmin: function (json) {
             var li=json.returnObject;
@@ -431,6 +555,22 @@ avalon.ready(function () {
         close:function(){
             vm.pop=false;
             vm.isReving=false;
+
+            vm.addName=""
+            vm.addAccount=""
+            vm.addSummary=""
+            vm.addRole=""
+                //集团添加
+            vm.addTegrName=""
+            vm.addAdmin=""
+                //学校添加
+            vm.addTegr=""
+            vm.addSchoolName=""
+            vm.addAddr=""
+            vm.addPhone=""
+            vm.addUserName=""//用户添加
+            vm.addOtherName=""
+            vm.addMark=""
         },
         delPop:function () {
             layer.confirm("确定删除吗？",function () {
@@ -445,7 +585,8 @@ avalon.ready(function () {
             switch (vm.curPage) {
                 case "admin":
                     vm.delData = {
-                        delete_user_id: ids
+                        delete_user_id: ids,
+                        user_id:user.user_id
                     }
                     idKey="user_id"
                     task=function(){
