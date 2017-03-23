@@ -39,6 +39,7 @@ avalon.ready(function () {
         addSize: "",
         addPath: "",
         addVideo: "",
+        addPic:"",
 
         last_req_time: 0,
 
@@ -59,7 +60,6 @@ avalon.ready(function () {
                 var json = eval("(" + data + ")");// 解析json
                 if (json.code == 200) {
                     vm.last_req_time = json.result.last_req_time;
-
                     vm.records=json.result.total_count;
                     vm.total=Math.ceil(vm.records/vm.pageSize)
 
@@ -125,6 +125,8 @@ avalon.ready(function () {
             var check = vm.addData.isLegal();
             if (check) {
                 console.log(vm.addData.collecData())
+                vm.dataList=[];
+                vm.checkAllFlag=false;
                 $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
                     vm.close();
                     vm.query(1)
@@ -160,6 +162,7 @@ avalon.ready(function () {
                         vm.addName = el.video_name;
                         vm.addSize = el.video_size;
                         vm.addPath = el.video_path;
+                        vm.addPic=el.video_cover
                         vm.addData = {
                             isLegal: function () {
                                 var data = vm.addData.collecData();
@@ -177,7 +180,7 @@ avalon.ready(function () {
                                     video_length: vm.addLength,
                                     video_size: vm.addSize,
                                     video_path: vm.addPath,
-                                    video_cover:el.video_cover,
+                                    video_cover:vm.addPic,
                                     video_see_count:el.video_see_count,
                                     user_id:el.user_id
                                 }
@@ -200,9 +203,8 @@ avalon.ready(function () {
                                     video_name: vm.addName,
                                     video_length: vm.addLength,
                                     video_size: vm.addSize,
-                                    //video_path: vm.addPath,
-                                    video_path: 123+"34",
-                                    video_cover:"sdf+",
+                                    video_path: vm.addPath,
+                                    video_cover:vm.addPic,
                                     user_id:user.user_id,
                                     video_see_count:0
                                 }
@@ -212,6 +214,20 @@ avalon.ready(function () {
                     }
             }
 
+        },
+        upload:function() {
+            $.ajax({
+                url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/uploadApi/uploadImage",
+                cache: false,
+                type:"post",
+                data: new FormData($('#uploadForm')[0]),
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var json = eval("(" + data + ")");// 解析json
+                    vm.addPic=json.result
+                }
+            });
         },
         //单词首字母大写
         upperPage: function () {

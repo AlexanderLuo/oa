@@ -142,22 +142,16 @@
                                 <th width="40%">视频封面：</th>
                                 <td width="60%">
                                 <div>
-                                    <form enctype="multipart/form-data" method="post"
-                                          action="${base}/news/addImage">
-                                        <div style="float: left">
-                                            <div>
-                                                <!--图片预览-->
-                                                <div align="center">
-                                                    <div class="imglist">
-                                                        <a onclick="delimg()"><img src='img/del.png' alt='' class='del'></a>
-                                                        <img src="" alt="">
-                                                    </div>
-                                                </div>
-                                                <input type="file" name="file" onchange="handleFiles(this)">
-                                            </div>
-                                                  
-                                        </div>
-                                    </form>
+                                    <div class="imglist" >
+                                        <img ms-attr-src="  'http://www.kh122.com:8080/' +addPic " alt="">
+                                    </div>
+
+                                    <div>
+                                        <form id="uploadForm" enctype="multipart/form-data">
+                                            <input  type="file" name="file" ms-change="upload(0)"/>
+                                        </form>
+
+                                    </div>
                                 </div>
                                 </td>
                             </tr>
