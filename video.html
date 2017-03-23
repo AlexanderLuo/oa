@@ -141,8 +141,24 @@
                             <tr>
                                 <th width="40%">视频封面：</th>
                                 <td width="60%">
-                                    <img src="http://www.kh122.com:8080/crapp/image/aeec7f2ee0b20bea9f1fcecc6c9a3200.jpg" alt="">
-                                    <a href=""><img src="img/add.png" alt=""></a>
+                                <div>
+                                    <form enctype="multipart/form-data" method="post"
+                                          action="${base}/news/addImage">
+                                        <div style="float: left">
+                                            <div>
+                                                <!--图片预览-->
+                                                <div align="center">
+                                                    <div class="imglist">
+                                                        <a onclick="delimg()"><img src='img/del.png' alt='' class='del'></a>
+                                                        <img src="" alt="">
+                                                    </div>
+                                                </div>
+                                                <input type="file" name="file" onchange="handleFiles(this)">
+                                            </div>
+                                                  
+                                        </div>
+                                    </form>
+                                </div>
                                 </td>
                             </tr>
                         </table>

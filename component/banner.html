@@ -5,29 +5,66 @@
             $id: "bannerVm",
             curPage: "",
             pops: "",
-            user:{},
-            addUsrname:"",
-            addSex:0,
-            addDate:"",
-            addRemark:"",
+            user: {},
+            user_id: "",
+            addUsername: "",
+            addOthername: "",
+            addSex: 0,
+            addDate: "",
+            addRemark: "",
+            blo: false,
+            revUrl: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/userApi/editUserInfo",
+            popData: {},
 
 
-            router: function (str) {
-                vm.pops = str;
-                console.log(vm.pops);
+            router: function () {
+                vm.blo = true
+                console.log(vm.blo);
+                vm.popData = {
+                    isLegal: function () {
+                        var data = vm.popData.collecData();
+                        console.log(data);
+                        if (data.user_id == 0 || data.name.trim() == "") {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+                    collecData: function () {
+                        return {
+                            user_id: vm.user.user_id,
+                            name: vm.addOtherName,
+                            sex: vm.addSex,
+                            birthday: vm.addDate,
+                            remark: vm.addRemark
+                        }
+                    }
+                }
             },
             loginOut: function () {
-                setLocalValue("user","");
-                window.location.href="./login.html"
+                localStorage.removeItem('user');
+                window.location.href = "./login.html"
             },
-            open:function () {
+            close: function () {
+                vm.blo = false;
+            },
+            rev: function () {
+//                var path = vm.upperPage();
+                var check = vm.popData.isLegal();
+                if (check) {
+                    $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
+                        vm.close();
+                    })
+                } else {
+                    layer.msg("请填写完整")
+                }
 
 
             },
             init: function () {
                 var page = window.location.pathname;
                 vm.user = getLocalValue("user");
-                vm.addUserName = vm.user.name;
+                vm.addOtherName = vm.user.name;
                 vm.addSex = vm.user.sex;
                 vm.addData = vm.user.birthday;
                 vm.addRemark = vm.user.remark;
@@ -110,70 +147,53 @@
                 <p class="baby_info_user" ms-duplex="addUsername"></p>
                 |
                 <strong><a id="example" style="color: #999;cursor:pointer" title="个人设置"
-                           ms-click="router('set')">个人设置 </a></strong>
+                           ms-click="router">个人设置 </a></strong>
             </div>
         </div>
     </div>
-</div>
-
-<!-- 个人设置 -->
-
-<div class="shade" ms-class="block:pops=='set'">
-    <div class="user-edit">
-        <div class="user-main">
-            <div class="user-title">
-                <h3>个人信息：</h3>
-            </div>
-            <table class="table_1" cellpadding="0" cellspacing="0" ms-data="user">
-                <tr>
-                    <th width="40%">昵称：</th>
-                    <td width="60%"><input type="text" name="" ms-duplex="addUsername"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th width="40%">性别：</th>
-                    <td width="60%"><select name="" ms-duplex="addSex">
-                        <option value="0">男</option>
-                        <option value="1">女</option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th width="40%">生日：</th>
-                    <td width="60%"><input type="data" name="" ms-duplex="addDate"/></td>
-                </tr>
-                <tr>
-                    <th width="40%">个性签名：</th>
-                    <td width="60%"><input type="text" name="" ms-duplex="addRemark"/>
-                    </td>
-                </tr>
-            </table>
-            <div class="user-btn">
-                <input type="button" value="保存" class="oper" ms-click="save"/>
-                <input type="button" value="返回" class="oper" ms-click="close"/>
+    <!-- 个人设置 -->
+    <div class="shade" ms-class="block:blo==true">
+        <div class="user-edit">
+            <div class="user-main">
+                <div class="user-title">
+                    <h3>个人信息：</h3>
+                </div>
+                <table class="table_1" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th width="40%">昵称：</th>
+                        <td width="60%"><input type="text" name="" ms-duplex="addOtherName"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="40%">性别：</th>
+                        <td width="60%"><select name="" ms-duplex="addSex">
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="40%">生日：</th>
+                        <td width="60%"><input type="date" name="" ms-duplex="addDate"/></td>
+                    </tr>
+                    <tr>
+                        <th width="40%">个性签名：</th>
+                        <td width="60%"><input type="text" name="" ms-duplex="addRemark"/>
+                        </td>
+                    </tr>
+                </table>
+                <div class="user-btn">
+                    <input type="button" value="保存" class="oper" ms-click="rev"/>
+                    <input type="button" value="返回" class="oper" ms-click="close"/>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 
-<script>
-    function loginOut() {
 
-    }
-    avalon.ready(function () {
-        var vm = avalon.define({
-            user:{},
-            init:function () {
-                vm.user = getLocalValue('user');
-            },
-            open:function (el) {
 
-            }
-        })
-        avalon.scan()
-        vm.init();
-    })
-</script>
 
 
 
