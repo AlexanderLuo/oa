@@ -756,7 +756,11 @@ avalon.ready(function () {
                 })
             });
 
-        }else {
+        }
+        if(vm.curPage=='school'){
+            vm.queryData.tegr_id=data;
+            vm.query(1)
+
         }
     })
     vm.$watch("school_search",function(data){
