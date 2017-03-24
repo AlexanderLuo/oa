@@ -180,6 +180,8 @@ avalon.ready(function () {
     })
 
 
+
+
     avalon.scan();
     vm.init();
 
@@ -188,10 +190,7 @@ avalon.ready(function () {
         vm.teger_id=data;
         console.log(data,old);
 
-
     })
-
-
 
 
 
