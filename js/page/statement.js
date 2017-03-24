@@ -23,21 +23,15 @@ avalon.ready(function () {
         pageNo: 1,
         pageSize: 10,
         records: 0,
+        meansName:"",
 
         last_req_time: 0,
+        seeMeans:function(el){
+            vm.meansName = el.meas_num;
+            vm.router('means')
+        },
         look: function (el) {
-            $.ajax({
-                url: "http://www.kh122.com:8080/Childrensys/servlet/api/meas/measureReport",
-                type: "post",
-                data: {
-                    meas_id: 10,
-                    class_id: el.class_id,
-                    child_id: el.child_id,
-                }
-            }).done(function (data) {
-                console.log(data);
-            })
-
+            window.open("http://www.kh122.com:8080/Childrensys/servlet/api/meas/measureReport"+"?meas_id="+el.means_id+"&class_id="+el.class_id+"&child_id="+el.child_id);
         },
 
         query: function (pageNo) {

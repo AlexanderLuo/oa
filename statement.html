@@ -29,11 +29,13 @@
         .ms-controller, .ms-important, [ms-controller], [ms-important] {
             visibility: hidden;
         }
-        .show{
-            display: table!important;
+
+        .show {
+            display: table !important;
         }
-        .block{
-            display: block!important;
+
+        .block {
+            display: block !important;
         }
     </style>
 
@@ -52,7 +54,7 @@
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
             <div class="baby_conter_li">
-                <a ms-class="baby_conter_school"     ms-click="router('statement')"><img src="img/buttom.png">学生报表管理</a>
+                <a ms-class="baby_conter_school" ms-click="router('statement')"><img src="img/buttom.png">学生报表管理</a>
             </div>
             <div class="Copyright">
                 <div class="p">Powered by glorymi<br>深圳市伴小宝科技有限公司</div>
@@ -60,20 +62,20 @@
         </div>
 
 
-
         <div class="baby_conter_right">
             <form>
 
                 <!--选择框-->
-                <div class="select" >
+                <div class="select">
                     <span>集团：&nbsp;</span>
-                    <select name=""  ms-duplex="teger_id">
+                    <select name="" ms-duplex="teger_id">
                         <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
                     </select>
                 </div>
 
                 <!--一级页面数据-->
-                <div class="baby_content_tab"     style="display: none"  ms-class="show:curPage == 'statement'"  ms-if="curPage == 'statement' ">
+                <div class="baby_content_tab" style="display: none" ms-class="show:curPage == 'statement'"
+                     ms-if="curPage == 'statement' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>体测编号</li>
@@ -87,26 +89,38 @@
                     </ul>
 
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" ms-attr-checked="el.check"
+                                                                ms-click="checkOne(el)"/></li>
                         <li>{{el.meas_num}}</li>
                         <li>{{el.meas_school_name}}</li>
                         <li>{{el.meas_detail}}</li>
                         <li>{{el.meas_cons_count}}/{{el.student_count}}</li>
-                        <li>{{el.meas_feet_count + el.meas_balance_count+el.meas_shuttle_count +el.meas_jump_count+el.meas_sit_count +el.meas_tennis_count}}/{{el.student_count}}</li>
+                        <li>{{el.meas_feet_count + el.meas_balance_count+el.meas_shuttle_count
+                            +el.meas_jump_count+el.meas_sit_count +el.meas_tennis_count}}/{{el.student_count}}
+                        </li>
                         <li>{{el.from_name}}</li>
                         <li>{{el.create_time | date('yyyy-MM-dd')}}</li>
                         <li>
-                            <a class="edit" ms-click="look(el)" >查看</a>
+                            <a class="edit" ms-click="seeMeans(el)">查看</a>
                         </li>
                     </ul>
                 </div>
 
                 <!--二级页面数据-->
-                <div class="baby_content_tab"     style="display: none"  ms-class="show:curPage == 'means'"  ms-if="curPage == 'means' ">
+                <div class="user-main2" style="display: none" ms-class="block:curPage == 'means'"
+                     ms-if="curPage == 'means' ">
+                    <div class="user-title2">
+                        <a ms-click="router('statement')" class="back">
+                            <img src="img/back.png" title="">
+                        </a>
+                        <h3>第{{meansName}}次体测</h3>
+                    </div>
+                </div>
+                <div class="baby_content_tab" style="display: none" ms-class="show:curPage == 'means'"
+                     ms-if="curPage == 'means' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
-                        <li>集团名称</li>
                         <li>学校名称</li>
                         <li>班级名称</li>
                         <li>姓名</li>
@@ -114,42 +128,45 @@
                     </ul>
 
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
-                        <li>{{el.tegr_name}}</li>
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" ms-attr-checked="el.check"
+                                                                ms-click="checkOne(el)"/></li>
                         <li>{{el.school_name}}</li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.children_name}}</li>
                         <li>
-                            <a class="edit" ms-click="look(el)" >预览</a>
+                            <a class="edit" ms-click="look(el)">预览</a>
                         </li>
                     </ul>
                 </div>
             </form>
 
             <div class="baby_content_dt">
-                <div class="baby_content_dt-1" >
+                <div class="baby_content_dt-1">
                     <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
-                    <span style="cursor: pointer;" >全选</span>
+                    <span style="cursor: pointer;">全选</span>
                     <span class="baby_content_del edit" ms-click="">批量下载</span>
                 </div>
                 <div class="baby_content_dt-2">
                     <div class="baby_content_dt-2-fy">
                         <!-- 分页首页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)" ms-if="total!=1 && pageNo!=1">首页</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)"
+                           ms-if="total!=1 && pageNo!=1">首页</a>
                         <!-- 前一页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)" ms-if="pageNo>1"> &lt;&lt; 上一页</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)"
+                           ms-if="pageNo>1"> &lt;&lt; 上一页</a>
                         <!-- 下一页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)" ms-if="pageNo<total">下一页 &gt;&gt;</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)"
+                           ms-if="pageNo<total">下一页 &gt;&gt;</a>
                         <!-- 分页尾页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)" ms-if="total!=1 && pageNo!=total && total!=0">尾页</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)"
+                           ms-if="total!=1 && pageNo!=total && total!=0">尾页</a>
                     </div>
                 </div>
 
 
-
                 <!--弹窗-->
-                <div class="shade"   ms-class="block:pop">
+                <div class="shade" ms-class="block:pop">
                     <div class="user-edit">
                         <div class="user-main">
                             <div class="user-title">
