@@ -27,7 +27,7 @@ avalon.ready(function () {
         school_id:"",
         meas_id:"",
         tegerList:[],
-        teger_id:"",
+        teger_id:0,
 
         //查询条件
         teger_search:0,
@@ -38,8 +38,11 @@ avalon.ready(function () {
                 var json = eval("(" + data + ")");// 解析json
                 if (json.code == 200) {
                     vm.tegerList=json.result;
-                    vm.tegr_id=json.result[0].tegr_id
-                    console.log(vm.tegr_id)
+                    var stu = {"tegr_id":"0","tegr_name":"全部"};
+                    vm.tegerList.push(stu);
+                    vm.tegr_id=json.result[0].tegr_id;
+                    console.log(vm.tegr_id);
+                    console.log(vm.tegerList);
                     callback(args)
                 }else{
                     error && error.call()
@@ -61,6 +64,11 @@ avalon.ready(function () {
         query: function (pageNo) {
             switch (vm.curPage){
                 case "statement":
+                    if(vm.weight>=3){
+                        vm.teger_search = vm.teger_id;
+                    }else {
+                        vm.teger_search = getLocalValue('user').tegr_id;
+                    }
                     vm.pageNo = pageNo;
                     $.ajax({
                         url: conf.baseUrl + conf.getMeasureList,
@@ -180,8 +188,6 @@ avalon.ready(function () {
     })
 
 
-
-
     avalon.scan();
     vm.init();
 
@@ -189,9 +195,6 @@ avalon.ready(function () {
     vm.$watch("teger_id",function(data,old){
         vm.teger_id=data;
         console.log(data,old);
-
+        vm.query(1);
     })
-
-
-
 })
