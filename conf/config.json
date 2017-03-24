@@ -50,6 +50,9 @@
 
 
   "getChildStatementList":"childStatementApi/getChildStatementList",
+  "getMeasureList":"childStatementApi/getMeasureList",
+
+
   "addDevice":"deviceGroupApi/addDeviceGroup",
   "delDevice":"deviceGroupApi/deleteDeviceGroup",
   "revDevice":"deviceGroupApi/editDeviceGroup",

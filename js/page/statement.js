@@ -43,7 +43,7 @@ avalon.ready(function () {
         query: function (pageNo) {
             vm.pageNo = pageNo;
             $.ajax({
-                url: conf.baseUrl + conf.getChildStatementList,
+                url: conf.baseUrl + conf.getMeasureList,
                 type: "post",
                 data: {
                     page: vm.pageNo,
