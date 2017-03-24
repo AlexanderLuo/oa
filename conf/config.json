@@ -49,7 +49,7 @@
 
 
 
-  "getChildStatementList":"childStatementApi/getChildStatementList",
+  "getChildStatementList":"childStatementApi/getChildrenList",
   "getMeasureList":"childStatementApi/getMeasureList",
 
 

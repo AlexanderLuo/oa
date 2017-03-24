@@ -102,23 +102,23 @@
                         <li>{{el.from_name}}</li>
                         <li>{{el.create_time | date('yyyy-MM-dd')}}</li>
                         <li>
-                            <a class="edit" ms-click="seeMeans(el)">查看</a>
+                            <a class="edit" ms-click="seeMeas(el)">查看</a>
                         </li>
                     </ul>
                 </div>
 
                 <!--二级页面数据-->
-                <div class="user-main2" style="display: none" ms-class="block:curPage == 'means'"
-                     ms-if="curPage == 'means' ">
+                <div class="user-main2" style="display: none" ms-class="block:curPage == 'meas'"
+                     ms-if="curPage == 'meas' ">
                     <div class="user-title2">
                         <a ms-click="router('statement')" class="back">
                             <img src="img/back.png" title="">
                         </a>
-                        <h3>第{{meansName}}次体测</h3>
+                        <h3>第{{measName}}次体测</h3>
                     </div>
                 </div>
-                <div class="baby_content_tab" style="display: none" ms-class="show:curPage == 'means'"
-                     ms-if="curPage == 'means' ">
+                <div class="baby_content_tab" style="display: none" ms-class="show:curPage == 'meas'"
+                     ms-if="curPage == 'meas' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>学校名称</li>

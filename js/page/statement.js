@@ -23,54 +23,70 @@ avalon.ready(function () {
         pageNo: 1,
         pageSize: 10,
         records: 0,
-        meansName:"",
+        measName:"",
 
         last_req_time: 0,
-        seeMeans:function(el){
-            vm.meansName = el.meas_num;
-            vm.router('means')
+        seeMeas:function(el){
+            vm.measName = el.meas_num;
+            vm.router('meas');
         },
         look: function (el) {
-            window.open("http://www.kh122.com:8080/Childrensys/servlet/api/meas/measureReport"+"?meas_id="+el.means_id+"&class_id="+el.class_id+"&child_id="+el.child_id);
+            console.log(el);
+            window.open(conf.statementJump+"?meas_id="+el.meas_id+"&class_id="+el.class_id+"&child_id="+el.child_id);
         },
 
         query: function (pageNo) {
-            vm.pageNo = pageNo;
-            $.ajax({
-                url: conf.baseUrl + conf.getMeasureList,
-                type: "post",
-                data: {
-                    page: vm.pageNo,
-                    page_size: vm.pageSize,
-                    last_req_time: vm.last_req_time
-                }
-            }).done(function (data) {
-                var json = eval("(" + data + ")");// 解析json
-                if (json.code == 200) {
-                    vm.last_req_time = json.result.last_req_time;
-                    json.result.list.forEach(function (p1, p2, p3) {
-                        p1.check = false
+            switch (vm.curPage){
+                case "statement":
+                    vm.pageNo = pageNo;
+                    $.ajax({
+                        url: conf.baseUrl + conf.getMeasureList,
+                        type: "post",
+                        data: {
+                            page: vm.pageNo,
+                            page_size: vm.pageSize,
+                            last_req_time: vm.last_req_time
+                        }
+                    }).done(function (data) {
+                        var json = eval("(" + data + ")");// 解析json
+                        if (json.code == 200) {
+                            vm.last_req_time = json.result.last_req_time;
+                            json.result.list.forEach(function (p1, p2, p3) {
+                                p1.check = false
+                            })
+                            vm.dataList = json.result.list
+                            vm.records = json.result.total_count;
+                        } else {
+                            error && error.call()
+                        }
+
                     })
-                    vm.dataList = json.result.list
-                    vm.records = json.result.total_count;
-                } else {
-                    error && error.call()
-                }
-
-            })
-        },
-        del: function () {
-            var delete_scales_id = "";
-            for (var a = 0; a < vm.dataList.length; a++) {
-                if (vm.dataList[a].check == true) {
-                    delete_scales_id = delete_scales_id + vm.dataList[a].scales_id
-                    if (a != vm.dataList.length - 1) {
-                        delete_scales_id = delete_scales_id + ","
-                    }
-                }
+                    break;
+                case "meas":
+                    vm.pageNo = pageNo;
+                    $.ajax({
+                        url: conf.baseUrl + conf.getChildStatementList,
+                        type: "post",
+                        data: {
+                            page: vm.pageNo,
+                            page_size: vm.pageSize,
+                            last_req_time: 0,
+                        }
+                    }).done(function (data) {
+                        var json = eval("(" + data + ")");// 解析json
+                        if (json.code == 200) {
+                            vm.last_req_time = json.result.last_req_time;
+                            json.result.list.forEach(function (p1, p2, p3) {
+                                p1.check = false
+                            })
+                            vm.dataList = json.result.list
+                            vm.records = json.result.total_count;
+                        } else {
+                            error && error.call()
+                        }
+                    })
+                 break;
             }
-
-
         },
         //路由
         router: function (str) {
@@ -95,7 +111,6 @@ avalon.ready(function () {
         },
         //弹窗
         open: function (str) {
-
             vm.pop = true;
         },
         //全选
@@ -137,7 +152,7 @@ avalon.ready(function () {
         }
     })
 
-    avalon.scan()
+    avalon.scan();
     vm.init();
 
 })
