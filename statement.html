@@ -66,7 +66,7 @@
             <form>
 
                 <!--选择框-->
-                <div class="select">
+                <div class="select"  ms-if="curPage=='statement'&&weight>=3">
                     <span>集团：&nbsp;</span>
                     <select name="" ms-duplex="teger_id">
                         <option ms-attr-value="{{el.teger_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
@@ -145,7 +145,7 @@
                 <div class="baby_content_dt-1">
                     <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
                     <span style="cursor: pointer;">全选</span>
-                    <span class="baby_content_del edit" ms-click="">批量下载</span>
+                    <!--<span class="baby_content_del edit" ms-click="">批量下载</span>-->
                 </div>
                 <div class="baby_content_dt-2">
                     <div class="baby_content_dt-2-fy">

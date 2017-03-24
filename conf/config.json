@@ -92,6 +92,6 @@
   "delVideos":"curriculumApi/deleteVideo",
 
 
-  "statementJump":"http://www.kh122.com:8080/Childrensys/servlet/api/meas/measureReport"
+  "statementJump":"http://www.kh122.com:8081/ChildrenBackstage/measure.html"
 }
 

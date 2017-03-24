@@ -13,7 +13,7 @@ avalon.ready(function () {
         //公用
         conf: {},
         user: {},
-        degr_id: "",   //当前用户设备组
+        tegr_id: 0,   //集团ID
         dataList: [],
         lastReq: 0,
         weight: 1,  //权限
@@ -24,15 +24,37 @@ avalon.ready(function () {
         pageSize: 10,
         records: 0,
         measName:"",
+        school_id:"",
+        meas_id:"",
+        tegerList:[],
+
+        //查询条件
+        teger_search:0,
 
         last_req_time: 0,
+        querytTeg:function(callback,args){
+            $.ajax({url:conf.baseUrl+conf.getTegrList,type:"post",data:{user_id:user.user_id}}).done(function(data){
+                var json = eval("(" + data + ")");// 解析json
+                if (json.code == 200) {
+                    vm.tegerList=json.result;
+                    vm.tegr_id=json.result[0].tegr_id
+                    console.log(vm.tegr_id)
+                    callback(args)
+                }else{
+                    error && error.call()
+                }
+            })
+        },
+
         seeMeas:function(el){
             vm.measName = el.meas_num;
+            vm.school_id = el.meas_school_id;
+            vm.meas_id = el.meas_id;
             vm.router('meas');
         },
         look: function (el) {
             console.log(el);
-            window.open(conf.statementJump+"?meas_id="+el.meas_id+"&class_id="+el.class_id+"&child_id="+el.child_id);
+            window.open(conf.statementJump+"?meas_id="+vm.meas_id+"&class_id="+el.class_id+"&child_id="+el.child_id);
         },
 
         query: function (pageNo) {
@@ -43,6 +65,8 @@ avalon.ready(function () {
                         url: conf.baseUrl + conf.getMeasureList,
                         type: "post",
                         data: {
+                            user_id:getLocalValue('user').user_id,
+                            tegr_id:getLocalValue('user').tegr_id,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
                             last_req_time: vm.last_req_time
@@ -68,6 +92,8 @@ avalon.ready(function () {
                         url: conf.baseUrl + conf.getChildStatementList,
                         type: "post",
                         data: {
+                            user_id:getLocalValue('user').user_id,
+                            school_id:vm.school_id,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
                             last_req_time: 0,
@@ -137,7 +163,6 @@ avalon.ready(function () {
             else {
                 vm.weight = 1
             }
-
             $.ajax({
                 url: "/oa/conf/config.json",
                 success: function (res) {
@@ -147,6 +172,7 @@ avalon.ready(function () {
                 complete: function (res) {
                     conf = eval("(" + res.responseText + ")")
                     vm.router("statement")
+                    vm.querytTeg(vm.router,"statement")
                 }
             });
         }
