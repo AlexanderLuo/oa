@@ -516,7 +516,7 @@
                     </div>
                 </div>
 
-                <!--家长弹窗-->
+                <!--学生弹窗-->
                 <div class="shade" ms-class="block:pop=='student' ">
                     <div class="user-edit">
                         <div class="user-main">
@@ -534,8 +534,7 @@
                                     <th width="40%">学生性别：</th>
                                     <td width="60%">
                                         <select ms-duplex="addSex">
-                                            <option  value="0">男</option>
-                                            <option  value="1">女</option>
+                                            <option  ms-repeat="sexList" ms-attr-value="el.id">{{el.name}}</option>
                                         </select>
 
                                     </td>
@@ -543,7 +542,7 @@
                                 <tr>
                                     <th width="40%">出生日期：</th>
                                     <td>
-                                        <input type="text" ms-duplex="birthDate" id="birth" name="birth" readOnly="true"
+                                        <input type="text" ms-duplex="addBrith" id="birth" name="birth" readOnly="true"
                                                class="set_text"
                                                onclick="laydate({istime: false,isclear:false, format: 'YYYY-MM-DD'})"/>
                                     </td>
@@ -551,12 +550,12 @@
                                 </tr>
                                 <tr>
                                     <th width="40%">家长姓名：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addParent"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">家长电话：</th>
-                                    <td width="60%"><input type="text" name="" ms-duplex="el.value"/>
+                                    <td width="60%"><input type="text" name="" ms-duplex="addPhone"/>
                                     </td>
                                 </tr>
                             </table>

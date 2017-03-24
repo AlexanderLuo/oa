@@ -41,7 +41,7 @@
 
   "queryStudent":"childApi/getChildList",
   "addStudent":"childApi/addChild",
-  "revStudent":"childApi/eidtChild",
+  "revStudent":"childApi/editChild",
   "delStudent":"childApi/deleteChild",
 
 

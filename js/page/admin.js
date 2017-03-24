@@ -11,6 +11,7 @@ avalon.ready(function () {
         school_id:0,//学校ID
         class_id:0,
         roleList:[{id:1, name:"教师"},{ id:8,name:"集团管理员"}],
+        sexList:[{id:0, name:"男"},{ id:1,name:"女"}],
 
 
         tegerList: [],
@@ -87,6 +88,10 @@ avalon.ready(function () {
         addSchoolId:"",
         addClass:"",
         //添加学生
+        addBrith:"",
+        addParent:"",
+        addSex:0,
+
 
 
 
@@ -409,20 +414,33 @@ avalon.ready(function () {
                 case "student":
                     if(el){
                         vm.isReving=true
-                        vm.addClass=el.school_name
+                        vm.addName=el.child_name
+                        vm.addSex=el.child_sex
+                        vm.addBrith=new Date(el.child_birthday).Format("YYYY-MM-DD")
+                        vm.addParent= el.name
+                        vm.addPhone=el.username
+
+
                         vm.popData={
                             isLegal:function(){
                                 var data=vm.popData.collecData();
-                                if(data.class_name.trim()==""){
+                                if(data.child_name.trim()==""){
                                     return false;
                                 } else{
                                     return true;
                                 }
                             },
                             collecData:function(){
+                                var ti=new Date(vm.addBrith).getTime();
                                 return{
-                                    school_id:el.school_id,
-                                    class_name:vm.addClass,
+                                    tegr_id:vm.tegr_id,
+                                    school_id:vm.school_id,
+                                    class_id:vm.class_id,
+                                    child_name:vm.addName,
+                                    child_sex:vm.addSex,
+                                    child_birthday:ti,
+                                    name:vm.addParent,
+                                    username:vm.addPhone
                                 }
                             }
                         }
@@ -431,24 +449,23 @@ avalon.ready(function () {
                         vm.popData={
                             isLegal:function(){
                                 var data=vm.popData.collecData();
-                                if(data.class_name.trim()==""){
+                                if(data.child_name.trim()==""){
                                     return false;
                                 } else{
                                     return true;
                                 }
                             },
                             collecData:function(){
+                                var ti=new Date(vm.addBrith).getTime();
                                 return{
                                     tegr_id:vm.tegr_id,
                                     school_id:vm.school_id,
                                     class_id:vm.class_id,
                                     child_name:vm.addName,
                                     child_sex:vm.addSex,
-                                    child_birthday:vm.addBrith,
-                                    username:vm.addParent,
-
-
-
+                                    child_birthday:ti,
+                                    name:vm.addParent,
+                                    username:vm.addPhone
 
                                 }
                             }
