@@ -86,6 +86,9 @@ avalon.ready(function () {
         //添加班级
         addSchoolId:"",
         addClass:"",
+        //添加学生
+
+
 
 
 
@@ -403,7 +406,61 @@ avalon.ready(function () {
                         }
                     }
                     break;
+                case "student":
+                    if(el){
+                        vm.isReving=true
+                        vm.addClass=el.school_name
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.popData.collecData();
+                                if(data.class_name.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    school_id:el.school_id,
+                                    class_name:vm.addClass,
+                                }
+                            }
+                        }
+
+                    }else{
+                        vm.popData={
+                            isLegal:function(){
+                                var data=vm.popData.collecData();
+                                if(data.class_name.trim()==""){
+                                    return false;
+                                } else{
+                                    return true;
+                                }
+                            },
+                            collecData:function(){
+                                return{
+                                    tegr_id:vm.tegr_id,
+                                    school_id:vm.school_id,
+                                    class_id:vm.class_id,
+                                    child_name:vm.addName,
+                                    child_sex:vm.addSex,
+                                    child_birthday:vm.addBrith,
+                                    username:vm.addParent,
+
+
+
+
+                                }
+                            }
+                        }
+                    }
+
+
+
+                    break
+
             }
+
 
         },
         getAdmin: function (json) {
@@ -806,7 +863,6 @@ avalon.ready(function () {
                     }
                 })
             });
-
         }
         if(vm.curPage=='school'){
             vm.queryData.tegr_id=data;

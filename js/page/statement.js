@@ -178,6 +178,8 @@ avalon.ready(function () {
         }
     })
 
+
+
     avalon.scan();
     vm.init();
 
