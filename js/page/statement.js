@@ -66,7 +66,7 @@ avalon.ready(function () {
                         type: "post",
                         data: {
                             user_id:getLocalValue('user').user_id,
-                            tegr_id:getLocalValue('user').tegr_id,
+                            tegr_id:vm.teger_search,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
                             last_req_time: vm.last_req_time
@@ -177,6 +177,24 @@ avalon.ready(function () {
             });
         }
     })
+    if(vm.weight>=3){
+        console.log(121111);
+        vm.teger_search=vm.tegerList[0].tegr_id;
+        vm.$watch("teger_search",function(data){
+            console.log(1222222);
+            vm.teger_search=data;
+            if(vm.curPage=='parent'){
+                vm.query(1)
+            }else {
+                vm.query(1)
+            }
+        })
+    }else {
+        vm.teacher_id = getLocalValue('user').tegr_id;
+    }
+
+
+
 
 
 
