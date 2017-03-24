@@ -27,6 +27,7 @@ avalon.ready(function () {
         school_id:"",
         meas_id:"",
         tegerList:[],
+        teger_id:"",
 
         //查询条件
         teger_search:0,
@@ -165,40 +166,33 @@ avalon.ready(function () {
             }
             $.ajax({
                 url: "/oa/conf/config.json",
-                success: function (res) {
-                    conf = res
-                    vm.router("statement")
-                },
+                //success: function (res) {
+                //    conf = res
+                //    vm.router("statement")
+                //},
                 complete: function (res) {
                     conf = eval("(" + res.responseText + ")")
-                    vm.router("statement")
+                    //vm.router("statement")
                     vm.querytTeg(vm.router,"statement")
                 }
             });
         }
     })
-    if(vm.weight>=3){
-        console.log(121111);
-        vm.teger_search=vm.tegerList[0].tegr_id;
-        vm.$watch("teger_search",function(data){
-            console.log(1222222);
-            vm.teger_search=data;
-            if(vm.curPage=='parent'){
-                vm.query(1)
-            }else {
-                vm.query(1)
-            }
-        })
-    }else {
-        vm.teacher_id = getLocalValue('user').tegr_id;
-    }
-
-
-
-
 
 
     avalon.scan();
     vm.init();
+
+
+    vm.$watch("teger_id",function(data,old){
+        vm.teger_id=data;
+        console.log(data,old);
+
+
+    })
+
+
+
+
 
 })
