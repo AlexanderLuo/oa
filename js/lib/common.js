@@ -358,7 +358,19 @@ function getCookie(name) {
     else
         return null;
 }
-
+// //对数据进行判断
+// function decide(str ,args){
+//     var msg = "";
+//     switch (args){
+//         case "12":
+//             if(str.length>12){
+//                 msg = ""
+//                 return
+//             }
+//
+//     }
+//
+// }
 
 /**错误显示**/
 function errorPlacement(error, element) {
