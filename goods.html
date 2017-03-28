@@ -174,7 +174,7 @@
                                     <th width="40%">商品类型：</th>
                                     <td width="60%">
                                         <select name="" ms-duplex="addGoodsType">
-                                            <option ms-attr-value="el.id" ms-repeat="typeList">{{el.name}}</option>
+                                            <option ms-attr-value="el.id" ms-repeat="typeList" ms-if-loop="$index!=0">{{el.name}}</option>
                                         </select>
                                     </td>
                                 </tr>
