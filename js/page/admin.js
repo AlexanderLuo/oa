@@ -47,7 +47,7 @@ avalon.ready(function () {
         checkAllFlag:false,  //全选标志
         pop:false,
         //数据
-        pageSize:4,
+        pageSize:10,
         pageNo:1,
         total:1,
         records:0,
@@ -193,6 +193,7 @@ avalon.ready(function () {
                         vm.addUserName=el.name
                         vm.addOtherName=el.username
                         vm.addTegr = el.role_type
+                        vm.addMark=el.remark,
                         vm.popData={
                             isLegal:function(){
                                 var data=vm.popData.collecData();
@@ -208,6 +209,7 @@ avalon.ready(function () {
                                     name:vm.addUserName,
                                     username:vm.addOtherName,
                                     role_type : vm.addTegr,
+                                    remark:vm.addMark
                                 }
                             }
                         }
@@ -307,7 +309,8 @@ avalon.ready(function () {
                         vm.popData={
                             isLegal:function(){
                                 var data=vm.popData.collecData();
-                                if(data.tegr_id==0 || data.user_id==0 || data.school_person.trim()=="" ||data.school_name.trim()=="" || data.school_call.trim()=="" || data.school_address.trim()==""){
+                                if(data.tegr_id==0 || data.school_name.trim()=="" || data.tegr_id==""
+                                    ){
                                     return false;
                                 } else{
                                     return true;
@@ -317,9 +320,6 @@ avalon.ready(function () {
                                 return{
                                     tegr_id:vm.addTegr,
                                     school_name:vm.addSchoolName,
-                                    school_call:vm.addPhone,
-                                    school_person:vm.addUserName,
-                                    school_address:vm.addAddr
                                 }
                             }
                         }
@@ -918,7 +918,7 @@ avalon.ready(function () {
     }
 
     avalon.filters.sexxFilter=function(str){
-        if(str==1){return "女"}
+        if(str==1 || str=='1'){return "女"}
         else return "男"
     }
 
