@@ -63,7 +63,6 @@ avalon.ready(function () {
         school_search:0,
 
 
-
         //用户添加
         addName:"",
 
@@ -93,6 +92,8 @@ avalon.ready(function () {
         addParent:"",
         addSex:0,
 
+        //补充字段
+        addTe:"",
 
 
 
@@ -364,7 +365,7 @@ avalon.ready(function () {
                             },
                             collecData:function(){
                                 return{
-                                    tegr_id:vm.tegr_id,
+                                    tegr_id:vm.addTe,
                                     username:vm.addUserName,
                                     name:vm.addName,
                                     role_type:vm.addRole,
@@ -639,10 +640,10 @@ avalon.ready(function () {
                         break;
                     //todo 配置tegr ID
                     case "teacher":
-                        console.log(vm.tegr_id)
+                        console.log(vm.addTe)
                         vm.queryData={
                             user_id: user.user_id,
-                            tegr_id: vm.tegr_id,
+                            tegr_id: vm.addTe,
                             page: vm.pageNo,
                             page_size:  vm.pageSize,
                             last_req_time: vm.teacherReq
@@ -728,6 +729,7 @@ avalon.ready(function () {
             vm.addUserName=""//用户添加
             vm.addOtherName=""
             vm.addMark=""
+            vm.addTe=""
         },
         delPop:function () {
             layer.confirm("确定删除吗？",function () {
@@ -833,7 +835,7 @@ avalon.ready(function () {
             })
         },
         seeTeacher:function(el){
-            vm.tegr_id=el.tegr_id
+            vm.addTe=el.tegr_id
             vm.tegrName=el.tegr_name
             vm.router('teacher')
         },
