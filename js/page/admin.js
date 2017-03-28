@@ -14,7 +14,8 @@ avalon.ready(function () {
         sexList:[{id:0, name:"男"},{ id:1,name:"女"}],
 
 
-        tegerList: [],
+        tegerList2: [{id:16,name:"管理员"},{id:4,name:"专家（客服）"}],
+        tegerList:[],
         schoolList:[],
 
         list:[],
@@ -74,7 +75,7 @@ avalon.ready(function () {
         addAdmin:"",
         adminList: [],
         //学校添加
-        addTegr:"",
+        addTegr:0,
         addSchoolName:"",
         addAddr:"",
         addPhone:"",
@@ -189,8 +190,9 @@ avalon.ready(function () {
                 case 'admin':
                     if(el){
                         vm.isReving=true
-                        vm.addUserName=el.username
-                        vm.addOtherName=el.name
+                        vm.addUserName=el.name
+                        vm.addOtherName=el.username
+                        vm.addTegr = el.role_type
                         vm.popData={
                             isLegal:function(){
                                 var data=vm.popData.collecData();
@@ -203,8 +205,9 @@ avalon.ready(function () {
                             collecData:function(){
                                 return{
                                     user_id:el.user_id,
-                                    username:vm.addUserName,
-                                    name:vm.addOtherName
+                                    name:vm.addUserName,
+                                    username:vm.addOtherName,
+                                    role_type : vm.addTegr,
                                 }
                             }
                         }
@@ -221,8 +224,8 @@ avalon.ready(function () {
                             },
                             collecData:function(){
                                 return{
-                                    username:vm.addUserName,
-                                    name:vm.addOtherName
+                                    name:vm.addUserName,
+                                    username:vm.addOtherName
                                 }
                             }
                         }
@@ -471,12 +474,33 @@ avalon.ready(function () {
                             }
                         }
                     }
+                    break;
+            case "parent":
+            if(el){
+                vm.isReving=true;
+                vm.addName=el.name;
+                vm.addUserName=el.username;
+                vm.addMark=el.remark;
+                vm.popData={
+                    isLegal:function(){
+                        var data=vm.popData.collecData();
+                            return true;
 
-
-
-                    break
+                    },
+                    collecData:function(){
+                        var ti=new Date(vm.addBrith).getTime();
+                        return{
+                            parent_id:el.parent_id,
+                            name:vm.addName,
+                            username:vm.addUserName,
+                            remark:vm.addMark,
+                        }
+                    }
+                }
 
             }
+            break;
+        }
 
 
         },
@@ -684,6 +708,9 @@ avalon.ready(function () {
             vm.pop=false;
             vm.isReving=false;
 
+            vm.addUserName=""
+            vm.addOtherName=""
+            vm.addTegr=0;
             vm.addName="";
             vm.addParent="";
             vm.addSex = "";

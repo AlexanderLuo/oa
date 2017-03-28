@@ -340,18 +340,16 @@
                                 <tr>
                                     <th width="40%">角色：</th>
                                     <td width="60%">
-                                        <select ms-duplex="tegr_id">
-                                            <option value="4" >专家（客服）</option>
-                                            <option value="16" selected = "selected">管理员</option>
-                                            <!--<option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">-->
-                                                <!--{{el.tegr_name}}-->
-                                            <!--</option>-->
+                                        <select ms-duplex="addTegr">
+                                            <option ms-attr-value="{{el.id}}" ms-repeat="tegerList2">
+                                                {{el.name}}
+                                            </option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="40%">简介：</th>
-                                    <td width="60%"><textarea rows="4" cols="30"></textarea>
+                                    <td width="60%"><textarea rows="4" cols="30" ms-duplex="addMark"></textarea>
                                     </td>
                                 </tr>
                             </table>
