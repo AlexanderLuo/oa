@@ -62,7 +62,7 @@
                         src="img/buttom.png">系统用户</a>
                 <a ms-class="baby_conter_school:curPage == 'teger' " ms-click="router('teger')" ms-if="weight==3 "><img
                         src="img/buttom.png">集团列表</a>
-                <a ms-class="baby_conter_school:curPage == 'school' " ms-click="router('school')"><img
+                <a ms-class="baby_conter_school:curPage == 'school' || curPage == 'class'|| curPage == 'student' " ms-click="router('school')"><img
                         src="img/buttom.png">学校列表</a>
                 <a ms-class="baby_conter_school:curPage == 'parent' " ms-click="router('parent')"><img
                         src="img/buttom.png">家长列表</a>
@@ -285,7 +285,7 @@
                         </li>
                         <li>{{el.class_name}}</li>
                         <li>{{el.children_name}}</li>
-                        <li>{{el.sex | sexxFilter}}</li>
+                        <li>{{el.child_sex | sexxFilter}}</li>
                         <li>{{el.birthday | date('yyyy-MM-dd') }}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.username}}</li>
