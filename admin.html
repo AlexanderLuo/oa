@@ -118,7 +118,7 @@
                             <input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>
                         </li>
                         <li>{{el.name}}</li>
-                        <li>{{el.remark}}</li>
+                        <li>{{el.role_type|roleTypeFilter}}</li>
                         <li>{{el.username}}</li>
                         <li ms-click="open(el)"><a class="edit">编辑</a></li>
                     </ul>
@@ -250,7 +250,7 @@
                             <input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>
                         </li>
                         <li>{{el.name}}</li>
-                        <li>{{el.class_name}}</li>
+                        <li>{{el.username}}</li>
                         <li>{{el.remark}}</li>
                         <li ms-click="open(el)"><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
                     </ul>
@@ -341,9 +341,11 @@
                                     <th width="40%">角色：</th>
                                     <td width="60%">
                                         <select ms-duplex="tegr_id">
-                                            <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">
-                                                {{el.tegr_name}}
-                                            </option>
+                                            <option value="4" >专家（客服）</option>
+                                            <option value="16" selected = "selected">管理员</option>
+                                            <!--<option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">-->
+                                                <!--{{el.tegr_name}}-->
+                                            <!--</option>-->
                                         </select>
                                     </td>
                                 </tr>

@@ -416,7 +416,7 @@ avalon.ready(function () {
                         vm.isReving=true
                         vm.addName=el.child_name
                         vm.addSex=el.child_sex
-                        vm.addBrith=new Date(el.child_birthday).Format("YYYY-MM-DD")
+                        vm.addBrith=new Date(el.child_birthday).Format("yyyy-MM-dd")
                         vm.addParent= el.name
                         vm.addPhone=el.username
 
@@ -575,7 +575,10 @@ avalon.ready(function () {
             vm.curPage=str;
             vm.addUrl="";
             vm.addTegr=0;
-            vm.addName=""
+            vm.addName="";
+            vm.addParent="";
+            vm.addSex = "";
+            vm.addBrith="";
             vm.tegr_id=vm.tegerList[0].tegr_id;
             vm.teger_search=vm.tegerList[0].tegr_id
 
@@ -681,7 +684,10 @@ avalon.ready(function () {
             vm.pop=false;
             vm.isReving=false;
 
-            vm.addName=""
+            vm.addName="";
+            vm.addParent="";
+            vm.addSex = "";
+            vm.addBrith="";
             vm.addAccount=""
             vm.addSummary=""
             vm.addRole=""
@@ -857,6 +863,31 @@ avalon.ready(function () {
 
     avalon.scan()
     vm.init();
+
+    avalon.filters.roleTypeFilter = function (value, args, args2) {
+        var str = "";
+        switch (value) {
+            case 1:
+                str = "教师";
+                break;
+            case  2:
+                str = "家长";
+                break;
+            case  4:
+                str = "专家（客服）";
+                break;
+            case  8:
+                str = "集团组长";
+                break;
+            case  16:
+                str = "管理员";
+                break;
+            case  32:
+                str = "超级管理员";
+                break;
+        }
+        return str;
+    }
 
     vm.$watch("teger_search",function(data){
         vm.queryData.tegr_id=data;
