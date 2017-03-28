@@ -423,7 +423,6 @@ avalon.ready(function () {
                         vm.addParent= el.name
                         vm.addPhone=el.username
 
-
                         vm.popData={
                             isLegal:function(){
                                 var data=vm.popData.collecData();
@@ -707,7 +706,6 @@ avalon.ready(function () {
         close:function(){
             vm.pop=false;
             vm.isReving=false;
-
             vm.addUserName=""
             vm.addOtherName=""
             vm.addTegr=0;
@@ -716,6 +714,7 @@ avalon.ready(function () {
             vm.addSex = "";
             vm.addBrith="";
             vm.addAccount=""
+            vm.addParent="";
             vm.addSummary=""
             vm.addRole=""
             //集团添加
@@ -917,6 +916,12 @@ avalon.ready(function () {
         }
         return str;
     }
+
+    avalon.filters.sexxFilter=function(str){
+        if(str==1){return "女"}
+        else return "男"
+    }
+
 
     vm.$watch("teger_search",function(data){
         vm.queryData.tegr_id=data;
