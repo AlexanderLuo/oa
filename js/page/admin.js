@@ -707,6 +707,7 @@ avalon.ready(function () {
             var li = []
             var idKey=""
             var task
+
             switch (vm.curPage) {
                 case "admin":
                     vm.delData = {
@@ -774,12 +775,13 @@ avalon.ready(function () {
                         delete_child_id: ids,
                         user_id:user.user_id
                     }
-                    idKey="class_id"
+                    idKey="child_id"
                     task=function(){
                         vm.delData.delete_child_id=ids;
                     }
                     break;
             }
+
             for (var a = 0; a < vm.dataList.length; a++) {
                 if (vm.dataList[a].check == true) {
                     li.push(vm.dataList[a][idKey])
