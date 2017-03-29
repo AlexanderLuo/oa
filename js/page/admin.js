@@ -845,7 +845,9 @@ avalon.ready(function () {
             vm.addUserName = ""//用户添加
             vm.addOtherName = ""
             vm.addMark = ""
-            vm.addTe = ""
+            if(vm.curPage!='teacher'){
+                vm.addTe = ""
+            }
             vm.addClass=""
         },
         delPop: function () {
