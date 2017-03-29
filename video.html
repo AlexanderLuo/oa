@@ -49,7 +49,7 @@
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
             <div class="baby_conter_li">
-                <a ms-class="baby_conter_school:curPage == 'video' "      ms-click="router('video')"><img src="img/buttom.png">讲堂管理</a>
+                <a ms-class="baby_conter_school:curPage == 'video' " ms-click="router('video')" ms-if="weight==3 "><img src="img/buttom.png">讲堂管理</a>
             </div>
             <div class="Copyright">
                 <div class="p">Powered by glorymi<br>深圳市伴小宝科技有限公司</div>
@@ -57,7 +57,7 @@
         </div>
 
 
-        <div class="baby_conter_right">
+        <div class="baby_conter_right" ms-if="weight==3 ">
             <form>
                 <!--视频管理-->
                 <div class="baby_content_tab"     style="display: none"  ms-class="show:curPage == 'video'"  ms-if="curPage == 'video' ">

@@ -57,9 +57,9 @@
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
             <div class="baby_conter_li" id="teachLeft_Id">
-                <a ms-class="baby_conter_school:curPage == 'goods' " ms-click="router('goods')"><img
+                <a ms-class="baby_conter_school:curPage == 'goods' " ms-click="router('goods')" ms-if="weight==3 "><img
                         src="img/buttom.png">商品管理</a>
-                <a ms-class="baby_conter_school:curPage == 'order' " ms-click="router('order')"><img
+                <a ms-class="baby_conter_school:curPage == 'order' " ms-click="router('order')" ms-if="weight==3 "><img
                         src="img/buttom.png">订单管理</a>
             </div>
             <div class="Copyright">
@@ -68,10 +68,10 @@
         </div>
 
 
-        <div class="baby_conter_right">
+        <div class="baby_conter_right" ms-if="weight==3 ">
             <form method="post" id="formId">
 
-                <div class="select" ms-if="curPage== 'goods'  ">
+                <div class="select" ms-if="curPage== 'goods'" >
                     <span>商品类型：&nbsp;</span>
                     <select name="" ms-duplex="typeFilter">
                         <option ms-attr-value="el.id" ms-repeat="typeList">{{el.name}}</option>

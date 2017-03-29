@@ -661,7 +661,7 @@ avalon.ready(function () {
             var ty = user.role_type;
             if (ty == "8") {
                 vm.weight = 2
-            }
+            } 
             else if (ty == "16" || ty == "32") {
                 vm.weight = 3
             }
