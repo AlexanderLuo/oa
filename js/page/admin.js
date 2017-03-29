@@ -832,7 +832,6 @@ avalon.ready(function () {
         delPop: function () {
             layer.confirm("确定删除吗？", function () {
                 vm.del()
-                layer.closeAll()
             }, layer.closeAll())
         },
         del: function () {
@@ -941,9 +940,15 @@ avalon.ready(function () {
             }
             task();
 
+            if(ids==""){
+                layer.closeAll()
+                layer.msg("请选择删除项")
+                return;
+            }
             var path = vm.upperPage();
             $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
                 vm.query(1)
+                layer.closeAll()
             })
         },
         seeTeacher: function (el) {
