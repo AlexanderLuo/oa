@@ -21,7 +21,7 @@ avalon.ready(function () {
         checkAllFlag: false,  //全选标志
         pop: false,
         pageNo: 1,
-        pageSize: 4,
+        pageSize: 10,
         records: 0,
         total:1,
 
@@ -96,16 +96,22 @@ avalon.ready(function () {
                     }
                     break;
             }
+            if(ids==""){
+                layer.closeAll()
+                layer.msg("请选择删除项")
+                return;
+            }
+
             var path = vm.upperPage();
             $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
                 vm.query(1)
+                layer.closeAll()
             })
 
         },
         delPop: function () {
             layer.confirm("确定删除吗？", function () {
                 vm.del()
-                layer.closeAll()
             }, layer.closeAll())
         },
         addHandle: function (data, callback, error) {
