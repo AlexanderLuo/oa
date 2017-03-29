@@ -12,6 +12,7 @@ avalon.ready(function () {
         class_id: 0,
         roleList: [{id: 1, name: "教师"}, {id: 8, name: "集团管理员"}],
         sexList: [{id: 0, name: "男"}, {id: 1, name: "女"}],
+        selfId:"",
 
 
         tegerList2: [{id: 16, name: "管理员"}, {id: 4, name: "专家（客服）"}],
@@ -828,13 +829,26 @@ avalon.ready(function () {
 
             switch (vm.curPage) {
                 case "admin":
-                    vm.delData = {
-                        delete_user_id: ids,
-                        user_id: user.user_id
-                    }
                     idKey = "user_id"
+                    for (var a = 0; a < vm.dataList.length; a++) {
+                        if (vm.dataList[a].check == true) {
+                            if(vm.dataList[a][idKey]!=vm.selfId){
+                                li.push(vm.dataList[a][idKey])
+                            }
+                        }
+                    }
+                    for (var b = 0; b < li.length; b++) {
+                        ids = ids + li[b]
+                        if (b != li.length - 1) {
+                            ids = ids + ","
+                        }
+                        vm.delData = {
+                            delete_user_id: ids,
+                            user_id: user.user_id
+                        }
+                    }
                     task = function () {
-                        vm.delData.delete_user_id = ids;
+
                     }
                     break;
                 case "teger":
@@ -942,6 +956,7 @@ avalon.ready(function () {
             }
             user = userr;
             var ty = user.role_type;
+            vm.selfId=user.user_id
             if (ty == "8") {
                 vm.weight = 2
             }
