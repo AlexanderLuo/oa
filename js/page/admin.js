@@ -125,6 +125,7 @@ avalon.ready(function () {
             vm.total = 1;
             vm.checkAllFlag = false;
             vm.queryData.page = pageNo;
+            vm.dataList=[]
             var path = vm.upperPage();
             $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function (data) {
                 vm.queryHandle(data, vm["get" + path])
@@ -434,7 +435,7 @@ avalon.ready(function () {
                 case "class":
                     if (el) {
                         vm.isReving = true
-                        vm.addClass = el.school_name
+                        vm.addClass = el.class_name
                         vm.popData = {
                             isLegal: function () {
                                 var data = vm.popData.collecData();
@@ -450,7 +451,7 @@ avalon.ready(function () {
                             },
                             collecData: function () {
                                 return {
-                                    school_id: el.school_id,
+                                    class_id: el.class_id,
                                     class_name: vm.addClass,
                                 }
                             }
@@ -814,6 +815,7 @@ avalon.ready(function () {
             vm.addOtherName = ""
             vm.addMark = ""
             vm.addTe = ""
+            vm.addClass=""
         },
         delPop: function () {
             layer.confirm("确定删除吗？", function () {
