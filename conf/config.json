@@ -6,13 +6,13 @@
   "getTeacherList":"teacherApi/getTeacherList",
 
 
-  "queryAdmin":"userApi/getAdminList",
+  "queryAdmin":"userApi/getAdminListPage",
   "addAdmin":"userApi/addAdmin",
   "delAdmin":"userApi/deleteAdmin",
   "revAdmin":"userApi/editUserInfo",
 
 
-  "queryTeger":"tegrApi/getTegrList",
+  "queryTeger":"tegrApi/getTegrListPage",
   "addTeger":"tegrApi/addTegr",
   "delTeger":"tegrApi/deleteTegr",
   "revTeger":"tegrApi/editTegr",
