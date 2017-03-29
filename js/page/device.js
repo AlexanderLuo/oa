@@ -11,7 +11,7 @@ avalon.ready(function () {
         degr_id: "",   //当前用户设备组
 
 
-        pageSize: 4,
+        pageSize: 10,
         pageNo: 1,
         total: 1,
         records: 0,
@@ -168,10 +168,16 @@ avalon.ready(function () {
                     console.log(vm.delData)
                     break;
             }
+            if(ids==""){
+                layer.closeAll()
+                layer.msg("请选择删除项")
+                return;
+            }
 
             var path = vm.upperPage();
             $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
                 vm.query(1)
+                layer.closeAll()
             })
 
         },
@@ -615,7 +621,6 @@ avalon.ready(function () {
         delPop: function () {
             layer.confirm("确定删除吗？", function () {
                 vm.del()
-                layer.closeAll()
             }, layer.closeAll())
         },
 
