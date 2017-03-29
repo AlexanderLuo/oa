@@ -104,6 +104,7 @@ avalon.ready(function () {
             return word;
         },
         querytTeg: function (callback) {
+            vm.tegerList=[]
             $.ajax({
                 url: conf.baseUrl + conf.getTegrList,
                 type: "post",
@@ -305,7 +306,7 @@ avalon.ready(function () {
                             },
                             collecData: function () {
                                 return {
-                                    user_id: vm.addAdmin,
+                                    user_id: user.user_id,
                                     tegr_name: vm.addTegrName
                                 }
                             }
@@ -588,14 +589,18 @@ avalon.ready(function () {
 
         },
         getAdmin: function (json) {
-            var li = json.returnObject;
+            var li = json.returnObject.list;
             li.forEach(function (p1, p2, p3) {
                 p1.check = false;
             })
+            vm.records = json.returnObject.total_count;
+            vm.total = Math.ceil(vm.records / vm.pageSize)
             vm.dataList = li;
         },
         getTeger: function (json) {
-            var li = json.result;
+            var li = json.result.list;
+            vm.records = json.result.total_count;
+            vm.total = Math.ceil(vm.records / vm.pageSize)
             li.forEach(function (p1, p2, p3) {
                 p1.check = false;
             })
@@ -710,6 +715,9 @@ avalon.ready(function () {
                     case "admin":
                         vm.queryData = {
                             user_id: user.user_id,
+                            last_req_time:0,
+                            page: vm.pageNo,
+                            page_size: vm.pageSize
                         }
                         break;
                     case "teger":
@@ -734,6 +742,7 @@ avalon.ready(function () {
                         break;
                     //todo 配置tegr ID
                     case "school":
+                        vm.querytTeg();
                         vm.queryData = {
                             tegr_id: vm.teger_search,
                             page: vm.pageNo,
