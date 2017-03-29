@@ -1,0 +1,72 @@
+
+<div >
+    <div  class="baby_top">
+        <div class="baby_top_logo">
+            <a href="javascript:location.reload()">
+                <img src="../img/logo.png" title="">
+            </a>
+            <div class="baby_top_p">
+                <p class="baby_top_p_1">伴小宝</p>
+                <p class="baby_top_p_2">幼儿安全健康管理</p>
+            </div>
+        </div>
+        <!--导航-->
+        <div class="baby_top_nav">
+            <a href="/oa/device.html">
+                <img src="../img/device.png" title="">
+                <p>设备管理</p>
+            </a>
+
+            <a href="/oa/admin.html" >
+                <img src="../img/num.png" title="">
+                <p>用户管理</p>
+            </a>
+
+            <a href="/oa/goods.html" >
+                <img src="../img/health.png" title="">
+                <p>商城管理</p>
+            </a>
+
+            <a href="/oa/video.html" class="baby_top_list ">
+                <img src="../img/attentop.png" title="">
+                <p>讲堂管理</p>
+            </a>
+
+            <a href="/oa/statement.html">
+                <img src="../img/statement.png" title="">
+                <p>报表管理</p>
+            </a>
+        </div>
+
+        <!--右侧附加信息-->
+        <div class="baby_top_rig">
+            <div class="baby_top_rig_a">
+                <a class="baby_a_border">
+                    <img src="../img/help.png" title="">
+                    <span>帮助</span>
+                </a>
+                <a class="baby_a_border">关于</a>
+                <a ms-on-click="@loginOut">退出</a>
+            </div>
+
+        <div class="baby_top_rig_info">
+            <div class="baby_top_info_pad">
+                <p class="baby_info_user">{{@user.name}}</p>
+                |
+                <strong>
+                    <a style="color: #999;cursor:pointer" ms-on-click="open">个人设置 </a>
+                </strong>
+            </div>
+        </div>
+    </div>
+    <!-- 个人设置 -->
+       <div ms-html="@settingPop"></div>
+    </div>
+</div>
+
+
+
+
+
+
+
