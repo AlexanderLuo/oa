@@ -239,7 +239,6 @@ avalon.ready(function () {
                         vm.popData = {
                             isLegal: function () {
                                 var data = vm.popData.collecData();
-
                                 if (data.name.trim() == "" || data.username.trim() == "") {
                                     return false;
                                 } else {
@@ -247,8 +246,7 @@ avalon.ready(function () {
                                         return "姓名超过12字符";
                                     }
                                     if (!reg.test(data.username)) {
-                                        return "账号请填写正确的电话号码"
-
+                                        return "账号请填写正确的电话号码";
                                     } else {
                                         return true;
                                     }
