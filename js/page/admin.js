@@ -197,6 +197,7 @@ avalon.ready(function () {
                 collecData: function () {
                 }
             }
+            var reg =/^1(3|4|5|7|8)\d{9}$/;
             switch (vm.curPage) {
                 case 'admin':
                     if (el) {
@@ -208,16 +209,19 @@ avalon.ready(function () {
                             vm.popData = {
                                 isLegal: function () {
                                     var data = vm.popData.collecData();
-                                    if (data.name.length > 12 || data.username.length > 12) {
-                                        return "姓名或者账号超过12字符";
-                                    }
-                                    if (data.remark.length > 200) {
-                                        return "简介超过200字符";
-                                    }
                                     if (data.name.trim() == "" || data.username.trim() == "") {
                                         return false;
                                     } else {
-                                        return true;
+                                        if (data.name.length > 12) {
+                                            return "姓名超过12字符";
+                                        }
+                                        if (!reg.test(data.username)) {
+                                            console.log(data.username);
+                                            console.log(reg.test(data.username));
+                                            return "账号请填写正确的电话号码";
+                                        } else {
+                                            return true;
+                                        }
                                     }
                                 },
                                 collecData: function () {
@@ -239,8 +243,12 @@ avalon.ready(function () {
                                 if (data.name.trim() == "" || data.username.trim() == "") {
                                     return false;
                                 } else {
-                                    if (data.name.length > 12 || data.username.length > 12) {
-                                        return "姓名或者账号超过12字符";
+                                    if (data.name.length > 12) {
+                                        return "姓名超过12字符";
+                                    }
+                                    if (!reg.test(data.username)) {
+                                        return "账号请填写正确的电话号码"
+
                                     } else {
                                         return true;
                                     }
@@ -374,8 +382,11 @@ avalon.ready(function () {
                                 if (data.name.trim() == "" || data.username.trim() == "") {
                                     return false;
                                 } else {
-                                    if (data.name.length > 12 || data.username.length > 12) {
-                                        return "姓名或者账号超过12字符"
+                                    if (data.name.length > 12) {
+                                        return "姓名超过12字符";
+                                    }
+                                    if (!reg.test(data.username)) {
+                                        return "账号请填写正确的电话号码"
                                     } else {
                                         return true;
                                     }
@@ -399,8 +410,11 @@ avalon.ready(function () {
                                 if (data.username.trim() == "" || data.name.trim() == "") {
                                     return false;
                                 } else {
-                                    if (data.name.length > 12 || data.username.length > 12) {
-                                        return "姓名或者账号超过12字符"
+                                    if (data.name.length > 12) {
+                                        return "姓名超过12字符";
+                                    }
+                                    if (!reg.test(data.username)) {
+                                        return "账号请填写正确的电话号码"
                                     } else {
                                         return true;
                                     }
@@ -546,8 +560,11 @@ avalon.ready(function () {
                                 if (data.name.trim() == "" || data.username.trim() == "") {
                                     return false;
                                 } else {
-                                    if (data.name.length > 12 || data.username.length > 12) {
-                                        return "姓名或者账号超过12字符"
+                                    if (data.name.length > 12) {
+                                        return "姓名超过12字符";
+                                    }
+                                    if (!reg.test(data.username)) {
+                                        return "账号请填写正确的电话号码"
                                     } else {
                                         return true;
                                     }
