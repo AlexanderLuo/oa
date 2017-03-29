@@ -257,8 +257,11 @@ avalon.ready(function () {
                             },
                             collecData: function () {
                                 return {
+                                    user_id: el.user_id,
                                     name: vm.addUserName,
-                                    username: vm.addOtherName
+                                    username: vm.addOtherName,
+                                    role_type: vm.addTegr,
+                                    remark: vm.addMark
                                 }
                             }
                         }
