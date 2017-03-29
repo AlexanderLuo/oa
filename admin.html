@@ -114,13 +114,17 @@
 
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li">
+                        <li class="baby_tab_checkbox_li" ms-if="el.user_id!=selfId">
                             <input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>
+                        </li>
+                        <li class="baby_tab_checkbox_li" ms-if="el.user_id==selfId">
+                            <!--<input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>-->
                         </li>
                         <li>{{el.name}}</li>
                         <li>{{el.role_type|roleTypeFilter}}</li>
                         <li>{{el.username}}</li>
-                        <li ms-click="open(el)"><a class="edit">编辑</a></li>
+                        <li ms-click="open(el)" ms-if="el.user_id!=selfId"><a class="edit">编辑</a></li>
+                        <li  ms-if="el.user_id==selfId"><a class="edit"></a></li>
                     </ul>
                 </div>
 
