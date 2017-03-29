@@ -12,7 +12,7 @@ avalon.ready(function () {
         class_id: 0,
         roleList: [{id: 1, name: "教师"}, {id: 8, name: "集团管理员"}],
         sexList: [{id: 0, name: "男"}, {id: 1, name: "女"}],
-        selfId:"",
+        selfId: "",
 
 
         tegerList2: [{id: 16, name: "管理员"}, {id: 4, name: "专家（客服）"}],
@@ -126,7 +126,7 @@ avalon.ready(function () {
             vm.total = 1;
             vm.checkAllFlag = false;
             vm.queryData.page = pageNo;
-            vm.dataList=[]
+            vm.dataList = []
             var path = vm.upperPage();
             $.ajax({url: vm.queryUrl, type: "post", data: vm.queryData}).done(function (data) {
                 vm.queryHandle(data, vm["get" + path])
@@ -152,8 +152,14 @@ avalon.ready(function () {
             console.log(check);
             if (check == true) {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
+                    var json = eval("(" + data + ")")
+                    console.log(json);
+                    if(json.msg=="添加成功"||json.msg=="修改成功"){
                     vm.close();
                     vm.query(1)
+                    }else{
+                        layer.msg(json.msg);
+                    }
                 })
             } else if (!check) {
                 layer.msg("请填写完整")
@@ -172,8 +178,14 @@ avalon.ready(function () {
             if (check == true) {
                 console.log(vm.popData.collecData())
                 $.ajax({url: vm.addUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
-                    vm.close();
-                    vm.query(1)
+                    var json = eval("(" + data + ")")
+                    console.log(json);
+                    if(json.msg=="添加成功"||json.msg=="修改成功"){
+                        vm.close();
+                        vm.query(1)
+                    }else{
+                        layer.msg(json.msg);
+                    }
                 })
             } else if (!check) {
                 layer.msg("请填写完整")
@@ -496,11 +508,14 @@ avalon.ready(function () {
                         vm.popData = {
                             isLegal: function () {
                                 var data = vm.popData.collecData();
+                                var date = new Date();
                                 if (data.child_name.trim() == "") {
                                     return false;
                                 } else {
                                     if (data.child_name.length > 12) {
-                                        return "学生姓名超过12字符"
+                                        return "学生姓名超过12字符";
+                                    } else if (date < data.child_birthday) {
+                                        return "所选生日不得大于当前时间";
                                     } else {
                                         return true;
                                     }
@@ -524,12 +539,15 @@ avalon.ready(function () {
                     } else {
                         vm.popData = {
                             isLegal: function () {
+                                var date = new Date();
                                 var data = vm.popData.collecData();
                                 if (data.child_name.trim() == "") {
                                     return false;
                                 } else {
                                     if (data.child_name.length > 12) {
                                         return "学生姓名超过12字符"
+                                    } else if (date < data.child_birthday) {
+                                        return "所选生日不得大于当前时间";
                                     } else {
                                         return true;
                                     }
@@ -537,6 +555,7 @@ avalon.ready(function () {
                             },
                             collecData: function () {
                                 var ti = new Date(vm.addBrith).getTime();
+                                console.log(ti);
                                 return {
                                     tegr_id: vm.tegr_id,
                                     school_id: vm.school_id,
@@ -975,7 +994,7 @@ avalon.ready(function () {
             }
             user = userr;
             var ty = user.role_type;
-            vm.selfId=user.user_id
+            vm.selfId = user.user_id
             if (ty == "8") {
                 vm.weight = 2
             }
