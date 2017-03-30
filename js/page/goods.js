@@ -385,11 +385,13 @@ avalon.ready(function () {
                                 } else {
                                     if (data.goods_name.length > 50) {
                                         return "商品名称不得大于50字符"
-                                    } else if (data.goods_discount < 0 || date.goods_discount > 1) {
+                                    } else if (isNaN(parseInt(data.goods_discount))) {
                                         return "商品的折扣为0-1"
-                                    } else if (data.goods_image.length > 4) {
+                                    } else if (data.goods_discount < 0 || data.goods_discount > 1) {
+                                        return "商品的折扣为0-1"
+                                    } else if (data.goods_image.match(/,/g).length> 3) {
                                         return "商品图片不得超过4张"
-                                    } else if (data.goods_detail > 8) {
+                                    } else if (data.goods_detail.match(/,/g).length> 7) {
                                         return "商品图片不得超过8张"
                                     } else {
                                         return true;
