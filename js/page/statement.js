@@ -23,6 +23,7 @@ avalon.ready(function () {
         pageNo: 1,
         pageSize: 10,
         records: 0,
+        total:1,
         measName:"",
         school_id:"",
         meas_id:"",
@@ -84,6 +85,9 @@ avalon.ready(function () {
                         var json = eval("(" + data + ")");// 解析json
                         if (json.code == 200) {
                             vm.last_req_time = json.result.last_req_time;
+                            vm.records = json.result.total_count;
+                            vm.total=Math.ceil(vm.records/vm.pageSize)
+                            
                             json.result.list.forEach(function (p1, p2, p3) {
                                 p1.check = false
                             })

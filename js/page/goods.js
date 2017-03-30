@@ -119,7 +119,7 @@ avalon.ready(function () {
                     }
                     break
             }
-            if(ids==""){
+            if (ids == "") {
                 layer.closeAll()
                 layer.msg("请选择删除项")
                 return;
@@ -178,13 +178,15 @@ avalon.ready(function () {
         rev: function () {
             var path = vm.upperPage();
             var check = vm.popData.isLegal();
-            if (check) {
+            if (check == true) {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
                     vm.close();
                     vm.query(1)
                 })
-            } else {
+            } else if (!check) {
                 layer.msg("请填写完整")
+            } else {
+                layer.msg(check);
             }
         },
         router: function (str) {
@@ -305,12 +307,24 @@ avalon.ready(function () {
                                     || data.goods_postage == ""
                                     || data.goods_discount == ""
                                     || data.goods_sell_state == -1
-                                    || data.addGoodsImg == ""
-                                    || data.addGoodsDetail == ""
+                                    || data.goods_image == ""
+                                    || data.goods_detail == ""
                                 ) {
                                     return false;
                                 } else {
-                                    return true;
+                                    if (data.goods_name.length > 50) {
+                                        return "商品名称不得大于50字符"
+                                    } else if (isNaN(parseInt(data.goods_discount))) {
+                                        return "商品的折扣为0-1"
+                                    } else if (data.goods_discount < 0 || data.goods_discount > 1) {
+                                        return "商品的折扣为0-1"
+                                    } else if (data.goods_image.match(/,/g).length> 3) {
+                                        return "商品图片不得超过4张"
+                                    } else if (data.goods_detail.match(/,/g).length> 7) {
+                                        return "商品图片不得超过8张"
+                                    } else {
+                                        return true;
+                                    }
                                 }
                             },
                             collecData: function () {
@@ -364,12 +378,22 @@ avalon.ready(function () {
                                     || data.goods_postage == ""
                                     || data.goods_discount == ""
                                     || data.goods_sell_state == -1
-                                    || data.addGoodsImg == ""
-                                    || data.addGoodsDetail == ""
+                                    || data.goods_image == ""
+                                    || data.goods_detail == ""
                                 ) {
                                     return false;
                                 } else {
-                                    return true;
+                                    if (data.goods_name.length > 50) {
+                                        return "商品名称不得大于50字符"
+                                    } else if (data.goods_discount < 0 || date.goods_discount > 1) {
+                                        return "商品的折扣为0-1"
+                                    } else if (data.goods_image.length > 4) {
+                                        return "商品图片不得超过4张"
+                                    } else if (data.goods_detail > 8) {
+                                        return "商品图片不得超过8张"
+                                    } else {
+                                        return true;
+                                    }
                                 }
                             },
                             collecData: function () {

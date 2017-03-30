@@ -191,8 +191,13 @@ avalon.ready(function () {
             console.log(check);
             if (check == true) {
                 $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
-                    vm.close();
-                    vm.query(1)
+                    var json = eval("(" + data + ")");
+                    if(json.msg=="添加成功"||json.msg=="修改成功"){
+                        vm.close();
+                        vm.query(1)
+                    }else{
+                        layer.msg(json.msg);
+                    }
                 })
             } else if (!check) {
                 layer.msg("请填写完整")
@@ -207,8 +212,13 @@ avalon.ready(function () {
             console.log(check);
             if (check == true) {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
-                    vm.close();
-                    vm.query(1)
+                    var json = eval("(" + data + ")")
+                    if(json.msg=="添加成功"||json.msg=="修改成功"){
+                        vm.close();
+                        vm.query(1)
+                    }else{
+                        layer.msg(json.msg);
+                    }
                 })
             } else if (!check) {
                 layer.msg("请填写完整")
@@ -365,7 +375,9 @@ avalon.ready(function () {
         //弹窗
         open: function (el) {
             vm.pop = vm.curPage;
-            vm.addData = {}
+            vm.addData = {};
+            var reg = /^\d{1,10}$/;
+            var reg2 =/^[a-zA-Z0-9]{12}$/;
             switch (vm.curPage) {
                 case "device":
                     if (el) {
@@ -431,8 +443,6 @@ avalon.ready(function () {
                                 if (data.addDegr == 0 || data.bracelet_no.trim() == "" || data.bracelet_address.trim() == "") {
                                     return false;
                                 } else {
-                                    var reg = /^\d{10}$/;
-                                    var reg2 = /^[a-zA-Z0-9]{12}$/;
                                     if (!reg.test(data.bracelet_no)) {
                                         return "请填写手环编号为10位数字"
                                     } else if (!reg2.test(data.bracelet_address)) {
@@ -460,8 +470,6 @@ avalon.ready(function () {
                                 if (data.addDegr == 0 || data.bracelet_no.trim() == "" || data.bracelet_address.trim() == "") {
                                     return false;
                                 } else {
-                                    var reg = /^\d{10}$/;
-                                    var reg2 = /^[a-zA-Z0-9]{12}$/;
                                     if (!reg.test(data.bracelet_no)) {
                                         return "请填写手环编号为10位数字"
                                     } else if (!reg2.test(data.bracelet_address)) {
@@ -496,8 +504,6 @@ avalon.ready(function () {
                                 if (data.tegr_id == 0 || data.user_id == 0 || data.ruler_addr.trim() == "") {
                                     return false;
                                 } else {
-                                    var reg = /^\d{10}$/;
-                                    var reg2 =/^[a-zA-Z0-9]{12}$/;
                                     if (!reg.test(data.ruler_no)) {
                                         return "请填写身高尺编号为10位数字"
                                     } else if (!reg2.test(data.ruler_addr)) {
@@ -525,8 +531,6 @@ avalon.ready(function () {
                                 if (data.tegr_id == 0 || data.user_id == 0 || data.ruler_no.trim() == "" || data.ruler_addr.trim() == "") {
                                     return false;
                                 } else {
-                                    var reg = /^\d{10}$/;
-                                    var reg2 =/^[a-zA-Z0-9]{12}$/;
                                     if (!reg.test(data.ruler_no)) {
                                         return "请填写身高尺编号为10位数字"
                                     } else if (!reg2.test(data.ruler_addr)) {
@@ -561,8 +565,6 @@ avalon.ready(function () {
                                 if (data.tegr_id == 0 || data.user_id == 0 || data.scales_no.trim() == "" || data.scales_addr.trim() == "") {
                                     return false;
                                 } else {
-                                    var reg = /^\d{10}$/;
-                                    var reg2 =/^[a-zA-Z0-9]{12}$/;
                                     if (!reg.test(data.scales_no)) {
                                         return "请填写健康秤编号为10位数字"
                                     } else if (!reg2.test(data.scales_addr)) {
@@ -592,8 +594,6 @@ avalon.ready(function () {
                                 if (data.tegr_id == 0 || data.user_id == 0 || data.scales_no.trim() == "" || data.scales_addr.trim() == "") {
                                     return false;
                                 } else {
-                                    var reg = /^\d{10}$/;
-                                    var reg2 =/^[a-zA-Z0-9]{12}$/;
                                     if (!reg.test(data.scales_no)) {
                                         return "请填写健康秤编号为10位数字"
                                     } else if (!reg2.test(data.scales_addr)) {

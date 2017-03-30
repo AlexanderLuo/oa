@@ -172,7 +172,6 @@ avalon.ready(function () {
                 vm.rev();
                 return;
             }
-
             var path = vm.upperPage();
             var check = vm.popData.isLegal();
             if (check == true) {
