@@ -30,6 +30,7 @@ avalon.ready(function () {
         curPage: "",
         pop: "",
         popData: {},
+        confs :{},
 
         isReving: false,
 
@@ -206,7 +207,8 @@ avalon.ready(function () {
             vm.checkAllFlag = false;
             vm.curPage = str;
             var path = vm.upperPage();
-            var c = conf;
+            var c = vm.confs;
+            vm.isReving = false;
             var b = c.baseUrl;
             vm.addUrl = b + c["add" + path]
             vm.delUrl = b + c["del" + path]
@@ -471,7 +473,7 @@ avalon.ready(function () {
                     vm.popData = {
                         isLegal: function () {
                             var data = vm.popData.collecData();
-                            if (data.order_id = 0) {
+                            if (data.order_id == 0) {
                                 return false;
                             } else {
                                 return true;
@@ -576,6 +578,7 @@ avalon.ready(function () {
                 // },
                 complete: function (res) {
                     conf = eval("(" + res.responseText + ")")
+                    vm.confs = conf;
                     vm.router("goods")
                 }
             });
