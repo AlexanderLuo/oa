@@ -83,7 +83,7 @@
                 <div class="baby_content_tab" ms-if="curPage == 'goods' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
-                        <li>商品名称</li>
+                        <li><p style="display: block;word-break:break-all;width: 300px;">商品名称</p></li>
                         <li>商品类型</li>
                         <li>库存</li>
                         <li>销量</li>
@@ -97,7 +97,7 @@
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox" ms-attr-checked="el.check"
                                                                 ms-click="checkOne(el)"/></li>
-                        <li>{{el.goods_name}}</li>
+                        <li><p style="display: block;word-break:break-all; width: 300px;">{{el.goods_name}}</p></li>
                         <li>{{el.goods_type | typeStrFilter}}</li>
                         <li>{{el.goods_repertory}}</li>
                         <li>{{el.goods_sales}}</li>

@@ -63,7 +63,7 @@
                 <div class="baby_content_tab"     style="display: none"  ms-class="show:curPage == 'video'"  ms-if="curPage == 'video' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
-                        <li>视频名称</li>
+                        <li><p style="display: block;word-break:break-all; width: 300px;">视频名称</p></li>
                         <li>视频时长</li>
                         <li>视频大小</li>
                         <li>视频封面</li>
@@ -75,7 +75,7 @@
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
                         <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
-                        <li>{{el.video_name}}</li>
+                        <li><p style="display: block;word-break:break-all; width: 300px;">{{el.video_name}}</p></li>
                         <li>{{el.video_length}}</li>
                         <li>{{el.video_size}}</li>
                         <li><img ms-src="http://www.kh122.com:8080/{{el.video_cover}}" alt=""></li>
