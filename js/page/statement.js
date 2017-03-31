@@ -70,6 +70,9 @@ avalon.ready(function () {
                     }else {
                         vm.teger_search = getLocalValue('user').tegr_id;
                     }
+                    vm.dataList =[];
+                    vm.records = 0;
+                    vm.total = 1;
                     vm.pageNo = pageNo;
                     $.ajax({
                         url: conf.baseUrl + conf.getMeasureList,
@@ -101,6 +104,9 @@ avalon.ready(function () {
                     break;
                 case "meas":
                     vm.pageNo = pageNo;
+                    vm.dataList =[];
+                    vm.records = 0;
+                    vm.total = 1;
                     $.ajax({
                         url: conf.baseUrl + conf.getChildStatementList,
                         type: "post",
