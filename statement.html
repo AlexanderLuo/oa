@@ -100,7 +100,7 @@
                             +el.meas_jump_count+el.meas_sit_count +el.meas_tennis_count}}/{{el.student_count}}
                         </li>
                         <li>{{el.from_name}}</li>
-                        <li>{{el.create_time | date('yyyy-MM-dd')}}</li>
+                        <li>{{el.create_time*1000 | date('yyyy-MM-dd')}}</li>
                         <li>
                             <a class="edit" ms-click="seeMeas(el)">查看</a>
                         </li>

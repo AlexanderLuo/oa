@@ -290,7 +290,7 @@
                         <li>{{el.class_name}}</li>
                         <li>{{el.children_name}}</li>
                         <li>{{el.child_sex | sexxFilter}}</li>
-                        <li>{{el.child_birthday | date('yyyy-MM-dd') }}</li>
+                        <li>{{el.child_birthday*1000 | date('yyyy-MM-dd') }}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.username}}</li>
                         <li ms-click="open(el)"><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>

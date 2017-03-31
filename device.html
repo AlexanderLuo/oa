@@ -80,7 +80,7 @@
                         <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
                         <li>{{el.degr_name}}</li>
                         <li>{{el.name}}</li>
-                        <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
+                        <li>{{el.create_time*1000 | date('yyyy-MM-dd') }}</li>
                         <li >
                             <a class="edit" href="javascript: void(0)"  ms-if="weight>=2" ms-click="open(el)">编辑</a>
                             <a class="edit" ms-click="seeRing(el)" style="cursor: pointer">查看</a>

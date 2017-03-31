@@ -80,7 +80,7 @@
                         <li>{{el.video_size}}</li>
                         <li><img ms-src="http://www.kh122.com:8080/{{el.video_cover}}" alt=""></li>
                         <li>{{el.user_name}}</li>
-                        <li>{{el.create_time | date('yyyy-MM-dd') }}</li>
+                        <li>{{el.create_time*1000 | date('yyyy-MM-dd') }}</li>
                         <li ><a class="edit"  ms-click="open(el)" ms-if="weight>=2">编辑</a></li>
                     </ul>
                 </div>
