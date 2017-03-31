@@ -105,7 +105,7 @@ avalon.ready(function () {
             $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
                 var json = eval("(" + data + ")")
                 if (json.msg == "删除成功" || json.msg == "成功") {
-                    layer.msg("操作成功");
+                    layer.msg("操作成功", 1, 9);
                     vm.query(1);
                     layer.close();
                 } else {
@@ -141,7 +141,7 @@ avalon.ready(function () {
                 $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if (json.msg == "添加成功" || json.msg == "修改成功") {
-                        layer.msg("操作成功");
+                        layer.msg("操作成功", 1, 9);
                         vm.close();
                         vm.query(1);
                     } else {
@@ -163,7 +163,7 @@ avalon.ready(function () {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if (json.msg == "添加成功" || json.msg == "修改成功") {
-                        layer.msg("操作成功");
+                        layer.msg("操作成功", 1, 9);
                         vm.close();
                         vm.query(1);
                     } else {

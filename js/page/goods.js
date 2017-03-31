@@ -129,7 +129,7 @@ avalon.ready(function () {
             $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
                 var json = eval("(" + data + ")")
                 if (json.msg == "删除成功" || json.msg == "成功") {
-                    layer.msg("操作成功");
+                    layer.msg("操作成功", 1, 9);
                     vm.query(1);
                     layer.close();
                 } else {
@@ -188,7 +188,7 @@ avalon.ready(function () {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if (json.msg == "添加成功" || json.msg == "修改成功") {
-                        layer.msg("操作成功");
+                        layer.msg("操作成功", 1, 9);
                         vm.close();
                         vm.query(1);
                     } else {
@@ -229,7 +229,7 @@ avalon.ready(function () {
                 $.ajax({url: vm.addUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if (json.msg == "添加成功" || json.msg == "修改成功") {
-                        layer.msg("操作成功");
+                        layer.msg("操作成功", 1, 9);
                         vm.close();
                         vm.query(1);
                     } else {
@@ -471,8 +471,7 @@ avalon.ready(function () {
                     vm.popData = {
                         isLegal: function () {
                             var data = vm.popData.collecData();
-                            if (data.goods_name.trim() == ""
-                            ) {
+                            if (data.order_id = 0) {
                                 return false;
                             } else {
                                 return true;
@@ -480,24 +479,13 @@ avalon.ready(function () {
                         },
                         collecData: function () {
                             return {
-                                goods_name: vm.addGoodsName,
-                                goods_type: vm.addGoodsType,
-                                goods_size: vm.addGoodsSize,
-                                goods_color: vm.addGoodsColor,
-                                goods_shape: vm.addGoodsShape,
-                                goods_repertory: vm.addGoodsRepertory,
-                                goods_sales: vm.addGoodsSales,
-                                goods_price: vm.addGoodsPrice,
-                                goods_postage: vm.addGoodsPostage,
-                                goods_discount: vm.addGoodsDiscount,
-                                goods_sell_state: vm.addGoodsState,
-                                goods_image: vm.addGoodsImg,
-                                goods_detail: vm.addGoodsDetail
+                                order_id: el.order_id,
+                                order_state: vm.addOrderState,
+                                addr_name: vm.addOrderAddr,
+                                addr_detail: vm.addGoodsDetail
                             }
                         }
                     }
-
-
                     break;
             }
         },
