@@ -967,8 +967,14 @@ avalon.ready(function () {
             }
             var path = vm.upperPage();
             $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
-                vm.query(1)
-                layer.closeAll()
+                var json = eval("(" + data + ")")
+                if (json.msg == "删除成功" || json.msg == "成功") {
+                    layer.msg("操作成功");
+                    vm.query(1);
+                    layer.close();
+                } else {
+                    layer.msg("操作失败," + json.msg);
+                }
             })
         },
         seeTeacher: function (el) {
