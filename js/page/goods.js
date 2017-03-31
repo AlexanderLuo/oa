@@ -481,8 +481,7 @@ avalon.ready(function () {
                             return {
                                 order_id: el.order_id,
                                 order_state: vm.addOrderState,
-                                addr_name: vm.addOrderAddr,
-                                addr_detail: vm.addGoodsDetail
+                                addr_detail: vm.addOrderAddr,
                             }
                         }
                     }
