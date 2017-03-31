@@ -81,7 +81,8 @@
   "detailGoods":"goodsApi/getGoods",
 
   "queryOrder":"orderApi/getOrderList",
-
+  "revOrder":"orderApi/editOrder",
+  "addOrder":"orderApi/editOrder",
 
 
 

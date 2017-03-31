@@ -1,5 +1,7 @@
 <!--logo-->
 <script>
+    var conf = {}
+    var user = {}
     avalon.ready(function () {
         var vm = avalon.define({
             $id: "bannerVm",
@@ -13,6 +15,7 @@
             addDate: "",
             addRemark: "",
             blo: false,
+            weight:1,
             revUrl: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/userApi/editUserInfo",
             popData: {},
 
@@ -89,6 +92,18 @@
                 vm.addSex = vm.user.sex;
                 vm.addDate = vm.user.birthday;
                 vm.addRemark = vm.user.remark;
+                var userr = getLocalValue('user');
+                user = userr;
+                var ty = user.role_type;
+                if (ty == "8") {
+                    vm.weight = 2
+                }
+                else if (ty == "16" || ty == "32") {
+                    vm.weight = 3
+                }
+                else {
+                    vm.weight = 1
+                }
                 if (page == '/oa/device.html') {
                     vm.curPage = "device"
                 }
@@ -127,22 +142,22 @@
 
     <!--导航-->
     <div class="baby_top_nav">
-        <a href="/oa/device.html" ms-class="baby_top_list:curPage=='device' ">
+        <a href="/oa/device.html" ms-class="baby_top_list:curPage=='device' " >
             <img src="img/device.png" title="">
             <p>设备管理</p>
         </a>
 
-        <a href="/oa/admin.html" ms-class="baby_top_list:curPage=='admin' ">
+        <a href="/oa/admin.html" ms-class="baby_top_list:curPage=='admin'">
             <img src="img/num.png" title="">
             <p>用户管理</p>
         </a>
 
-        <a href="/oa/goods.html" ms-class="baby_top_list:curPage=='goods' ">
+        <a href="/oa/goods.html" ms-class="baby_top_list:curPage=='goods' " ms-if="weight==3">
             <img src="img/health.png" title="">
             <p>商城管理</p>
         </a>
 
-        <a href="/oa/video.html" ms-class="baby_top_list:curPage=='video' ">
+        <a href="/oa/video.html" ms-class="baby_top_list:curPage=='video' " ms-if="weight==3">
             <img src="img/attentop.png" title="">
             <p>讲堂管理</p>
         </a>
