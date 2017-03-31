@@ -133,13 +133,18 @@ avalon.ready(function () {
                 vm.dataList = [];
                 vm.checkAllFlag = false;
                 $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
-                    vm.close();
-                    vm.query(1)
+                    var json = eval("(" + data + ")")
+                    if (json.msg == "添加成功" || json.msg == "修改成功") {
+                        layer.msg("操作成功");
+                        vm.close();
+                        vm.query(1);
+                    } else {
+                        layer.msg("操作失败," + json.msg);
+                    }
                 })
-            } else if(!check) {
+            } else if (!check) {
                 layer.msg("请填写完整")
-                //console.log("worng");
-            }else{
+            } else {
                 layer.msg(check);
             }
 
@@ -150,13 +155,18 @@ avalon.ready(function () {
             var check = vm.addData.isLegal();
             if (check == true) {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
-                    vm.close();
-                    vm.query(1)
+                    var json = eval("(" + data + ")")
+                    if (json.msg == "添加成功" || json.msg == "修改成功") {
+                        layer.msg("操作成功");
+                        vm.close();
+                        vm.query(1);
+                    } else {
+                        layer.msg("操作失败," + json.msg);
+                    }
                 })
-            }  else if(!check) {
+            } else if (!check) {
                 layer.msg("请填写完整")
-                //console.log("worng");
-            }else{
+            } else {
                 layer.msg(check);
             }
         },

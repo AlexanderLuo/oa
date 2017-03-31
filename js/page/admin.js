@@ -104,7 +104,7 @@ avalon.ready(function () {
             return word;
         },
         querytTeg: function (callback) {
-            vm.tegerList=[]
+            vm.tegerList = []
             $.ajax({
                 url: conf.baseUrl + conf.getTegrList,
                 type: "post",
@@ -153,12 +153,12 @@ avalon.ready(function () {
             if (check == true) {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
-                    console.log(json);
-                    if(json.msg=="添加成功"||json.msg=="修改成功"){
-                    vm.close();
-                    vm.query(1)
-                    }else{
-                        layer.msg(json.msg);
+                    if (json.msg == "添加成功" || json.msg == "修改成功") {
+                        layer.msg("操作成功");
+                        vm.close();
+                        vm.query(1);
+                    } else {
+                        layer.msg("操作失败," + json.msg);
                     }
                 })
             } else if (!check) {
@@ -178,12 +178,12 @@ avalon.ready(function () {
                 console.log(vm.popData.collecData())
                 $.ajax({url: vm.addUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
-                    console.log(json);
-                    if(json.msg=="添加成功"||json.msg=="修改成功"){
+                    if (json.msg == "添加成功" || json.msg == "修改成功") {
+                        layer.msg("操作成功");
                         vm.close();
                         vm.query(1)
-                    }else{
-                        layer.msg(json.msg);
+                    } else {
+                        layer.msg("操作失败，" + json.msg);
                     }
                 })
             } else if (!check) {
@@ -211,7 +211,7 @@ avalon.ready(function () {
                 collecData: function () {
                 }
             }
-            var reg =/^1(3|4|5|7|8)\d{9}$/;
+            var reg = /^1(3|4|5|7|8)\d{9}$/;
             switch (vm.curPage) {
                 case 'admin':
                     if (el) {
@@ -736,7 +736,7 @@ avalon.ready(function () {
                     case "admin":
                         vm.queryData = {
                             user_id: user.user_id,
-                            last_req_time:0,
+                            last_req_time: 0,
                             page: vm.pageNo,
                             page_size: vm.pageSize
                         }
@@ -844,10 +844,10 @@ avalon.ready(function () {
             vm.addUserName = ""//用户添加
             vm.addOtherName = ""
             vm.addMark = ""
-            if(vm.curPage!='teacher'){
+            if (vm.curPage != 'teacher') {
                 vm.addTe = ""
             }
-            vm.addClass=""
+            vm.addClass = ""
         },
         delPop: function () {
             layer.confirm("确定删除吗？", function () {
@@ -865,7 +865,7 @@ avalon.ready(function () {
                     idKey = "user_id"
                     for (var a = 0; a < vm.dataList.length; a++) {
                         if (vm.dataList[a].check == true) {
-                            if(vm.dataList[a][idKey]!=vm.selfId){
+                            if (vm.dataList[a][idKey] != vm.selfId) {
                                 li.push(vm.dataList[a][idKey])
                             }
                         }
@@ -960,7 +960,7 @@ avalon.ready(function () {
             }
             task();
 
-            if(ids==""){
+            if (ids == "") {
                 layer.closeAll()
                 layer.msg("请选择删除项")
                 return;

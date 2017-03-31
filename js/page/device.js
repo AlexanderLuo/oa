@@ -193,10 +193,11 @@ avalon.ready(function () {
                 $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")");
                     if(json.msg=="添加成功"||json.msg=="修改成功"){
+                        layer.msg("操作成功");
                         vm.close();
                         vm.query(1)
                     }else{
-                        layer.msg(json.msg);
+                        layer.msg("操作失败，"+json.msg);
                     }
                 })
             } else if (!check) {
@@ -214,10 +215,11 @@ avalon.ready(function () {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if(json.msg=="添加成功"||json.msg=="修改成功"){
+                        layer.msg("操作成功");
                         vm.close();
                         vm.query(1)
                     }else{
-                        layer.msg(json.msg);
+                        layer.msg("操作失败，"+json.msg);
                     }
                 })
             } else if (!check) {
