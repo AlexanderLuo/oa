@@ -93,6 +93,7 @@
   "delVideos":"curriculumApi/deleteVideo",
   "queryVerify":"curriculumApi/getVerifyList",
   "revVerify": "curriculumApi/updateVerifyState",
+  "delVerify":"curriculumApi/deleteVerifyInfo",
 
 
   "statementJump":"http://www.kh122.com:8081/ChildrenBackstage/measure.html"

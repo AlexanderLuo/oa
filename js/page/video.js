@@ -87,6 +87,8 @@ avalon.ready(function () {
         del: function () {
             var ids = ""
             var li = []
+            var idKey = ""
+            var task
             switch (vm.curPage) {
                 case "video":
                     for (var a = 0; a < vm.dataList.length; a++) {
@@ -104,13 +106,29 @@ avalon.ready(function () {
                         delete_video_id: ids
                     }
                     break;
+                case "verify":
+                    for (var a = 0; a < vm.dataList.length; a++) {
+                        if (vm.dataList[a].check == true) {
+                            li.push(vm.dataList[a].verify_id)
+                        }
+                    }
+                    for (var b = 0; b < li.length; b++) {
+                        ids = ids + li[b]
+                        if (b != li.length - 1) {
+                            ids = ids + ","
+                        }
+                    }
+                    vm.delData = {
+                        verify_id: ids,
+                        user_id : user.user_id,
+                    }
+                    break;
             }
             if (ids == "") {
                 layer.closeAll()
                 layer.msg("请选择删除项")
                 return;
             }
-
             var path = vm.upperPage();
             layer.confirm("确定删除吗？", function () {
                 $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
@@ -301,11 +319,13 @@ avalon.ready(function () {
             if (vm.curPage == 'video') {
                 vm.revUrl = conf.baseUrl + conf.revVideos;
                 vm.addUrl = conf.baseUrl + conf.addVideos;
+                vm.delUrl = conf.baseUrl + conf.delVideos;
             } else {
                 vm.revUrl = conf.baseUrl + conf.revVerify;
                 vm.addUrl = conf.baseUrl + conf.revVerify;
+                vm.delUrl = conf.baseUrl + conf.delVerify;
             }
-            vm.delUrl = conf.baseUrl + conf.delVideos;
+           
             vm.query(1);
         },
         //单选
