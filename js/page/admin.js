@@ -338,7 +338,7 @@ avalon.ready(function () {
                         vm.popData = {
                             isLegal: function () {
                                 var data = vm.popData.collecData();
-                                if (data.tegr_id == 0 || data.user_id == 0 || data.school_person.trim() == "" || data.school_name.trim() == "" || data.school_call.trim() == "" || data.school_address.trim() == "") {
+                                if (data.tegr_id == 0 || data.user_id == 0 || data.school_name.trim() == "" ) {
                                     return false;
                                 } else {
                                     if (data.school_name.length > 12) {
@@ -353,9 +353,9 @@ avalon.ready(function () {
                                     school_id: el.school_id,
                                     tegr_id: vm.addTegr,
                                     school_name: vm.addSchoolName,
-                                    school_call: vm.addPhone,
-                                    school_person: vm.addUserName,
-                                    school_address: vm.addAddr
+                                    // school_call: vm.addPhone,
+                                    // school_person: vm.addUserName,
+                                    // school_address: vm.addAddr
                                 }
                             }
                         }
@@ -523,6 +523,7 @@ avalon.ready(function () {
                             collecData: function () {
                                 var ti = new Date(vm.addBrith).getTime();
                                 return {
+                                    child_id:el.child_id,
                                     tegr_id: vm.tegr_id,
                                     school_id: vm.school_id,
                                     class_id: vm.class_id,
