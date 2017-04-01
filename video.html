@@ -24,15 +24,18 @@
     <script type="text/javascript" src="js/jquery.artDialog.source.js"></script>
     <script type="text/javascript" src="js/iframeTools.js"></script>
     <script type="text/javascript" src="js/page/video.js"></script>
+    <script src="js/lib/laydate/laydate.js"></script>
     <style>
         .ms-controller, .ms-important, [ms-controller], [ms-important] {
             visibility: hidden;
         }
-        .show{
-            display: table!important;
+
+        .show {
+            display: table !important;
         }
-        .block{
-            display: block!important;
+
+        .block {
+            display: block !important;
         }
     </style>
 </head>
@@ -49,7 +52,10 @@
     <div class="baby_conter_cd">
         <div class="baby_conter_left">
             <div class="baby_conter_li">
-                <a ms-class="baby_conter_school:curPage == 'video' " ms-click="router('video')" ms-if="weight==3 "><img src="img/buttom.png">讲堂管理</a>
+                <a ms-class="baby_conter_school:curPage == 'video' " ms-click="router('video')"><img
+                        src="img/buttom.png">讲堂管理</a>
+                <a ms-class="baby_conter_school:curPage == 'verify' " ms-click="router('verify')"><img
+                        src="img/buttom.png">直播认证</a>
             </div>
             <div class="Copyright">
                 <div class="p">Powered by glorymi<br>深圳市伴小宝科技有限公司</div>
@@ -60,7 +66,8 @@
         <div class="baby_conter_right" ms-if="weight==3 ">
             <form>
                 <!--视频管理-->
-                <div class="baby_content_tab"     style="display: none"  ms-class="show:curPage == 'video'"  ms-if="curPage == 'video' ">
+                <div class="baby_content_tab" style="display: none" ms-class="show:curPage == 'video'"
+                     ms-if="curPage == 'video' ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li><p style="display: block;word-break:break-all; width: 300px;">视频名称</p></li>
@@ -73,96 +80,153 @@
                     </ul>
 
                     <!--数据-->
-                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class = "baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li"><input type="checkbox"  ms-attr-checked="el.check"  ms-click="checkOne(el)" /></li>
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" ms-attr-checked="el.check"
+                                                                ms-click="checkOne(el)"/></li>
                         <li><p style="display: block;word-break:break-all; width: 300px;">{{el.video_name}}</p></li>
                         <li>{{el.video_length}}</li>
                         <li>{{el.video_size}}</li>
                         <li><img ms-src="http://www.kh122.com:8080/{{el.video_cover}}" alt=""></li>
                         <li>{{el.user_name}}</li>
                         <li>{{el.create_time*1000 | date('yyyy-MM-dd') }}</li>
-                        <li ><a class="edit"  ms-click="open(el)" ms-if="weight>=2">编辑</a></li>
+                        <li><a class="edit" ms-click="open(el)" ms-if="weight>=2">编辑</a></li>
+                    </ul>
+                </div>
+                <!--直播管理-->
+                <div class="baby_content_tab" style="display: none" ms-class="show:curPage == 'verify'"
+                     ms-if="curPage == 'verify' ">
+                    <ul class="baby_content_tab_menu">
+                        <li>选择</li>
+                        <li>账号</li>
+                        <li>姓名</li>
+                        <li>认证手机号</li>
+                        <li>认证图片</li>
+                        <li>认证时间</li>
+                        <li>认证状态</li>
+                        <li>操作</li>
+                    </ul>
+
+                    <!--数据-->
+                    <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
+                        <li class="baby_tab_checkbox_li"><input type="checkbox" ms-attr-checked="el.check"
+                                                                ms-click="checkOne(el)"/></li>
+                        <li>{{el.username}}</li>
+                        <li>{{el.name}}</li>
+                        <li>{{el.verify_phone}}</li>
+                        <li><img ms-src="http://www.kh122.com:8080/{{el.verify_pic}}" alt=""></li>
+                        <li>{{el.create_time*1000 | date('yyyy-MM-dd') }}</li>
+                        <li>{{el.verify_state|stateFilter}}</li>
+                        <li><a class="edit" ms-click="open(el)" ms-if="weight>=2">编辑</a></li>
                     </ul>
                 </div>
 
 
-        </form>
+            </form>
 
             <div class="baby_content_dt">
-                <div class="baby_content_dt-1">
+                <div class="baby_content_dt-1" ms-if="curPage == 'video'">
                     <input type="checkbox" ms-attr-checked="checkAllFlag" ms-click="checkAll">
-                    <span style="cursor: pointer;" >全选</span>
-                    <span class="baby_content_del"  ms-click="delPop">批量删除</span>
+                    <span style="cursor: pointer;">全选</span>
+                    <span class="baby_content_del" ms-click="delPop">批量删除</span>
                     <span class="baby_content_del edit" ms-click="open('')">添加</span>
                 </div>
                 <div class="baby_content_dt-2">
                     <div class="baby_content_dt-2-fy">
                         <!-- 分页首页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)" ms-if="total!=1 && pageNo!=1">首页</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)"
+                           ms-if="total!=1 && pageNo!=1">首页</a>
                         <!-- 前一页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)" ms-if="pageNo>1"> &lt;&lt; 上一页</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)"
+                           ms-if="pageNo>1"> &lt;&lt; 上一页</a>
                         <!-- 下一页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)" ms-if="pageNo<total">下一页 &gt;&gt;</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)"
+                           ms-if="pageNo<total">下一页 &gt;&gt;</a>
                         <!-- 分页尾页按钮 -->
-                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)" ms-if="total!=1 && pageNo!=total && total!=0">尾页</a>
+                        <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)"
+                           ms-if="total!=1 && pageNo!=total && total!=0">尾页</a>
                     </div>
                 </div>
-                
 
-            <!--视频管理弹窗-->
-            <div class="shade" ms-class="block:pop">
-                <div class="user-edit">
-                    <div class="user-main">
-                        <div class="user-title">
-                            <h3>视频：</h3>
-                        </div>
 
-                        <table class="table_1" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <th width="40%">视频名称：</th>
-                                <td width="60%"><input type="text"  ms-duplex="addName"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th width="40%">视频时长：</th>
-                                <td width="60%"><input type="text"  ms-duplex="addLength"/>秒
-                                </td>
-                            </tr>
-                            <tr>
-                                <th width="40%">视频大小：</th>
-                                <td width="60%"><input type="text"  ms-duplex="addSize"/>KB
-                                </td>
-                            </tr>
-                            <tr>
-                                <th width="40%">视频路径：</th>
-                                <td width="60%"><input type="text"  ms-duplex="addPath"/>上传
-                                </td>
-                            </tr>
-                            <tr>
-                                <th width="40%">视频封面：</th>
-                                <td width="60%">
-                                <div>
-                                    <div class="imglist" >
-                                        <img ms-attr-src="  'http://www.kh122.com:8080/' +addPic " alt="">
-                                    </div>
+                <!--视频管理弹窗-->
+                <div class="shade" ms-class="block:pop=='video'">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>视频：</h3>
+                            </div>
 
-                                    <div>
-                                        <form id="uploadForm" enctype="multipart/form-data">
-                                            <input  type="file" name="file" ms-change="upload(0)"/>
-                                        </form>
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th width="40%">视频名称：</th>
+                                    <td width="60%"><input type="text" ms-duplex="addName"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">视频时长：</th>
+                                    <td width="60%"><input type="text" ms-duplex="addLength"/>秒
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">视频大小：</th>
+                                    <td width="60%"><input type="text" ms-duplex="addSize"/>KB
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">视频路径：</th>
+                                    <td width="60%"><input type="text" ms-duplex="addPath"/>上传
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="40%">视频封面：</th>
+                                    <td width="60%">
+                                        <div>
+                                            <div class="imglist">
+                                                <img ms-attr-src="  'http://www.kh122.com:8080/' +addPic " alt="">
+                                            </div>
 
-                                    </div>
-                                </div>
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="user-btn">
-                            <input type="button" value="保存" class="oper" ms-click="add"/>
-                            <input type="button" value="返回" class="oper" ms-click="close"/>
+                                            <div>
+                                                <form id="uploadForm" enctype="multipart/form-data">
+                                                    <input type="file" name="file" ms-change="upload(0)"/>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <!--直播管理弹窗-->
+                <div class="shade" ms-class="block:pop=='verify' ">
+                    <div class="user-edit">
+                        <div class="user-main">
+                            <div class="user-title">
+                                <h3>集团：</h3>
+                            </div>
+
+                            <table class="table_1" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th width="40%">认证状态：</th>
+                                    <td width="60%"> <select name="" ms-duplex="addVerifystate">
+                                        <option ms-attr-value="el.id" ms-repeat="stateList" >{{el.name}}</option>
+                                    </select>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="user-btn">
+                                <input type="button" value="保存" class="oper" ms-click="add"/>
+                                <input type="button" value="返回" class="oper" ms-click="close"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

@@ -71,6 +71,7 @@
                             setLocalValue('user',users);
                         }
                         vm.close();
+                        layer.msg("修改成功",1,9)
                     })
                 } else {
                     layer.msg("请填写完整");
@@ -211,7 +212,9 @@
                     </tr>
                     <tr>
                         <th width="40%">生日：</th>
-                        <td width="60%"><input type="date" name="" ms-duplex="addDate" /></td>
+                        <td width="60%"><input type="text" ms-duplex="addDate" id="birth" name="birth" readOnly="true"
+                                               class="set_text"
+                                               onclick="laydate({istime: false,isclear:false, format: 'YYYY-MM-DD'})"/>
                     </tr>
                     <tr>
                         <th width="40%">个性签名：</th>

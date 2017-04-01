@@ -9,16 +9,10 @@ function error() {
 avalon.ready(function () {
     var vm = avalon.define({
         $id: "goodsVm",
-        typeList: [{id: 0, name: "全部"}, {id: 1, name: "教材"}, {id: 2, name: "器材"}, {id: 3, name: "服饰"}, {
-            id: 4,
-            name: "其他"
-        }],
+        typeList: [{id: 0, name: "全部"}, {id: 1, name: "教材"}, {id: 2, name: "器材"}, {id: 3, name: "服饰"}, {id: 4, name: "其他"}],
         typeFilter: 0,
         saleList: [{id: 0, name: "上架", select: false}, {id: 1, name: "下架", select: false}],
-        orderList: [{id: 0, name: "全部"}, {id: 1, name: "待付款"}, {id: 2, name: "待发货"}, {id: 3, name: "待收货"}, {
-            id: 4,
-            name: "已收货"
-        }],
+        orderList: [{id: 0, name: "全部"}, {id: 1, name: "待付款"}, {id: 2, name: "待发货"}, {id: 3, name: "待收货"}, {id: 4, name: "已收货"}],
         orderList2: [{id: 1, name: "待付款"}, {id: 2, name: "待发货"}, {id: 3, name: "待收货"}, {id: 4, name: "已收货"}],
 
         goods_type: 0,

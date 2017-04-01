@@ -24,7 +24,10 @@ avalon.ready(function () {
         pageSize: 10,
         records: 0,
         total: 1,
+        addVerifystate: 0,
 
+
+        stateList: [{id: 0, name: "认证中"}, {id: 1, name: "认证成功"}, {id: 2, name: "认证失败"}],
 
         isReving: false,
 
@@ -47,10 +50,17 @@ avalon.ready(function () {
         query: function (pageNo) {
             vm.pageNo = pageNo;
             vm.dataList = []
+            var Url = "";
+            if (vm.curPage == "video") {
+                Url = conf.baseUrl + conf.queryVideos;
+            } else {
+                Url = conf.baseUrl + conf.queryVerify;
+            }
             $.ajax({
-                url: conf.baseUrl + conf.queryVideos,
+                url: Url,
                 type: "post",
                 data: {
+                    user_id: user.user_id,
                     page: vm.pageNo,
                     page_size: vm.pageSize,
                     last_req_time: vm.last_req_time
@@ -116,7 +126,7 @@ avalon.ready(function () {
             }, layer.closeAll())
         },
         delPop: function () {
-                vm.del();
+            vm.del();
         },
         addHandle: function (data, callback, error) {
             var json = eval("(" + data + ")");// 解析json
@@ -134,7 +144,6 @@ avalon.ready(function () {
             var path = vm.upperPage();
             var check = vm.addData.isLegal();
             if (check == true) {
-                console.log(vm.addData.collecData())
                 vm.dataList = [];
                 vm.checkAllFlag = false;
                 $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
@@ -177,7 +186,7 @@ avalon.ready(function () {
         },
 
         open: function (el) {
-            vm.pop = true;
+            vm.pop = vm.curPage;
             vm.isReving = false
             switch (vm.curPage) {
                 case "video":
@@ -218,7 +227,6 @@ avalon.ready(function () {
                     } else {
                         vm.addData = {
                             isLegal: function () {
-                                console.log(vm.addData.collecData())
                                 var data = vm.addData.collecData();
                                 if (data.video_name.trim() == "" || data.video_path.trim() == ""
                                     || data.video_cover.trim() == "") {
@@ -243,8 +251,24 @@ avalon.ready(function () {
                                 }
                             }
                         }
-                        break;
                     }
+                    break;
+                case 'verify':
+                    vm.addVerifystate = el.verify_state;
+                    vm.addData = {
+                        isLegal: function () {
+                            ;
+                            return true;
+                        },
+                        collecData: function () {
+                            return {
+                                verify_id: el.verify_id,
+                                user_id: user.user_id,
+                                verify_state: vm.addVerifystate,
+                            }
+                        }
+                    }
+                    break;
             }
 
         },
@@ -274,9 +298,14 @@ avalon.ready(function () {
             vm.dataList = [];
             vm.checkAllFlag = false;
             vm.curPage = str;
-            vm.addUrl = conf.baseUrl + conf.addVideos
-            vm.revUrl = conf.baseUrl + conf.revVideos
-            vm.delUrl = conf.baseUrl + conf.delVideos
+            if (vm.curPage == 'video') {
+                vm.revUrl = conf.baseUrl + conf.revVideos;
+                vm.addUrl = conf.baseUrl + conf.addVideos;
+            } else {
+                vm.revUrl = conf.baseUrl + conf.revVerify;
+                vm.addUrl = conf.baseUrl + conf.revVerify;
+            }
+            vm.delUrl = conf.baseUrl + conf.delVideos;
             vm.query(1);
         },
         //单选
@@ -349,5 +378,19 @@ avalon.ready(function () {
 
     avalon.scan()
     vm.init();
+    avalon.filters.stateFilter = function (str) {
+        switch (str) {
+            case 0:
+                str = "认证中";
+                break;
+            case 1:
+                str = "认证成功";
+                break;
+            case 2:
+                str = "认证失败";
+                break;
+        }
+        return str
+    }
 
 })
