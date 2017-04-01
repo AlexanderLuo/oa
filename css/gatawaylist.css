@@ -38,6 +38,7 @@
 .baby_conter_li{
  /*    border-right:1px solid #ebb684;  */
 }
+
 .baby_conter_li a{
     width: 67%;
     padding-left: 61px;
@@ -93,7 +94,8 @@
     display:table-row-group;
 }
 .baby_content_tab ul li{
-    display:table-cell; 
+    display:table-cell;
+    width: 300px;
     list-style:none;
     text-align:center;
 }
@@ -225,6 +227,7 @@
     height: 100%;
     background: rgba(0,0,0,0.2);
     display: none;
+    z-index: 2;
 }
 
 .user-main {
