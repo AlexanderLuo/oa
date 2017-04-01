@@ -299,7 +299,7 @@ avalon.ready(function () {
                             collecData: function () {
                                 return {
                                     tegr_id: el.tegr_id,
-                                    user_id: vm.addAdmin,
+                                    user_id: user.user_id,
                                     tegr_name: vm.addTegrName
                                 }
                             }
