@@ -60,7 +60,7 @@
             <form>
 
                 <!--集团选择框-->
-                <div class="select" ms-if="curPage!='ring'">
+                <div class="select" ms-if="curPage!='ring'&& weight==3">
                     <span>集团：&nbsp;</span>
                     <select  ms-duplex="tegr_id">
                         <option ms-attr-value="{{el.tegr_id}}" ms-repeat="tegerList">{{el.tegr_name}}</option>
