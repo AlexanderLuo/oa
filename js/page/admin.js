@@ -851,9 +851,7 @@ avalon.ready(function () {
             vm.addClass = ""
         },
         delPop: function () {
-            layer.confirm("确定删除吗？", function () {
-                vm.del()
-            }, layer.closeAll())
+                vm.del();
         },
         del: function () {
             var ids = ""
@@ -882,7 +880,7 @@ avalon.ready(function () {
                         }
                     }
                     task = function () {
-
+                        vm.delData.delete_user_id = ids;
                     }
                     break;
                 case "teger":
@@ -964,19 +962,22 @@ avalon.ready(function () {
             if (ids == "") {
                 layer.closeAll()
                 layer.msg("请选择删除项")
-                return;
+                return ;
             }
             var path = vm.upperPage();
-            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
-                var json = eval("(" + data + ")")
-                if (json.msg == "删除成功" || json.msg == "成功") {
-                    layer.msg("操作成功",1,9);
-                    vm.query(1);
-                    layer.close();
-                } else {
-                    layer.msg("操作失败," + json.msg);
-                }
-            })
+            layer.confirm("确定删除吗？", function () {
+                $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
+                    var json = eval("(" + data + ")")
+                    if (json.msg == "删除成功" || json.msg == "成功") {
+                        layer.msg("操作成功",1,9);
+                        vm.query(1);
+                        layer.close();
+                    } else {
+                        layer.msg("操作失败," + json.msg);
+                    }
+                })
+            }, layer.closeAll())
+
         },
         seeTeacher: function (el) {
             vm.addTe = el.tegr_id

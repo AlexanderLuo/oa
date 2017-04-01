@@ -175,6 +175,7 @@ avalon.ready(function () {
             }
 
             var path = vm.upperPage();
+            layer.confirm("确定删除吗？", function () {
             $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
                 var json = eval("(" + data + ")")
                 if (json.msg == "删除成功" || json.msg == "成功") {
@@ -185,6 +186,7 @@ avalon.ready(function () {
                     layer.msg("操作失败," + json.msg);
                 }
             })
+            }, layer.closeAll())
 
         },
         add: function () {
@@ -627,9 +629,7 @@ avalon.ready(function () {
 
         },
         delPop: function () {
-            layer.confirm("确定删除吗？", function () {
-                vm.del()
-            }, layer.closeAll())
+                vm.del();
         },
 
 

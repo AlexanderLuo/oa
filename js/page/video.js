@@ -58,7 +58,7 @@ avalon.ready(function () {
             }).done(function (data) {
                 var json = eval("(" + data + ")");// 解析json
                 if (json.code == 200) {
-                    vm.last_req_time = json.result.last_req_time;
+                    // vm.last_req_time = json.result.last_req_time;
                     vm.records = json.result.total_count;
                     vm.total = Math.ceil(vm.records / vm.pageSize)
 
@@ -102,22 +102,21 @@ avalon.ready(function () {
             }
 
             var path = vm.upperPage();
-            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
-                var json = eval("(" + data + ")")
-                if (json.msg == "删除成功" || json.msg == "成功") {
-                    layer.msg("操作成功", 1, 9);
-                    vm.query(1);
-                    layer.close();
-                } else {
-                    layer.msg("操作失败," + json.msg);
-                }
-            })
-
+            layer.confirm("确定删除吗？", function () {
+                $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
+                    var json = eval("(" + data + ")")
+                    if (json.msg == "删除成功" || json.msg == "成功") {
+                        layer.msg("操作成功", 1, 9);
+                        vm.query(1);
+                        layer.close();
+                    } else {
+                        layer.msg("操作失败," + json.msg);
+                    }
+                })
+            }, layer.closeAll())
         },
         delPop: function () {
-            layer.confirm("确定删除吗？", function () {
-                vm.del()
-            }, layer.closeAll())
+                vm.del();
         },
         addHandle: function (data, callback, error) {
             var json = eval("(" + data + ")");// 解析json
@@ -307,6 +306,7 @@ avalon.ready(function () {
             vm.addSize = ""
             vm.addPath = ""
             vm.addVideo = ""
+            vm.addPic = ""
         },
         //全选
         checkAll: function () {
