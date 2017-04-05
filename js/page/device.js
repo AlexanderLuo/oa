@@ -315,9 +315,13 @@ avalon.ready(function () {
             vm.addTegr = 0;
             vm.addName = ""
             vm.isReving = false;
-
-
-            vm.tegr_id = vm.tegerList[0].tegr_id;
+            if(vm.weight == 3) {
+                vm.tegr_id = vm.tegerList[0].tegr_id;
+                // vm.teger_search = vm.tegerList[0].tegr_id
+            }else {
+                vm.tegr_id = user.tegr_id;
+                // vm.teger_search = user.tegr_id;
+            }
 
             var path = vm.upperPage();
             var c = conf;
@@ -690,7 +694,11 @@ avalon.ready(function () {
                 // },
                 complete: function (res) {
                     conf = eval("(" + res.responseText + ")")
-                    vm.querytTeg(vm.router, "device")
+                    if(vm.weight==3){
+                        vm.querytTeg(vm.router,"device");
+                    }else{
+                        vm.router('device');
+                    }
                 }
             });
 

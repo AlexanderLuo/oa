@@ -713,8 +713,13 @@ avalon.ready(function () {
             vm.addParent = "";
             vm.addSex = "";
             vm.addBrith = "";
-            vm.tegr_id = vm.tegerList[0].tegr_id;
-            vm.teger_search = vm.tegerList[0].tegr_id
+            if(vm.weight == 3) {
+                vm.tegr_id = vm.tegerList[0].tegr_id;
+                vm.teger_search = vm.tegerList[0].tegr_id
+            }else {
+                vm.tegr_id = user.tegr_id;
+                vm.teger_search = user.tegr_id;
+            }
 
 
             var path = vm.upperPage();
@@ -764,7 +769,9 @@ avalon.ready(function () {
                         break;
                     //todo 配置tegr ID
                     case "school":
+                        if(vm.weight == 3){
                         vm.querytTeg();
+                        }
                         vm.queryData = {
                             tegr_id: vm.teger_search,
                             page: vm.pageNo,
@@ -1021,21 +1028,21 @@ avalon.ready(function () {
                 // },
                 complete: function (res) {
                     conf = eval("(" + res.responseText + ")")
-
-                    function goto() {
                         if (vm.weight == 2) {
-                            vm.router('teacher')
+                            vm.router('school')
                         }
                         if (vm.weight == 3) {
-                            vm.router('admin')
+                            vm.querytTeg(function () {
+                                vm.router('admin')
+                            })
                         }
                         if (vm.weight == 1) {
                             vm.router('school')
                         }
                     }
 
-                    vm.querytTeg(goto)
-                }
+
+
             });
 
 

@@ -58,7 +58,7 @@ avalon.ready(function () {
             vm.router('meas');
         },
         look: function (el) {
-            window.open('/measure.html'+"?meas_id="+vm.meas_id+"&class_id="+el.class_id+"&child_id="+el.child_id);
+            window.open('/oa/measure.html'+"?meas_id="+vm.meas_id+"&class_id="+el.class_id+"&child_id="+el.child_id);
         },
         query: function (pageNo) {
             switch (vm.curPage){
@@ -189,7 +189,11 @@ avalon.ready(function () {
                 complete: function (res) {
                     conf = eval("(" + res.responseText + ")")
                     //vm.router("statement")
-                    vm.querytTeg(vm.router,"statement")
+                    if(vm.weight==3){
+                    vm.querytTeg(vm.router,"statement");
+                    }else{
+                        vm.router('statement');
+                    }
                 }
             });
         }

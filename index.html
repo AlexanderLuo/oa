@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>预览</title>
+    <title>test</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script src="https://code.jquery.com/jquery-git.js"></script>
 
@@ -622,6 +622,7 @@
                 width: 10vw;
                 height: 10vw;
             }
+
             .page.page5 .qr-form .desc {
                 padding-left: 13vw;
                 padding-top: 2vw;
@@ -640,7 +641,7 @@
 
 
 <body>
-<div class="pdf-wrapper" ="to-pdf">
+<div class="pdf-wrapper"="to-pdf">
 <div class="download">
     <div class="download-inner">
         <button id="downloadButton" onclick="download();">下载</button>
@@ -860,7 +861,7 @@
 
 <script type="text/javascript">
     $(function () {
-        $.post("http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/childStatementApi/getChildrenBodyReport", {
+        $.post("http://www.kh122.com:8080/Childrensys/servlet/api/meas/measureReport", {
             meas_id: getUrlParam("meas_id"),
             class_id: getUrlParam("class_id"),
             child_id: getUrlParam("child_id")
@@ -917,6 +918,10 @@
         if (r != null) return unescape(r[2]);
         return null; //返回参数值
     }
+
+//    function download() {
+//        window.location.href = "http://cky.ritacc.net:8080/MedicalReport/Download?name=我的pdf&url=" + window.encodeURIComponent(window.location.href);
+//    }
     document.body.className = "view";
     if (navigator.userAgent.match(/(iPhone|iPod|Android)/i)) {
         var link = document.createElement("link");
@@ -930,17 +935,18 @@
         });
     }
     function download() {
-        var pdf = new jsPDF('div','pt','a3');
-        pdf.internal.scaleFactor = 1;
-        var options = {
-            pagesplit: true
-        };
-        //$('.pdf-wrapper')
-        pdf.addHTML(document.body,options,function() {
-            pdf.save('web1111.pdf');
-        });
+    var pdf = new jsPDF('div','pt','a3');
+    pdf.internal.scaleFactor = 1;
+    var options = {
+        pagesplit: true
+    };
+    //$('.pdf-wrapper')
+    pdf.addHTML(document.body,options,function() {
+        pdf.save('web1111.pdf');
+    });
     }
 </script>
 </body>
+
 
 </html>
