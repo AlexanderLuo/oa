@@ -3,10 +3,14 @@
 <head>
     <title>预览</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
     <script src="https://code.jquery.com/jquery-git.js"></script>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+    <script src="js/jspdf/jspdf.js"></script>
+    <script src="js/jspdf/libs/sprintf.js"></script>
     <style type="text/css">
         body,
         html {
@@ -494,7 +498,7 @@
                 right: 0px;
                 padding: 24vw 9vw 9vw 9vw;
                 text-align: left;
-                font-size: 3.8vw;
+                font-size: 20px;
                 color: #999;
                 line-height: 6.12vw;
             }
@@ -930,14 +934,16 @@
         });
     }
     function download() {
-        var pdf = new jsPDF('div','pt','a3');
+//        $('.download').css('display','none');
+        var pdf = new jsPDF('div', 'pt', 'a3');
         pdf.internal.scaleFactor = 1;
         var options = {
-            pagesplit: true
+            pagesplit: true,
         };
         //$('.pdf-wrapper')
         pdf.addHTML(document.body,options,function() {
-            pdf.save('web1111.pdf');
+            pdf.save('体侧报表.pdf');
+            $('.download').css('display','block');
         });
     }
 </script>

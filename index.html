@@ -641,7 +641,8 @@
 
 
 <body>
-<div class="pdf-wrapper"="to-pdf">
+<div class="pdf-wrapper"
+="to-pdf">
 <div class="download">
     <div class="download-inner">
         <button id="downloadButton" onclick="download();">下载</button>
@@ -919,9 +920,9 @@
         return null; //返回参数值
     }
 
-//    function download() {
-//        window.location.href = "http://cky.ritacc.net:8080/MedicalReport/Download?name=我的pdf&url=" + window.encodeURIComponent(window.location.href);
-//    }
+    //    function download() {
+    //        window.location.href = "http://cky.ritacc.net:8080/MedicalReport/Download?name=我的pdf&url=" + window.encodeURIComponent(window.location.href);
+    //    }
     document.body.className = "view";
     if (navigator.userAgent.match(/(iPhone|iPod|Android)/i)) {
         var link = document.createElement("link");
@@ -935,15 +936,16 @@
         });
     }
     function download() {
-    var pdf = new jsPDF('div','pt','a3');
-    pdf.internal.scaleFactor = 1;
-    var options = {
-        pagesplit: true
-    };
-    //$('.pdf-wrapper')
-    pdf.addHTML(document.body,options,function() {
-        pdf.save('web1111.pdf');
-    });
+        $('.download').css('display','none');
+        var pdf = new jsPDF('div', 'pt', 'a4');
+        pdf.internal.scaleFactor = 1;
+        var options = {
+            pagesplit: true
+        };
+        //$('.pdf-wrapper')
+        pdf.addHTML(document.body, options, function () {
+            pdf.save('web1111.pdf');
+        });
     }
 </script>
 </body>
