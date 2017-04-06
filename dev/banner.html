@@ -54,11 +54,12 @@
                 <p class="baby_info_user">{{@user.name}}</p>
                 |
                 <strong>
-                    <a style="color: #999;cursor:pointer" href='#!/aaa'>个人设置 </a>
+                    <a style="color: #999;cursor:pointer" ms-on-click="@open">个人设置 </a>
                 </strong>
             </div>
         </div>
     </div>
+        <div ms-html="@settingPop"></div>
     </div>
 </div>
 

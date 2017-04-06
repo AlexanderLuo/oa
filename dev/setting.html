@@ -7,31 +7,32 @@
             <table class="table_1" cellpadding="0" cellspacing="0">
                 <tr>
                     <th width="40%">昵称：</th>
-                    <td width="60%"><input type="text" name="" />
-                    </td>
+                    <td width="60%"><input type="text" ms-duplex="@name"/></td>
                 </tr>
                 <tr>
                     <th width="40%">性别：</th>
                     <td width="60%">
-                        <select>
-                            <option value="0">男</option>
-                            <option value="1">女</option>
+                        <select ms-duplex="@sex">
+                            <option  ms-attr="{value: 0}">男</option>
+                            <option  ms-attr="{value: 1}">女</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th width="40%">生日：</th>
-                    <td width="60%"><input type="date" name="" /></td>
+                    <td width="60%">
+                        <input type="text"  ms-duplex="@birth" id="birth" name="birth" readOnly="true" class="set_text" onclick="laydate({istime: false,isclear:false, format: 'YYYY-MM-DD'})"/>
+                    </td>
                 </tr>
                 <tr>
                     <th width="40%">个性签名：</th>
-                    <td width="60%"><input type="text" name="" />
+                    <td width="60%"><input type="text" ms-duplex="@remark" />
                     </td>
                 </tr>
             </table>
             <div class="user-btn">
-                <input type="button" value="保存" class="oper" />
-                <input type="button" value="返回" class="oper" />
+                <input type="button" value="保存" class="oper" :on-click="@save"/>
+                <input type="button" value="返回" class="oper" :on-click="@close"/>
             </div>
         </div>
     </div>
