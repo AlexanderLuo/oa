@@ -87,9 +87,10 @@ avalon.ready(function () {
         queryHandle: function (data, callback, error) {
             var json = eval("(" + data + ")");// 解析json
             if (json.code == 200) {
+                layer.msg("加载成功",1,9)
                 callback(json);
             } else {
-                error && error.call()
+                layer.msg("加载失败,原因："+json.msg);
             }
         },
 
@@ -185,11 +186,11 @@ avalon.ready(function () {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if (json.msg == "添加成功" || json.msg == "修改成功") {
-                        layer.msg("操作成功", 1, 9);
+                        layer.msg(json.msg, 1, 9);
                         vm.close();
                         vm.query(1);
                     } else {
-                        layer.msg("操作失败," + json.msg);
+                        layer.msg(json.msg);
                     }
                 })
             } else if (!check) {
@@ -227,11 +228,11 @@ avalon.ready(function () {
                 $.ajax({url: vm.addUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if (json.msg == "添加成功" || json.msg == "修改成功") {
-                        layer.msg("操作成功", 1, 9);
+                        layer.msg(json.msg, 1, 9);
                         vm.close();
                         vm.query(1);
                     } else {
-                        layer.msg("操作失败," + json.msg);
+                        layer.msg(json.msg);
                     }
                 })
             } else if(!check){

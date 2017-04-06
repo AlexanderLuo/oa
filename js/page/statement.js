@@ -94,8 +94,9 @@ avalon.ready(function () {
                             })
                             vm.dataList = json.result.list
                             vm.records = json.result.total_count;
+                            layer.msg("加载成功",1,9)
                         } else {
-                            error && error.call()
+                            layer.msg("加载失败," + json.msg);
                         }
 
                     })
@@ -124,8 +125,9 @@ avalon.ready(function () {
                             })
                             vm.dataList = json.result.list
                             vm.records = json.result.total_count;
+                            layer.msg("加载成功",1,9)
                         } else {
-                            error && error.call()
+                            layer.msg("操作失败," + json.msg);
                         }
                     })
                  break;
