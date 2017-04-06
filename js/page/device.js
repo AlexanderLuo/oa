@@ -90,6 +90,25 @@ avalon.ready(function () {
                 vm.queryHandle(data, vm["get" + path])
             })
         },
+        getTeacher:function (data) {
+            $.ajax({
+                url: conf.baseUrl + conf.getTeacherList, type: "post", data: {
+                    user_id: user.user_id,
+                    tegr_id: data,
+                    page: 1,
+                    page_size: 800,
+                    last_req_time: 0
+                }
+            }).done(function (data) {
+                var json = eval("(" + data + ")");// 解析json
+                if (json.code == 200) {
+                    vm.userList = json.result.list;
+                    vm.addUser = vm.userList[0].user_id
+                } else {
+                    error && error.call()
+                }
+            })
+        },
         del: function () {
             var ids = ""
             var li = []
@@ -320,6 +339,7 @@ avalon.ready(function () {
                 // vm.teger_search = vm.tegerList[0].tegr_id
             }else {
                 vm.tegr_id = user.tegr_id;
+                vm.getTeacher(vm.tegr_id);
                 // vm.teger_search = user.tegr_id;
             }
 
@@ -413,6 +433,9 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
+                                if(vm.weight ==2){
+                                    vm.addUser = user.user_id;
+                                }
                                 return {
                                     degr_id: el.degr_id,
                                     user_id: vm.addUser,
@@ -436,6 +459,9 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
+                                if(vm.weight ==2){
+                                    vm.addTegr = user.user_id;
+                                }
                                 return {
                                     tegr_id: vm.addTegr,
                                     user_id: vm.addUser,
@@ -528,6 +554,9 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
+                                if(vm.weight ==2){
+                                    vm.addTegr = user.tegr_id;
+                                }
                                 return {
                                     ruler_id: el.ruler_id,
                                     user_id: vm.addUser,
@@ -555,6 +584,9 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
+                                if(vm.weight ==2){
+                                    vm.addTegr = user.tegr_id;
+                                }
                                 return {
                                     tegr_id: vm.addTegr,
                                     user_id: vm.addUser,
@@ -589,6 +621,9 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
+                                if(vm.weight ==2){
+                                    vm.addTegr = user.tegr_id;
+                                }
                                 return {
                                     scales_id: el.scales_id,
                                     tegr_id: vm.addTegr,
@@ -618,6 +653,9 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
+                                if(vm.weight ==2){
+                                    vm.addTegr = user.tegr_id;
+                                }
                                 return {
                                     tegr_id: vm.addTegr,
                                     user_id: vm.addUser,
@@ -719,7 +757,6 @@ avalon.ready(function () {
             vm.userList = [{name: "请选择", user_id: 0}]
             return;
         }
-        console.log(data)
         $.ajax({
             url: conf.baseUrl + conf.getTeacherList, type: "post", data: {
                 user_id: user.user_id,

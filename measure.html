@@ -145,7 +145,7 @@
             text-align: left;
             font-size: 20px;
             color: #999;
-            line-height: 49px;
+            line-height: 47px;
         }
 
         .page.page2 .teacher {
@@ -490,18 +490,18 @@
                 line-height: 2vw
             }
 
-            .page.page2 .message {
-                position: absolute;
-                left: 0px;
-                top: 0px;
-                bottom: 0px;
-                right: 0px;
-                padding: 24vw 9vw 9vw 9vw;
-                text-align: left;
-                font-size: 20px;
-                color: #999;
-                line-height: 6.12vw;
-            }
+            /*.page.page2 .message {*/
+                /*position: absolute;*/
+                /*left: 0px;*/
+                /*top: 0px;*/
+                /*bottom: 0px;*/
+                /*right: 0px;*/
+                /*padding: 24vw 9vw 9vw 9vw;*/
+                /*text-align: left;*/
+                /*font-size: 3.8vw;*/
+                /*color: #999;*/
+                /*line-height: 6.12vw;*/
+            /*}*/
 
             .page.page2 .teacher {
                 position: absolute;
@@ -684,11 +684,11 @@
             <div class="page page2">
                 <img class="frame" src="img/report/frame2.jpg"/>
                 <div class="message">
-                    亲爱的<span id="childrenName3"></span>小朋友：<br/>
+                   亲爱的<span id="childrenName3"></span>小朋友：<br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    你们好！我们学习了第一单元的“走进西部”，我是多么向往西部啊！
+                    <span>你们好！我们学习了第一单元的“走进西部”，我是多么向往西部啊！
                     那辽阔青绿的大草原，那高大挺秀的戈壁卫士白杨树，那些默默无闻的边疆建设者，
-                    在我的心里激起了巨大的波浪。老师号召我们和西部的小朋友手拉手交朋友，我高兴极了。
+                    在我的心里激起了巨大的波浪。老师号召我们和西部的小朋友手拉手交朋友，我高兴极了。 </span>
                 </div>
                 <div class="teacher">
                     你的健康老师：<span id="userName"></span>
@@ -934,7 +934,7 @@
         });
     }
     function download() {
-//        $('.download').css('display','none');
+        $('.download').css('display','none');
         var pdf = new jsPDF('div', 'pt', 'a3');
         pdf.internal.scaleFactor = 1;
         var options = {

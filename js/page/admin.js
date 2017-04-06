@@ -349,6 +349,9 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
+                                if(vm.weight==2){
+                                    vm.addTegr = user.tegr_id;
+                                }
                                 return {
                                     school_id: el.school_id,
                                     tegr_id: vm.addTegr,
@@ -376,6 +379,9 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
+                                if(vm.weight==2){
+                                    vm.addTegr = user.tegr_id;
+                                }
                                 return {
                                     tegr_id: vm.addTegr,
                                     school_name: vm.addSchoolName,
@@ -758,7 +764,10 @@ avalon.ready(function () {
                         break;
                     //todo 配置tegr ID
                     case "teacher":
-                        console.log(vm.addTe)
+                        // console.log(vm.addTe)
+                        if(vm.weight==2){
+                            vm.addTe = user.tegr_id;
+                        }
                         vm.queryData = {
                             user_id: user.user_id,
                             tegr_id: vm.addTe,
@@ -1029,7 +1038,7 @@ avalon.ready(function () {
                 complete: function (res) {
                     conf = eval("(" + res.responseText + ")")
                         if (vm.weight == 2) {
-                            vm.router('school')
+                            vm.router('teacher')
                         }
                         if (vm.weight == 3) {
                             vm.querytTeg(function () {

@@ -58,6 +58,8 @@
         <!--子导航栏-->
         <div class="baby_conter_left">
             <div class="baby_conter_li" id="teachLeft_Id">
+                <a ms-class="baby_conter_school:curPage == 'teacher' " ms-click="router('teacher')"  ms-if="weight==2 "><img
+                        src="img/buttom.png">教师列表</a>
                 <a ms-class="baby_conter_school:curPage == 'admin' " ms-click="router('admin')" ms-if="weight==3 "><img
                         src="img/buttom.png">系统用户</a>
                 <a ms-class="baby_conter_school:curPage == 'teger' || curPage == 'teacher' " ms-click="router('teger')" ms-if="weight==3 "><img
@@ -103,7 +105,7 @@
                 <!--数据主体-->
 
                 <!--管理员数据-->
-                <div class="baby_content_tab" ms-if=" curPage == 'admin'   ">
+                <div class="baby_content_tab" ms-if=" curPage == 'admin'">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>姓名</li>
@@ -129,7 +131,7 @@
                 </div>
 
                 <!--集团数据-->
-                <div class="baby_content_tab" ms-if="curPage == 'teger'  && weight==3 ">
+                <div class="baby_content_tab" ms-if="curPage == 'teger' && weight >=2 ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
                         <li>集团名称</li>
@@ -153,7 +155,7 @@
                 </div>
 
                 <!--教师管理数据-->
-                <div class="user-main2" style="display: none" ms-class="block:curPage == 'teacher'"
+                <div class="user-main2" style="display: none" ms-class="block:curPage == 'teacher && weight!=2"
                      ms-if="curPage == 'teacher' ">
                     <div class="user-title2">
                         <a ms-click="router('teger')" class="back">
@@ -165,7 +167,7 @@
                 <div class="baby_content_tab" ms-if="curPage =='teacher'   && weight>=2 ">
                     <ul class="baby_content_tab_menu">
                         <li>选择</li>
-                        <li>集团名称</li>
+                        <li ms-if="weight!=2">集团名称</li>
                         <li>姓名</li>
                         <li>角色</li>
                         <li>账号</li>
@@ -176,7 +178,7 @@
                         <li class="baby_tab_checkbox_li">
                             <input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>
                         </li>
-                        <li>{{tegrName}}</li>
+                        <li  ms-if="weight!=2">{{tegrName}}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.role_type | roleTypeFilter}}</li>
                         <li>{{el.username}}</li>
@@ -444,7 +446,7 @@
                                     <td width="60%"><input type="text" name="" ms-duplex="addSchoolName"/>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr ms-if="weight==3">
                                     <th width="40%">集团名称：</th>
                                     <td width="60%">
                                         <select ms-duplex="addTegr">
