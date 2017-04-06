@@ -1019,7 +1019,7 @@ avalon.ready(function () {
             }
             user = userr;
             var ty = user.role_type;
-            vm.selfId = user.user_id
+            vm.selfId = user.user_id;
             if (ty == "8") {
                 vm.weight = 2
             }
@@ -1038,6 +1038,7 @@ avalon.ready(function () {
                 complete: function (res) {
                     conf = eval("(" + res.responseText + ")")
                         if (vm.weight == 2) {
+                            vm.roleList = [{id: 1, name: "教师"}];
                             vm.router('teacher')
                         }
                         if (vm.weight == 3) {

@@ -257,6 +257,28 @@
     width: 70px;
     height: 70px;
 }
+.file{
+    margin-top: 15px;
+    width: 60px;
+    height: 20px;
+    border: 1px solid #1c6a9e;
+    border-radius: 1px ;
+    background: #00E8D7;
+    opacity:0.0;
+}
+.filediv{
+    display:inline;
+    margin-top: 10px;
+    width: 60px;
+    height: 60px;
+    /*border: 1px solid #1c6a9e;*/
+    /*border-radius: 1px ;*/
+    background:url("../img/timg.png") no-repeat center ;
+    z-index: 222;
+    background-size: 25px;
+    /*opacity:0.1;*/
+}
+
 .user-main2 {
     width: 100%;
     background: white;

@@ -58,13 +58,16 @@
         <!--子导航栏-->
         <div class="baby_conter_left">
             <div class="baby_conter_li" id="teachLeft_Id">
-                <a ms-class="baby_conter_school:curPage == 'teacher' " ms-click="router('teacher')"  ms-if="weight==2 "><img
+                <a ms-class="baby_conter_school:curPage == 'teacher' " ms-click="router('teacher')"
+                   ms-if="weight==2 "><img
                         src="img/buttom.png">教师列表</a>
                 <a ms-class="baby_conter_school:curPage == 'admin' " ms-click="router('admin')" ms-if="weight==3 "><img
                         src="img/buttom.png">系统用户</a>
-                <a ms-class="baby_conter_school:curPage == 'teger' || curPage == 'teacher' " ms-click="router('teger')" ms-if="weight==3 "><img
+                <a ms-class="baby_conter_school:curPage == 'teger' || curPage == 'teacher' " ms-click="router('teger')"
+                   ms-if="weight==3 "><img
                         src="img/buttom.png">集团列表</a>
-                <a ms-class="baby_conter_school:curPage == 'school' || curPage == 'class'|| curPage == 'student' " ms-click="router('school')"><img
+                <a ms-class="baby_conter_school:curPage == 'school' || curPage == 'class'|| curPage == 'student' "
+                   ms-click="router('school')"><img
                         src="img/buttom.png">学校列表</a>
                 <a ms-class="baby_conter_school:curPage == 'parent' " ms-click="router('parent')"><img
                         src="img/buttom.png">家长列表</a>
@@ -126,7 +129,7 @@
                         <li>{{el.role_type|roleTypeFilter}}</li>
                         <li>{{el.username}}</li>
                         <li ms-click="open(el)" ms-if="el.user_id!=selfId"><a class="edit">编辑</a></li>
-                        <li  ms-if="el.user_id==selfId"><a class="edit"></a></li>
+                        <li ms-if="el.user_id==selfId"><a class="edit"></a></li>
                     </ul>
                 </div>
 
@@ -155,7 +158,7 @@
                 </div>
 
                 <!--教师管理数据-->
-                <div class="user-main2" style="display: none" ms-class="block:curPage == 'teacher && weight!=2"
+                <div class="user-main2" style="display: none" ms-class="block:curPage == 'teacher' && weight!=2"
                      ms-if="curPage == 'teacher' ">
                     <div class="user-title2">
                         <a ms-click="router('teger')" class="back">
@@ -175,10 +178,13 @@
                     </ul>
                     <!--&lt;!&ndash;数据&ndash;&gt;-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
-                        <li class="baby_tab_checkbox_li">
+                        <li class="baby_tab_checkbox_li" ms-if="el.user_id!=selfId">
                             <input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>
                         </li>
-                        <li  ms-if="weight!=2">{{tegrName}}</li>
+                        <li class="baby_tab_checkbox_li" ms-if="el.user_id==selfId && weight == 2">
+                            <!--<input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>-->
+                        </li>
+                        <li ms-if="weight!=2">{{tegrName}}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.role_type | roleTypeFilter}}</li>
                         <li>{{el.username}}</li>
@@ -292,7 +298,7 @@
                         <li>{{el.class_name}}</li>
                         <li>{{el.children_name}}</li>
                         <li>{{el.child_sex | sexxFilter}}</li>
-                        <li>{{el.child_birthday*1000 | date('yyyy-MM-dd') }}</li>
+                        <li>{{el.child_birthday | date('yyyy-MM-dd') }}</li>
                         <li>{{el.name}}</li>
                         <li>{{el.username}}</li>
                         <li ms-click="open(el)"><a class="edit" href="javascript: void(0)" eid="190">编辑</a></li>
@@ -477,7 +483,7 @@
                             <table class="table_1" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="40%">班级名称：</th>
-                                    <td width="60%"><input type="text"  ms-duplex="addClass"/>
+                                    <td width="60%"><input type="text" ms-duplex="addClass"/>
                                     </td>
                                 </tr>
                             </table>
@@ -540,7 +546,7 @@
                                     <th width="40%">学生性别：</th>
                                     <td width="60%">
                                         <select ms-duplex="addSex">
-                                            <option  ms-repeat="sexList" ms-attr-value="el.id">{{el.name}}</option>
+                                            <option ms-repeat="sexList" ms-attr-value="el.id">{{el.name}}</option>
                                         </select>
 
                                     </td>

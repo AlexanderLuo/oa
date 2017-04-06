@@ -72,7 +72,7 @@
         <div class="baby_conter_right" ms-if="weight==3 ">
             <form method="post" id="formId">
 
-                <div class="select" ms-if="curPage== 'goods'" >
+                <div class="select" ms-if="curPage== 'goods'">
                     <span>商品类型：&nbsp;</span>
                     <select name="" ms-duplex="typeFilter">
                         <option ms-attr-value="el.id" ms-repeat="typeList">{{el.name}}</option>
@@ -120,7 +120,7 @@
                     <!--数据-->
                     <ul class="baby_content_tab_ul1 " ms-repeat="dataList" ms-class="baby_content_tab_bg:$index%2!=0">
                         <!--<li class="baby_tab_checkbox_li">-->
-                            <!--<input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>-->
+                        <!--<input type="checkbox" ms-attr-checked="el.check" ms-click="checkOne(el)"/>-->
                         <!--</li>-->
                         <li>{{el.order_number}}</li>
                         <li>{{el.user_name}}</li>
@@ -175,7 +175,9 @@
                                     <th width="40%">商品类型：</th>
                                     <td width="60%">
                                         <select name="" ms-duplex="addGoodsType">
-                                            <option ms-attr-value="el.id" ms-repeat="typeList" ms-if-loop="$index!=0">{{el.name}}</option>
+                                            <option ms-attr-value="el.id" ms-repeat="typeList" ms-if-loop="$index!=0">
+                                                {{el.name}}
+                                            </option>
                                         </select>
                                     </td>
                                 </tr>
@@ -246,7 +248,9 @@
 
                                         <div>
                                             <form id="uploadForm0" enctype="multipart/form-data">
-                                                <input  type="file" name="file" ms-change="upload(0)"/>
+                                                <div class="filediv">
+                                                    <input type="file" name="file" ms-change="upload(0)" class="file"/>
+                                                </div>
                                             </form>
 
                                         </div>
@@ -264,7 +268,9 @@
 
                                         <div>
                                             <form id="uploadForm1" enctype="multipart/form-data">
-                                                <input  type="file" name="file" ms-change="upload(1)"/>
+                                                <div class="filediv">
+                                                    <input class="file" type="file" name="file" ms-change="upload(1)"/>
+                                                </div>
                                             </form>
                                         </div>
                                     </td>

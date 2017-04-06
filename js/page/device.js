@@ -90,7 +90,7 @@ avalon.ready(function () {
                 vm.queryHandle(data, vm["get" + path])
             })
         },
-        getTeacher:function (data) {
+        getTeacher: function (data) {
             $.ajax({
                 url: conf.baseUrl + conf.getTeacherList, type: "post", data: {
                     user_id: user.user_id,
@@ -187,7 +187,7 @@ avalon.ready(function () {
                     console.log(vm.delData)
                     break;
             }
-            if(ids==""){
+            if (ids == "") {
                 layer.closeAll()
                 layer.msg("请选择删除项")
                 return;
@@ -195,16 +195,16 @@ avalon.ready(function () {
 
             var path = vm.upperPage();
             layer.confirm("确定删除吗？", function () {
-            $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
-                var json = eval("(" + data + ")")
-                if (json.msg == "删除成功" || json.msg == "成功") {
-                    layer.msg("操作成功",1,9);
-                    vm.query(1);
-                    layer.close();
-                } else {
-                    layer.msg("操作失败," + json.msg);
-                }
-            })
+                $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
+                    var json = eval("(" + data + ")")
+                    if (json.msg == "删除成功" || json.msg == "成功") {
+                        layer.msg("操作成功", 1, 9);
+                        vm.query(1);
+                        layer.close();
+                    } else {
+                        layer.msg("操作失败," + json.msg);
+                    }
+                })
             }, layer.closeAll())
 
         },
@@ -219,12 +219,12 @@ avalon.ready(function () {
             if (check == true) {
                 $.ajax({url: vm.addUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")");
-                    if(json.msg=="添加成功"||json.msg=="修改成功"){
-                        layer.msg("操作成功",1,9);
+                    if (json.msg == "添加成功" || json.msg == "修改成功") {
+                        layer.msg("操作成功", 1, 9);
                         vm.close();
                         vm.query(1)
-                    }else{
-                        layer.msg("操作失败，"+json.msg);
+                    } else {
+                        layer.msg("操作失败，" + json.msg);
                     }
                 })
             } else if (!check) {
@@ -241,12 +241,12 @@ avalon.ready(function () {
             if (check == true) {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.addData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
-                    if(json.msg=="添加成功"||json.msg=="修改成功"){
-                        layer.msg("操作成功",1,9);
+                    if (json.msg == "添加成功" || json.msg == "修改成功") {
+                        layer.msg("操作成功", 1, 9);
                         vm.close();
                         vm.query(1)
-                    }else{
-                        layer.msg("操作失败，"+json.msg);
+                    } else {
+                        layer.msg("操作失败，" + json.msg);
                     }
                 })
             } else if (!check) {
@@ -334,12 +334,14 @@ avalon.ready(function () {
             vm.addTegr = 0;
             vm.addName = ""
             vm.isReving = false;
-            if(vm.weight == 3) {
+            if (vm.weight == 3) {
                 vm.tegr_id = vm.tegerList[0].tegr_id;
                 // vm.teger_search = vm.tegerList[0].tegr_id
-            }else {
+            } else {
                 vm.tegr_id = user.tegr_id;
-                vm.getTeacher(vm.tegr_id);
+                if (vm.weight == 2) {
+                    vm.getTeacher(vm.tegr_id);
+                }
                 // vm.teger_search = user.tegr_id;
             }
 
@@ -411,7 +413,7 @@ avalon.ready(function () {
             vm.pop = vm.curPage;
             vm.addData = {};
             var reg = /^\d{1,10}$/;
-            var reg2 =/^[a-zA-Z0-9]{12}$/;
+            var reg2 = /^[a-zA-Z0-9]{12}$/;
             switch (vm.curPage) {
                 case "device":
                     if (el) {
@@ -433,7 +435,7 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
-                                if(vm.weight ==2){
+                                if (vm.weight == 2) {
                                     vm.addUser = user.user_id;
                                 }
                                 return {
@@ -459,7 +461,7 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
-                                if(vm.weight ==2){
+                                if (vm.weight == 2) {
                                     vm.addTegr = user.user_id;
                                 }
                                 return {
@@ -554,7 +556,7 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
-                                if(vm.weight ==2){
+                                if (vm.weight == 2) {
                                     vm.addTegr = user.tegr_id;
                                 }
                                 return {
@@ -584,7 +586,7 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
-                                if(vm.weight ==2){
+                                if (vm.weight == 2) {
                                     vm.addTegr = user.tegr_id;
                                 }
                                 return {
@@ -621,7 +623,7 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
-                                if(vm.weight ==2){
+                                if (vm.weight == 2) {
                                     vm.addTegr = user.tegr_id;
                                 }
                                 return {
@@ -653,7 +655,7 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
-                                if(vm.weight ==2){
+                                if (vm.weight == 2) {
                                     vm.addTegr = user.tegr_id;
                                 }
                                 return {
@@ -671,7 +673,7 @@ avalon.ready(function () {
 
         },
         delPop: function () {
-                vm.del();
+            vm.del();
         },
 
 
@@ -716,7 +718,7 @@ avalon.ready(function () {
             var ty = user.role_type;
             if (ty == "8") {
                 vm.weight = 2
-            } 
+            }
             else if (ty == "16" || ty == "32") {
                 vm.weight = 3
             }
@@ -732,9 +734,9 @@ avalon.ready(function () {
                 // },
                 complete: function (res) {
                     conf = eval("(" + res.responseText + ")")
-                    if(vm.weight==3){
-                        vm.querytTeg(vm.router,"device");
-                    }else{
+                    if (vm.weight == 3) {
+                        vm.querytTeg(vm.router, "device");
+                    } else {
                         vm.router('device');
                     }
                 }
