@@ -264,7 +264,7 @@ avalon.ready(function () {
         queryHandle: function (data, callback, error) {
             var json = eval("(" + data + ")");// 解析json
             if (json.code == 200) {
-                layer.msg("加载成功",1,9)
+                //layer.msg("加载成功",1,9)
                 callback(json);
             } else {
                 ayer.msg("加载失败"+json.msg);

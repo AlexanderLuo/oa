@@ -9,10 +9,16 @@ function error() {
 avalon.ready(function () {
     var vm = avalon.define({
         $id: "goodsVm",
-        typeList: [{id: 0, name: "全部"}, {id: 1, name: "教材"}, {id: 2, name: "器材"}, {id: 3, name: "服饰"}, {id: 4, name: "其他"}],
+        typeList: [{id: 0, name: "全部"}, {id: 1, name: "教材"}, {id: 2, name: "器材"}, {id: 3, name: "服饰"}, {
+            id: 4,
+            name: "其他"
+        }],
         typeFilter: 0,
         saleList: [{id: 0, name: "上架", select: false}, {id: 1, name: "下架", select: false}],
-        orderList: [{id: 0, name: "全部"}, {id: 1, name: "待付款"}, {id: 2, name: "待发货"}, {id: 3, name: "待收货"}, {id: 4, name: "已收货"}],
+        orderList: [{id: 0, name: "全部"}, {id: 1, name: "待付款"}, {id: 2, name: "待发货"}, {id: 3, name: "待收货"}, {
+            id: 4,
+            name: "已收货"
+        }],
         orderList2: [{id: 1, name: "待付款"}, {id: 2, name: "待发货"}, {id: 3, name: "待收货"}, {id: 4, name: "已收货"}],
 
         goods_type: 0,
@@ -75,6 +81,8 @@ avalon.ready(function () {
         dataList: [],
 
         checkAllFlag: false,  //全选标志
+        fileT: true,
+        fileD: true,
 
         query: function (pageNo) {
             vm.pageNo = pageNo
@@ -87,10 +95,11 @@ avalon.ready(function () {
         queryHandle: function (data, callback, error) {
             var json = eval("(" + data + ")");// 解析json
             if (json.code == 200) {
-                layer.msg("加载成功",1,9)
+                //加载成功提示
+                //layer.msg("加载成功", 1, 9)
                 callback(json);
             } else {
-                layer.msg("加载失败,原因："+json.msg);
+                layer.msg("加载失败,原因：" + json.msg);
             }
         },
 
@@ -150,9 +159,16 @@ avalon.ready(function () {
                     var json = eval("(" + data + ")");// 解析json
                     if (str == 0) {
                         vm.picList.push(json.result)
+                        console.log(vm.picList.length);
+                        if (vm.picList.length > 3) {
+                            vm.fileT = false;
+                        }
                     }
                     if (str == 1) {
                         vm.detailList.push(json.result)
+                        if (vm.detailList.length > 7) {
+                            vm.fileD = false;
+                        }
                     }
                 }
             });
@@ -224,7 +240,7 @@ avalon.ready(function () {
             var path = vm.upperPage();
             var check = vm.popData.isLegal();
             console.log(vm.addUrl)
-            if (check==true) {
+            if (check == true) {
                 $.ajax({url: vm.addUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if (json.msg == "添加成功" || json.msg == "修改成功") {
@@ -235,9 +251,9 @@ avalon.ready(function () {
                         layer.msg(json.msg);
                     }
                 })
-            } else if(!check){
+            } else if (!check) {
                 layer.msg("请填写完整")
-            }else {
+            } else {
                 layer.msg(check);
             }
         },
@@ -312,7 +328,13 @@ avalon.ready(function () {
 
                         vm.addGoodsImg = el.goods_image;
                         vm.addGoodsDetail = el.goods_detail;
-
+                        console.log(vm.addGoodsImg)
+                        if (vm.addGoodsImg.split(',').length > 3) {
+                            vm.fileT = false
+                        }
+                        if (vm.addGoodsDetail.split(',').length > 7) {
+                            vm.fileD = false;
+                        }
                         vm.popData = {
                             isLegal: function () {
                                 var data = vm.popData.collecData();
@@ -493,10 +515,16 @@ avalon.ready(function () {
         },
         delPic: function (index, el) {
             if (index == 0) {
-                vm.picList.remove(el)
+                vm.picList.remove(el);
+                if(vm.picList.length < 4){
+                    vm.fileT = true;
+                }
             }
             if (index == 1) {
                 vm.detailList.remove(el)
+                if(vm.detailList.length < 8){
+                    vm.fileD = true;
+                }
             }
         },
         close: function () {
@@ -516,6 +544,8 @@ avalon.ready(function () {
             vm.addGoodsState = ""
             vm.addGoodsImg = ""
             vm.addGoodsDetail = ""
+            vm.fileD = true
+            vm.fileT = true
         },
         switchCheck: function (str) {
             var goto;
@@ -549,7 +579,7 @@ avalon.ready(function () {
             }
         },
         delPop: function () {
-                vm.del();
+            vm.del();
         },
 
         init: function () {

@@ -246,7 +246,7 @@
                                             <img ms-attr-src="  'http://www.kh122.com:8080/' +el " alt="">
                                         </div>
 
-                                        <div>
+                                        <div  ms-if="fileT">
                                             <form id="uploadForm0" enctype="multipart/form-data">
                                                 <div class="filediv">
                                                     <input type="file" name="file" ms-change="upload(0)" class="file"/>
@@ -266,7 +266,7 @@
                                             <img ms-attr-src=" 'http://www.kh122.com:8080/'+el" alt="">
                                         </div>
 
-                                        <div>
+                                        <div ms-if="fileD">
                                             <form id="uploadForm1" enctype="multipart/form-data">
                                                 <div class="filediv">
                                                     <input class="file" type="file" name="file" ms-change="upload(1)"/>

@@ -117,7 +117,7 @@ avalon.ready(function () {
                     // layer.msg("加载成功",1,9)
                     callback();
                 } else {
-                   layer.msg("获取集团列表失败，原因："+json.msg);
+                    layer.msg("获取集团列表失败，原因：" + json.msg);
                 }
             })
         },
@@ -155,7 +155,7 @@ avalon.ready(function () {
                 $.ajax({url: vm.revUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if (json.msg == "添加成功" || json.msg == "修改成功") {
-                        layer.msg(json.msg,1,9);
+                        layer.msg(json.msg, 1, 9);
                         vm.close();
                         vm.query(1);
                     } else {
@@ -180,7 +180,7 @@ avalon.ready(function () {
                 $.ajax({url: vm.addUrl, type: "post", data: vm.popData.collecData()}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if (json.msg == "添加成功" || json.msg == "修改成功") {
-                        layer.msg(json.msg,1,9);
+                        layer.msg(json.msg, 1, 9);
                         vm.close();
                         vm.query(1)
                     } else {
@@ -197,10 +197,10 @@ avalon.ready(function () {
         queryHandle: function (data, callback, error) {
             var json = eval("(" + data + ")");// 解析json
             if (json.code == 200) {
-                layer.msg("加载成功",1,9)
+                //layer.msg("加载成功",1,9)
                 callback(json);
             } else {
-                layer.msg("加载失败"+json.msg);
+                layer.msg("加载失败" + json.msg);
             }
         },
         open: function (el) {
@@ -232,8 +232,6 @@ avalon.ready(function () {
                                             return "姓名超过12字符";
                                         }
                                         if (!reg.test(data.username)) {
-                                            console.log(data.username);
-                                            console.log(reg.test(data.username));
                                             return "账号请填写正确的电话号码";
                                         } else {
                                             return true;
@@ -340,7 +338,7 @@ avalon.ready(function () {
                         vm.popData = {
                             isLegal: function () {
                                 var data = vm.popData.collecData();
-                                if (data.tegr_id == 0 || data.user_id == 0 || data.school_name.trim() == "" ) {
+                                if (data.tegr_id == 0 || data.user_id == 0 || data.school_name.trim() == "") {
                                     return false;
                                 } else {
                                     if (data.school_name.length > 12) {
@@ -351,7 +349,7 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
-                                if(vm.weight==2){
+                                if (vm.weight == 2) {
                                     vm.addTegr = user.tegr_id;
                                 }
                                 return {
@@ -381,7 +379,7 @@ avalon.ready(function () {
                                 }
                             },
                             collecData: function () {
-                                if(vm.weight==2){
+                                if (vm.weight <= 2) {
                                     vm.addTegr = user.tegr_id;
                                 }
                                 return {
@@ -523,6 +521,8 @@ avalon.ready(function () {
                                         return "学生姓名超过12字符";
                                     } else if (date < data.child_birthday) {
                                         return "所选生日不得大于当前时间";
+                                    } else if (!reg.test(data.username)) {
+                                        return "账号请填写正确的电话号码";
                                     } else {
                                         return true;
                                     }
@@ -531,7 +531,7 @@ avalon.ready(function () {
                             collecData: function () {
                                 var ti = new Date(vm.addBrith).getTime();
                                 return {
-                                    child_id:el.child_id,
+                                    child_id: el.child_id,
                                     tegr_id: vm.tegr_id,
                                     school_id: vm.school_id,
                                     class_id: vm.class_id,
@@ -556,6 +556,8 @@ avalon.ready(function () {
                                         return "学生姓名超过12字符"
                                     } else if (date < data.child_birthday) {
                                         return "所选生日不得大于当前时间";
+                                    } else if (!reg.test(data.username)) {
+                                        return "账号请填写正确的电话号码";
                                     } else {
                                         return true;
                                     }
@@ -721,10 +723,10 @@ avalon.ready(function () {
             vm.addParent = "";
             vm.addSex = "";
             vm.addBrith = "";
-            if(vm.weight == 3) {
+            if (vm.weight == 3) {
                 vm.tegr_id = vm.tegerList[0].tegr_id;
                 vm.teger_search = vm.tegerList[0].tegr_id
-            }else {
+            } else {
                 vm.tegr_id = user.tegr_id;
                 vm.teger_search = user.tegr_id;
             }
@@ -767,7 +769,7 @@ avalon.ready(function () {
                     //todo 配置tegr ID
                     case "teacher":
                         // console.log(vm.addTe)
-                        if(vm.weight==2){
+                        if (vm.weight == 2) {
                             vm.addTe = user.tegr_id;
                         }
                         vm.queryData = {
@@ -780,8 +782,8 @@ avalon.ready(function () {
                         break;
                     //todo 配置tegr ID
                     case "school":
-                        if(vm.weight == 3){
-                        vm.querytTeg();
+                        if (vm.weight == 3) {
+                            vm.querytTeg();
                         }
                         vm.queryData = {
                             tegr_id: vm.teger_search,
@@ -801,6 +803,9 @@ avalon.ready(function () {
                         break;
                     //todo 配置tegr ID
                     case "parent":
+                        if(vm.weight <=2){
+                            vm.teger_search = user.tegr_id
+                        }
                         $.ajax({
                             url: conf.baseUrl + conf.querySchool,
                             type: "post",
@@ -869,7 +874,7 @@ avalon.ready(function () {
             vm.addClass = ""
         },
         delPop: function () {
-                vm.del();
+            vm.del();
         },
         del: function () {
             var ids = ""
@@ -980,14 +985,14 @@ avalon.ready(function () {
             if (ids == "") {
                 layer.closeAll()
                 layer.msg("请选择删除项")
-                return ;
+                return;
             }
             var path = vm.upperPage();
             layer.confirm("确定删除吗？", function () {
                 $.ajax({url: vm.delUrl, type: "post", data: vm.delData}).done(function (data) {
                     var json = eval("(" + data + ")")
                     if (json.msg == "删除成功" || json.msg == "成功") {
-                        layer.msg("操作成功",1,9);
+                        layer.msg("操作成功", 1, 9);
                         vm.query(1);
                         layer.close();
                     } else {
@@ -1039,20 +1044,19 @@ avalon.ready(function () {
                 // },
                 complete: function (res) {
                     conf = eval("(" + res.responseText + ")")
-                        if (vm.weight == 2) {
-                            vm.roleList = [{id: 1, name: "教师"}];
-                            vm.router('teacher')
-                        }
-                        if (vm.weight == 3) {
-                            vm.querytTeg(function () {
-                                vm.router('admin')
-                            })
-                        }
-                        if (vm.weight == 1) {
-                            vm.router('school')
-                        }
+                    if (vm.weight == 2) {
+                        vm.roleList = [{id: 1, name: "教师"}];
+                        vm.router('teacher')
                     }
-
+                    if (vm.weight == 3) {
+                        vm.querytTeg(function () {
+                            vm.router('admin')
+                        })
+                    }
+                    if (vm.weight == 1) {
+                        vm.router('school')
+                    }
+                }
 
 
             });
@@ -1078,7 +1082,7 @@ avalon.ready(function () {
                 str = "专家（客服）";
                 break;
             case  8:
-                str = "集团组长";
+                str = "集团管理员";
                 break;
             case  16:
                 str = "管理员";
