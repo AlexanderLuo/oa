@@ -80,7 +80,7 @@ avalon.ready(function () {
                             tegr_id:vm.teger_search,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
-                            last_req_time: vm.last_req_time
+                            last_req_time:0
                         }
                     }).done(function (data) {
                         var json = eval("(" + data + ")");// 解析json

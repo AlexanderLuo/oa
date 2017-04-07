@@ -63,12 +63,11 @@ avalon.ready(function () {
                     user_id: user.user_id,
                     page: vm.pageNo,
                     page_size: vm.pageSize,
-                    last_req_time: vm.last_req_time
+                    last_req_time: 0
                 }
             }).done(function (data) {
                 var json = eval("(" + data + ")");// 解析json
                 if (json.code == 200) {
-                    // vm.last_req_time = json.result.last_req_time;
                     vm.records = json.result.total_count;
                     vm.total = Math.ceil(vm.records / vm.pageSize)
 

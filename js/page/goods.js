@@ -265,7 +265,7 @@ avalon.ready(function () {
                         goods_type: vm.goods_type,
                         page: vm.pageNo,
                         page_size: vm.pageSize,
-                        last_req_time: vm.lastReq
+                        last_req_time: 0
                     }
                     break;
                 case "order":
@@ -274,7 +274,7 @@ avalon.ready(function () {
                         order_state: vm.order_state,
                         page: vm.pageNo,
                         page_size: vm.pageSize,
-                        last_req_time: vm.orderReq
+                        last_req_time:0
                     }
                     break;
             }

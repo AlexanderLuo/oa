@@ -22,7 +22,7 @@
                 <li>e76</li>
                 <li>el.from e6}</li>
                 <li>el.cre}</li>
-                <li><a class="edit"  :on-click="@router('statementDetail')">  查看 </a></li>
+                <li><a class="edit"  :on-click="@router('statementDetail')">查看 </a></li>
             </ul>
         </div>
     </form>
@@ -34,16 +34,16 @@
         <div class="baby_content_dt-2">
             <div class="baby_content_dt-2-fy">
                 <!-- 分页首页按钮 -->
-                <a href="javascript:void(0)" class="baby_content_span" ms-click="query(1)"
+                <a href="javascript:void(0)" class="baby_content_span" :click="@query(1)"
                    ms-if="total!=1 && pageNo!=1">首页</a>
                 <!-- 前一页按钮 -->
-                <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo-1)"
+                <a href="javascript:void(0)" class="baby_content_span" :-click="@query(pageNo-1)"
                    ms-if="pageNo>1"> &lt;&lt; 上一页</a>
                 <!-- 下一页按钮 -->
-                <a href="javascript:void(0)" class="baby_content_span" ms-click="query(pageNo+1)"
+                <a href="javascript:void(0)" class="baby_content_span" :-click="@query(pageNo+1)"
                    ms-if="pageNo<total">下一页 &gt;&gt;</a>
                 <!-- 分页尾页按钮 -->
-                <a href="javascript:void(0)" class="baby_content_span" ms-click="query(total)"
+                <a href="javascript:void(0)" class="baby_content_span" :-click="@query(total)"
                    ms-if="total!=1 && pageNo!=total && total!=0">尾页</a>
             </div>
         </div>

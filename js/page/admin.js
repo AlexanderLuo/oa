@@ -766,7 +766,7 @@ avalon.ready(function () {
                             degr_id: vm.degr_id,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
-                            last_req_time: vm.tegerReq
+                            last_req_time: 0
                         }
                         break;
                     //todo 配置tegr ID
@@ -780,7 +780,7 @@ avalon.ready(function () {
                             tegr_id: vm.addTe,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
-                            last_req_time: vm.teacherReq
+                            last_req_time:0
                         };
                         break;
                     //todo 配置tegr ID
@@ -792,7 +792,7 @@ avalon.ready(function () {
                             tegr_id: vm.teger_search,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
-                            last_req_time: vm.schoolReq
+                            last_req_time: 0
                         }
                         break;
                     case "class":
@@ -801,7 +801,7 @@ avalon.ready(function () {
                             school_id: vm.school_id,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
-                            last_req_time: vm.classReq
+                            last_req_time: 0
                         }
                         break;
                     //todo 配置tegr ID
@@ -827,7 +827,7 @@ avalon.ready(function () {
                                     school_id: vm.school_search,
                                     page: vm.pageNo,
                                     page_size: vm.pageSize,
-                                    last_req_time: vm.parentReq
+                                    last_req_time: 0
                                 }
                                 vm.query(1)
                             })
@@ -839,7 +839,7 @@ avalon.ready(function () {
                             school_id: vm.school_id,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
-                            last_req_time: vm.studentReq
+                            last_req_time: 0
                         }
                         break;
                 }

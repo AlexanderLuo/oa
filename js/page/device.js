@@ -375,7 +375,7 @@ avalon.ready(function () {
                             tegr_id: vm.tegr_id,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
-                            last_req_time: vm.deviceReq
+                            last_req_time: 0
                         }
                         break;
                     case "ring":
@@ -384,7 +384,7 @@ avalon.ready(function () {
                             degr_id: vm.degr_id,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
-                            last_req_time: vm.ringReq
+                            last_req_time: 0
                         }
                         break;
                     case "ruler":
@@ -402,7 +402,7 @@ avalon.ready(function () {
                             tegr_id: vm.tegr_id,
                             page: vm.pageNo,
                             page_size: vm.pageSize,
-                            last_req_time: vm.ringReq
+                            last_req_time: 0
                         }
                         break;
                 }
