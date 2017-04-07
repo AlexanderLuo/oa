@@ -1,23 +1,25 @@
 /**
  * Created by Administrator on 2017/3/28 0028.
  */
-
-    const user = JSON.parse(localStorage.getItem('user'));
+    var user=JSON.parse(localStorage.getItem('user'))
     var conf={}
-
     if (user == null) {
         location.href="/oa/login.html";
     }else{
-        var $=require('jquery')
-        $.ajax({url: "/oa/conf/config.json"}).done((data)=>{
+        $.ajax({
+            url: "/oa/conf/config.json",
+            async: false}).done(function(data){
             conf=data
         })
 
         module.exports={
-            user:user,
-            conf:conf
+            getUser:function(){
+                return JSON.parse(localStorage.getItem('user'));
+            },
+            getConf:function(){
+                return conf
+            }
         }
-
     }
 
 
