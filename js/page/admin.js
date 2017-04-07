@@ -28,6 +28,7 @@ avalon.ready(function () {
         classReq: 0,
         parentReq: 0,
         studentReq: 0,
+        paLoad:false,
 
 
         //逻辑
@@ -1060,8 +1061,6 @@ avalon.ready(function () {
 
 
             });
-
-
         }
     })
 
@@ -1133,7 +1132,11 @@ avalon.ready(function () {
     })
     vm.$watch("school_search", function (data) {
         vm.queryData.school_id = data;
-        if (vm.curPage == 'parent') {
+        if (vm.curPage == 'parent' ) {
+            if(vm.paLoad==false){
+                vm.paLoad=true;
+                return;
+            }
             vm.query(1)
         } else {
             vm.query(1)
