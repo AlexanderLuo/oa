@@ -415,6 +415,9 @@ avalon.ready(function () {
             vm.addData = {};
             var reg = /^\d{1,10}$/;
             var reg2 = /^[a-zA-Z0-9]{12}$/;
+            if(vm.weight ==2){
+                vm.getTeacher(user.tegr_id);
+            }
             switch (vm.curPage) {
                 case "device":
                     if (el) {

@@ -568,7 +568,9 @@ avalon.ready(function () {
                             },
                             collecData: function () {
                                 var ti = new Date(vm.addBrith).getTime();
-                                console.log(ti);
+                                if(vm.weight <= 2 ){
+                                    vm.addStuTeg = user.tegr_id;
+                                }
                                 return {
                                     tegr_id: vm.addStuTeg,
                                     school_id: vm.school_id,
