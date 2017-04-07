@@ -92,9 +92,11 @@ avalon.ready(function () {
         addBrith: "",
         addParent: "",
         addSex: 0,
+        addStuTeg:"",
 
         //补充字段
         addTe: "",
+
 
 
         //单词首字母大写
@@ -568,7 +570,7 @@ avalon.ready(function () {
                                 var ti = new Date(vm.addBrith).getTime();
                                 console.log(ti);
                                 return {
-                                    tegr_id: vm.tegr_id,
+                                    tegr_id: vm.addStuTeg,
                                     school_id: vm.school_id,
                                     class_id: vm.class_id,
                                     child_name: vm.addName,
@@ -1103,6 +1105,9 @@ avalon.ready(function () {
 
     vm.$watch("teger_search", function (data) {
         vm.queryData.tegr_id = data;
+        if(vm.curPage=='school'){
+            vm.addStuTeg=data
+        }
         if (vm.curPage == 'parent') {
             vm.dataList = []
             vm.querytTeg(function () {
