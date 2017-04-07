@@ -103,6 +103,12 @@
                         <option ms-attr-value="{{el.school_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
                     </select>
                 </div>
+                <div class="select" ms-if = "curPage=='parent'&& weight < 3">
+                    <span>学校：&nbsp;</span>
+                    <select name="" ms-duplex="school_search">
+                        <option ms-attr-value="{{el.school_id}}" ms-repeat="schoolList">{{el.school_name}}</option>
+                    </select>
+                </div>
 
 
                 <!--数据主体-->
