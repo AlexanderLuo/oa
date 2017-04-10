@@ -58,7 +58,7 @@ avalon.ready(function () {
             vm.router('meas');
         },
         look: function (el) {
-            window.open('/oa/measure.html'+"?meas_id="+vm.meas_id+"&class_id="+el.class_id+"&child_id="+el.child_id);
+            window.open('/measure.html'+"?meas_id="+vm.meas_id+"&class_id="+el.class_id+"&child_id="+el.child_id);
         },
         query: function (pageNo) {
             switch (vm.curPage){
