@@ -368,7 +368,7 @@ avalon.ready(function () {
         init: function () {
             var userr = getLocalValue('user');
             if (userr == null) {
-                location.href = "/oa/login.html";
+                location.href = "/login.html";
             }
             user = userr;
             var ty = user.role_type;
@@ -383,7 +383,7 @@ avalon.ready(function () {
             }
 
             $.ajax({
-                url: "/oa/conf/config.json",
+                url: "/conf/config.json",
                 success: function (res) {
                     conf = res
                     vm.router("video")

@@ -169,7 +169,7 @@ avalon.ready(function () {
         init: function () {
             var userr = getLocalValue('user');
             if (userr == null) {
-                location.href = "/oa/login.html";
+                location.href = "/login.html";
             }
             user = userr;
             var ty = user.role_type;
@@ -183,7 +183,7 @@ avalon.ready(function () {
                 vm.weight = 1
             }
             $.ajax({
-                url: "/oa/conf/config.json",
+                url: "/conf/config.json",
                 //success: function (res) {
                 //    conf = res
                 //    vm.router("statement")
