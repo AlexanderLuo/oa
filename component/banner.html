@@ -105,19 +105,19 @@
                 else {
                     vm.weight = 1
                 }
-                if (page == '/oa/device.html') {
+                if (page == '/device.html') {
                     vm.curPage = "device"
                 }
-                if (page == '/oa/admin.html') {
+                if (page == '/admin.html') {
                     vm.curPage = "admin"
                 }
-                if (page == '/oa/goods.html') {
+                if (page == '/goods.html') {
                     vm.curPage = "goods"
                 }
-                if (page == '/oa/video.html') {
+                if (page == '/video.html') {
                     vm.curPage = "video"
                 }
-                if (page == '/oa/statement.html') {
+                if (page == '/statement.html') {
                     vm.curPage = "statement"
                 }
             }
@@ -143,27 +143,27 @@
 
     <!--导航-->
     <div class="baby_top_nav">
-        <a href="/oa/device.html" ms-class="baby_top_list:curPage=='device' " >
+        <a href="/device.html" ms-class="baby_top_list:curPage=='device' " >
             <img src="img/device.png" title="">
             <p>设备管理</p>
         </a>
 
-        <a href="/oa/admin.html" ms-class="baby_top_list:curPage=='admin'">
+        <a href="/admin.html" ms-class="baby_top_list:curPage=='admin'">
             <img src="img/num.png" title="">
             <p>用户管理</p>
         </a>
 
-        <a href="/oa/goods.html" ms-class="baby_top_list:curPage=='goods' " ms-if="weight==3">
+        <a href="/goods.html" ms-class="baby_top_list:curPage=='goods' " ms-if="weight==3">
             <img src="img/health.png" title="">
             <p>商城管理</p>
         </a>
 
-        <a href="/oa/video.html" ms-class="baby_top_list:curPage=='video' " ms-if="weight==3">
+        <a href="/video.html" ms-class="baby_top_list:curPage=='video' " ms-if="weight==3">
             <img src="img/attentop.png" title="">
             <p>讲堂管理</p>
         </a>
 
-        <a href="/oa/statement.html" ms-class="baby_top_list:curPage=='statement' ">
+        <a href="/statement.html" ms-class="baby_top_list:curPage=='statement' ">
             <img src="img/statement.png" title="">
             <p>报表管理</p>
         </a>
