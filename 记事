@@ -1,2 +1,112 @@
 1.商品页:订单修改无接口 未完成， 字段未校验
 2.设备页  批量删除设备组接口有问题 只能单个删除
+
+public class test {
+
+    public static final String KEY_ALGORITHM = "RSA";
+    private static final String PUBLIC_KEY = "PublicKey";
+    private static final String PRIVATE_KEY = "PrivateKey";
+    public static final String SIGNATURE_ALGORITHM = "SHA256withRSA";
+
+    /**
+     * 生成密钥对
+     *
+     * @return
+     * @throws Exception
+     */
+    public static Map<String, Object> generateKey() throws Exception {
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+        keyPairGen.initialize(1024);
+        KeyPair keyPair = keyPairGen.generateKeyPair();
+        // 公钥
+        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+        // 私钥
+        RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+        Map<String, Object> keyMap = new HashMap<String, Object>(2);
+        keyMap.put(PUBLIC_KEY, publicKey);
+        keyMap.put(PRIVATE_KEY, privateKey);
+        return keyMap;
+    }
+
+    /**
+     * 签名
+     *
+     * @param priKey
+     * @param data
+     * @return
+     * @throws Exception
+     */
+    public static String sign(byte[] priKey, byte[] data)
+            throws Exception {
+        // 构造PKCS8EncodedKeySpec对象
+        PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(priKey);
+        // KEY_ALGORITHM 指定的加密算法
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        // 取私钥匙对象
+        PrivateKey privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
+        // 用私钥对信息生成数字签名
+        Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
+        signature.initSign(privateKey);
+        signature.update(data);
+        return Base64.encode(signature.sign());
+    }
+
+    /**
+     * @param pubKey
+     * @param data
+     * @param sign
+     * @return
+     * @throws Exception
+     */
+    public static boolean verify(byte[] pubKey, byte[] data, String sign)
+            throws Exception {
+        // 构造X509EncodedKeySpec对象
+        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(pubKey);
+        // KEY_ALGORITHM 指定的加密算法
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        // 取公钥匙对象
+        PublicKey publicKey = keyFactory.generatePublic(keySpec);
+
+        Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
+        signature.initVerify(publicKey);
+        signature.update(data);
+        // 验证签名是否正常
+        return signature.verify(Base64.decode(sign));
+    }
+
+
+
+    public static String qkySign(byte[] msg)
+            throws Exception {
+
+        Map<String, Object> keyMap = test.generateKey();
+        RSAPrivateKey priKey = (RSAPrivateKey) keyMap.get(test.PRIVATE_KEY);
+        String sign=sign(priKey.getEncoded(), msg);
+        return sign;
+    }
+
+
+
+
+    public static void main(String args[]) throws Exception {
+
+        String message = "Message";
+
+        //==================生成密钥对==================
+
+        Map<String, Object> keyMap = test.generateKey();
+        RSAPublicKey pubKey = (RSAPublicKey) keyMap.get(test.PUBLIC_KEY);
+        System.out.println(pubKey);
+
+        RSAPrivateKey priKey = (RSAPrivateKey) keyMap.get(test.PRIVATE_KEY);
+        System.out.println(priKey);
+        //==================私钥签名==================
+        String sign = test.sign(priKey.getEncoded(), message.getBytes());
+//        String sign = test.qkySign(message.getBytes());
+        System.out.println("签名结果： " + sign);
+//        System.out.println("111"+qkySign(priKey.getEncoded(), message.getBytes()));
+        //==================公钥验证签名==================
+        boolean result = test.verify(pubKey.getEncoded(), message.getBytes(), sign);
+        System.out.println("验证签名结果： " + result);
+    }
+    }
