@@ -125,6 +125,7 @@ avalon.ready(function () {
                             })
                             vm.dataList = json.result.list
                             vm.records = json.result.total_count;
+                            vm.total=Math.ceil(vm.records/vm.pageSize)
                             //layer.msg("加载成功",1,9)
                         } else {
                             layer.msg("操作失败," + json.msg);
