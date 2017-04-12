@@ -80,7 +80,7 @@
             url: "http://www.kh122.com:8081/ChildrenBackstage/backstageServlet/userApi/loginBackstage",// 跳转到 action
             data: {
                 "username": username,
-                "password": hex_md5("123456").toLowerCase()
+                "password": hex_md5(password).toLowerCase()
             },
             type: 'post',
             cache: false,
