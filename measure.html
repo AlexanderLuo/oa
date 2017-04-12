@@ -872,7 +872,7 @@
         }, function (jsonString) {
             var data = eval("(" + jsonString + ")");
             if (data.code == 200) {
-                data = data.returnObject;
+                data = data.return.Object;
                 document.getElementById('schoolName').innerHTML = data.schoolName;
                 document.getElementById('className').innerHTML = data.className;
                 document.getElementById('childrenName').innerHTML = data.childrenName;
